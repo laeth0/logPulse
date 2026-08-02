@@ -35,7 +35,11 @@ export class CreateLogsTableBtreeIndexes1785684350115 implements MigrationInterf
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP INDEX "public"."idx_logs_level_timestamp_id"`);
-    await queryRunner.query(`DROP INDEX "public"."idx_logs_service_timestamp_id"`);
+    await queryRunner.query(
+      `DROP INDEX "public"."idx_logs_level_timestamp_id"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."idx_logs_service_timestamp_id"`,
+    );
   }
 }

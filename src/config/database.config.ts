@@ -26,10 +26,7 @@ export function createDatabaseOptions(
     migrations: [path.join(baseDirectory, 'migrations/*{.ts,.js}')],
     migrationsTableName: 'typeorm_migrations',
     synchronize: false,
-    ssl:
-      process.env.DB_SSL === 'true'
-        ? { rejectUnauthorized: false }
-        : false,
+    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     logging: false,
   };
 }

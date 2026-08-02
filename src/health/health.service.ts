@@ -2,7 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
-import { DatabaseStatus, HealthStatus, MigrationStatus } from '@/health/health.types';
+import {
+  DatabaseStatus,
+  HealthStatus,
+  MigrationStatus,
+} from '@/health/health.types';
 
 /**
  * Performs deep health checks against each infrastructure dependency.

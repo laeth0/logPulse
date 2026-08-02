@@ -13,7 +13,10 @@ import { LogLevel } from '@/logs/enums/log-level.enum';
 @Check('chk_logs_service_non_empty', 'char_length(service) > 0')
 @Check('chk_logs_message_non_empty', 'char_length(message) > 0')
 @Check('chk_logs_attributes_object', "jsonb_typeof(attributes) = 'object'")
-@Check('chk_logs_attributes_text_object', "jsonb_typeof(attributes_text) = 'object'")
+@Check(
+  'chk_logs_attributes_text_object',
+  "jsonb_typeof(attributes_text) = 'object'",
+)
 @Index('idx_logs_service_timestamp_id', ['service', 'timestamp', 'id'])
 @Index('idx_logs_level_timestamp_id', ['level', 'timestamp', 'id'])
 export class Log {

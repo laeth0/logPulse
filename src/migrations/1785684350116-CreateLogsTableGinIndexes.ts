@@ -36,6 +36,8 @@ export class CreateLogsTableGinIndexes1785684350116 implements MigrationInterfac
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`DROP INDEX "public"."idx_logs_message_trigram"`);
-    await queryRunner.query(`DROP INDEX "public"."idx_logs_attributes_text_gin"`);
+    await queryRunner.query(
+      `DROP INDEX "public"."idx_logs_attributes_text_gin"`,
+    );
   }
 }

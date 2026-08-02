@@ -24,7 +24,9 @@ async function createDatabase(): Promise<void> {
       [dbName],
     );
     if (rows.length > 0) {
-      console.log(`\x1b[36mℹ️ Database "${dbName}" already exists, skipping creation\x1b[0m`);
+      console.log(
+        `\x1b[36mℹ️ Database "${dbName}" already exists, skipping creation\x1b[0m`,
+      );
       return;
     }
 

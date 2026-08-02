@@ -41,6 +41,5 @@ async function bootstrap() {
   console.log(`🚀  App      → http://localhost:${port}`);
   console.log(`📖  Swagger  → http://localhost:${port}/api/docs`);
   console.log(`${divider}\n`);
-
 }
 bootstrap();
