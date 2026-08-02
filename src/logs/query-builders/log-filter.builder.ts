@@ -32,17 +32,15 @@ export function applyLogFilters(
   }
 
   if (filters.attributes && Object.keys(filters.attributes).length > 0) {
-    queryBuilder.andWhere(
-      `log.attributes_text @> CAST(:attributes AS jsonb)`,
-      { attributes: JSON.stringify(filters.attributes) },
-    );
+    queryBuilder.andWhere(`log.attributes_text @> CAST(:attributes AS jsonb)`, {
+      attributes: JSON.stringify(filters.attributes),
+    });
   }
 
   if (filters.q !== undefined) {
-    queryBuilder.andWhere(
-      `log.message ILIKE :messageQuery ESCAPE '\\'`,
-      { messageQuery: `%${escapeLikePattern(filters.q)}%` },
-    );
+    queryBuilder.andWhere(`log.message ILIKE :messageQuery ESCAPE '\\'`, {
+      messageQuery: `%${escapeLikePattern(filters.q)}%`,
+    });
   }
 
   return queryBuilder;
