@@ -24,12 +24,12 @@ async function createDatabase(): Promise<void> {
       [dbName],
     );
     if (rows.length > 0) {
-      console.log(`ℹ️ Database "${dbName}" already exists, skipping creation`);
+      console.log(`\x1b[36mℹ️ Database "${dbName}" already exists, skipping creation\x1b[0m`);
       return;
     }
 
     await client.query(`CREATE DATABASE "${dbName}"`);
-    console.log(`✅ Database "${dbName}" created`);
+    console.log(`\x1b[32m✅ Database "${dbName}" created\x1b[0m`);
   } finally {
     await client.end();
   }
@@ -37,7 +37,7 @@ async function createDatabase(): Promise<void> {
 
 if (require.main === module) {
   createDatabase().catch((err: unknown) => {
-    console.error('❌ Failed to create database:', err);
+    console.error('\x1b[31m❌ Failed to create database:\x1b[0m', err);
     process.exit(1);
   });
 }

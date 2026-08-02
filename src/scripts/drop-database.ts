@@ -20,7 +20,7 @@ async function dropDatabase(): Promise<void> {
   await client.connect();
   try {
     await client.query(`DROP DATABASE IF EXISTS "${dbName}" WITH (FORCE)`);
-    console.log(`✅ Database "${dbName}" dropped`);
+    console.log(`\x1b[32m✅ Database "${dbName}" dropped\x1b[0m`);
   } finally {
     await client.end();
   }
@@ -28,7 +28,7 @@ async function dropDatabase(): Promise<void> {
 
 if (require.main === module) {
   dropDatabase().catch((err: unknown) => {
-    console.error('❌ Failed to drop database:', err);
+    console.error('\x1b[31m❌ Failed to drop database:\x1b[0m', err);
     process.exit(1);
   });
 }
