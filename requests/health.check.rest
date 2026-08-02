@@ -1,0 +1,9 @@
+# GET /health
+# Returns 200 when the DB is connected and all migrations have been applied.
+# The load generator polls this endpoint before starting any load test.
+# Returns 503 when any dependency is not ready.
+
+@baseUrl = http://localhost:3000
+
+### Health check — expect 200 when service is fully ready
+GET {{baseUrl}}/health
