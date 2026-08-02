@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 
-import { createDatabaseOptions } from './database.config';
+import { createDatabaseOptions } from '@/config/database.config';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 

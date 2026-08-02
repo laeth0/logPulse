@@ -6,8 +6,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { HealthService } from './health.service';
-import type { HealthStatus } from './health.types';
+import { HealthService } from '@/health/health.service';
+import type { HealthStatus } from '@/health/health.types';
 
 /**
  * Exposes the GET /health endpoint required by the project specification.
