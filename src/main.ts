@@ -32,12 +32,13 @@ async function bootstrap() {
     SwaggerModule.setup('api/docs', app, document);
   }
 
-  const port = process.env.PORT ?? 3000;
-  await app.listen(port);
+  const port = Number(process.env.PORT ?? 8080);
+  await app.listen(port, '0.0.0.0');
+  // 0.0.0.0 ensures the application is reachable from outside its Docker container.
 
   const divider = '─'.repeat(52);
   console.log(`\n${divider}`);
-  console.log(`🚀  App      → http://localhost:${port}/api`);
+  console.log(`🚀  App      → http://localhost:${port}`);
   console.log(`📖  Swagger  → http://localhost:${port}/api/docs`);
   console.log(`${divider}\n`);
 
