@@ -1,0 +1,30 @@
+Project "logPulse" {
+  database_type: 'PostgreSQL'
+  Note: 'logPulse Database Schema'
+}
+
+Enum log_level {
+  debug
+  info
+  warn
+  error
+}
+
+Table logs {
+  id bigint [increment]
+  timestamp timestamptz [not null]
+  level log_level [not null]
+  service text [not null]
+  message text [not null]
+  attributes jsonb [not null, default: '{}']
+  attributes_text jsonb [not null, default: '{}']
+  ingested_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
+
+  indexes {
+    (timestamp, id) [pk]
+    (service, timestamp, id) [name: 'idx_logs_service_timestamp_id']
+    (level, timestamp, id) [name: 'idx_logs_level_timestamp_id']
+    attributes_text [name: 'idx_logs_attributes_text_gin', type: gin]
+    message [name: 'idx_logs_message_trigram', type: gin]
+  }
+}
