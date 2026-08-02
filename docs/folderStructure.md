@@ -1,3 +1,4 @@
+```text
 logstream/
 ├── src/
 │   ├── main.ts
@@ -14,7 +15,7 @@ logstream/
 │   │   │   └── injection-tokens.ts
 │   │   │
 │   │   ├── filters/
-│   │   │   └── api-exception.filter.ts
+│   │   │   └── global-exception.filter.ts
 │   │   │
 │   │   ├── pipes/
 │   │   │   └── parse-attributes.pipe.ts
@@ -123,3 +124,4 @@ logstream/
 ├── package.json
 ├── tsconfig.json
 └── README.md
+```
