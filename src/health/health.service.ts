@@ -1,14 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
-export interface HealthStatus {
-  status: 'ok' | 'error';
-  database: 'connected' | 'disconnected';
-  migrations: 'applied' | 'pending' | 'unknown';
-  uptime: number;
-  timestamp: string;
-}
+import { DatabaseStatus, HealthStatus, MigrationStatus } from './health.types';
 
 /**
  * Performs deep health checks against each infrastructure dependency.
@@ -21,14 +15,23 @@ export interface HealthStatus {
  */
 @Injectable()
 export class HealthService {
-  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
+  private readonly logger = new Logger(HealthService.name);
+
+  constructor(
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
+  ) {}
 
   async check(): Promise<HealthStatus> {
     const database = await this.checkDatabase();
-    const migrations = database === 'connected' ? await this.checkMigrations() : 'unknown';
+
+    const migrations =
+      database === 'connected' ? await this.checkMigrations() : 'unknown';
+
+    const isReady = database === 'connected' && migrations === 'applied';
 
     return {
-      status: database === 'connected' && migrations === 'applied' ? 'ok' : 'error',
+      status: isReady ? 'ok' : 'error',
       database,
       migrations,
       uptime: Math.floor(process.uptime()),
@@ -38,7 +41,11 @@ export class HealthService {
 
   // ── Private helpers ────────────────────────────────────────────────────────
 
-  private async checkDatabase(): Promise<'connected' | 'disconnected'> {
+  private async checkDatabase(): Promise<DatabaseStatus> {
+    if (!this.dataSource.isInitialized) {
+      return 'disconnected';
+    }
+
     try {
       await this.dataSource.query('SELECT 1');
       return 'connected';
@@ -48,26 +55,23 @@ export class HealthService {
   }
 
   /**
-   * Compares the list of executed migrations stored in the typeorm_migrations
-   * table against the list of registered migration classes. If every registered
-   * migration has a corresponding row the table, migrations are "applied".
+   * Uses dataSource.showMigrations() so we never hardcode the migrations table
+   * name (TypeORM default is "migrations", not "typeorm_migrations") and never
+   * compare migration names with unsafe casts.
+   *
+   * showMigrations() returns true when pending migrations exist.
    */
-  private async checkMigrations(): Promise<'applied' | 'pending' | 'unknown'> {
+  private async checkMigrations(): Promise<MigrationStatus> {
+    if (this.dataSource.migrations.length === 0) {
+      return 'unknown';
+    }
+
     try {
-      const executedMigrations = await this.dataSource.query<{ name: string }[]>(
-        `SELECT name FROM typeorm_migrations`,
-      );
-      const executedNames = new Set(executedMigrations.map((m) => m.name));
-      const registeredMigrations = this.dataSource.migrations;
-
-      if (registeredMigrations.length === 0) return 'unknown';
-
-      const allApplied = registeredMigrations.every((m) =>
-        executedNames.has((m as unknown as { name: string }).name),
-      );
-
-      return allApplied ? 'applied' : 'pending';
-    } catch {
+      const hasPendingMigrations = await this.dataSource.showMigrations();
+      return hasPendingMigrations ? 'pending' : 'applied';
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.warn(`Could not check migration status: ${message}`);
       return 'unknown';
     }
   }

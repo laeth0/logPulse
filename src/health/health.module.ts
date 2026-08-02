@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { HealthController } from './health.controller';
 import { HealthService } from './health.service';
 
+/**
+ * HealthModule — no TypeOrmModule.forFeature() needed here.
+ *
+ * Once TypeOrmModule.forRoot() / forRootAsync() is registered in AppModule,
+ * the default DataSource is globally available and injectable via
+ * @InjectDataSource() without any feature-module registration.
+ */
 @Module({
-  imports: [
-    // Makes the default DataSource injectable via @InjectDataSource()
-    // without importing individual entities — health only needs a raw connection.
-    TypeOrmModule.forFeature([]),
-  ],
   controllers: [HealthController],
   providers: [HealthService],
 })
