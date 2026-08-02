@@ -5,6 +5,7 @@ import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { createDatabaseOptions } from '@/config/database.config';
 import { HealthModule } from '@/health/health.module';
+import { LogsModule } from '@/logs/logs.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { HealthModule } from '@/health/health.module';
 
     // ── Feature modules ──────────────────────────────────────────────────────
     HealthModule,
+    LogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

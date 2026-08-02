@@ -17,17 +17,9 @@ logstream/
 │   │   ├── filters/
 │   │   │   └── global-exception.filter.ts
 │   │   │
-│   │   ├── pipes/
-│   │   │   └── parse-attributes.pipe.ts
-│   │   │
-│   │   └── types/
-│   │       └── nullable.type.ts
+│   │   └── pipes/
+│   │       └── parse-attributes.pipe.ts
 │   │
-│   ├── database/
-│   │   ├── database.module.ts
-│   │   ├── database.service.ts
-│   │   ├── database.constants.ts
-│   │   └── transaction.ts
 │   │
 │   ├── health/
 │   │   ├── health.module.ts
@@ -64,7 +56,7 @@ logstream/
 │   │   │   └── cursor-payload.interface.ts
 │   │   │
 │   │   ├── repositories/
-│   │   │   └── postgres-log.repository.ts
+│   │   │   └── log.repository.ts
 │   │   │
 │   │   ├── services/
 │   │   │   ├── log-ingestion.service.ts
