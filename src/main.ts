@@ -32,6 +32,14 @@ async function bootstrap() {
     SwaggerModule.setup('api/docs', app, document);
   }
 
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+
+  const divider = '─'.repeat(52);
+  console.log(`\n${divider}`);
+  console.log(`🚀  App      → http://localhost:${port}/api`);
+  console.log(`📖  Swagger  → http://localhost:${port}/api/docs`);
+  console.log(`${divider}\n`);
+
 }
 bootstrap();
