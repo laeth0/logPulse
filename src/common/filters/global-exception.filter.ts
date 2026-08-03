@@ -6,7 +6,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 
 /**
  * Global exception filter that normalizes all thrown exceptions into the
@@ -16,8 +16,8 @@ import { Request, Response } from 'express';
  *
  * Behavior:
  *  - HttpException  → preserves the HTTP status code; extracts the message.
- *  - Any other Error → responds with HTTP 500 and a generic message so that
- *    internal details are never leaked to the client.
+ *  - External 4xx   → preserves client errors raised before a controller runs.
+ *  - Any other Error → responds with HTTP 500 and a generic message.
  *
  * Registered globally in main.ts via app.useGlobalFilters().
  */
@@ -32,6 +32,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     let status: number;
     let message: string;
+    const externalClientError = getExternalClientError(exception);
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();
@@ -46,11 +47,14 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         'message' in body
       ) {
         // ValidationPipe produces { message: string[] | string, ... }
-        const raw = (body as Record<string, unknown>).message;
+        const raw = Reflect.get(body, 'message');
         message = Array.isArray(raw) ? raw.join('; ') : String(raw);
       } else {
         message = exception.message;
       }
+    } else if (externalClientError) {
+      status = externalClientError.status;
+      message = externalClientError.message;
     } else {
       // Unexpected / unhandled error — log the full stack, hide from client.
       status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -63,4 +67,22 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     response.status(status).json({ error: message });
   }
+}
+
+interface ExternalClientError {
+  status: number;
+  message: string;
+}
+
+function getExternalClientError(
+  exception: unknown,
+): ExternalClientError | undefined {
+  if (!(exception instanceof Error) || !('statusCode' in exception)) {
+    return undefined;
+  }
+
+  const statusCode: unknown = exception.statusCode;
+  return typeof statusCode === 'number' && statusCode >= 400 && statusCode < 500
+    ? { status: statusCode, message: exception.message }
+    : undefined;
 }

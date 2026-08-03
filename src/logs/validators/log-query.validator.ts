@@ -53,7 +53,7 @@ export class LogQueryValidator {
   private parseAttributes(
     query: Record<string, unknown>,
   ): Record<string, string> {
-    const attributes: Record<string, string> = {};
+    const attributes: Array<readonly [string, string]> = [];
 
     for (const [key, value] of Object.entries(query)) {
       if (!key.startsWith(ATTRIBUTE_QUERY_PREFIX)) {
@@ -64,12 +64,12 @@ export class LogQueryValidator {
         attributeFilterKeySchema,
         key.slice(ATTRIBUTE_QUERY_PREFIX.length),
       );
-      attributes[attributeKey] = parseWithSchema(
-        createSingleStringSchema(key),
-        value,
-      );
+      attributes.push([
+        attributeKey,
+        parseWithSchema(createSingleStringSchema(key), value),
+      ]);
     }
 
-    return attributes;
+    return Object.fromEntries(attributes);
   }
 }

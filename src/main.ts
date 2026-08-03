@@ -1,10 +1,18 @@
+import 'dotenv/config';
+
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from '@/app.module';
+import { DEFAULT_JSON_BODY_LIMIT } from '@/common/constants/http.constants';
 import { GlobalExceptionFilter } from '@/common/filters/global-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.useBodyParser('json', {
+    limit: process.env.JSON_BODY_LIMIT ?? DEFAULT_JSON_BODY_LIMIT,
+  });
 
   // ── Global exception filter ──────────────────────────────────────────────
   app.useGlobalFilters(new GlobalExceptionFilter());

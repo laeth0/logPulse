@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
-import {
+import type {
   DatabaseStatus,
   HealthStatus,
   MigrationStatus,

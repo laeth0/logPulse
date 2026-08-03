@@ -24,6 +24,7 @@ export function createDatabaseOptions(
     database: process.env.DB_NAME,
     entities: [path.join(baseDirectory, '**/*.entity{.ts,.js}')],
     migrations: [path.join(baseDirectory, 'migrations/*{.ts,.js}')],
+    migrationsRun: true,
     migrationsTableName: 'typeorm_migrations',
     synchronize: false,
     ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,

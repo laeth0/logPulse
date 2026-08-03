@@ -3,7 +3,6 @@ import { z } from 'zod';
 import {
   ATTRIBUTE_QUERY_PREFIX,
   DEFAULT_LOG_QUERY_LIMIT,
-  ISO_8601_TIMESTAMP_PATTERN,
   LOG_AGGREGATION_PARAMETER_NAMES,
   LOG_QUERY_PARAMETER_NAMES,
   MAX_LOG_QUERY_LIMIT,
@@ -12,6 +11,7 @@ import {
 import { AggregationBucket } from '@/logs/enums/aggregation-bucket.enum';
 import { AggregationGroup } from '@/logs/enums/aggregation-group.enum';
 import { LogLevel } from '@/logs/enums/log-level.enum';
+import { createIsoTimestampSchema } from '@/logs/validators/iso-timestamp.schema';
 
 function createParametersSchema(allowedParameters: readonly string[]) {
   return z
@@ -41,17 +41,9 @@ export function createSingleStringSchema(name: string) {
 function createTimestampSchema(name: string) {
   const invalidTimestampMessage = `${name} must be a valid ISO 8601 timestamp`;
 
-  return createSingleStringSchema(name)
-    .regex(ISO_8601_TIMESTAMP_PATTERN, {
-      error: invalidTimestampMessage,
-    })
-    .pipe(
-      z.iso.datetime({
-        offset: true,
-        error: invalidTimestampMessage,
-      }),
-    )
-    .transform((timestamp) => new Date(timestamp));
+  return createIsoTimestampSchema(invalidTimestampMessage).transform(
+    (timestamp) => new Date(timestamp),
+  );
 }
 
 const filterSchema = z

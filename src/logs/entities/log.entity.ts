@@ -1,13 +1,15 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  PrimaryColumn,
+  Check,
   Column,
   CreateDateColumn,
+  Entity,
   Index,
-  Check,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { LogLevel } from '@/logs/enums/log-level.enum';
+import type { LogAttributeValue } from '@/logs/interfaces/log-repository.interface';
 
 @Entity('logs')
 @Check('chk_logs_service_non_empty', 'char_length(service) > 0')
@@ -44,7 +46,7 @@ export class Log {
   message: string;
 
   @Column({ type: 'jsonb', default: {} })
-  attributes: Record<string, any>;
+  attributes: Record<string, LogAttributeValue>;
 
   @Column({ type: 'jsonb', default: {} })
   attributes_text: Record<string, string>;

@@ -1,26 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { TextDecoder } from 'node:util';
+
 import type { CursorPayload } from '@/logs/interfaces/cursor-payload.interface';
-
-const INVALID_CURSOR_MESSAGE = 'Invalid or malformed cursor';
-
-function isCursorPayload(value: unknown): value is CursorPayload {
-  if (
-    typeof value !== 'object' ||
-    value === null ||
-    !('timestamp' in value) ||
-    !('id' in value)
-  ) {
-    return false;
-  }
-
-  return (
-    typeof value.timestamp === 'string' &&
-    !Number.isNaN(Date.parse(value.timestamp)) &&
-    typeof value.id === 'string' &&
-    value.id.trim().length > 0
-  );
-}
+import { cursorPayloadSchema } from '@/logs/validators/cursor-payload.schema';
 
 @Injectable()
 export class CursorService {
@@ -30,13 +12,13 @@ export class CursorService {
   }
 
   decode(cursor: string): CursorPayload {
-    const payload = this.parseCursor(cursor);
+    const result = cursorPayloadSchema.safeParse(this.parseCursor(cursor));
 
-    if (!isCursorPayload(payload)) {
-      throw new BadRequestException(INVALID_CURSOR_MESSAGE);
+    if (!result.success) {
+      throw new BadRequestException('Invalid or malformed cursor');
     }
 
-    return payload;
+    return result.data;
   }
 
   private parseCursor(cursor: string): unknown {
