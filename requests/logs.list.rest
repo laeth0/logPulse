@@ -1,0 +1,10 @@
+# Queries logs with freely combinable filters and opaque cursor pagination.
+
+### Default page
+GET http://localhost:8080/logs
+
+### Combined filters
+GET http://localhost:8080/logs?service=checkout&level=error&since=2026-07-20T14:00:00Z&until=2026-07-20T15:00:00Z&attr.user_id=42&q=declined&limit=100
+
+### Next page (replace with next_cursor from the previous response)
+GET http://localhost:8080/logs?limit=100&cursor=eyJ0aW1lc3RhbXAiOiIyMDI2LTA3LTIwVDE0OjMyOjAxLjEyM1oiLCJpZCI6IjEyMzQ1In0

@@ -1,0 +1,43 @@
+# Ingests a batch while preserving valid entries when another entry is rejected.
+
+### Happy path
+POST http://localhost:8080/logs
+Content-Type: application/json
+
+{
+  "logs": [
+    {
+      "timestamp": "2026-07-20T14:32:01.123Z",
+      "level": "error",
+      "service": "checkout",
+      "message": "payment declined",
+      "attributes": {
+        "user_id": "42",
+        "region": "eu-west",
+        "retries": 3
+      }
+    }
+  ]
+}
+
+### Partial acceptance
+POST http://localhost:8080/logs
+Content-Type: application/json
+
+{
+  "logs": [
+    {
+      "timestamp": "2026-07-20T14:32:01.123Z",
+      "level": "info",
+      "service": "auth",
+      "message": "login succeeded",
+      "attributes": { "user_id": 42 }
+    },
+    {
+      "timestamp": "not-a-timestamp",
+      "level": "critical",
+      "service": "auth",
+      "message": "invalid entry"
+    }
+  ]
+}

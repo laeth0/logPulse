@@ -1,0 +1,7 @@
+# Aggregates filtered logs into supported time buckets with optional grouping.
+
+### One-minute buckets grouped by service
+GET http://localhost:8080/logs/aggregate?since=2026-07-20T14:00:00Z&until=2026-07-20T15:00:00Z&bucket=1m&group_by=service
+
+### Filtered hourly buckets without grouping
+GET http://localhost:8080/logs/aggregate?since=2026-07-20T00:00:00Z&until=2026-07-21T00:00:00Z&bucket=1h&level=error&attr.region=eu-west&q=declined
