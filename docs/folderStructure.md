@@ -78,6 +78,9 @@ logstream/
 │   │       └── cursor.service.ts
 │   │
 │   └── retention/
+│       ├── interfaces/
+│       │   ├── partition.interface.ts
+│       │   └── retention.interface.ts
 │       ├── retention.module.ts
 │       ├── retention.service.ts
 │       ├── retention.scheduler.ts

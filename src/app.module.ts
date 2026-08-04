@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from '@/app.controller';
@@ -6,6 +7,7 @@ import { AppService } from '@/app.service';
 import { createDatabaseOptions } from '@/config/database.config';
 import { HealthModule } from '@/health/health.module';
 import { LogsModule } from '@/logs/logs.module';
+import { RetentionModule } from '@/retention/retention.module';
 
 @Module({
   imports: [
@@ -17,10 +19,12 @@ import { LogsModule } from '@/logs/logs.module';
     TypeOrmModule.forRootAsync({
       useFactory: () => createDatabaseOptions(__dirname),
     }),
+    ScheduleModule.forRoot(),
 
     // ── Feature modules ──────────────────────────────────────────────────────
     HealthModule,
     LogsModule,
+    RetentionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

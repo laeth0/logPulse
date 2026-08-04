@@ -44,7 +44,7 @@ export class CreateLogsTable1785684350114 implements MigrationInterface {
 
     // ── Default partition ─────────────────────────────────────────────────────
     // Catches rows whose timestamp falls outside any named daily partition.
-    // The partition manager (RetentionService) creates and drops named partitions
+    // The partition manager (PartitionService) creates and drops named partitions
     // at runtime; this default partition prevents insert failures in the interim.
     await queryRunner.query(`
       CREATE TABLE "logs_default"
