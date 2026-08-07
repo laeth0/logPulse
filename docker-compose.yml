@@ -4,17 +4,17 @@ services:
       context: .
       target: production
     environment:
-      NODE_ENV: production
-      PORT: 8080
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${PORT:-8080}
       JSON_BODY_LIMIT: ${JSON_BODY_LIMIT:-10mb}
       LOG_RETENTION_DAYS: ${LOG_RETENTION_DAYS:-30}
       LOG_PARTITION_DAYS_AHEAD: ${LOG_PARTITION_DAYS_AHEAD:-7}
       DB_HOST: database
-      DB_PORT: 5432
+      DB_PORT: ${DB_PORT:-5432}
       DB_USER: ${DB_USER:-postgres}
       DB_PASS: ${DB_PASS:-postgres}
       DB_NAME: ${DB_NAME:-log_pulse}
-      DB_SSL: 'false'
+      DB_SSL: ${DB_SSL:-false}
     ports:
       - '8080:8080'
     depends_on:
