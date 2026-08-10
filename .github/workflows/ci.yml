@@ -61,3 +61,72 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+
+  smoke:
+    name: Required-Contract Smoke Test
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Project spec: "A plain docker compose up with no environment file,
+      # no arguments, and no manual setup must produce a service that serves
+      # GET /health, POST /logs, GET /logs, and GET /logs/aggregate exactly
+      # as specified... Applies no rate limit, quota, or tenancy restriction."
+      # No AUTH_ENABLED is set here on purpose: the project implements no
+      # optional auth feature, so only the unauthenticated configuration
+      # applies per the CI Requirement section of the spec.
+      - name: Start the stack with docker compose up
+        run: docker compose up -d --build
+
+      - name: Wait for GET /health to report ready
+        run: |
+          for attempt in $(seq 1 60); do
+            status=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/health || true)
+            if [ "$status" = "200" ]; then
+              echo "Service healthy after ${attempt} attempt(s)"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::GET /health never returned 200"
+          docker compose logs
+          exit 1
+
+      - name: POST /logs accepts an unauthenticated batch
+        run: |
+          now=$(date -u +%Y-%m-%dT%H:%M:%S.000Z)
+          response=$(curl -sS -w '\n%{http_code}' -X POST http://localhost:8080/logs \
+            -H 'Content-Type: application/json' \
+            -d "{\"logs\":[{\"timestamp\":\"${now}\",\"level\":\"info\",\"service\":\"ci-smoke\",\"message\":\"ci smoke test\",\"attributes\":{\"ci\":true}}]}")
+          status="${response##*$'\n'}"
+          body="${response%$'\n'*}"
+          echo "$body"
+          if [ "$status" != "200" ]; then
+            echo "::error::POST /logs returned ${status}"
+            exit 1
+          fi
+          echo "$body" | grep -q '"accepted":1' || { echo "::error::batch was not accepted"; exit 1; }
+
+      - name: GET /logs is reachable unauthenticated
+        run: |
+          status=$(curl -sS -o /dev/null -w '%{http_code}' 'http://localhost:8080/logs?service=ci-smoke&limit=5')
+          [ "$status" = "200" ] || { echo "::error::GET /logs returned ${status}"; exit 1; }
+
+      - name: GET /logs/aggregate is reachable unauthenticated
+        run: |
+          since=$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%SZ)
+          until=$(date -u -d '1 hour' +%Y-%m-%dT%H:%M:%SZ)
+          status=$(curl -sS -o /dev/null -w '%{http_code}' "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h")
+          [ "$status" = "200" ] || { echo "::error::GET /logs/aggregate returned ${status}"; exit 1; }
+
+      - name: Dump service logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Tear down the stack
+        if: always()
+        run: docker compose down -v
