@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import type { Repository } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import type { PoolClient } from 'pg';
+import { from as copyFromStdin } from 'pg-copy-streams';
+import type { DataSource, Repository } from 'typeorm';
 
 import { Log } from '@/logs/entities/log.entity';
 import type {
@@ -14,14 +16,28 @@ import type {
   LogRepositoryContract,
   NewLog,
 } from '@/logs/interfaces/log-repository.interface';
+import { encodeLogsAsCsv } from '@/logs/repositories/log-csv-encoder';
 import { buildAggregationQuery } from '@/logs/query-builders/aggregation-query.builder';
 import { buildLogPageQuery } from '@/logs/query-builders/log-query.builder';
+
+/**
+ * Minimal shape of the internal replication API that TypeORM's Postgres
+ * driver exposes for checking a raw `pg` connection out of its pool. Typed
+ * locally rather than importing `typeorm/driver/postgres/PostgresDriver`
+ * because that module is an internal implementation path, not part of
+ * TypeORM's public API surface.
+ */
+interface PostgresConnectionProvider {
+  obtainMasterConnection(): Promise<[PoolClient, () => void]>;
+}
 
 @Injectable()
 export class LogRepository implements LogRepositoryContract {
   constructor(
     @InjectRepository(Log)
     private readonly repository: Repository<Log>,
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
   ) {}
 
   async insertMany(logs: readonly NewLog[]): Promise<void> {
@@ -29,8 +45,13 @@ export class LogRepository implements LogRepositoryContract {
       return;
     }
 
-    const entities = logs.map((log) => Object.assign(new Log(), log));
-    await this.repository.insert(entities);
+    const [connection, release] = await this.obtainRawConnection();
+
+    try {
+      await this.copyLogsIn(connection, logs);
+    } finally {
+      release();
+    }
   }
 
   async findPage(query: FindLogsQuery): Promise<LogPage> {
@@ -54,5 +75,35 @@ export class LogRepository implements LogRepositoryContract {
       group: row.group,
       count: Number(row.count),
     }));
+  }
+
+  private async obtainRawConnection(): Promise<[PoolClient, () => void]> {
+    const provider = this.dataSource
+      .driver as unknown as PostgresConnectionProvider;
+    return provider.obtainMasterConnection();
+  }
+
+  private async copyLogsIn(
+    connection: PoolClient,
+    logs: readonly NewLog[],
+  ): Promise<void> {
+    const copyStream = connection.query(
+      copyFromStdin(`
+        COPY logs (
+          timestamp,
+          level,
+          service,
+          message,
+          attributes,
+          attributes_text
+        ) FROM STDIN WITH (FORMAT csv)
+      `),
+    );
+
+    await new Promise<void>((resolve, reject) => {
+      copyStream.on('error', reject);
+      copyStream.on('finish', resolve);
+      copyStream.end(encodeLogsAsCsv(logs), 'utf8');
+    });
   }
 }
