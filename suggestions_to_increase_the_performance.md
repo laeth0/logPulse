@@ -87,7 +87,7 @@ Add a second TypeORM `DataSource` dedicated to `GET /logs` and `GET /logs/aggreg
 
 ---
 
-## 5. Tune GIN `fastupdate` / pending list (only if step 2 says keep the index) — ✅ Done
+## 5. Tune GIN `fastupdate` / pending list (only if step 2 says keep the index) — ❌ Tried, reverted
 
 ```sql
 ALTER INDEX idx_logs_attributes_text_gin SET (gin_pending_list_limit = '8MB');
@@ -98,7 +98,10 @@ ALTER INDEX idx_logs_attributes_text_gin SET (gin_pending_list_limit = '8MB');
 - [x] `src/retention/partition.service.ts`: `ensureDailyPartition()` now sets the same reloption on each partition's index right after creating it — otherwise every new daily partition created by retention going forward would silently miss the tuning.
 - [x] Verified live: migration ran (`typeorm_migrations` shows it applied), all 39 existing `attributes_text` partition indexes tuned (`reloptions` shows `gin_pending_list_limit=8192` on every one, 0 missed). Dropped and let retention recreate the newest (empty, future-dated) partition to confirm the `PartitionService` code path independently — the freshly created partition's index was tuned automatically with no migration involved.
 - [x] `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified including `attr.<key>` filtering (which exercises this exact index), idle resources fine, `OOMKilled: false`.
-- [ ] **Not yet re-submitted to the benchmark portal.**
+- [x] Re-submitted 2026-08-11: **59.97/100, rank #4** (was 60.07 — essentially flat, -0.10). But per-scenario detail shows a real directional problem: **Ingestion Latency p95 got worse in 3 of 4 scenarios** — Stress 615ms→702ms (+14%), Spike 396ms→514ms (+30%), Breakpoint 1.09s→1.29s (+18%). Load throughput also dipped slightly (3,055.83→2,980.83, -2.5%). Mechanism: doubling `gin_pending_list_limit` (4MB default → 8MB) means bigger, less frequent pending-list flushes, and p95 is exactly where an infrequent-but-expensive flush shows up as a latency spike — the opposite of the intended effect.
+- [x] **Reverted.** New migration `src/migrations/1785684350119-RevertAttributesTextGinPendingListTuning.ts` resets `gin_pending_list_limit` on `logs_default` + all partitions (migration 118 itself is kept, not deleted — the revert is a new forward migration, consistent with treating migrations as an immutable historical record). Removed the matching `ALTER INDEX` call from `PartitionService.ensureDailyPartition()` so new partitions stop getting it too.
+- [x] Verified live: migration ran, all 39 partition indexes confirmed back to default reloptions (0 tuned), dropped+recreated the newest partition to confirm `PartitionService` no longer applies the setting to new ones either. Lint/build clean, all endpoints re-verified including `attr.<key>` filtering, `OOMKilled: false`.
+- [ ] **Not yet re-submitted to confirm the revert restores step-4 numbers** — expected but not yet portal-confirmed.
 
 ---
 
