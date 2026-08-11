@@ -83,15 +83,22 @@ Add a second TypeORM `DataSource` dedicated to `GET /logs` and `GET /logs/aggreg
 - [x] `src/logs/repositories/log.repository.ts`: `findPage()`/`aggregate()` now query through the injected `'read'` repository; `insertMany()` still uses the default DataSource's raw connection for `COPY` — write and read never share a pool.
 - [x] `DB_READ_POOL_MAX=5` added to `.env.example`, `.env`, and `docker-compose.yml`'s `app` environment block.
 - [x] Verified live: `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, no duplicate migration run in logs. `pg_stat_activity` confirms two genuinely separate backends — `logpulse-write` and `logpulse-read` — after hitting `POST /logs` then `GET /logs`/`GET /logs/aggregate`. All 4 endpoints re-verified, idle resources fine (DB 44 MiB/1 GiB, app 66 MiB/256 MiB, `OOMKilled: false` both).
-- [ ] **Not yet re-submitted to the benchmark portal — push and re-test to see if this closes the aggregate p95 gap.**
+- [x] Re-submitted 2026-08-11: **60.07/100, rank #4** (up from 59.68) — net win, but with a real trade-off. Load throughput 2,758.33→3,055.83 logs/sec (+10.8%). **Ingestion Latency p95 dropped dramatically**: Load 3.22s→2.34s, Stress 6.48s→0.615s (10.5×), Spike 4.08s→0.396s (10.3×), Breakpoint 12.49s→1.09s (11.5×) — ingestion is no longer queueing behind reads, exactly as intended. **Aggregate p95 got slightly worse in most scenarios** (Load 3.57s→4.40s, Stress 7.01s→8.16s, Spike unchanged 5.01s, Breakpoint 13.94s→13.71s) and Queries sub-score held flat at 6.00/15. Likely cause: `DB_READ_POOL_MAX=5` is now the *only* capacity reads get (previously they could use spare capacity in the shared 10-connection default pool) — the read pool itself may now be too small. Breakpoint consistency still passes (0 missing, 0 timeouts). Net: keep this change (ingestion win outweighs the read regression, and the score improved), but `DB_READ_POOL_MAX` is a good next tuning target — likely raise it now that ingestion isn't pool-constrained.
 
 ---
 
-## 5. Tune GIN `fastupdate` / pending list (only if step 2 says keep the index)
+## 5. Tune GIN `fastupdate` / pending list (only if step 2 says keep the index) — ✅ Done
 
 ```sql
 ALTER INDEX idx_logs_attributes_text_gin SET (gin_pending_list_limit = '8MB');
 ```
+
+- [x] **The SQL above doesn't actually work — verified live before implementing.** Two problems found by testing directly against the container: (1) `gin_pending_list_limit` takes an **integer number of KB**, not a size string — `'8MB'` errors with `invalid value for integer option`; the correct value is `8192`. (2) `idx_logs_attributes_text_gin` is a **partitioned index** (`logs` is `PARTITION BY RANGE`) — PostgreSQL rejects `ALTER INDEX ... SET (...)` on it outright (`This operation is not supported for partitioned indexes`). The setting has to be applied to every partition's own physical index.
+- [x] New migration `src/migrations/1785684350118-TuneAttributesTextGinPendingList.ts`: sets `gin_pending_list_limit = 8192` on `logs_default_attributes_text_idx` plus every daily partition index that already exists at migration time (PL/pgSQL loop over `pg_inherits`).
+- [x] `src/retention/partition.service.ts`: `ensureDailyPartition()` now sets the same reloption on each partition's index right after creating it — otherwise every new daily partition created by retention going forward would silently miss the tuning.
+- [x] Verified live: migration ran (`typeorm_migrations` shows it applied), all 39 existing `attributes_text` partition indexes tuned (`reloptions` shows `gin_pending_list_limit=8192` on every one, 0 missed). Dropped and let retention recreate the newest (empty, future-dated) partition to confirm the `PartitionService` code path independently — the freshly created partition's index was tuned automatically with no migration involved.
+- [x] `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified including `attr.<key>` filtering (which exercises this exact index), idle resources fine, `OOMKilled: false`.
+- [ ] **Not yet re-submitted to the benchmark portal.**
 
 ---
 

@@ -118,6 +118,16 @@ export class PartitionService {
           TO ('${partitionEnd.toISOString()}')
       `);
 
+      // Partitioned indexes can't carry storage parameters themselves
+      // (`ALTER INDEX idx_logs_attributes_text_gin SET (...)` is rejected by
+      // PostgreSQL), so each new partition's physical GIN index needs this
+      // set individually — see migration 1785684350118 for the same setting
+      // applied to logs_default and every partition that predates it.
+      await queryRunner.query(`
+        ALTER INDEX "${partitionName}_attributes_text_idx"
+        SET (gin_pending_list_limit = 8192)
+      `);
+
       await queryRunner.query(`
         INSERT INTO "logs" (
           "id",
