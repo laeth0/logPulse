@@ -1,166 +1,282 @@
-# Performance Improvement Steps
+# Performance Improvement Plan
 
-Implementation checklist, in priority order. After each step: re-run `npm run lint && npm run build`, `docker compose up -d --build`, confirm all 4 endpoints still return correct responses, then re-benchmark and keep the change only if it measurably helped.
-
----
-
-## 1. Drop the trigram index on `message` — ✅ Done
-
-- [x] Migration `src/migrations/1785684350117-DropLogsMessageTrigramIndex.ts` drops `idx_logs_message_trigram`.
-- [x] `projectSchema.dbml` updated.
-- [x] Verified live: index gone, `q` search still correct, all endpoints 200.
-- [x] Re-submitted 2026-08-11: 57.97/100 rank #5 (was 59.28). Load throughput 2,601.67 logs/sec, up from 2,457 (+5.9%) — small confirmed gain, still 17% of the 15,000 target. Aggregate p95 4.20s, still ~4× over target. Queries sub-score dropped 6→4.50 (run-to-run noise or aggregate p95 regression, not yet isolated). New finding: Breakpoint scenario (45,000 logs/s stage) failed eventual consistency — 79.6K of 105.6K accepted logs never became visible in the 30s drain window, plus 5 request timeouts. Proceed to step 3 (PG config) and step 4 (read-path isolation) — the extreme-load consistency failure supports the pool-queueing diagnosis.
+Rewritten 2026-08-11 after a full code review of the ingestion and query paths, with every
+recommendation below measured against the live PostgreSQL 16 container rather than assumed.
 
 ---
 
-## 2. Measure the `attributes_text` GIN index — ✅ Done, verdict: keep
+## Where things stand
 
-- [x] Live `pg_stat_user_indexes` check: every per-partition `attributes_text` GIN index is tiny (16-24 kB, near-empty local dev data) with `idx_scan = 0` — inconclusive on this dataset size, so measured on a scratch copy instead.
-- [x] Scratch A/B in the same container (two throwaway tables, 300,000 synthetic rows each, one with `USING GIN (attributes_text jsonb_path_ops)`, one without, dropped after measuring):
-  - Insert 300k rows **with** the index: 1,236 ms. **Without**: 799 ms → **+55% insert time, ~1.5 µs/row extra CPU.** Index size for 300k rows: 5 MB.
-  - `attr.<key>` filter query (`attributes_text @> '{"k":"v"}'`) **with** the index: 1.7 ms (bitmap index scan). **Without**: 37.4 ms, parallel seq scan (~22× slower).
-- [x] **Decision: keep it.** ~1.5 µs/row is small next to the ~400 µs/row total DB CPU cost measured on the benchmark portal — this index is not a major contributor, unlike the trigram index (which cost ~250x more per row). Dropping it would also break `attr.<key>` filtering correctness/speed, which is graded. Do not revisit unless step 3 (PG config) and step 4 (read isolation) fail to close the gap and every remaining lever needs re-checking.
+| Date | Change | Score | Rank | Load logs/sec | Aggregate p95 |
+|---|---|---|---|---|---|
+| 2026-08-10 | baseline | 59.28 | #5 | 2,457 | 3.97 s |
+| 2026-08-11 | 1. drop trigram index | 57.97 | #5 | 2,601 | 4.20 s |
+| 2026-08-11 | 3. PostgreSQL config tuning | 59.68 | #4 | 2,758 | 3.57 s |
+| 2026-08-11 | 4. read-path isolation | **60.07** | **#4** | **3,056** | 4.40 s |
+| 2026-08-11 | 5. GIN pending-list ❌ reverted | 59.97 | #4 | 2,981 | 4.32 s |
+| 2026-08-11 | 6. autovacuum tuning | 60.00 | #4 | 3,001 | 4.43 s |
+
+Targets: **15,000 logs/sec** (at 3,056 → 20% of target) and **aggregate p95 < 1 s** (at 4.40 s → 4.4× over).
+Reliability 20/20, Correctness 15/15, 75/75 checks pass — **protect these**; Queries sits at 6/15.
 
 ---
 
-## 3. Apply PostgreSQL configuration — ✅ Done
+## The headline finding: batch size, not row cost
 
-Edit `docker-compose.yml`, `database` service:
+The load generator sends **~33 logs per HTTP request**. `LogRepository.insertMany()` runs one
+`COPY … FROM STDIN` per request in autocommit, so **one durable commit per 33 rows**. Measured on
+the live container, same 300,000 rows, only the batch size varying:
 
-```yaml
-  database:
-    image: postgres:16-alpine
-    command:
-      - postgres
-      - -c
-      - shared_buffers=256MB
-      - -c
-      - effective_cache_size=640MB
-      - -c
-      - work_mem=8MB
-      - -c
-      - maintenance_work_mem=128MB
-      - -c
-      - max_connections=40
-      - -c
-      - max_wal_size=2GB
-      - -c
-      - min_wal_size=512MB
-      - -c
-      - wal_buffers=16MB
-      - -c
-      - checkpoint_timeout=15min
-      - -c
-      - commit_delay=2000
-      - -c
-      - commit_siblings=5
-      - -c
-      - random_page_cost=1.1
-      - -c
-      - effective_io_concurrency=200
-      - -c
-      - jit=off
-      - -c
-      - max_parallel_workers_per_gather=0
+| Batch size | Commits | µs/row | rows/sec | WAL |
+|---|---|---|---|---|
+| **33 (what happens today)** | 9,091 | **100.7** | **9,935** | 248 MB |
+| 330 (10 requests coalesced) | 910 | 24.2 | 41,358 | 245 MB |
+| 3,300 (100 coalesced) | 91 | 9.3 | 108,027 | 245 MB |
+| 300,000 (single transaction) | 1 | 8.2 | 122,215 | 245 MB |
+
+Inserting a row costs **~8 µs**. At 33-row batches the app pays **~101 µs/row** — roughly
+**92 µs of pure per-transaction commit overhead, 12× the actual work**. WAL volume is identical
+across every variant, so this is not I/O volume: it is fsync count and transaction bookkeeping.
+
+This one factor explains the gap. It also explains the 4.40 s aggregate p95: PostgreSQL sits at
+~80–100% of its single core doing commit overhead, so read queries starve. A standalone aggregation
+measures **11 ms** (1-day range) to **189 ms** (full 30-day range) — nowhere near 4.40 s. Aggregation
+is not slow; it is waiting for CPU.
+
+**Fixing batching fixes both headline targets at once.** Everything else on this page is secondary.
+
+---
+
+## 1. Coalesce writes across requests — the one change that matters
+
+Currently step 10 of the old checklist and gated behind "only if still short after 1–9". It should be
+first. Buffer rows from concurrent `POST /logs` requests and flush them as a single `COPY` +
+commit on a short timer.
+
+**Expected:** 10× coalescing → ~41,000 rows/sec ceiling; even partial coalescing clears the
+15,000 target with room to spare.
+
+Sketch for `LogRepository` / a new `LogWriteBuffer` provider:
+
+```ts
+type Pending = { rows: NewLog[]; resolve: () => void; reject: (e: unknown) => void };
+
+private pending: Pending[] = [];
+private pendingRows = 0;
+private timer: NodeJS.Timeout | null = null;
+
+enqueue(rows: readonly NewLog[]): Promise<void> {
+  return new Promise((resolve, reject) => {
+    this.pending.push({ rows: [...rows], resolve, reject });
+    this.pendingRows += rows.length;
+    if (this.pendingRows >= MAX_ROWS) void this.flush();          // size trigger
+    else this.timer ??= setTimeout(() => void this.flush(), FLUSH_MS);
+  });
+}
+
+private async flush(): Promise<void> {
+  const batch = this.pending; this.pending = []; this.pendingRows = 0;
+  if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+  if (batch.length === 0) return;
+  try {
+    await this.copyIn(batch.flatMap((p) => p.rows));   // ONE copy, ONE commit
+    for (const p of batch) p.resolve();                // resolve only AFTER commit
+  } catch (error) {
+    for (const p of batch) p.reject(error);            // never fake a 200
+  }
+}
 ```
 
-- After applying: `docker stats --no-stream logpulse-database-1` and `docker inspect logpulse-database-1 --format '{{.State.OOMKilled}}'` — must stay `false`. PG memory already peaked at 605 MiB of 1 GB before this change.
-- [x] Applied to `docker-compose.yml`, rebuilt (`docker compose up -d --build`), both containers came up healthy.
-- [x] Verified live via `SHOW`: all 8 checked settings (`shared_buffers`, `effective_cache_size`, `work_mem`, `jit`, `max_parallel_workers_per_gather`, `commit_delay`, `random_page_cost`, `max_connections`) match the config exactly.
-- [x] Idle resource check: DB 36 MiB / 1 GiB (3.5%), app 48 MiB / 256 MiB (18.8%), both `OOMKilled: false`. (This is idle, not under load — re-check `docker stats` during/after the next portal run, since these settings raise `work_mem`/`maintenance_work_mem` which only cost memory when active.)
-- [x] All 4 endpoints re-verified: `/health` 200, `POST /logs` accepted, `GET /logs` returned the row, `GET /logs/aggregate` responded.
-- [x] Re-submitted 2026-08-11: **59.68/100, rank #4** (up from 57.97, rank #5) — clear win. Load throughput 2,758.33 logs/sec (up from 2,601.67, +6%; +12.3% vs the pre-any-change baseline of 2,457). Aggregate p95 down to 3.57s (from 4.20s). Queries sub-score recovered 4.50→6.00/15. **Breakpoint eventual-consistency failure from the last run is fixed**: Passed 1.00 (was 0.00), 0 missing records (was 79.6K/105.3K), 0 timeouts (was 5). Every metric moved in the right direction on a single-variable change — keep this config. Still only ~18% of the 15,000 logs/sec target and ~3.6× over the 1s aggregate target, so proceed to step 4.
+Start with `FLUSH_MS = 20` and `MAX_ROWS = 2000`, then sweep both.
+
+**Non-negotiable correctness rules:**
+
+- **Resolve each request's promise only after the COPY has committed.** The spec is explicit:
+  "Never respond `200` to a batch you have not durably accepted." The `resolve()` calls above sit
+  after the `await`, and the `catch` rejects every request in the batch — no request may be told
+  its rows landed when they did not.
+- Per-entry validation still happens per request *before* enqueueing, so the `accepted` /
+  `rejected[]` response shape and partial-batch semantics are untouched.
+- **Bound the buffer.** The app container is capped at 256 MB (currently peaking ~99 MB). Flush on
+  size as well as time so a traffic spike cannot grow the queue without limit.
+- A 20 ms window is irrelevant to the 20 s visibility requirement (current drain: 11.7 s).
+- Flush any remaining buffer on shutdown (`OnApplicationShutdown`).
+
+**Risk:** one failing row fails the whole coalesced batch. Since every row is already Zod-validated
+before enqueueing, a COPY failure means an infrastructure problem, where failing the group is
+correct. If this proves flaky, fall back to re-running the failed group as individual COPYs.
 
 ---
 
-## 4. Isolate the read path from ingestion — ✅ Done
+## 2. Slim the row — measured −33% on the real COPY path
 
-Add a second TypeORM `DataSource` dedicated to `GET /logs` and `GET /logs/aggregate`, with its own small pool (3–5 connections), separate from the ingestion pool. Strictly additive — no endpoint contract changes.
+Measured with `COPY` from a file, 300,000 rows, current schema vs a slimmed one:
 
-- [x] `src/config/database.config.ts`: added `createReadDatabaseOptions()` — same connection, `migrationsRun: false` (default connection already runs them), `extra.max` from `DB_READ_POOL_MAX` (default 5), tagged `application_name` (`logpulse-write` / `logpulse-read`) on both for observability.
-- [x] `src/app.module.ts`: registered a second `TypeOrmModule.forRootAsync({ name: 'read', ... })` alongside the default.
-- [x] `src/logs/logs.module.ts`: `TypeOrmModule.forFeature([Log], 'read')`.
-- [x] `src/logs/repositories/log.repository.ts`: `findPage()`/`aggregate()` now query through the injected `'read'` repository; `insertMany()` still uses the default DataSource's raw connection for `COPY` — write and read never share a pool.
-- [x] `DB_READ_POOL_MAX=5` added to `.env.example`, `.env`, and `docker-compose.yml`'s `app` environment block.
-- [x] Verified live: `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, no duplicate migration run in logs. `pg_stat_activity` confirms two genuinely separate backends — `logpulse-write` and `logpulse-read` — after hitting `POST /logs` then `GET /logs`/`GET /logs/aggregate`. All 4 endpoints re-verified, idle resources fine (DB 44 MiB/1 GiB, app 66 MiB/256 MiB, `OOMKilled: false` both).
-- [x] Re-submitted 2026-08-11: **60.07/100, rank #4** (up from 59.68) — net win, but with a real trade-off. Load throughput 2,758.33→3,055.83 logs/sec (+10.8%). **Ingestion Latency p95 dropped dramatically**: Load 3.22s→2.34s, Stress 6.48s→0.615s (10.5×), Spike 4.08s→0.396s (10.3×), Breakpoint 12.49s→1.09s (11.5×) — ingestion is no longer queueing behind reads, exactly as intended. **Aggregate p95 got slightly worse in most scenarios** (Load 3.57s→4.40s, Stress 7.01s→8.16s, Spike unchanged 5.01s, Breakpoint 13.94s→13.71s) and Queries sub-score held flat at 6.00/15. Likely cause: `DB_READ_POOL_MAX=5` is now the *only* capacity reads get (previously they could use spare capacity in the shared 10-connection default pool) — the read pool itself may now be too small. Breakpoint consistency still passes (0 missing, 0 timeouts). Net: keep this change (ingestion win outweighs the read regression, and the score improved), but `DB_READ_POOL_MAX` is a good next tuning target — likely raise it now that ingestion isn't pool-constrained.
+| Variant | 300k rows | µs/row | vs today |
+|---|---|---|---|
+| Current schema, CSV COPY (**today**) | 3,401 ms | 11.3 | — |
+| Current schema, binary COPY | 2,974 ms | 9.9 | −12.6% |
+| **Slim schema, CSV COPY** | 2,260 ms | 7.5 | **−33.5%** |
+| Slim schema, binary COPY | 1,965 ms | 6.6 | **−42.2%** |
+
+Storage for the same 300k rows: **132 MB → 93 MB (−30%)**; WAL **−18%**.
+
+Three independent changes make up "slim":
+
+### 2a. Drop the duplicate `attributes_text` column — biggest single item
+
+`mapLogEntryToNewLog()` writes every attribute map twice: once as `attributes` (typed) and once as
+`attributes_text` (all values stringified, GIN-indexed for `attr.<key>`). Measured cost: **heap
+81 MB → 59 MB (−27%)**, WAL −8%, and it doubles the JSONB the app serialises, transmits over the
+COPY stream, and PostgreSQL parses.
+
+Options, cheapest first:
+
+- **Expression index on a stringified view of `attributes`** — store only `attributes`, and index
+  `((<immutable fn>(attributes)) jsonb_path_ops)`. Requires a small `IMMUTABLE` SQL function. Keeps
+  `attr.<key>` filtering exactly as fast, removes the duplicate from the heap and from the wire.
+- **`GENERATED ALWAYS AS (…) STORED`** — PostgreSQL derives the column instead of the app. Saves app
+  CPU, serialisation, and COPY payload, but still stores the duplicate. Smaller win, near-zero risk.
+
+Verify `attr.retries=3` still matches `{"retries": 3}` (string comparison per spec) before keeping.
+
+### 2b. Drop `idx_logs_level_timestamp_id`
+
+`level` has four possible values, so this index is weakly selective yet pays a full B-tree insert on
+every row. Measured on 300k rows: it is **15 MB of the 51 MB index total (29%)**.
+
+The planner does use it — but the fallback is nearly as fast, because a 25%-selective filter finds
+100 matching rows almost immediately when scanning the PK backwards:
+
+| `WHERE level='error' AND timestamp >= now()-1d ORDER BY timestamp DESC LIMIT 100` | |
+|---|---|
+| With `idx_logs_level_timestamp_id` | **1.3 ms** (index scan) |
+| Without it | **3.0 ms** (PK backward scan, only 331 rows filtered) |
+
+Paying a per-row write on all ~3,000 rows/sec to save 1.7 ms on an occasional query is a bad trade
+at this bottleneck. **Keep `idx_logs_service_timestamp_id`** — `service` is high-cardinality *and*
+it serves the aggregation as an index-only scan (`Heap Fetches: 0` confirmed).
+
+### 2c. Drop `ingested_at`
+
+Grepped the whole of `src/`: it is written on every row and **never read by any query** — it appears
+only in the entity, the create-table migration, and the partition handoff `INSERT`. It costs 8 bytes
+plus a `CURRENT_TIMESTAMP` call per row for nothing. Removing it also lets the two
+`jsonb_typeof(...)` CHECK constraints go, since Zod already guarantees object-typed attributes.
 
 ---
 
-## 5. Tune GIN `fastupdate` / pending list (only if step 2 says keep the index) — ❌ Tried, reverted
+## 3. Raise the write pool — it is still on the driver default
 
-```sql
-ALTER INDEX idx_logs_attributes_text_gin SET (gin_pending_list_limit = '8MB');
-```
+`createReadDatabaseOptions()` sets `extra.max` for reads, but `createDatabaseOptions()` sets no
+`max` at all, so the **write pool is on node-postgres's default of 10 connections** while
+`max_connections` is 40. Make it explicit and sweep it:
 
-- [x] **Tried, measured, and fully removed** (still in development, so the tune-then-revert migration pair was deleted outright rather than kept as history — net effect on the schema is zero).
-- [x] **The SQL above doesn't actually work as written** — verified live before implementing. Two problems found by testing directly against the container: (1) `gin_pending_list_limit` takes an **integer number of KB**, not a size string — `'8MB'` errors with `invalid value for integer option`; the correct value is `8192`. (2) `idx_logs_attributes_text_gin` is a **partitioned index** (`logs` is `PARTITION BY RANGE`) — PostgreSQL rejects `ALTER INDEX ... SET (...)` on it outright (`This operation is not supported for partitioned indexes`). The setting has to be applied to every partition's own physical index, which also means new partitions don't inherit it automatically — `PartitionService.ensureDailyPartition()` needed a matching line.
-- [x] Applied correctly (migration + `PartitionService` change), verified live (all 39 partition indexes tuned, a freshly-created partition confirmed tuned too), then re-submitted to the portal: **59.97/100, rank #4** (was 60.07 — essentially flat, -0.10). Per-scenario detail showed a real directional problem: **Ingestion Latency p95 got worse in 3 of 4 scenarios** — Stress 615ms→702ms (+14%), Spike 396ms→514ms (+30%), Breakpoint 1.09s→1.29s (+18%). Load throughput also dipped 2.5%. Mechanism: doubling `gin_pending_list_limit` (4MB default → 8MB) means bigger, less frequent pending-list flushes, and p95 is exactly where an infrequent-but-expensive flush shows up as a latency spike — the opposite of the intended effect.
-- [x] **Fully removed**, not just reverted: deleted both the tuning migration and its revert migration (the pair cancels out and the project is pre-release, so there's no need to preserve them as history), removed the `ALTER INDEX` line from `PartitionService`, and cleaned up the two now-orphaned rows from the local `typeorm_migrations` table so tracked history matches the migrations folder exactly.
-- [x] Verified live: migrations folder and `typeorm_migrations` both stop at `DropLogsMessageTrigramIndex1785684350117`, all 39 `attributes_text` indexes confirmed back to default (empty) reloptions, `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified.
-- Net result of this step: reverted to the step-4 baseline. No further action needed unless revisited later with a different tuning value.
-
----
-
-## 6. Tune autovacuum for an insert-only table — ✅ Done
-
-```sql
-ALTER TABLE logs SET (
-  autovacuum_vacuum_insert_scale_factor = 0.4,
-  autovacuum_analyze_scale_factor = 0.2
-);
-```
-
-- [x] **The SQL above doesn't work as written either — verified live before implementing, same lesson as step 5.** `logs` is `PARTITION BY RANGE`; PostgreSQL rejects storage parameters on a partitioned table outright: `ERROR: cannot specify storage parameters for a partitioned table`, `HINT: Specify storage parameters for its leaf partitions instead.` Confirmed the per-partition form (`ALTER TABLE logs_default SET (...)`) works directly.
-- [x] New migration `src/migrations/1785684350118-TuneLogsAutovacuumForInsertOnlyLoad.ts`: applies `autovacuum_vacuum_insert_scale_factor = 0.4` and `autovacuum_analyze_scale_factor = 0.2` to `logs_default` plus every daily partition that already existed at migration time.
-- [x] `src/retention/partition.service.ts`: `ensureDailyPartition()` now applies the same two settings to each partition right after creating it — otherwise every new daily partition would silently miss the tuning, same gap step 5 had to fix for the GIN index.
-- [x] Verified live: migration ran, all 39 partition tables confirmed tuned (`reloptions` shows both settings on every one). Dropped and let retention recreate the newest (empty, future-dated) partition to confirm the `PartitionService` code path independently — it came back tuned automatically.
-- [x] `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified, idle resources fine, `OOMKilled: false`.
-- [ ] **Not yet re-submitted to the benchmark portal.**
-
----
-
-## 7. Increase the identity sequence cache
-
-```sql
-ALTER TABLE logs ALTER COLUMN id SET GENERATED ALWAYS SET (CACHE 1000);
--- verify exact syntax against the installed PG version
-```
-
----
-
-## 8. Make the connection pool explicit
-
-`src/config/database.config.ts`:
-
-```typescript
+```ts
 extra: {
+  application_name: 'logpulse-write',
   max: Number(process.env.DB_POOL_MAX ?? 20),
   idleTimeoutMillis: 30_000,
   connectionTimeoutMillis: 5_000,
 },
 ```
 
-Do this after steps 1–4. Sweep `DB_POOL_MAX` = 10 / 20 / 30 and keep the winner.
+Do this **after** step 1 — coalescing changes the ideal pool size, so tuning it first would just
+have to be redone. Sweep 10 / 20 / 30.
 
 ---
 
-## 9. Read-path efficiency
+## 4. Binary COPY format — measured −12.6%
 
-- `LogRepository.findPage()`: switch `getMany()` → `getRawMany()` + explicit mapping. Verify response is byte-identical to the current shape.
+`log-csv-encoder.ts` builds CSV text, so PostgreSQL re-parses every timestamp, enum, and JSONB value
+from strings. `FORMAT binary` sends `timestamptz` as an int64 and skips all text parsing:
+**3,401 ms → 2,974 ms** on the current schema (−12.6%), and it composes with step 2 (−42% combined).
+
+Cost: a hand-written binary encoder (or `pg-copy-streams-binary`) is fiddlier than CSV and easy to
+get subtly wrong on NULLs and JSONB's leading version byte. Worth doing only after steps 1–2, and
+only with a test asserting a binary-COPY round-trip is byte-identical to the CSV path.
+
+The existing streaming setup is otherwise fine — `pg-copy-streams` already streams, and building the
+~33-row payload in memory first is not a bottleneck at this size.
 
 ---
 
-## 10. Write coalescing (only if still short of target after 1–9)
+## 5. Step 6 autovacuum change — ✅ re-submitted, keep
 
-Micro-batch concurrent `COPY` calls within a short window (20–50 ms). **Hard constraint: an HTTP response may only be sent after its rows are durably committed** — never acknowledge before commit.
+Step 6 **raised** `autovacuum_vacuum_insert_scale_factor` to 0.4 and `autovacuum_analyze_scale_factor`
+to 0.2, so autovacuum runs *less* often. For an insert-only table, autovacuum's main value is setting
+visibility-map bits, which is what lets the aggregation run as an index-only scan.
+
+Locally, `Heap Fetches: 0` both before and after an explicit `VACUUM`, and a 1-day aggregation ran
+13.8 ms before vs 11.4 ms after — no measurable harm on current data volume.
+
+**Portal result, 2026-08-11, against the step-4 baseline (60.07, Load 3,056 logs/sec, 4.40s):**
+
+| Metric | Step 4 baseline | After step 6 | Δ |
+|---|---|---|---|
+| Score / rank | 60.07 / #4 | 60.00 / #4 | −0.07 (noise) |
+| Load logs/sec | 3,055.83 | 3,000.83 | −1.8% |
+| Aggregate p95 (Load) | 4.40 s | 4.43 s | flat |
+| Ingestion p95 (Load) | 2.34 s | 2.34 s | flat |
+| Ingestion p95 (Stress) | 615 ms | 733 ms | **+19%** |
+| Ingestion p95 (Spike) | 396 ms | 284 ms | **−28%** |
+| Ingestion p95 (Breakpoint) | 1.09 s | 1.02 s | −6% |
+| Breakpoint timeouts | 0 | **2** | new, small |
+
+**Verdict: keep.** Unlike step 5 (consistent double-digit-percent regressions in 3/4 scenarios), this
+is a mixed, small signal — one scenario worse, two better, overall score within run-to-run noise.
+The two new Breakpoint timeouts (out of ~3,200 requests) are worth watching on the next portal run
+rather than acting on alone; Eventual Consistency still passed with 0 missing records. Revisit only
+if a future run shows the same scenario degrading again.
+
+---
+
+## 6. Read-path efficiency (small, safe)
+
+- `LogRepository.findPage()` uses `getMany()`, which hydrates up to 1,000 `Log` entities per request.
+  Switching to `getRawMany()` with explicit mapping avoids that. Assert the response body is
+  byte-identical first.
+- `mapLogToResponse()` runs `sanitizeStoredAttributes()` over every attribute of every row on every
+  response. The data was already validated on the way in, so this is defensive work on the hot read
+  path — consider trusting the stored value.
+
+---
+
+## Measured and rejected — do not spend time here
+
+| Idea | Why not |
+|---|---|
+| **More read-pool connections** | Aggregation is starved of **CPU**, not connections. PostgreSQL has 1 core and is ~80–100% busy; a standalone aggregation is 11–189 ms vs the 4.40 s observed. Adding connections adds contention, not capacity. Fix batching instead. |
+| **Per-minute rollup tables** | Measured: at this data density a 1-minute rollup grouped by (service, level) produced **287,286 rows from 300,000** — essentially no compression, since there is roughly one row per (minute, service, level) at ~1M rows/month. Only 1h/1d rollups would compress, and the spec requires 1m and 5m buckets too. Revisit only if aggregation is still slow after batching is fixed. |
+| **`gin_pending_list_limit` tuning** | Tried and reverted — made ingestion p95 *worse* in 3 of 4 scenarios (Spike +30%). |
+| **Dropping `idx_logs_attributes_text_gin`** | Measured: only ~1.5 µs/row to maintain, but gives a **22× read speedup** for `attr.<key>` (1.7 ms vs 37.4 ms). Keep it. |
+| **Bigger `work_mem` for aggregation** | Full-range aggregation spills to disk (external merge, 8.4 MB) at `work_mem=8MB`. Raising it to 64 MB only moved 189 ms → 166 ms, and risks OOM on a 1 GB container against 40 connections. Not worth it. |
+
+Also note `q` (`ILIKE '%…%'`) now runs without the trigram index: **37 ms** for a 1-day range
+(PK bitmap scan), **144 ms** for an unbounded 30-day scan over 300k rows. Acceptable, and it scales
+with the time range — but it is worth confirming the generator always sends `since`/`until` with `q`.
 
 ---
 
 ## Do not do
 
-- `synchronous_commit = off` or `UNLOGGED` tables — both break durability guarantees.
+- `synchronous_commit = off` or `UNLOGGED` tables — both break the durability the spec requires.
+  Coalescing (step 1) gets the same fsync reduction *without* lying about durability.
 - Raise container CPU/memory limits — fixed by the spec.
-- Add Redis/a queue in front of PostgreSQL — spec requires PostgreSQL as sole source of truth.
-- Reject load with 429/503 to improve latency — currently 0 dropped/errored requests; don't trade that away.
-- Node.js clustering/worker threads — CPU cap is a cgroup quota, not core count; adds overhead for no gain.
+- Add Redis or a queue in front of PostgreSQL — the spec requires PostgreSQL as the sole source of truth.
+- Shed load with 429/503 — currently 0 dropped and 0% errors; shed requests count as not ingested.
+- Node.js clustering or worker threads — the app averages ~11% CPU and is not the bottleneck; the cap
+  is a cgroup quota, not a core count.
+
+---
+
+## Suggested order
+
+1. **Write coalescing** (§1) — the only change that moves both headline numbers.
+2. **Slim the row** (§2) — drop `attributes_text`, the `level` index, and `ingested_at`. −33% measured.
+3. **Explicit write pool** (§3) — sweep after coalescing changes the shape of the load.
+4. **Binary COPY** (§4) — a further −12.6%, once the bigger items are in.
+5. Re-check autovacuum (§5) and read-path trims (§6).
+
+Re-submit to the portal after each step, keep only what measurably helps, and re-verify
+Reliability / Correctness (35 of the current 60 points) every time.
