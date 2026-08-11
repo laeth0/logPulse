@@ -93,19 +93,16 @@ Add a second TypeORM `DataSource` dedicated to `GET /logs` and `GET /logs/aggreg
 ALTER INDEX idx_logs_attributes_text_gin SET (gin_pending_list_limit = '8MB');
 ```
 
-- [x] **The SQL above doesn't actually work — verified live before implementing.** Two problems found by testing directly against the container: (1) `gin_pending_list_limit` takes an **integer number of KB**, not a size string — `'8MB'` errors with `invalid value for integer option`; the correct value is `8192`. (2) `idx_logs_attributes_text_gin` is a **partitioned index** (`logs` is `PARTITION BY RANGE`) — PostgreSQL rejects `ALTER INDEX ... SET (...)` on it outright (`This operation is not supported for partitioned indexes`). The setting has to be applied to every partition's own physical index.
-- [x] New migration `src/migrations/1785684350118-TuneAttributesTextGinPendingList.ts`: sets `gin_pending_list_limit = 8192` on `logs_default_attributes_text_idx` plus every daily partition index that already exists at migration time (PL/pgSQL loop over `pg_inherits`).
-- [x] `src/retention/partition.service.ts`: `ensureDailyPartition()` now sets the same reloption on each partition's index right after creating it — otherwise every new daily partition created by retention going forward would silently miss the tuning.
-- [x] Verified live: migration ran (`typeorm_migrations` shows it applied), all 39 existing `attributes_text` partition indexes tuned (`reloptions` shows `gin_pending_list_limit=8192` on every one, 0 missed). Dropped and let retention recreate the newest (empty, future-dated) partition to confirm the `PartitionService` code path independently — the freshly created partition's index was tuned automatically with no migration involved.
-- [x] `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified including `attr.<key>` filtering (which exercises this exact index), idle resources fine, `OOMKilled: false`.
-- [x] Re-submitted 2026-08-11: **59.97/100, rank #4** (was 60.07 — essentially flat, -0.10). But per-scenario detail shows a real directional problem: **Ingestion Latency p95 got worse in 3 of 4 scenarios** — Stress 615ms→702ms (+14%), Spike 396ms→514ms (+30%), Breakpoint 1.09s→1.29s (+18%). Load throughput also dipped slightly (3,055.83→2,980.83, -2.5%). Mechanism: doubling `gin_pending_list_limit` (4MB default → 8MB) means bigger, less frequent pending-list flushes, and p95 is exactly where an infrequent-but-expensive flush shows up as a latency spike — the opposite of the intended effect.
-- [x] **Reverted.** New migration `src/migrations/1785684350119-RevertAttributesTextGinPendingListTuning.ts` resets `gin_pending_list_limit` on `logs_default` + all partitions (migration 118 itself is kept, not deleted — the revert is a new forward migration, consistent with treating migrations as an immutable historical record). Removed the matching `ALTER INDEX` call from `PartitionService.ensureDailyPartition()` so new partitions stop getting it too.
-- [x] Verified live: migration ran, all 39 partition indexes confirmed back to default reloptions (0 tuned), dropped+recreated the newest partition to confirm `PartitionService` no longer applies the setting to new ones either. Lint/build clean, all endpoints re-verified including `attr.<key>` filtering, `OOMKilled: false`.
-- [ ] **Not yet re-submitted to confirm the revert restores step-4 numbers** — expected but not yet portal-confirmed.
+- [x] **Tried, measured, and fully removed** (still in development, so the tune-then-revert migration pair was deleted outright rather than kept as history — net effect on the schema is zero).
+- [x] **The SQL above doesn't actually work as written** — verified live before implementing. Two problems found by testing directly against the container: (1) `gin_pending_list_limit` takes an **integer number of KB**, not a size string — `'8MB'` errors with `invalid value for integer option`; the correct value is `8192`. (2) `idx_logs_attributes_text_gin` is a **partitioned index** (`logs` is `PARTITION BY RANGE`) — PostgreSQL rejects `ALTER INDEX ... SET (...)` on it outright (`This operation is not supported for partitioned indexes`). The setting has to be applied to every partition's own physical index, which also means new partitions don't inherit it automatically — `PartitionService.ensureDailyPartition()` needed a matching line.
+- [x] Applied correctly (migration + `PartitionService` change), verified live (all 39 partition indexes tuned, a freshly-created partition confirmed tuned too), then re-submitted to the portal: **59.97/100, rank #4** (was 60.07 — essentially flat, -0.10). Per-scenario detail showed a real directional problem: **Ingestion Latency p95 got worse in 3 of 4 scenarios** — Stress 615ms→702ms (+14%), Spike 396ms→514ms (+30%), Breakpoint 1.09s→1.29s (+18%). Load throughput also dipped 2.5%. Mechanism: doubling `gin_pending_list_limit` (4MB default → 8MB) means bigger, less frequent pending-list flushes, and p95 is exactly where an infrequent-but-expensive flush shows up as a latency spike — the opposite of the intended effect.
+- [x] **Fully removed**, not just reverted: deleted both the tuning migration and its revert migration (the pair cancels out and the project is pre-release, so there's no need to preserve them as history), removed the `ALTER INDEX` line from `PartitionService`, and cleaned up the two now-orphaned rows from the local `typeorm_migrations` table so tracked history matches the migrations folder exactly.
+- [x] Verified live: migrations folder and `typeorm_migrations` both stop at `DropLogsMessageTrigramIndex1785684350117`, all 39 `attributes_text` indexes confirmed back to default (empty) reloptions, `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified.
+- Net result of this step: reverted to the step-4 baseline. No further action needed unless revisited later with a different tuning value.
 
 ---
 
-## 6. Tune autovacuum for an insert-only table
+## 6. Tune autovacuum for an insert-only table — ✅ Done
 
 ```sql
 ALTER TABLE logs SET (
@@ -113,6 +110,13 @@ ALTER TABLE logs SET (
   autovacuum_analyze_scale_factor = 0.2
 );
 ```
+
+- [x] **The SQL above doesn't work as written either — verified live before implementing, same lesson as step 5.** `logs` is `PARTITION BY RANGE`; PostgreSQL rejects storage parameters on a partitioned table outright: `ERROR: cannot specify storage parameters for a partitioned table`, `HINT: Specify storage parameters for its leaf partitions instead.` Confirmed the per-partition form (`ALTER TABLE logs_default SET (...)`) works directly.
+- [x] New migration `src/migrations/1785684350118-TuneLogsAutovacuumForInsertOnlyLoad.ts`: applies `autovacuum_vacuum_insert_scale_factor = 0.4` and `autovacuum_analyze_scale_factor = 0.2` to `logs_default` plus every daily partition that already existed at migration time.
+- [x] `src/retention/partition.service.ts`: `ensureDailyPartition()` now applies the same two settings to each partition right after creating it — otherwise every new daily partition would silently miss the tuning, same gap step 5 had to fix for the GIN index.
+- [x] Verified live: migration ran, all 39 partition tables confirmed tuned (`reloptions` shows both settings on every one). Dropped and let retention recreate the newest (empty, future-dated) partition to confirm the `PartitionService` code path independently — it came back tuned automatically.
+- [x] `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, all endpoints re-verified, idle resources fine, `OOMKilled: false`.
+- [ ] **Not yet re-submitted to the benchmark portal.**
 
 ---
 

@@ -118,6 +118,18 @@ export class PartitionService {
           TO ('${partitionEnd.toISOString()}')
       `);
 
+      // PostgreSQL rejects storage parameters on the partitioned parent
+      // ("cannot specify storage parameters for a partitioned table"), so
+      // each new partition's autovacuum tuning has to be set individually —
+      // see migration 1785684350118 for the same setting applied to
+      // logs_default and every partition that predates it.
+      await queryRunner.query(`
+        ALTER TABLE "${partitionName}" SET (
+          autovacuum_vacuum_insert_scale_factor = 0.4,
+          autovacuum_analyze_scale_factor = 0.2
+        )
+      `);
+
       await queryRunner.query(`
         INSERT INTO "logs" (
           "id",
