@@ -14,7 +14,7 @@ recommendation below measured against the live PostgreSQL 16 container rather th
 | 2026-08-11 | 3. PostgreSQL config tuning | 59.68 | #4 | 2,758 | 3.57 s |
 | 2026-08-11 | 4. read-path isolation | **60.07** | **#4** | **3,056** | 4.40 s |
 | 2026-08-11 | 5. GIN pending-list ❌ reverted | 59.97 | #4 | 2,981 | 4.32 s |
-| 2026-08-11 | 6. autovacuum tuning | 60.00 | #4 | 3,001 | 4.43 s |
+| 2026-08-11 | 6. autovacuum tuning ❌ removed | 60.00 | #4 | 3,001 | 4.43 s |
 
 Targets: **15,000 logs/sec** (at 3,056 → 20% of target) and **aggregate p95 < 1 s** (at 4.40 s → 4.4× over).
 Reliability 20/20, Correctness 15/15, 75/75 checks pass — **protect these**; Queries sits at 6/15.
@@ -201,7 +201,7 @@ The existing streaming setup is otherwise fine — `pg-copy-streams` already str
 
 ---
 
-## 5. Step 6 autovacuum change — ✅ re-submitted, keep
+## 5. Step 6 autovacuum change — ❌ removed
 
 Step 6 **raised** `autovacuum_vacuum_insert_scale_factor` to 0.4 and `autovacuum_analyze_scale_factor`
 to 0.2, so autovacuum runs *less* often. For an insert-only table, autovacuum's main value is setting
@@ -223,11 +223,16 @@ Locally, `Heap Fetches: 0` both before and after an explicit `VACUUM`, and a 1-d
 | Ingestion p95 (Breakpoint) | 1.09 s | 1.02 s | −6% |
 | Breakpoint timeouts | 0 | **2** | new, small |
 
-**Verdict: keep.** Unlike step 5 (consistent double-digit-percent regressions in 3/4 scenarios), this
-is a mixed, small signal — one scenario worse, two better, overall score within run-to-run noise.
-The two new Breakpoint timeouts (out of ~3,200 requests) are worth watching on the next portal run
-rather than acting on alone; Eventual Consistency still passed with 0 missing records. Revisit only
-if a future run shows the same scenario degrading again.
+**Verdict: removed.** Unlike step 5 (consistent double-digit-percent regressions in 3/4 scenarios),
+this was a mixed, small signal — one scenario worse, two better, overall score within run-to-run
+noise. Judged as "keep" first, but on reflection it wasn't earning its keep either: no measurable
+benefit to justify carrying the extra migration/`PartitionService` complexity, so it was fully
+removed (still pre-release, same as step 5) rather than kept for a negligible, unproven effect.
+Migration file deleted, the matching `ALTER TABLE` line removed from `PartitionService`, and the
+local `typeorm_migrations` row + all partition reloptions cleaned up so tracked state matches the
+migrations folder exactly (stops at `DropLogsMessageTrigramIndex1785684350117`). Verified live:
+0 tuned partitions, a freshly recreated partition confirmed untuned, lint/build clean, all
+endpoints re-checked.
 
 ---
 
