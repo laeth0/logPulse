@@ -29,5 +29,29 @@ export function createDatabaseOptions(
     synchronize: false,
     ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     logging: false,
+    extra: {
+      application_name: 'logpulse-write',
+    },
+  };
+}
+
+/**
+ * Builds a second {@link DataSourceOptions} for `GET /logs` and
+ * `GET /logs/aggregate`, backed by its own small connection pool so read
+ * queries stop queueing behind `POST /logs` ingestion on the default
+ * DataSource's pool. `migrationsRun` is disabled here because the default
+ * DataSource already applies migrations at startup; running them twice would
+ * race against that connection.
+ */
+export function createReadDatabaseOptions(
+  baseDirectory: string,
+): DataSourceOptions {
+  return {
+    ...createDatabaseOptions(baseDirectory),
+    migrationsRun: false,
+    extra: {
+      application_name: 'logpulse-read',
+      max: Number(process.env.DB_READ_POOL_MAX ?? 5),
+    },
   };
 }

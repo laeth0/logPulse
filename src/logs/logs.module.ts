@@ -12,7 +12,7 @@ import { LogEntryValidator } from '@/logs/validators/log-entry.validator';
 import { LogQueryValidator } from '@/logs/validators/log-query.validator';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Log])],
+  imports: [TypeOrmModule.forFeature([Log], 'read')],
   controllers: [LogsController],
   providers: [
     CursorService,

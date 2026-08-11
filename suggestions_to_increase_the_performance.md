@@ -69,13 +69,21 @@ Edit `docker-compose.yml`, `database` service:
 - [x] Verified live via `SHOW`: all 8 checked settings (`shared_buffers`, `effective_cache_size`, `work_mem`, `jit`, `max_parallel_workers_per_gather`, `commit_delay`, `random_page_cost`, `max_connections`) match the config exactly.
 - [x] Idle resource check: DB 36 MiB / 1 GiB (3.5%), app 48 MiB / 256 MiB (18.8%), both `OOMKilled: false`. (This is idle, not under load — re-check `docker stats` during/after the next portal run, since these settings raise `work_mem`/`maintenance_work_mem` which only cost memory when active.)
 - [x] All 4 endpoints re-verified: `/health` 200, `POST /logs` accepted, `GET /logs` returned the row, `GET /logs/aggregate` responded.
-- [ ] **Not yet re-submitted to the benchmark portal — push and re-test to confirm this actually helps before moving on.**
+- [x] Re-submitted 2026-08-11: **59.68/100, rank #4** (up from 57.97, rank #5) — clear win. Load throughput 2,758.33 logs/sec (up from 2,601.67, +6%; +12.3% vs the pre-any-change baseline of 2,457). Aggregate p95 down to 3.57s (from 4.20s). Queries sub-score recovered 4.50→6.00/15. **Breakpoint eventual-consistency failure from the last run is fixed**: Passed 1.00 (was 0.00), 0 missing records (was 79.6K/105.3K), 0 timeouts (was 5). Every metric moved in the right direction on a single-variable change — keep this config. Still only ~18% of the 15,000 logs/sec target and ~3.6× over the 1s aggregate target, so proceed to step 4.
 
 ---
 
-## 4. Isolate the read path from ingestion
+## 4. Isolate the read path from ingestion — ✅ Done
 
 Add a second TypeORM `DataSource` dedicated to `GET /logs` and `GET /logs/aggregate`, with its own small pool (3–5 connections), separate from the ingestion pool. Strictly additive — no endpoint contract changes.
+
+- [x] `src/config/database.config.ts`: added `createReadDatabaseOptions()` — same connection, `migrationsRun: false` (default connection already runs them), `extra.max` from `DB_READ_POOL_MAX` (default 5), tagged `application_name` (`logpulse-write` / `logpulse-read`) on both for observability.
+- [x] `src/app.module.ts`: registered a second `TypeOrmModule.forRootAsync({ name: 'read', ... })` alongside the default.
+- [x] `src/logs/logs.module.ts`: `TypeOrmModule.forFeature([Log], 'read')`.
+- [x] `src/logs/repositories/log.repository.ts`: `findPage()`/`aggregate()` now query through the injected `'read'` repository; `insertMany()` still uses the default DataSource's raw connection for `COPY` — write and read never share a pool.
+- [x] `DB_READ_POOL_MAX=5` added to `.env.example`, `.env`, and `docker-compose.yml`'s `app` environment block.
+- [x] Verified live: `npm run lint && npm run build` clean, `docker compose up -d --build` both containers healthy, no duplicate migration run in logs. `pg_stat_activity` confirms two genuinely separate backends — `logpulse-write` and `logpulse-read` — after hitting `POST /logs` then `GET /logs`/`GET /logs/aggregate`. All 4 endpoints re-verified, idle resources fine (DB 44 MiB/1 GiB, app 66 MiB/256 MiB, `OOMKilled: false` both).
+- [ ] **Not yet re-submitted to the benchmark portal — push and re-test to see if this closes the aggregate p95 gap.**
 
 ---
 

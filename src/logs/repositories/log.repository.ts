@@ -34,10 +34,14 @@ interface PostgresConnectionProvider {
 @Injectable()
 export class LogRepository implements LogRepositoryContract {
   constructor(
-    @InjectRepository(Log)
-    private readonly repository: Repository<Log>,
+    // Default connection: used only for the raw COPY ingestion path below,
+    // so ingestion and reads never contend for the same connection pool.
     @InjectDataSource()
     private readonly dataSource: DataSource,
+    // Dedicated read-pool connection for findPage()/aggregate() — see
+    // createReadDatabaseOptions() in src/config/database.config.ts.
+    @InjectRepository(Log, 'read')
+    private readonly readRepository: Repository<Log>,
   ) {}
 
   async insertMany(logs: readonly NewLog[]): Promise<void> {
@@ -55,7 +59,7 @@ export class LogRepository implements LogRepositoryContract {
   }
 
   async findPage(query: FindLogsQuery): Promise<LogPage> {
-    const logs = await buildLogPageQuery(this.repository, query).getMany();
+    const logs = await buildLogPageQuery(this.readRepository, query).getMany();
     const hasMore = logs.length > query.limit;
 
     return {
@@ -66,7 +70,7 @@ export class LogRepository implements LogRepositoryContract {
 
   async aggregate(query: AggregateLogsQuery): Promise<LogAggregation[]> {
     const rows = await buildAggregationQuery(
-      this.repository,
+      this.readRepository,
       query,
     ).getRawMany<RawLogAggregation>();
 
