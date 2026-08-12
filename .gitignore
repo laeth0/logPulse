@@ -62,3 +62,5 @@ graphify-out/
 .wolf/
 .codex/
 .claude/
+.agents/
+.specify/
