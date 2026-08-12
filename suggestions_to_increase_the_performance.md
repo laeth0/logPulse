@@ -1,21 +1,23 @@
 ## 1. Slim the row
 
-### 1a. Drop the duplicate `attributes_text` column — biggest single item
+### 1a. Drop the duplicate `attributes_text` column — ✅ done in code, pending benchmark
 
-`mapLogEntryToNewLog()` writes every attribute map twice: once as `attributes` (typed) and once as
-`attributes_text` (all values stringified, GIN-indexed for `attr.<key>`). Measured cost: **heap
-81 MB → 59 MB (−27%)**, WAL −8%, and it doubles the JSONB the app serialises, transmits over the
-COPY stream, and PostgreSQL parses.
+`mapLogEntryToNewLog()` used to write every attribute map twice: once as `attributes` (typed) and
+once as `attributes_text` (all values stringified, GIN-indexed for `attr.<key>`). Measured cost:
+**heap 81 MB → 59 MB (−27%)**, WAL −8%, and it doubled the JSONB the app serialised, transmitted
+over the COPY stream, and PostgreSQL parsed.
 
-Options, cheapest first:
+**Implemented via the expression-index option** (the cheaper, full-benefit one): `attributes_text`
+is gone. `logs_attributes_as_text(attributes)`, an `IMMUTABLE` SQL function, reproduces the same
+per-value string coercion on demand, and `idx_logs_attributes_gin` is a GIN index on that
+expression instead of a stored column — folded into the original `CreateLogsTable`/
+`CreateLogsTableGinIndexes` migrations rather than layered as a new one (pre-release). Verified
+live: `attr.retries=3` still matches `{"retries": 3}` (and boolean/string values), a non-matching
+filter correctly returns empty, and `EXPLAIN` confirms the GIN expression index is used on every
+partition, not a seq scan.
 
-- **Expression index on a stringified view of `attributes`** — store only `attributes`, and index
-  `((<immutable fn>(attributes)) jsonb_path_ops)`. Requires a small `IMMUTABLE` SQL function. Keeps
-  `attr.<key>` filtering exactly as fast, removes the duplicate from the heap and from the wire.
-- **`GENERATED ALWAYS AS (…) STORED`** — PostgreSQL derives the column instead of the app. Saves app
-  CPU, serialisation, and COPY payload, but still stores the duplicate. Smaller win, near-zero risk.
-
-Verify `attr.retries=3` still matches `{"retries": 3}` (string comparison per spec) before keeping.
+Not yet re-submitted to the benchmark portal — holding off until §1b/§1c also land, since the
+measured −33% figure above is for all three combined, not this sub-item alone.
 
 ### 1b. Drop `idx_logs_level_timestamp_id`
 
