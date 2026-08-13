@@ -9,6 +9,7 @@ import type {
 export type LogAttributeValue = string | number | boolean;
 
 export interface NewLog {
+  tenant_id: string;
   timestamp: Date;
   level: LogLevel;
   service: string;

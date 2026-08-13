@@ -40,7 +40,6 @@ Table tenants {
   id uuid [pk, default: `gen_random_uuid()`]
   email text [not null, unique]
   password_hash text [not null]
-  created_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
 
   Note: '''
     A single customer account, not an organization with members or roles. Self-registers via POST /tenants/register; no admin provisioning. password_hash never appears in any response DTO. No foreign keys point to this table, see the logs.tenant_id note. DEFAULT_TENANT_ID and LOADGEN_TENANT_ID (specs/001-multi-tenancy/research.md Decisions 6, 9) are fixed, reserved id constants: the latter backed by a real seeded row here, the former never inserted at all.

@@ -95,6 +95,7 @@ export class LogRepository implements LogRepositoryContract {
       copyFromStdin(`
         COPY logs (
           timestamp,
+          tenant_id,
           level,
           service,
           message,

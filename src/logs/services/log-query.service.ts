@@ -15,13 +15,14 @@ export class LogQueryService {
     private readonly logQueryValidator: LogQueryValidator,
   ) {}
 
-  async query(value: unknown): Promise<QueryLogsResponseDto> {
+  async query(value: unknown, tenantId: string): Promise<QueryLogsResponseDto> {
     const query = this.logQueryValidator.validateQuery(value);
     const cursor =
       query.cursor !== undefined
         ? this.cursorService.decode(query.cursor)
         : undefined;
     const page = await this.logRepository.findPage({
+      tenantId,
       service: query.service,
       level: query.level,
       since: query.since,

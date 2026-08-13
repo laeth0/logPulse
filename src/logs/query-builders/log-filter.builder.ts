@@ -7,6 +7,14 @@ export function applyLogFilters(
   queryBuilder: SelectQueryBuilder<Log>,
   filters: LogFilters,
 ): SelectQueryBuilder<Log> {
+  // Unconditional — every query is scoped to exactly one tenant, never
+  // optional. See specs/001-multi-tenancy/research.md Decisions 6 and 8:
+  // this single predicate is also what makes cross-tenant cursor reuse safe
+  // with no cursor format change, since it narrows every other filter too.
+  queryBuilder.andWhere(`log.tenant_id = :tenantId`, {
+    tenantId: filters.tenantId,
+  });
+
   if (filters.service !== undefined) {
     queryBuilder.andWhere(`log.service = :service`, {
       service: filters.service,

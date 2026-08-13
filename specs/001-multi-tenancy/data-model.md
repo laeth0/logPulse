@@ -11,7 +11,6 @@ Maps to spec's **Tenant** entity — a single customer account (not an organizat
 | `id` | `uuid` | PK, `gen_random_uuid()` default | Postgres 16 has `gen_random_uuid()` built in (core since PG13) — no `pgcrypto` extension needed. |
 | `email` | `text` | `NOT NULL`, `UNIQUE` | Login identifier (spec Clarifications: email + password). Case-folded to lowercase before storage/comparison to avoid `Foo@x.com` / `foo@x.com` duplicate registration. |
 | `password_hash` | `text` | `NOT NULL` | `scrypt$...` format — Decision 1. Never selected in any response DTO. |
-| `created_at` | `timestamptz` | `NOT NULL DEFAULT CURRENT_TIMESTAMP` | |
 
 **Relationships**: A Tenant owns zero or more `ApiKey` rows and zero or more `TenantRefreshToken` rows (both via `tenant_id`, no DB-level FK — app-enforced, consistent with `logs.tenant_id`; see research.md Decision 6 for the no-FK rationale, which applies equally here since these are also low-cardinality, always-app-resolved references). A Tenant "owns" `Log` rows transitively through `logs.tenant_id`, also FK-free.
 

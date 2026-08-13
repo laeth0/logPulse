@@ -12,9 +12,13 @@ export class LogAggregationService {
     private readonly logQueryValidator: LogQueryValidator,
   ) {}
 
-  async aggregate(value: unknown): Promise<AggregateLogsResponseDto> {
+  async aggregate(
+    value: unknown,
+    tenantId: string,
+  ): Promise<AggregateLogsResponseDto> {
     const query = this.logQueryValidator.validateAggregation(value);
     const buckets = await this.logRepository.aggregate({
+      tenantId,
       service: query.service,
       level: query.level,
       since: query.since,

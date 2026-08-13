@@ -53,7 +53,7 @@ curl -s -X POST http://localhost:8080/logs \
 curl -s -X POST http://localhost:8080/tenants/register \
   -H 'Content-Type: application/json' \
   -d '{"email":"quickstart@example.com","password":"correct-horse-battery"}'
-# expect: 201 {"id": "...", "email": "quickstart@example.com", "created_at": "..."}
+# expect: 201 {"id": "...", "email": "quickstart@example.com"}
 
 LOGIN=$(curl -s -X POST http://localhost:8080/tenants/login \
   -H 'Content-Type: application/json' \

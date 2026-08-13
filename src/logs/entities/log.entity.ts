@@ -19,8 +19,19 @@ import type { LogAttributeValue } from '@/logs/interfaces/log-repository.interfa
   'chk_logs_attributes_text_object',
   "jsonb_typeof(attributes_text) = 'object'",
 )
-@Index('idx_logs_service_timestamp_id', ['service', 'timestamp', 'id'])
-@Index('idx_logs_level_timestamp_id', ['level', 'timestamp', 'id'])
+@Index('idx_logs_tenant_timestamp_id', ['tenant_id', 'timestamp', 'id'])
+@Index('idx_logs_tenant_service_timestamp_id', [
+  'tenant_id',
+  'service',
+  'timestamp',
+  'id',
+])
+@Index('idx_logs_tenant_level_timestamp_id', [
+  'tenant_id',
+  'level',
+  'timestamp',
+  'id',
+])
 export class Log {
   @PrimaryColumn({ type: 'timestamptz', primaryKeyConstraintName: 'pk_logs' })
   timestamp: Date;
@@ -31,6 +42,13 @@ export class Log {
     primaryKeyConstraintName: 'pk_logs',
   })
   id: string;
+
+  // No FK to tenants.id — see specs/001-multi-tenancy/research.md Decision 6:
+  // tenant existence is guaranteed by construction (resolved credential or
+  // DEFAULT_TENANT_ID), and an FK check would tax the hot COPY ingestion path
+  // for no correctness benefit.
+  @Column({ type: 'uuid' })
+  tenant_id: string;
 
   @Column({
     type: 'enum',

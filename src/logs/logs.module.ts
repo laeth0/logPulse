@@ -10,9 +10,10 @@ import { LogIngestionService } from '@/logs/services/log-ingestion.service';
 import { LogQueryService } from '@/logs/services/log-query.service';
 import { LogEntryValidator } from '@/logs/validators/log-entry.validator';
 import { LogQueryValidator } from '@/logs/validators/log-query.validator';
+import { TenancyModule } from '@/tenancy/tenancy.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Log], 'read')],
+  imports: [TypeOrmModule.forFeature([Log], 'read'), TenancyModule],
   controllers: [LogsController],
   providers: [
     CursorService,

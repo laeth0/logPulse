@@ -121,6 +121,7 @@ export class PartitionService {
       await queryRunner.query(`
         INSERT INTO "logs" (
           "id",
+          "tenant_id",
           "timestamp",
           "level",
           "service",
@@ -131,6 +132,7 @@ export class PartitionService {
         ) OVERRIDING SYSTEM VALUE
         SELECT
           "id",
+          "tenant_id",
           "timestamp",
           "level",
           "service",

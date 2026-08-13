@@ -16,7 +16,10 @@ export class LogIngestionService {
     private readonly logEntryValidator: LogEntryValidator,
   ) {}
 
-  async ingest(value: unknown): Promise<IngestLogsResponseDto> {
+  async ingest(
+    value: unknown,
+    tenantId: string,
+  ): Promise<IngestLogsResponseDto> {
     const batch = this.logEntryValidator.validateBatch(value);
     const validLogs: LogEntryDto[] = [];
     const rejected: RejectedLogDto[] = [];
@@ -31,7 +34,9 @@ export class LogIngestionService {
       }
     });
 
-    await this.logRepository.insertMany(validLogs.map(mapLogEntryToNewLog));
+    await this.logRepository.insertMany(
+      validLogs.map((entry) => mapLogEntryToNewLog(entry, tenantId)),
+    );
 
     return {
       accepted: validLogs.length,

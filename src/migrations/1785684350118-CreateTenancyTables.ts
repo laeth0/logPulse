@@ -18,10 +18,9 @@ export class CreateTenancyTables1785684350118 implements MigrationInterface {
     // ── tenants ──────────────────────────────────────────────────────────────
     await queryRunner.query(`
       CREATE TABLE "tenants" (
-        "id"            UUID        NOT NULL DEFAULT gen_random_uuid(),
-        "email"         TEXT        NOT NULL,
-        "password_hash" TEXT        NOT NULL,
-        "created_at"    TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "id"            UUID NOT NULL DEFAULT gen_random_uuid(),
+        "email"         TEXT NOT NULL,
+        "password_hash" TEXT NOT NULL,
 
         CONSTRAINT "pk_tenants"
           PRIMARY KEY ("id"),

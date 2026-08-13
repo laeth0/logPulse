@@ -5,6 +5,7 @@ import type { LogLevel } from '@/logs/enums/log-level.enum';
 import type { CursorPayload } from '@/logs/interfaces/cursor-payload.interface';
 
 export interface LogFilters {
+  tenantId: string;
   service?: string;
   level?: LogLevel;
   since?: Date;

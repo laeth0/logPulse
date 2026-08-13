@@ -18,8 +18,7 @@ Creates a new Tenant account. Maps to spec FR-015, FR-016, FR-029.
 ```json
 {
   "id": "3fa2b1c4-...",
-  "email": "customer@example.com",
-  "created_at": "2026-08-12T14:32:01.123Z"
+  "email": "customer@example.com"
 }
 ```
 No tokens are issued at registration — the customer must call `POST /tenants/login` next (matches the user-supplied conceptual flow: Register → Login → Tokens).

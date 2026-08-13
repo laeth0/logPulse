@@ -8,8 +8,12 @@ import type {
   NewLog,
 } from '@/logs/interfaces/log-repository.interface';
 
-export function mapLogEntryToNewLog(entry: LogEntryDto): NewLog {
+export function mapLogEntryToNewLog(
+  entry: LogEntryDto,
+  tenantId: string,
+): NewLog {
   return {
+    tenant_id: tenantId,
     timestamp: new Date(entry.timestamp),
     level: entry.level,
     service: entry.service,

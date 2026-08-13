@@ -24,6 +24,7 @@ export function encodeLogsAsCsv(logs: readonly NewLog[]): string {
 function encodeLogAsCsvRow(log: NewLog): string {
   return [
     quoteCsvField(log.timestamp.toISOString()),
+    quoteCsvField(log.tenant_id),
     quoteCsvField(log.level),
     quoteCsvField(log.service),
     quoteCsvField(log.message),
