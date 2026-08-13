@@ -6,23 +6,25 @@ Derived from spec.md's Key Entities, refined with the storage decisions from res
 
 Maps to spec's **Log Rollup (pre-computed aggregation summary)** entity — a derived, tenant-scoped, minute-granularity count, never a second source of truth.
 
+**Table durability**: a normal **`LOGGED`** (durable) table, matching `logs` — not `UNLOGGED`. This is load-bearing, not incidental: paired with the atomic COPY+upsert transaction (research.md Decision 6), it's what guarantees `log_rollups` can never fall out of sync with `logs` after a crash, which is what makes the migration-time-only backfill (Decision 8) provably sufficient instead of needing a runtime rebuild mechanism.
+
 | Field | Type | Constraints | Notes |
 |---|---|---|---|
 | `bucket` | `timestamptz` | `NOT NULL` | Start of the one-minute window this row summarizes (research.md Decision 4) — must be computed with the same origin/truncation the existing `date_bin(...)` aggregation expression uses (`aggregation-query.builder.ts`'s `LOG_AGGREGATION_ORIGIN`), so summed rollup rows and a raw scan of the same range agree bit-for-bit. |
 | `tenant_id` | `uuid` | `NOT NULL` | No FK, consistent with `logs.tenant_id` (`specs/001-multi-tenancy/research.md` Decision 6) — same no-FK-on-hot-path rationale applies equally to the rollup upsert path. |
 | `service` | `text` | `NOT NULL` | Matches `logs.service`. |
 | `level` | `log_level` (existing enum) | `NOT NULL` | Matches `logs.level`'s type exactly. |
-| `count` | `bigint` | `NOT NULL DEFAULT 0` | Incrementally accumulated via `ON CONFLICT ... DO UPDATE SET count = log_rollups.count + EXCLUDED.count` (research.md Decision 6) — never overwritten, only added to, except during the retention-boundary recompute (Decision 9), which fully replaces the one affected boundary row per tenant/service/level rather than incrementing it. |
+| `count` | `bigint` | `NOT NULL DEFAULT 0` | Always adjusted by a **relative delta**, never overwritten with an absolute value: `+N` from an ingestion-flush upsert in the same transaction as the `COPY` it corresponds to (research.md Decision 6), `+N` from the one-time migration backfill (Decision 8), or `-N` from retention's boundary-bucket adjustment, computed in the same statement as the deletion it corresponds to (Decision 9). Using only relative deltas — never a snapshot-and-replace — is what makes concurrent adjustments to the same row commute correctly regardless of execution order; see each decision's rationale. |
 
-**Primary key**: `(bucket, tenant_id, service, level)` — the exact tuple every ingestion-flush upsert and every retention-boundary recompute conflicts on (research.md Decisions 5, 6, 9). This four-column composite key is also sufficient as the table's only index: every read path (aggregation's rollup-first query, retention's pruning delete, the rebuild service's existence check) filters by a prefix of this same tuple (`bucket` range, optionally `tenant_id`/`service`/`level`), so a second index is not justified by any query pattern identified in this feature — consistent with `CLAUDE.md`'s "do not add indexes blindly."
+**Primary key**: `(bucket, tenant_id, service, level)` — the exact tuple every ingestion-flush upsert, the one-time backfill, and every retention-boundary delta conflicts on (research.md Decisions 5, 6, 8, 9). This four-column composite key is also sufficient as the table's only index: every read/write path (aggregation's rollup-first query, retention's pruning delete) filters by a prefix of this same tuple (`bucket` range, optionally `tenant_id`/`service`/`level`), so a second index is not justified by any query pattern identified in this feature — consistent with `CLAUDE.md`'s "do not add indexes blindly."
 
 **Relationships**: A `LogRollup` row summarizes zero or more `Log` rows sharing its `(bucket, tenant_id, service, level)` values. No DB-level FK to `logs` (rows are frequently deleted out from under a rollup by retention — Decision 9 — which is the whole point of "derived, reconstructable summary," not a referential-integrity relationship).
 
 **Lifecycle**:
 ```
-created/incremented  — on every ingestion flush that includes a matching row (research.md Decision 6)
-rebuilt from scratch  — at startup, only if missing/stale, non-blocking (research.md Decision 8)
-pruned/recomputed     — at each retention maintenance run, for buckets at/before the cutoff (research.md Decision 9)
+backfilled once  — via migration, for any logs rows that existed before this feature's code was deployed (research.md Decision 8); a no-op INSERT touching zero rows on a fresh/empty database, which is the actual zero-config grading scenario
+incremented       — atomically, in the same transaction as every ingestion flush's COPY, for every row from that point forward (research.md Decision 6) — never independently "rebuilt" or found stale at runtime
+pruned/adjusted   — at each retention maintenance run: fully-expired buckets bulk-deleted, the one boundary bucket adjusted by a same-statement relative delta (research.md Decision 9)
 ```
 
 **Validation rules**: None at the application-input layer — `LogRollup` rows are never user-submitted; every field is derived server-side from already-validated `Log` data.

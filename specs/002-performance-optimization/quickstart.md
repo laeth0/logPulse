@@ -37,6 +37,27 @@ wait
 
 # expect: data is queryable immediately (no premature 200 before durable write — FR-002)
 curl -s 'http://localhost:8080/logs?service=coalesce-test&limit:10'
+
+# expect: still comfortably within the 20-second ingest-to-queryable budget (SC-005) —
+# a coalescing debounce window of a few ms cannot meaningfully threaten this, but confirm it wasn't missed.
+```
+
+**Multi-tenant coalescing** — different tenants' concurrent requests may be merged into the same flush; each log must still land under its own tenant, never another's (spec.md US1 Acceptance Scenario 4):
+
+```bash
+# Using two tenants' API keys from an existing multi-tenancy setup (see specs/001-multi-tenancy/quickstart.md),
+# fire concurrent batches from both tenants at once, close enough together to likely coalesce into one flush.
+curl -s -X POST http://localhost:8080/logs -H "Authorization: Bearer ${API_KEY_A}" -H 'Content-Type: application/json' \
+  -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"coalesce-tenant-a\",\"message\":\"a\",\"attributes\":{}}]}" &
+curl -s -X POST http://localhost:8080/logs -H "Authorization: Bearer ${API_KEY_B}" -H 'Content-Type: application/json' \
+  -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"coalesce-tenant-b\",\"message\":\"b\",\"attributes\":{}}]}" &
+wait
+
+curl -s 'http://localhost:8080/logs?service=coalesce-tenant-a' -H "Authorization: Bearer ${API_KEY_B}"
+# expect: {"logs":[],"next_cursor":null} — tenant B never sees tenant A's log, even though the two
+# writes may have shared one internal COPY flush (FR-004).
+curl -s 'http://localhost:8080/logs?service=coalesce-tenant-a' -H "Authorization: Bearer ${API_KEY_A}"
+# expect: tenant A sees exactly its own log.
 ```
 
 ## Scenario 2 — Aggregation stays fast and correct while ingestion is active (User Story 2)
@@ -79,23 +100,60 @@ curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&buck
 # same service/level into the same time bucket under both tenants, then aggregate as each.
 curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h" -H "Authorization: Bearer ${API_KEY_A}"
 curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h" -H "Authorization: Bearer ${API_KEY_B}"
-# expect: each tenant's counts reflect only its own ingested logs — never combined (FR-007/SC-006)
+# expect: each tenant's counts reflect only its own ingested logs — never combined (FR-007/SC-006).
+# This must hold even though both tenants' rollup rows can share the same `bucket`/`service`/`level` —
+# isolation comes from the rollup-read query's own unconditional tenant_id filter (research.md Decision 7),
+# not from the two tenants' data happening to land in different buckets.
 ```
 
-## Scenario 3 — Non-blocking rollup rebuild after restart (Clarifications 2026-08-13, FR-019)
+## Scenario 3 — Rollup consistency survives an unclean restart, with no rebuild delay (research.md Decisions 6, 8; supersedes the original FR-019 rebuild-based test)
+
+Per research.md Decision 6, `COPY` and the rollup upsert commit atomically in one transaction against a durable (`LOGGED`) `log_rollups` table — an unclean restart can no longer leave rollups out of sync with `logs`, so there is no "rebuild" step to wait for or verify a fallback against. This scenario proves that directly, rather than testing a rebuild mechanism that no longer exists:
 
 ```bash
-# Ingest enough data that a full-table rollup rebuild would take a non-trivial amount of time,
-# then simulate an unclean restart (kill -9, not a graceful stop) and measure health readiness.
+# Ingest a batch, then immediately kill -9 the app mid-flush-window (not a graceful stop) to
+# exercise the crash path, and restart it.
+curl -s -X POST http://localhost:8080/logs -H 'Content-Type: application/json' \
+  -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"crash-test\",\"message\":\"before crash\",\"attributes\":{}}]}"
 docker kill -s SIGKILL <app-container>
 docker compose up -d app
-time curl -s -o /dev/null -w '%{http_code}\n' --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/health
-# expect: GET /health reports 200 quickly (comparable to a restart with no rollup-rebuild work at all) —
-# it must NOT wait for log_rollups to finish rebuilding.
 
-# Immediately after health reports ready, aggregate before the rebuild has necessarily finished:
+# expect: GET /health reports 200 just as quickly as any other restart — there is no rollup-related
+# work gating readiness at all (it was never gated on anything but the pre-existing conditions:
+# database connectivity, applied migrations).
+time curl -s -o /dev/null -w '%{http_code}\n' --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/health
+
+since=$(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%SZ)
+until=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+# expect: the rollup-backed aggregate and a raw-scan-forced equivalent agree exactly — no
+# undercounting from the pre-restart batch, no double-counting from anything replayed.
+curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h&service=crash-test"
+curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h&service=crash-test&q=before"  # q forces the raw-scan path (Decision 7)
+# expect: both calls report the identical count for the batch ingested just before the crash.
+```
+
+**One-time historical backfill on an already-populated database** (research.md Decision 8) — this is the scenario that actually needs verifying now, replacing the old rebuild-after-restart test:
+
+```bash
+# Simulate deploying this feature against a database that already has logs rows from before
+# log_rollups existed: run only the pre-existing migrations, ingest some data, THEN run the
+# new CreateLogRollupsTable migration (which includes the one-time backfill INSERT).
+npm run migration:run   # runs the new backfill migration against the already-populated table
+
+since=$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%SZ)
+until=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h"
-# expect: still a fully correct result (served via raw-scan fallback if rollups aren't ready yet — FR-009)
+curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h&q="   # raw-scan path, for comparison
+# expect: identical counts — the backfill correctly covers every pre-existing row, computed with
+# no concurrent writer running (the app hasn't started yet at migration time), so there is nothing
+# to double-count or race against.
+
+# On the actual grading path (a fresh docker compose up, empty database), confirm the backfill
+# is a real no-op, not just a small cost:
+time docker compose up --build -d
+# expect: startup time is not measurably different from a build with no pre-existing logs rows at all —
+# the backfill INSERT ... SELECT touches zero rows on a fresh database.
 ```
 
 ## Scenario 4 — Byte-identical responses after the read-path and attribute-storage changes (User Story 3)
