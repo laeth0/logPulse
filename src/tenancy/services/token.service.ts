@@ -1,14 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
+import {
+  ACCESS_TOKEN_TTL_SECONDS,
+  REFRESH_TOKEN_TTL_DAYS,
+} from '@/common/constants/tenancy.constants';
 import type { TenantJwtPayload } from '@/tenancy/interfaces/jwt-payload.interface';
-
-const ACCESS_TOKEN_TTL_SECONDS = Number(
-  process.env.JWT_ACCESS_TOKEN_TTL_SECONDS ?? 900,
-);
-const REFRESH_TOKEN_TTL_DAYS = Number(
-  process.env.JWT_REFRESH_TOKEN_TTL_DAYS ?? 7,
-);
 
 /**
  * Signs/verifies Tenant access and refresh tokens (research.md Decisions 2,

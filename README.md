@@ -80,6 +80,7 @@ All variables have defaults — none are required. `docker-compose.yml` supplies
 | `DB_SSL` | `false` | Enable TLS to PostgreSQL |
 | `AUTH_ENABLED` | `false` | Master switch for authentication and multi-tenancy — see [Optional features](#optional-features) |
 | `LOADGEN_API_KEY` | *(unset)* | API key idempotently seeded at startup, scoped to one tenant, when `AUTH_ENABLED=true` |
+| `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for the load-generator tenant account (same account that owns `LOADGEN_API_KEY`) — lets you log in as it via `POST /tenants/login` to inspect/manage its seeded key by hand |
 | `JWT_SECRET` | `please-change-me-in-production` | Signing secret for Tenant access/refresh tokens — change this for anything beyond local/grading use |
 | `JWT_ACCESS_TOKEN_TTL_SECONDS` | `900` | Tenant access token lifetime (15 minutes) |
 | `JWT_REFRESH_TOKEN_TTL_DAYS` | `7` | Tenant refresh token lifetime |
@@ -285,6 +286,7 @@ Implemented, **off by default**. `docker compose up` with no environment file, n
 | --- | --- | --- |
 | `AUTH_ENABLED` | `false` | Master switch. `false`/unset → all four required endpoints behave exactly as the unauthenticated core service; an `Authorization` header, if sent anyway, is silently ignored, never rejected. |
 | `LOADGEN_API_KEY` | *(unset)* | When `AUTH_ENABLED=true`, this key is idempotently seeded at startup — before the service reports healthy — scoped to one fixed internal tenant with ingest+query permission. Restarting with the same value never duplicates the tenant or the key. Left unset, the service still starts and stays healthy; it just has no seeded key. |
+| `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for that same seeded tenant account, letting an operator `POST /tenants/login` as it to inspect/manage the seeded key by hand. Only takes effect on the tenant's first seed — like `LOADGEN_API_KEY`, changing it after the row already exists has no effect. |
 | `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | see [Configuration](#configuration) | Sign/verify Tenant account tokens (below). `JWT_SECRET`'s zero-config default is intentionally insecure, mirroring `DB_PASS`'s existing convention — override it for anything beyond local development or grading. |
 
 **Two separate credential types, two separate purposes — never interchangeable:**

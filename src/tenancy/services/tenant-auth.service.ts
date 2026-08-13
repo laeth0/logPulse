@@ -6,18 +6,15 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
 
+import { POSTGRES_UNIQUE_VIOLATION } from '@/common/constants/postgres.constants';
+import { MILLISECONDS_PER_DAY } from '@/common/constants/retention.constants';
+import { REFRESH_TOKEN_TTL_DAYS } from '@/common/constants/tenancy.constants';
 import type { AuthTokensDto } from '@/tenancy/dto/responses/auth-tokens.dto';
 import type { TenantDto } from '@/tenancy/dto/responses/tenant.dto';
 import { TenantRefreshToken } from '@/tenancy/entities/refresh-token.entity';
 import { Tenant } from '@/tenancy/entities/tenant.entity';
 import { TokenService } from '@/tenancy/services/token.service';
 import * as passwordHasher from '@/tenancy/utils/password-hasher.util';
-
-const REFRESH_TOKEN_TTL_DAYS = Number(
-  process.env.JWT_REFRESH_TOKEN_TTL_DAYS ?? 7,
-);
-const MILLISECONDS_PER_DAY = 86_400_000;
-const POSTGRES_UNIQUE_VIOLATION = '23505';
 
 @Injectable()
 export class TenantAuthService {

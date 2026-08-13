@@ -1,14 +1,15 @@
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { randomBytes } from 'node:crypto';
 import type { Repository } from 'typeorm';
 
 import {
   LOADGEN_TENANT_EMAIL,
   LOADGEN_TENANT_ID,
+  LOADGEN_TENANT_PASSWORD,
 } from '@/common/constants/tenancy.constants';
 import { ApiKey } from '@/tenancy/entities/api-key.entity';
 import { Tenant } from '@/tenancy/entities/tenant.entity';
+import * as passwordHasher from '@/tenancy/utils/password-hasher.util';
 
 /**
  * Idempotently seeds LOADGEN_API_KEY at startup (spec FR-006/FR-007/FR-008;
@@ -34,10 +35,12 @@ export class LoadgenKeySeeder implements OnApplicationBootstrap {
       return;
     }
 
-    // Never used to authenticate — the load-generator tenant only ever
-    // authenticates via its seeded API key. This purely satisfies
-    // tenants.password_hash's NOT NULL constraint with an unguessable value.
-    const placeholderPasswordHash = randomBytes(32).toString('hex');
+    // Lets an operator log in as the load-generator tenant via the normal
+    // self-service flow (e.g. to inspect/manage its seeded key by hand) —
+    // LOADGEN_TENANT_PASSWORD defaults to an insecure placeholder, matching
+    // JWT_SECRET/DB_PASS's existing convention; override it for anything
+    // beyond local development or grading.
+    const passwordHash = await passwordHasher.hash(LOADGEN_TENANT_PASSWORD);
 
     await this.tenantRepository
       .createQueryBuilder()
@@ -45,7 +48,7 @@ export class LoadgenKeySeeder implements OnApplicationBootstrap {
       .values({
         id: LOADGEN_TENANT_ID,
         email: LOADGEN_TENANT_EMAIL,
-        password_hash: placeholderPasswordHash,
+        password_hash: passwordHash,
       })
       .orIgnore()
       .execute();
