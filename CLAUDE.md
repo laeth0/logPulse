@@ -47,8 +47,14 @@ Performance is a first-class requirement for this project.
 - **Do not run the linter (`npm run lint`) or formatter (`npm run format` / `npm run format:check`) automatically after implementing a prompt.** Only run them when the user explicitly asks, or immediately before a commit/PR. This avoids unnecessary token consumption on routine changes. (A TypeScript build/compile check is a separate, correctness concern — still fine to run when useful.)
 
 <!-- SPECKIT START -->
-Active feature: Multi-Tenancy (`001-multi-tenancy`).
+Active feature: Performance Optimization (`002-performance-optimization`).
 For technologies, project structure, and design decisions for this feature,
-read `specs/001-multi-tenancy/plan.md` (and its `research.md`, `data-model.md`,
-`contracts/`, `quickstart.md` siblings).
+read `specs/002-performance-optimization/plan.md` (and its `research.md`,
+`data-model.md`, `quickstart.md` siblings — no `contracts/` for this feature,
+since it introduces no new/changed external interface; see plan.md's Project
+Structure section for why).
+
+Prior feature, implemented: Multi-Tenancy (`001-multi-tenancy`) —
+`specs/001-multi-tenancy/plan.md`. Still the reference for the tenancy module,
+auth guards, and API-key model this feature's changes must not disturb.
 <!-- SPECKIT END -->
