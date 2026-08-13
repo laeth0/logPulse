@@ -11,22 +11,18 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
  *  - Require the pg_trgm extension (CreatePgTrgmExtension migration).
  *
  * Index details:
- *  - jsonb_path_ops: smaller and faster than the default JSONB operator
- *    class for @> containment queries; sufficient because the API only
- *    needs attribute equality, not complex JSON path queries.
  *  - gin_trgm_ops: breaks message text into trigrams enabling efficient
  *    ILIKE '%term%' substring search.
+ *
+ * (The attributes_text GIN index this migration originally also created was
+ * removed here — specs/002-performance-optimization research.md Decisions
+ * 11/12 — folded into this pre-release migration rather than layered as a
+ * new DROP INDEX migration, per this project's established convention.)
  */
 export class CreateLogsTableGinIndexes1785684350116 implements MigrationInterface {
   name = 'CreateLogsTableGinIndexes1785684350116';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // Supports: WHERE attributes_text @> jsonb_build_object($key, $value)
-    await queryRunner.query(`
-      CREATE INDEX "idx_logs_attributes_text_gin"
-        ON "logs" USING GIN ("attributes_text" jsonb_path_ops)
-    `);
-
     // Supports: WHERE message ILIKE '%term%'
     await queryRunner.query(`
       CREATE INDEX "idx_logs_message_trigram"
@@ -36,8 +32,5 @@ export class CreateLogsTableGinIndexes1785684350116 implements MigrationInterfac
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`DROP INDEX "public"."idx_logs_message_trigram"`);
-    await queryRunner.query(
-      `DROP INDEX "public"."idx_logs_attributes_text_gin"`,
-    );
   }
 }

@@ -12,6 +12,12 @@ export function buildLogPageQuery(
     repository.createQueryBuilder('log'),
     query,
   )
+    .select('log.id', 'id')
+    .addSelect('log.timestamp', 'timestamp')
+    .addSelect('log.level', 'level')
+    .addSelect('log.service', 'service')
+    .addSelect('log.message', 'message')
+    .addSelect('log.attributes', 'attributes')
     .orderBy(`log.timestamp`, 'DESC')
     .addOrderBy(`log.id`, 'DESC')
     .take(query.limit + 1);

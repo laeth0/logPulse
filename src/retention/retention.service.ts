@@ -8,9 +8,14 @@ import {
   LOG_RETENTION_LOCK_ID,
   LOG_RETENTION_LOCK_NAMESPACE,
   MILLISECONDS_PER_DAY,
+  MILLISECONDS_PER_ROLLUP_BUCKET,
 } from '@/common/constants/retention.constants';
+import { alignDownToRollupBucket } from '@/common/utils/rollup-bucket.utils';
 import { Log } from '@/logs/entities/log.entity';
-import type { AdvisoryLockRow } from '@/retention/interfaces/retention.interface';
+import type {
+  AdvisoryLockRow,
+  BoundaryBucketDeleteRow,
+} from '@/retention/interfaces/retention.interface';
 import { PartitionService } from '@/retention/partition.service';
 
 @Injectable()
@@ -50,6 +55,10 @@ export class RetentionService {
       const cutoff = new Date(
         now.getTime() - this.retentionDays * MILLISECONDS_PER_DAY,
       );
+      // Rows strictly before this bucket are covered by the bulk log_rollups
+      // delete below; the one bucket straddling `cutoff` gets a precise
+      // delta adjustment instead (research.md Decision 9).
+      const cutoffBucket = alignDownToRollupBucket(cutoff);
 
       const droppedPartitions =
         await this.partitionService.dropExpiredDailyPartitions(
@@ -57,7 +66,16 @@ export class RetentionService {
           cutoff,
         );
 
-      const deletedRows = await this.deleteExpiredRows(queryRunner, cutoff);
+      const deletedRows = await this.deleteExpiredRows(
+        queryRunner,
+        cutoffBucket,
+      );
+      const boundaryDeletedRows = await this.pruneBoundaryRollupBucket(
+        queryRunner,
+        cutoffBucket,
+        cutoff,
+      );
+      await this.pruneExpiredRollupBuckets(queryRunner, cutoffBucket);
 
       const firstPartitionDay = this.partitionService.startOfUtcDay(cutoff);
       const lastRequiredDay = this.partitionService.addUtcDays(
@@ -73,7 +91,7 @@ export class RetentionService {
 
       this.logger.log(
         `Retention maintenance completed: created ${createdPartitions} partition(s), ` +
-          `dropped ${droppedPartitions} partition(s), deleted ${deletedRows} expired row(s)`,
+          `dropped ${droppedPartitions} partition(s), deleted ${deletedRows + boundaryDeletedRows} expired row(s)`,
       );
     } finally {
       try {
@@ -107,14 +125,80 @@ export class RetentionService {
     ]);
   }
 
+  /**
+   * Bulk-deletes rows strictly before `cutoffBucket` — every log_rollups
+   * row for a bucket in this range is wiped wholesale by
+   * pruneExpiredRollupBuckets() below, so no per-row delta is needed here.
+   * The one bucket straddling the real retention `cutoff` is handled
+   * separately by pruneBoundaryRollupBucket() (research.md Decision 9).
+   */
   private async deleteExpiredRows(
     queryRunner: QueryRunner,
-    cutoff: Date,
+    cutoffBucket: Date,
   ): Promise<number> {
     const result = await queryRunner.manager.getRepository(Log).delete({
-      timestamp: LessThan(cutoff),
+      timestamp: LessThan(cutoffBucket),
     });
 
     return result.affected ?? 0;
+  }
+
+  /**
+   * Deletes the boundary bucket's straggler `logs` rows — those in
+   * `[cutoffBucket, cutoff)`, the partial bucket deleteExpiredRows() above
+   * intentionally left untouched — and decrements `log_rollups` by exactly
+   * the number of rows this same statement deletes, computed as a single
+   * atomic CTE rather than a separate `SELECT COUNT(*)` followed by a
+   * replace. A relative delta commutes correctly with a concurrent live
+   * upsert regardless of commit order; a snapshot-and-replace would not
+   * (research.md Decision 9, "M2" fix).
+   */
+  private async pruneBoundaryRollupBucket(
+    queryRunner: QueryRunner,
+    cutoffBucket: Date,
+    cutoff: Date,
+  ): Promise<number> {
+    const bucketEnd = new Date(
+      cutoffBucket.getTime() + MILLISECONDS_PER_ROLLUP_BUCKET,
+    );
+
+    const rows = await this.dataSource.query<BoundaryBucketDeleteRow[]>(
+      `
+        WITH deleted AS (
+          DELETE FROM logs
+          WHERE timestamp >= $1 AND timestamp < $2 AND timestamp < $3
+          RETURNING tenant_id, service, level
+        ),
+        deltas AS (
+          SELECT tenant_id, service, level, COUNT(*) AS removed
+          FROM deleted
+          GROUP BY 1, 2, 3
+        ),
+        rollup_update AS (
+          UPDATE log_rollups
+          SET count = log_rollups.count - deltas.removed
+          FROM deltas
+          WHERE log_rollups.bucket = $1
+            AND log_rollups.tenant_id = deltas.tenant_id
+            AND log_rollups.service = deltas.service
+            AND log_rollups.level = deltas.level
+        )
+        SELECT COUNT(*) AS "deletedCount" FROM deleted
+      `,
+      [cutoffBucket, bucketEnd, cutoff],
+      queryRunner,
+    );
+
+    return Number(rows[0]?.deletedCount ?? 0);
+  }
+
+  /** Fully-expired buckets are unconditionally, wholesale bulk-deleted (research.md Decision 9). */
+  private async pruneExpiredRollupBuckets(
+    queryRunner: QueryRunner,
+    cutoffBucket: Date,
+  ): Promise<void> {
+    await queryRunner.query(`DELETE FROM log_rollups WHERE bucket < $1`, [
+      cutoffBucket,
+    ]);
   }
 }

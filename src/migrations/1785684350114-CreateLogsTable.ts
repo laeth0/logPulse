@@ -23,7 +23,6 @@ export class CreateLogsTable1785684350114 implements MigrationInterface {
         "service"         TEXT                 NOT NULL,
         "message"         TEXT                 NOT NULL,
         "attributes"      JSONB                NOT NULL DEFAULT '{}'::jsonb,
-        "attributes_text" JSONB                NOT NULL DEFAULT '{}'::jsonb,
         "ingested_at"     TIMESTAMPTZ          NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
         CONSTRAINT "pk_logs"
@@ -36,10 +35,7 @@ export class CreateLogsTable1785684350114 implements MigrationInterface {
           CHECK (char_length(message) > 0),
 
         CONSTRAINT "chk_logs_attributes_object"
-          CHECK (jsonb_typeof(attributes) = 'object'),
-
-        CONSTRAINT "chk_logs_attributes_text_object"
-          CHECK (jsonb_typeof(attributes_text) = 'object')
+          CHECK (jsonb_typeof(attributes) = 'object')
       ) PARTITION BY RANGE ("timestamp")
     `);
 

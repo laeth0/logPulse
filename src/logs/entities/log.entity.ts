@@ -15,10 +15,6 @@ import type { LogAttributeValue } from '@/logs/interfaces/log-repository.interfa
 @Check('chk_logs_service_non_empty', 'char_length(service) > 0')
 @Check('chk_logs_message_non_empty', 'char_length(message) > 0')
 @Check('chk_logs_attributes_object', "jsonb_typeof(attributes) = 'object'")
-@Check(
-  'chk_logs_attributes_text_object',
-  "jsonb_typeof(attributes_text) = 'object'",
-)
 @Index('idx_logs_tenant_timestamp_id', ['tenant_id', 'timestamp', 'id'])
 @Index('idx_logs_tenant_service_timestamp_id', [
   'tenant_id',
@@ -65,9 +61,6 @@ export class Log {
 
   @Column({ type: 'jsonb', default: {} })
   attributes: Record<string, LogAttributeValue>;
-
-  @Column({ type: 'jsonb', default: {} })
-  attributes_text: Record<string, string>;
 
   @CreateDateColumn({
     type: 'timestamptz',

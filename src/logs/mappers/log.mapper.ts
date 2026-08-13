@@ -1,8 +1,10 @@
 import type { LogEntryDto } from '@/logs/dto/requests/log-entry.dto';
 import type { AggregateBucketDto } from '@/logs/dto/responses/aggregate-logs-response.dto';
 import type { LogResponseDto } from '@/logs/dto/responses/query-logs-response.dto';
-import type { Log } from '@/logs/entities/log.entity';
-import type { LogAggregation } from '@/logs/interfaces/log-query.interface';
+import type {
+  LogAggregation,
+  RawLogRow,
+} from '@/logs/interfaces/log-query.interface';
 import type {
   LogAttributeValue,
   NewLog,
@@ -19,16 +21,10 @@ export function mapLogEntryToNewLog(
     service: entry.service,
     message: entry.message,
     attributes: entry.attributes,
-    attributes_text: Object.fromEntries(
-      Object.entries(entry.attributes).map(([key, value]) => [
-        key,
-        String(value),
-      ]),
-    ),
   };
 }
 
-export function mapLogToResponse(log: Log): LogResponseDto {
+export function mapLogToResponse(log: RawLogRow): LogResponseDto {
   return {
     id: log.id,
     timestamp: log.timestamp.toISOString(),

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { CursorService } from '@/logs/cursor/cursor.service';
 import type { QueryLogsResponseDto } from '@/logs/dto/responses/query-logs-response.dto';
-import type { Log } from '@/logs/entities/log.entity';
+import type { RawLogRow } from '@/logs/interfaces/log-query.interface';
 import { mapLogToResponse } from '@/logs/mappers/log.mapper';
 import { LogRepository } from '@/logs/repositories/log.repository';
 import { LogQueryValidator } from '@/logs/validators/log-query.validator';
@@ -39,7 +39,7 @@ export class LogQueryService {
     };
   }
 
-  private createNextCursor(logs: Log[], hasMore: boolean): string | null {
+  private createNextCursor(logs: RawLogRow[], hasMore: boolean): string | null {
     const lastLog = logs.at(-1);
     if (!hasMore || !lastLog) {
       return null;

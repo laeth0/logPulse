@@ -15,7 +15,6 @@ export interface NewLog {
   service: string;
   message: string;
   attributes: Record<string, LogAttributeValue>;
-  attributes_text: Record<string, string>;
 }
 
 export interface LogRepositoryContract {

@@ -31,6 +31,7 @@ export function createDatabaseOptions(
     logging: false,
     extra: {
       application_name: 'logpulse-write',
+      max: Number(process.env.DB_WRITE_POOL_MAX ?? 20),
     },
   };
 }

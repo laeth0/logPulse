@@ -8,8 +8,8 @@ import type { NewLog } from '@/logs/interfaces/log-repository.interface';
  * logs/sec target under a 0.5 CPU application container.
  *
  * Every field is quoted because `service`/`message` are arbitrary user text
- * and `attributes`/`attributes_text` are JSON text, both of which may
- * contain commas, newlines, or quotes.
+ * and `attributes` is JSON text, both of which may contain commas,
+ * newlines, or quotes.
  */
 export function encodeLogsAsCsv(logs: readonly NewLog[]): string {
   const rows = new Array<string>(logs.length);
@@ -29,7 +29,6 @@ function encodeLogAsCsvRow(log: NewLog): string {
     quoteCsvField(log.service),
     quoteCsvField(log.message),
     quoteCsvField(JSON.stringify(log.attributes)),
-    quoteCsvField(JSON.stringify(log.attributes_text)),
   ].join(',');
 }
 

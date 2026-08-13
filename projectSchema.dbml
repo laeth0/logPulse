@@ -18,7 +18,6 @@ Table logs {
   service text [not null]
   message text [not null]
   attributes jsonb [not null, default: '{}']
-  attributes_text jsonb [not null, default: '{}']
   ingested_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
 
   indexes {
@@ -26,13 +25,30 @@ Table logs {
     (tenant_id, timestamp, id) [name: 'idx_logs_tenant_timestamp_id']
     (tenant_id, service, timestamp, id) [name: 'idx_logs_tenant_service_timestamp_id']
     (tenant_id, level, timestamp, id) [name: 'idx_logs_tenant_level_timestamp_id']
-    attributes_text [name: 'idx_logs_attributes_text_gin', type: gin]
   }
 
   Note: '''
     idx_logs_message_trigram (GIN gin_trgm_ops on message) was dropped, see migration 1785684350117. It wrote roughly one index entry per character of message and was the dominant per-row database CPU cost, capping ingestion at ~2,457 logs/sec against a 15,000 logs/sec target. The q ILIKE search now relies on partition-pruned sequential scan, which stays within the 1s query budget at the ~1M-row target scale.
 
     tenant_id has no foreign key to tenants.id, see specs/001-multi-tenancy/research.md Decision 6. Tenant existence is guaranteed by construction (resolved API key, or the DEFAULT_TENANT_ID constant used when AUTH_ENABLED=false), and an FK would tax the hot COPY ingestion path for no correctness benefit. The (service, timestamp, id) / (level, timestamp, id) indexes were replaced with tenant-led equivalents, see migration 1785684350115 and Decision 10, because every query against this table now carries an unconditional tenant_id predicate.
+
+    attributes_text (a write-time-stringified mirror of attributes, with its own idx_logs_attributes_text_gin index) was removed, folded into migrations 1785684350114/1785684350116 since neither had shipped to a real deployment yet (specs/002-performance-optimization research.md Decisions 11/12). attr.<key>=<value> equality ("compared as strings" per docs/Final_Project.md) is now a type-branched containment check evaluated at query time directly against attributes (log-filter.builder.ts) instead of paying that cost at write time on every ingested row.
+  '''
+}
+
+Table log_rollups {
+  bucket timestamptz [not null]
+  tenant_id uuid [not null]
+  service text [not null]
+  level log_level [not null]
+  count bigint [not null, default: 0]
+
+  indexes {
+    (bucket, tenant_id, service, level) [pk]
+  }
+
+  Note: '''
+    A derived, tenant-scoped, minute-granularity pre-aggregation of logs — never a second source of truth. Written only via raw SQL: incremented atomically in the same transaction as every ingestion flush's COPY (migration 1785684350119, LogRepository), backfilled once for pre-existing rows by that same migration, and pruned/adjusted by RetentionService at each maintenance run (bulk-deleted for fully-expired buckets, delta-adjusted for the one boundary bucket). A normal LOGGED table, not UNLOGGED — this pairs with the atomic COPY+upsert transaction to guarantee it can never fall out of sync with logs after a crash, which is what makes the migration-time-only backfill sufficient instead of a runtime rebuild mechanism. No FK to tenants.id, see the logs.tenant_id note; the composite PK is also the table's only index, since every read/write path filters by a prefix of the same tuple.
   '''
 }
 

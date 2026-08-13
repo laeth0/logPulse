@@ -127,7 +127,6 @@ export class PartitionService {
           "service",
           "message",
           "attributes",
-          "attributes_text",
           "ingested_at"
         ) OVERRIDING SYSTEM VALUE
         SELECT
@@ -138,7 +137,6 @@ export class PartitionService {
           "service",
           "message",
           "attributes",
-          "attributes_text",
           "ingested_at"
         FROM "${temporaryTableName}"
       `);

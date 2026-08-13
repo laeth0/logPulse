@@ -5,6 +5,13 @@ export const ATTRIBUTE_QUERY_PREFIX = 'attr.';
 export const MAX_LOG_ID = 9_223_372_036_854_775_807n;
 export const LOG_ID_PATTERN = /^[1-9]\d{0,18}$/;
 
+// Write-coalescing tuning (specs/002-performance-optimization research.md Decisions 1-2).
+// Env-overridable via INGEST_COALESCE_WINDOW_MS / INGEST_COALESCE_MAX_ROWS — these are
+// starting defaults pending measurement (FR-015), not fixed values. A single caller's own
+// batch is never split to stay under the row cap; see research.md Decision 1's "F1" note.
+export const DEFAULT_INGEST_COALESCE_WINDOW_MS = 5;
+export const DEFAULT_INGEST_COALESCE_MAX_ROWS = 2000;
+
 export const ISO_8601_TIMESTAMP_PATTERN =
   /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/;
 

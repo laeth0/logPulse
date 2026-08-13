@@ -78,6 +78,10 @@ All variables have defaults — none are required. `docker-compose.yml` supplies
 | `DB_PASS` | `postgres` | PostgreSQL password |
 | `DB_NAME` | `log_pulse` | PostgreSQL database name |
 | `DB_SSL` | `false` | Enable TLS to PostgreSQL |
+| `DB_READ_POOL_MAX` | `5` | Max connections in the dedicated pool for `GET /logs`/`GET /logs/aggregate`, kept separate so reads never queue behind `POST /logs` ingestion |
+| `DB_WRITE_POOL_MAX` | `20` | Max connections in the default pool used for ingestion, migrations, and retention maintenance |
+| `INGEST_COALESCE_WINDOW_MS` | `5` | Debounce window that merges concurrent `POST /logs` writes into fewer, larger `COPY` calls (see [Optimizations applied](#optimizations-applied)) |
+| `INGEST_COALESCE_MAX_ROWS` | `2000` | Row cap per coalesced flush — a single caller's own batch is never split across two flushes even if it alone exceeds this |
 | `AUTH_ENABLED` | `false` | Master switch for authentication and multi-tenancy — see [Optional features](#optional-features) |
 | `LOADGEN_API_KEY` | *(unset)* | API key idempotently seeded at startup, scoped to one tenant, when `AUTH_ENABLED=true` |
 | `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for the load-generator tenant account (same account that owns `LOADGEN_API_KEY`) — lets you log in as it via `POST /tenants/login` to inspect/manage its seeded key by hand |
@@ -190,8 +194,7 @@ logs (parent, PARTITION BY RANGE (timestamp))
 ├── level              log_level (enum: debug | info | warn | error)
 ├── service            text
 ├── message            text
-├── attributes         jsonb   -- typed values, as submitted (see below)
-├── attributes_text    jsonb   -- all values coerced to text, for filtering
+├── attributes         jsonb   -- typed values, as submitted (see Attribute storage strategy)
 ├── ingested_at        timestamptz  DEFAULT now()
 └── PRIMARY KEY (timestamp, id)
 ```
@@ -212,12 +215,28 @@ Indexes (all per-partition, PostgreSQL propagates them automatically to new part
 | `idx_logs_tenant_timestamp_id (tenant_id, timestamp DESC, id DESC)` | B-tree | Tenant-scoped pagination with no `service`/`level` filter |
 | `idx_logs_tenant_service_timestamp_id (tenant_id, service, timestamp DESC, id DESC)` | B-tree | `service=` filter, pre-sorted for pagination |
 | `idx_logs_tenant_level_timestamp_id (tenant_id, level, timestamp DESC, id DESC)` | B-tree | `level=` filter, pre-sorted for pagination |
-| `idx_logs_attributes_text_gin (attributes_text, jsonb_path_ops)` | GIN | `attr.<key>=` containment lookups |
-| `idx_logs_message_trigram (message, gin_trgm_ops)` | GIN (`pg_trgm`) | Case-insensitive `q=` substring search |
 
-`jsonb_path_ops` is used instead of the default `jsonb_ops` GIN operator class because the API only ever needs `@>` containment equality on attributes, never JSON path queries — `jsonb_path_ops` produces a smaller, faster index for exactly that case.
+Neither GIN index this table originally had survived to the current schema: `idx_logs_message_trigram` (`q=` substring search) was dropped early on — see [Bottlenecks discovered](#bottlenecks-discovered) — and `idx_logs_attributes_text_gin` was removed along with the `attributes_text` column it indexed (see [Attribute storage strategy](#attribute-storage-strategy)). Both filters now rely on the same partition-pruned sequential scan within whatever range the B-tree indexes above narrow the query down to.
 
 All three B-tree indexes lead with `tenant_id` because every query against `logs` now carries an unconditional `tenant_id = $1` predicate (see [Multi-tenancy](#multi-tenancy)) — the same leading-equality-column pattern the `service`/`level` indexes already used, with `tenant_id` added as the new outermost equality column. `tenant_id` has **no foreign key** to `tenants.id`: the existing schema has zero foreign keys anywhere, and tenant existence is already guaranteed by construction (the value only ever comes from a successfully-resolved API key, or a fixed internal constant — never from request input), so an FK would tax the hot `COPY` ingestion path for no correctness benefit.
+
+### Rollup table
+
+```
+log_rollups
+├── bucket      timestamptz  NOT NULL  -- minute-aligned start of the summarized window
+├── tenant_id   uuid         NOT NULL
+├── service     text         NOT NULL
+├── level       log_level    NOT NULL
+├── count       bigint       NOT NULL DEFAULT 0
+└── PRIMARY KEY (bucket, tenant_id, service, level)
+```
+
+`log_rollups` is a derived, minute-granularity pre-aggregation of `logs` — never a second source of truth — that exists purely so `GET /logs/aggregate` scales independently of total row count for the common (unfiltered) case. It's kept in sync **atomically**: the same explicit database transaction that `COPY`-writes a batch into `logs` also upserts that batch's per-`(tenant_id, service, level, minute)` counts here (`count = count + EXCLUDED.count`), so the two tables can never drift apart after a crash — there is no separate rebuild step, and `GET /health` gains no new readiness dependency. Any `logs` rows that predate this table are backfilled exactly once, folded into the migration that creates it, which runs before the app ever accepts a request — so there is no concurrent writer to race against during the backfill.
+
+`GET /logs/aggregate` reads `log_rollups` for the minute-aligned bulk of a requested range and falls back to a direct `logs` scan only for the (at most two) partial-minute edges, summing the two results — output is numerically identical to a full raw scan. A request with a `q=` or `attr.<key>=` filter always bypasses `log_rollups` entirely, since no rollup carries per-message or per-attribute detail. Retention prunes `log_rollups` alongside `logs` (see [Retention strategy](#retention-strategy)).
+
+Unlike every index on `logs`, this primary key leads with `bucket`, not `tenant_id` — deliberately: retention's bulk prune (`DELETE FROM log_rollups WHERE bucket < $1`) sweeps every tenant's expired buckets in one statement with no `tenant_id` predicate at all, so `bucket` has to lead for that scan to use the index; `tenant_id` still narrows every *read* query (`GET /logs/aggregate`), just as the second key column instead of the first.
 
 ### Tenant tables
 
@@ -248,19 +267,24 @@ tenant_refresh_tokens
 
 ## Attribute storage strategy
 
-Each log's `attributes` are stored **twice**, in two JSONB columns with different jobs:
+Each log's `attributes` are stored **once**, as submitted (string, number, or boolean per key), in a single JSONB column returned verbatim in `GET /logs` responses.
 
-- **`attributes`** — the values exactly as submitted (string, number, or boolean), returned verbatim in `GET /logs` responses.
-- **`attributes_text`** — every value coerced to its string representation, used *only* for filtering.
+The spec requires `attr.<key>` filtering to compare values **as strings** (`attr.retries=3` should match a stored numeric `3`), satisfied at query time by a type-branched containment check evaluated directly against `attributes`:
 
-The spec requires `attr.<key>` filtering to compare values **as strings** (`attr.retries=3` should match a stored numeric `3`), which needs a stable string representation to index and query against. Rather than `CAST`-ing `attributes` to text at query time on every request (which can't use an index efficiently against a mixed-type column), `attributes_text` is precomputed once at ingestion time and backed by a GIN index, so `attr.<key>=value` becomes a fast index containment lookup (`attributes_text @> '{"key":"value"}'`) instead of a per-row scan-and-cast.
+```
+attributes @> {"key": "value"}                                  -- string match, always attempted
+OR attributes @> {"key": value::numeric}                        -- only if value parses as a canonical number
+OR attributes @> {"key": value::boolean}                        -- only if value is exactly "true"/"false"
+```
 
-This was chosen over two other designs:
+Every `jsonb_build_object(...)` argument gets an explicit `::text`/`::numeric`/`::boolean` cast — without one, PostgreSQL can't infer a type for a prepared-statement parameter to this variadic function, which fails at bind time. The numeric/boolean branches are only emitted into the query at all when the filter value would actually parse as that type: binding a non-numeric string with a `::numeric` cast errors regardless of any surrounding `OR`, since the cast applies to the parameter value itself, not conditionally to a branch.
+
+This replaced an earlier design that stored a second column, `attributes_text` — every value pre-stringified at ingest time, backed by its own GIN index — so filtering could stay a single string-equality containment check against an all-string mirror. That traded a JSONB column and a GIN index of write cost, on *every* ingested row, for a query-time win the read path doesn't need often enough to justify: `attr.<key>` filtering isn't the hot path (`POST /logs` ingestion is), and no index backs the current predicate either — it relies on the same partition-pruned sequential scan `q=` substring search already uses, scoped by whatever `tenant_id`/`service`/`level`/time-range predicates the request already carries.
+
+This was chosen over:
 
 - **A separate EAV (key/value) table** — normalizes attributes into rows, but a 1M+ row `logs` table would need a join against a much larger attributes table for every filtered query, which is expensive exactly where the spec demands sub-second aggregation.
-- **Casting `attributes` to text inline in the query** — no schema duplication, but can't be indexed the same way and pushes CPU work onto every read instead of once at write time; wrong trade-off for a system whose hardest constraint is ingestion throughput on a 0.5 CPU container.
-
-The extra JSONB column costs some disk space (attributes are typically small — a handful of short key/value pairs) in exchange for O(1) indexed filtering instead of O(n) scanning; given the row-count and hardware constraints in this project, that trade was the right one.
+- **Keeping the `attributes_text` mirror column** — the original design; removed once it was clear the write cost it pays on every row wasn't buying a query-time win worth keeping, since `attr.<key>` filtering is not itself the throughput-critical path.
 
 ## Retention strategy
 
@@ -272,6 +296,7 @@ Retention is partition-based, not row-based, for the reasons in [Schema and inde
   1. Drops any daily partition that has fully aged out of the retention window (`DROP TABLE`).
   2. Deletes any residual expired rows still sitting in `logs_default` (the only place row-level deletes happen, and only for the rare rows that landed outside a pre-created partition).
   3. Creates any missing daily partitions from the retention boundary through `LOG_PARTITION_DAYS_AHEAD` days ahead.
+- **Rollup pruning rides along in the same maintenance run**, under the same advisory lock — no second lock, no second scheduled job. Fully-expired minute buckets in `log_rollups` are bulk-deleted outright (`DELETE FROM log_rollups WHERE bucket < cutoff`); the *one* bucket straddling the retention cutoff is adjusted by a relative delta computed in the same atomic statement as the `logs` rows it deletes for that bucket, never a recomputed absolute value — so a rollup adjustment racing a concurrent live ingestion upsert for the same bucket can never be silently overwritten regardless of which one commits first.
 - A **PostgreSQL advisory lock** (`pg_try_advisory_lock`) guards the whole maintenance run, so if the app ever scales to multiple instances, only one performs retention maintenance at a time — the rest skip the run instead of racing.
 - Creating a new daily partition briefly takes an `ACCESS EXCLUSIVE` lock on the parent `logs` table while handing off any rows that landed in `logs_default` for that day. In steady state this is a near-instant no-op (there are normally zero such rows, since partitions are created 7 days ahead of when they're needed) — it only becomes meaningful if partition creation has fallen behind, which the 7-day lead time is designed to prevent.
 - **Retention is tenant-aware where it has to be, and deliberately not where it doesn't.** The retention *policy* (what's expired, on what schedule) stays system-wide across all tenants by design — there's no per-tenant retention configuration. But the row hand-off described above (moving rows from `logs_default` into a newly created named partition) is a raw SQL `INSERT ... SELECT` that must explicitly carry every column, including `tenant_id`, or it fails outright against `logs.tenant_id`'s `NOT NULL` constraint. This was caught and fixed before it could surface as a production incident — see `specs/001-multi-tenancy/research.md` Decision 13.
@@ -348,14 +373,18 @@ The Docker build itself was also a hidden risk: the original multi-stage `Docker
 - **`COPY FROM STDIN` ingestion.** `LogRepository.insertMany()` now streams validated batches straight into PostgreSQL via `COPY logs (...) FROM STDIN WITH (FORMAT csv)` (`pg-copy-streams`), bypassing TypeORM's per-row insert path entirely. This is PostgreSQL's fastest bulk-load mechanism and was the change that took ingestion from ORM-bound to the ~20k logs/sec figure above.
 - **Production-only Docker install instead of prune.** The final image stage now runs a fresh `npm ci --omit=dev` directly from the lockfile instead of installing everything and pruning it back down. A clean rebuild went from 170+ seconds (that one step alone) to **~30 seconds total**.
 - **Partitioned retention** (see above) keeps both index size and per-query working set bounded as the dataset grows toward and past 1M rows, rather than degrading linearly with total table size.
+- **Write coalescing.** `LogRepository.insertMany()` no longer runs one `COPY` per `POST /logs` request; concurrent requests arriving within a short debounce window (`INGEST_COALESCE_WINDOW_MS`) are merged into a single, larger `COPY`, up to a row cap (`INGEST_COALESCE_MAX_ROWS`) — a single caller's own batch is never split across two flushes even if it alone exceeds the cap. Targets the concurrency-16 database-CPU bottleneck in [Preliminary measurements](#preliminary-measurements) above by reducing the number of separate transactions PostgreSQL has to commit under load, without changing `POST /logs`'s per-request response contract.
+- **Aggregation rollups.** `log_rollups` pre-aggregates `logs` at minute granularity, updated atomically alongside every coalesced `COPY` (same transaction, same connection) so it can never drift out of sync after a crash. `GET /logs/aggregate` reads it for the bulk of an unfiltered range instead of scanning raw rows, falling back to a raw scan only for partial-minute edges and any `q=`/`attr.<key>=`-filtered request. See [Rollup table](#rollup-table).
+- **Explicit write-pool sizing** (`DB_WRITE_POOL_MAX`) — the default/write connection pool no longer silently falls back to node-postgres's built-in size, mirroring the read pool's existing explicit `DB_READ_POOL_MAX`.
+- **`attributes_text` mirror column removed** in favor of a type-branched containment predicate evaluated at query time (see [Attribute storage strategy](#attribute-storage-strategy)) — one fewer JSONB column and one fewer GIN index maintained on every ingested row.
 
 ## Known limitations
 
 - **No formal, repeatable load-testing harness is currently in this repository.** The numbers in [Performance](#performance) are real measurements against the real constrained stack, but they come from ad hoc scripts, not a checked-in, reproducible suite. The full target scenario from the spec — sustained 15,000+ logs/sec, 1M rows, concurrent aggregation at 1 request/sec, p95 latency, and 20-second ingest-to-queryable visibility, all measured together — has not yet been formally executed and recorded. Rebuilding this harness is the top open item.
 - **Tenant isolation has no automated test yet** (per this project's current no-`.test.`/`.spec.` convention) — it was verified manually instead, end-to-end against the real constrained stack: two tenants were self-registered, each given its own API key, and each ingested distinct, service-tagged logs. `GET /logs` (filtered and unfiltered), `GET /logs/aggregate`, and cursor-based pagination were all confirmed to return zero cross-tenant rows in both directions — including replaying one tenant's pagination cursor with the other tenant's key, which returned only that second tenant's own data, never the first's. See `specs/001-multi-tenancy/quickstart.md` Scenario 4 for the reproducible steps.
 - **No unit or integration test suite yet.** CI runs a black-box HTTP smoke test (`docker compose up` + curl against all four endpoints) but there is no unit coverage for validators, cursor handling, or query builders, and no integration suite exercising edge cases (empty ranges, every rejection reason, full cursor pagination walks) against a real database.
-- **GIN indexes trade ingestion cost for query cost.** `idx_logs_attributes_text_gin` and `idx_logs_message_trigram` make `attr.<key>` and `q` filtering fast but add write amplification on every insert. This hasn't been benchmarked against a configuration without them, so the exact cost isn't quantified — only that the measured ingestion rate above already includes it.
 - **The tenant-aware index redesign (above) hasn't been re-benchmarked against the external load-testing portal yet.** `idx_logs_tenant_timestamp_id` is a net-new index on the hottest write path in the system, added by reasoning about query patterns rather than by measurement. This project's own history (the GIN-trigram-index episode above) is direct evidence that assumption-based indexing decisions here can be wrong in exactly this way — the index strategy should be revisited, not defended, if a re-benchmark shows an ingestion regression.
+- **Write coalescing, rollups, write-pool sizing, and the `attributes_text` removal (above) are implemented but not yet benchmarked against the external load-testing portal.** Each was verified locally for correctness (concurrent-request semantics, crash consistency, exact-match aggregation, response-shape stability — see `specs/002-performance-optimization/`), but per this project's own measured-not-assumed standard, none is considered validated until it shows a measurable improvement there; any that comes back flat or regresses another required metric must not be retained.
 - **`tenant_refresh_tokens` rows are never purged** after `expires_at` passes or `revoked_at` is set. At the "tens of tenants" scale this project targets, the table's growth rate is immaterial, and a cleanup job (cron delete, or folding into `RetentionService`) is straightforward to add later without any schema change — this is an accepted, deliberately out-of-scope gap for this iteration, not an oversight.
 - **No rate limiting or backpressure shedding.** Authentication and multi-tenancy are implemented (see [Optional features](#optional-features)), but the service still accepts load until PostgreSQL or the application container itself becomes the bottleneck, with no graceful `429`/`503` shedding in between.
 - **Swagger UI is unavailable in the default (production) Compose posture** by design (`NODE_ENV=production` disables it) — use `requests/*.rest` for runnable examples instead, or set `NODE_ENV` to a non-production value to enable it.
