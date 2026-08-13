@@ -1,0 +1,1694 @@
+{
+  "version": 1,
+  "meta": {
+    "lastScanned": "2026-08-12T19:58:57.667Z",
+    "fileCount": 166,
+    "hits": 0,
+    "misses": 0,
+    "renderedHash": "7e040d536a85d42ac3787374cd4cc8d80a9b0c80f819c18472e79d91a7d914c8",
+    "storeUpdatedAt": "2026-08-12T19:58:57.673Z"
+  },
+  "files": {
+    ".agents/skills/speckit-agent-context-update/SKILL.md": {
+      "description": "Update Coding Agent Context",
+      "tokens": 382,
+      "hash": "53afb27e02c53ebb",
+      "size": 1531,
+      "mtimeMs": 1786563162674.4275,
+      "updatedAt": "2026-08-12T19:58:55.646Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-analyze/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2714,
+      "hash": "2740b8aeab8d0104",
+      "size": 10866,
+      "mtimeMs": 1786563162482.942,
+      "updatedAt": "2026-08-12T19:58:55.658Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-checklist/SKILL.md": {
+      "description": "Checklist Purpose: \"Unit Tests for English\"",
+      "tokens": 5083,
+      "hash": "29d47cc5fe240450",
+      "size": 20420,
+      "mtimeMs": 1786563162520.4788,
+      "updatedAt": "2026-08-12T19:58:55.669Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-clarify/SKILL.md": {
+      "description": "User Input",
+      "tokens": 4316,
+      "hash": "2c184d847f288f93",
+      "size": 17310,
+      "mtimeMs": 1786563162487.7634,
+      "updatedAt": "2026-08-12T19:58:55.682Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-constitution/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2139,
+      "hash": "e2cbe859958c5a05",
+      "size": 8575,
+      "mtimeMs": 1786563162496.2,
+      "updatedAt": "2026-08-12T19:58:55.694Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-converge/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2960,
+      "hash": "a5a1047a4820a1e4",
+      "size": 11863,
+      "mtimeMs": 1786563162510.03,
+      "updatedAt": "2026-08-12T19:58:55.704Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-implement/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2838,
+      "hash": "80db51bc215ce505",
+      "size": 11376,
+      "mtimeMs": 1786563162496.2,
+      "updatedAt": "2026-08-12T19:58:55.716Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-plan/SKILL.md": {
+      "description": "User Input",
+      "tokens": 1849,
+      "hash": "b92428f869e93676",
+      "size": 7411,
+      "mtimeMs": 1786563162515.4575,
+      "updatedAt": "2026-08-12T19:58:55.723Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-specify/SKILL.md": {
+      "description": "User Input",
+      "tokens": 4392,
+      "hash": "b63e3f76c18a5527",
+      "size": 17591,
+      "mtimeMs": 1786563162523.9185,
+      "updatedAt": "2026-08-12T19:58:55.733Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-tasks/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2536,
+      "hash": "4b9a311eb6797801",
+      "size": 10183,
+      "mtimeMs": 1786563162528.7627,
+      "updatedAt": "2026-08-12T19:58:55.742Z",
+      "source": "scan"
+    },
+    ".agents/skills/speckit-taskstoissues/SKILL.md": {
+      "description": "User Input",
+      "tokens": 1115,
+      "hash": "a7a7d3f51f20dd13",
+      "size": 4462,
+      "mtimeMs": 1786563162528.7627,
+      "updatedAt": "2026-08-12T19:58:55.751Z",
+      "source": "scan"
+    },
+    ".claude/commands/reframe.md": {
+      "description": "Mode: migrate [framework]",
+      "tokens": 551,
+      "hash": "17a75695be5d4629",
+      "size": 2221,
+      "mtimeMs": 1786564496263.0945,
+      "updatedAt": "2026-08-12T19:58:55.760Z",
+      "source": "scan"
+    },
+    ".claude/commands/security-audit.md": {
+      "description": "Layer 1 — Dependencies",
+      "tokens": 510,
+      "hash": "e6f7e0b7337c9c86",
+      "size": 2060,
+      "mtimeMs": 1786564496263.0945,
+      "updatedAt": "2026-08-12T19:58:55.765Z",
+      "source": "scan"
+    },
+    ".claude/rules/openwolf.md": {
+      "description": "",
+      "tokens": 328,
+      "hash": "6d735b2c1c54a916",
+      "size": 1323,
+      "mtimeMs": 1786564496183.0813,
+      "updatedAt": "2026-08-12T19:58:55.775Z",
+      "source": "scan"
+    },
+    ".claude/settings.json": {
+      "description": "",
+      "tokens": 514,
+      "hash": "f68759bb50af5ee4",
+      "size": 1799,
+      "mtimeMs": 1786564496183.0813,
+      "updatedAt": "2026-08-12T19:58:55.779Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-analyze/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2740,
+      "hash": "adb9c4baed1d0e27",
+      "size": 10970,
+      "mtimeMs": 1786563169396.0798,
+      "updatedAt": "2026-08-12T19:58:55.790Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-checklist/SKILL.md": {
+      "description": "Checklist Purpose: \"Unit Tests for English\"",
+      "tokens": 5110,
+      "hash": "82a54d9ce969ae87",
+      "size": 20529,
+      "mtimeMs": 1786563169412.9163,
+      "updatedAt": "2026-08-12T19:58:55.800Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-clarify/SKILL.md": {
+      "description": "User Input",
+      "tokens": 4343,
+      "hash": "fd720c2b468f10f8",
+      "size": 17418,
+      "mtimeMs": 1786563169404.8015,
+      "updatedAt": "2026-08-12T19:58:55.808Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-constitution/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2169,
+      "hash": "c1a044aba243ca6a",
+      "size": 8695,
+      "mtimeMs": 1786563169404.8015,
+      "updatedAt": "2026-08-12T19:58:55.817Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-converge/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2973,
+      "hash": "0c16a3220a920425",
+      "size": 11916,
+      "mtimeMs": 1786563169364.196,
+      "updatedAt": "2026-08-12T19:58:55.826Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-implement/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2867,
+      "hash": "97a339450a2a81cb",
+      "size": 11494,
+      "mtimeMs": 1786563169408.508,
+      "updatedAt": "2026-08-12T19:58:55.835Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-plan/SKILL.md": {
+      "description": "User Input",
+      "tokens": 1876,
+      "hash": "08e693951151193e",
+      "size": 7522,
+      "mtimeMs": 1786563169411.5483,
+      "updatedAt": "2026-08-12T19:58:55.844Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-specify/SKILL.md": {
+      "description": "User Input",
+      "tokens": 4419,
+      "hash": "ebe19db388407058",
+      "size": 17702,
+      "mtimeMs": 1786563169412.9163,
+      "updatedAt": "2026-08-12T19:58:55.854Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-tasks/SKILL.md": {
+      "description": "User Input",
+      "tokens": 2562,
+      "hash": "84c276f7037693eb",
+      "size": 10290,
+      "mtimeMs": 1786563169412.9163,
+      "updatedAt": "2026-08-12T19:58:55.863Z",
+      "source": "scan"
+    },
+    ".claude/skills/speckit-taskstoissues/SKILL.md": {
+      "description": "User Input",
+      "tokens": 1143,
+      "hash": "e326c30c89a6bb67",
+      "size": 4575,
+      "mtimeMs": 1786563169417.2456,
+      "updatedAt": "2026-08-12T19:58:55.872Z",
+      "source": "scan"
+    },
+    ".codex/config.toml": {
+      "description": "",
+      "tokens": 7,
+      "hash": "d37497c327812159",
+      "size": 24,
+      "mtimeMs": 1785681317970.1682,
+      "updatedAt": "2026-08-12T19:58:55.877Z",
+      "source": "scan"
+    },
+    ".codex/hooks.json": {
+      "description": "",
+      "tokens": 693,
+      "hash": "6ef5903ad4a52d5a",
+      "size": 2425,
+      "mtimeMs": 1786564496237.531,
+      "updatedAt": "2026-08-12T19:58:55.883Z",
+      "source": "scan"
+    },
+    ".codex/hooks.json.graphify-bak": {
+      "description": "",
+      "tokens": 673,
+      "hash": "e61bb03af894a7b8",
+      "size": 2523,
+      "mtimeMs": 1785681350103.3848,
+      "updatedAt": "2026-08-12T19:58:55.889Z",
+      "source": "scan"
+    },
+    ".codex/prompts/reframe.md": {
+      "description": "Mode: migrate [framework]",
+      "tokens": 551,
+      "hash": "17a75695be5d4629",
+      "size": 2221,
+      "mtimeMs": 1786564496269.4185,
+      "updatedAt": "2026-08-12T19:58:55.899Z",
+      "source": "scan"
+    },
+    ".codex/prompts/security-audit.md": {
+      "description": "Layer 1 — Dependencies",
+      "tokens": 510,
+      "hash": "e6f7e0b7337c9c86",
+      "size": 2060,
+      "mtimeMs": 1786564496269.4185,
+      "updatedAt": "2026-08-12T19:58:55.907Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/.graphify_version": {
+      "description": "",
+      "tokens": 2,
+      "hash": "56ec283f9c20d3ae",
+      "size": 6,
+      "mtimeMs": 1785681355314.423,
+      "updatedAt": "2026-08-12T19:58:55.920Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/add-watch.md": {
+      "description": "graphify reference: add a URL and watch a folder",
+      "tokens": 619,
+      "hash": "b3f6757024058268",
+      "size": 2486,
+      "mtimeMs": 1785652519946.9714,
+      "updatedAt": "2026-08-12T19:58:55.932Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/exports.md": {
+      "description": "graphify reference: extra exports and benchmark",
+      "tokens": 840,
+      "hash": "ee47fae477f106d8",
+      "size": 3362,
+      "mtimeMs": 1785652519946.9714,
+      "updatedAt": "2026-08-12T19:58:55.944Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/extraction-spec.md": {
+      "description": "graphify reference: extraction subagent prompt (compact)",
+      "tokens": 1105,
+      "hash": "32d7decad42d5812",
+      "size": 4431,
+      "mtimeMs": 1785652519947.9968,
+      "updatedAt": "2026-08-12T19:58:55.957Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/github-and-merge.md": {
+      "description": "graphify reference: GitHub clone and cross-repo merge",
+      "tokens": 541,
+      "hash": "e5ebd90c7686f503",
+      "size": 2177,
+      "mtimeMs": 1785652519947.9968,
+      "updatedAt": "2026-08-12T19:58:55.971Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/hooks.md": {
+      "description": "graphify reference: commit hook and native CLAUDE.md integration",
+      "tokens": 317,
+      "hash": "b9a4e9f66813c6fc",
+      "size": 1267,
+      "mtimeMs": 1785652519949.2395,
+      "updatedAt": "2026-08-12T19:58:55.985Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/query.md": {
+      "description": "graphify reference: query, path, explain",
+      "tokens": 3353,
+      "hash": "e563ddcb1e155aa2",
+      "size": 13456,
+      "mtimeMs": 1785652519964.2893,
+      "updatedAt": "2026-08-12T19:58:56.002Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/transcribe.md": {
+      "description": "graphify reference: transcribe video and audio",
+      "tokens": 792,
+      "hash": "676a1e39aa6d43cd",
+      "size": 3173,
+      "mtimeMs": 1785652519965.2903,
+      "updatedAt": "2026-08-12T19:58:56.017Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/references/update.md": {
+      "description": "graphify reference: incremental update and cluster-only",
+      "tokens": 2601,
+      "hash": "661f559b3ff4f3db",
+      "size": 10425,
+      "mtimeMs": 1785652519966.406,
+      "updatedAt": "2026-08-12T19:58:56.034Z",
+      "source": "scan"
+    },
+    ".codex/skills/graphify/SKILL.md": {
+      "description": "/graphify",
+      "tokens": 10120,
+      "hash": "9024289348cceb61",
+      "size": 40537,
+      "mtimeMs": 1785681355314.423,
+      "updatedAt": "2026-08-12T19:58:56.044Z",
+      "source": "scan"
+    },
+    ".dockerignore": {
+      "description": "Docker ignore rules",
+      "tokens": 56,
+      "hash": "deda84a2255fbef9",
+      "size": 208,
+      "mtimeMs": 1786379493803.1167,
+      "updatedAt": "2026-08-12T19:58:56.047Z",
+      "source": "scan"
+    },
+    ".github/workflows/ci.yml": {
+      "description": "CI: CI",
+      "tokens": 1214,
+      "hash": "7a4629533aac0352",
+      "size": 4249,
+      "mtimeMs": 1786562984461.0127,
+      "updatedAt": "2026-08-12T19:58:56.058Z",
+      "source": "scan"
+    },
+    ".gitignore": {
+      "description": "Git ignore rules",
+      "tokens": 207,
+      "hash": "e9650db325fe3381",
+      "size": 774,
+      "mtimeMs": 1786563238446.81,
+      "updatedAt": "2026-08-12T19:58:56.060Z",
+      "source": "scan"
+    },
+    ".prettierrc": {
+      "description": "Prettier configuration",
+      "tokens": 15,
+      "hash": "30d23aaa58117206",
+      "size": 56,
+      "mtimeMs": 1785681150698.9954,
+      "updatedAt": "2026-08-12T19:58:56.062Z",
+      "source": "scan"
+    },
+    ".specify/extensions/.registry": {
+      "description": "",
+      "tokens": 170,
+      "hash": "fc1ce5d814b4792b",
+      "size": 635,
+      "mtimeMs": 1786563162678.65,
+      "updatedAt": "2026-08-12T19:58:56.071Z",
+      "source": "scan"
+    },
+    ".specify/extensions/agent-context/agent-context-config.yml": {
+      "description": "",
+      "tokens": 30,
+      "hash": "12e5112a14c8bdeb",
+      "size": 105,
+      "mtimeMs": 1786563177860.9138,
+      "updatedAt": "2026-08-12T19:58:56.081Z",
+      "source": "scan"
+    },
+    ".specify/extensions/agent-context/commands/speckit.agent-context.update.md": {
+      "description": "Update Coding Agent Context",
+      "tokens": 322,
+      "hash": "385c981d0af647f6",
+      "size": 1292,
+      "mtimeMs": 1781809635273.6663,
+      "updatedAt": "2026-08-12T19:58:56.094Z",
+      "source": "scan"
+    },
+    ".specify/extensions/agent-context/extension.yml": {
+      "description": "",
+      "tokens": 267,
+      "hash": "9a1dc02d2d0139bb",
+      "size": 932,
+      "mtimeMs": 1781809635268.6726,
+      "updatedAt": "2026-08-12T19:58:56.102Z",
+      "source": "scan"
+    },
+    ".specify/extensions/agent-context/README.md": {
+      "description": "Project documentation",
+      "tokens": 666,
+      "hash": "e7983ef661a494d5",
+      "size": 2675,
+      "mtimeMs": 1781809635259.4514,
+      "updatedAt": "2026-08-12T19:58:56.108Z",
+      "source": "scan"
+    },
+    ".specify/extensions/agent-context/scripts/bash/update-agent-context.sh": {
+      "description": "update-agent-context.sh",
+      "tokens": 1886,
+      "hash": "9dc5dbe765dfb6d6",
+      "size": 6599,
+      "mtimeMs": 1781809635279.5051,
+      "updatedAt": "2026-08-12T19:58:56.123Z",
+      "source": "scan"
+    },
+    ".specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": {
+      "description": "update-agent-context.ps1",
+      "tokens": 2055,
+      "hash": "dd8f714bcf477a0e",
+      "size": 7706,
+      "mtimeMs": 1781809635278.5007,
+      "updatedAt": "2026-08-12T19:58:56.140Z",
+      "source": "scan"
+    },
+    ".specify/extensions.yml": {
+      "description": "",
+      "tokens": 180,
+      "hash": "619a95e524c8ff95",
+      "size": 628,
+      "mtimeMs": 1786563162678.65,
+      "updatedAt": "2026-08-12T19:58:56.146Z",
+      "source": "scan"
+    },
+    ".specify/feature.json": {
+      "description": "",
+      "tokens": 16,
+      "hash": "9ba7e4a087db62f7",
+      "size": 53,
+      "mtimeMs": 1786563793477.3076,
+      "updatedAt": "2026-08-12T19:58:56.150Z",
+      "source": "scan"
+    },
+    ".specify/init-options.json": {
+      "description": "",
+      "tokens": 51,
+      "hash": "e0ecbf098bdd7757",
+      "size": 178,
+      "mtimeMs": 1786563177860.9138,
+      "updatedAt": "2026-08-12T19:58:56.157Z",
+      "source": "scan"
+    },
+    ".specify/integration.json": {
+      "description": "",
+      "tokens": 110,
+      "hash": "7eb1c41e33d52553",
+      "size": 383,
+      "mtimeMs": 1786563177860.9138,
+      "updatedAt": "2026-08-12T19:58:56.164Z",
+      "source": "scan"
+    },
+    ".specify/integrations/claude.manifest.json": {
+      "description": "",
+      "tokens": 372,
+      "hash": "5c6c1bdcbc42c99f",
+      "size": 1302,
+      "mtimeMs": 1786563169417.2456,
+      "updatedAt": "2026-08-12T19:58:56.175Z",
+      "source": "scan"
+    },
+    ".specify/integrations/codex.manifest.json": {
+      "description": "",
+      "tokens": 372,
+      "hash": "1cab5bc9c80214a7",
+      "size": 1301,
+      "mtimeMs": 1786563162539.9475,
+      "updatedAt": "2026-08-12T19:58:56.182Z",
+      "source": "scan"
+    },
+    ".specify/integrations/speckit.manifest.json": {
+      "description": "",
+      "tokens": 376,
+      "hash": "7812488554b3e23a",
+      "size": 1315,
+      "mtimeMs": 1786563177856.7532,
+      "updatedAt": "2026-08-12T19:58:56.189Z",
+      "source": "scan"
+    },
+    ".specify/memory/constitution.md": {
+      "description": "[PROJECT_NAME] Constitution",
+      "tokens": 584,
+      "hash": "ce7549540fa45543",
+      "size": 2346,
+      "mtimeMs": 1786563162599.3154,
+      "updatedAt": "2026-08-12T19:58:56.199Z",
+      "source": "scan"
+    },
+    ".specify/scripts/powershell/check-prerequisites.ps1": {
+      "description": "Consolidated prerequisite checking script (PowerShell)",
+      "tokens": 1273,
+      "hash": "7302acc26ed7920e",
+      "size": 4773,
+      "mtimeMs": 1786563177819.7334,
+      "updatedAt": "2026-08-12T19:58:56.214Z",
+      "source": "scan"
+    },
+    ".specify/scripts/powershell/common.ps1": {
+      "description": "Common PowerShell functions analogous to common.sh",
+      "tokens": 5529,
+      "hash": "3846917aff1e3fc6",
+      "size": 20731,
+      "mtimeMs": 1786563177819.7334,
+      "updatedAt": "2026-08-12T19:58:56.221Z",
+      "source": "scan"
+    },
+    ".specify/scripts/powershell/create-new-feature.ps1": {
+      "description": "Create a new feature",
+      "tokens": 2476,
+      "hash": "1cd5b716e56c1df1",
+      "size": 9282,
+      "mtimeMs": 1786563177830.2634,
+      "updatedAt": "2026-08-12T19:58:56.231Z",
+      "source": "scan"
+    },
+    ".specify/scripts/powershell/setup-plan.ps1": {
+      "description": "Setup implementation plan for a feature",
+      "tokens": 566,
+      "hash": "d55b161c13b1a83d",
+      "size": 2121,
+      "mtimeMs": 1786563177830.2634,
+      "updatedAt": "2026-08-12T19:58:56.241Z",
+      "source": "scan"
+    },
+    ".specify/scripts/powershell/setup-tasks.ps1": {
+      "description": "",
+      "tokens": 781,
+      "hash": "441f3a6cfa1da236",
+      "size": 2926,
+      "mtimeMs": 1786563177836.1042,
+      "updatedAt": "2026-08-12T19:58:56.249Z",
+      "source": "scan"
+    },
+    ".specify/templates/checklist-template.md": {
+      "description": "[CHECKLIST TYPE] Checklist: [FEATURE NAME]",
+      "tokens": 328,
+      "hash": "c37695297e5d3153",
+      "size": 1312,
+      "mtimeMs": 1786563177840.252,
+      "updatedAt": "2026-08-12T19:58:56.260Z",
+      "source": "scan"
+    },
+    ".specify/templates/constitution-template.md": {
+      "description": "[PROJECT_NAME] Constitution",
+      "tokens": 584,
+      "hash": "ce7549540fa45543",
+      "size": 2346,
+      "mtimeMs": 1786563177844.487,
+      "updatedAt": "2026-08-12T19:58:56.268Z",
+      "source": "scan"
+    },
+    ".specify/templates/plan-template.md": {
+      "description": "Implementation Plan: [FEATURE]",
+      "tokens": 886,
+      "hash": "cc7f7979cf8d8836",
+      "size": 3703,
+      "mtimeMs": 1786563177848.2288,
+      "updatedAt": "2026-08-12T19:58:56.275Z",
+      "source": "scan"
+    },
+    ".specify/templates/spec-template.md": {
+      "description": "Feature Specification: [FEATURE NAME]",
+      "tokens": 1139,
+      "hash": "3945437fc35cd30a",
+      "size": 4556,
+      "mtimeMs": 1786563177852.1467,
+      "updatedAt": "2026-08-12T19:58:56.283Z",
+      "source": "scan"
+    },
+    ".specify/templates/tasks-template.md": {
+      "description": "Tasks: [FEATURE NAME]",
+      "tokens": 2284,
+      "hash": "fc29a233f6f5a27c",
+      "size": 9171,
+      "mtimeMs": 1786563177852.1467,
+      "updatedAt": "2026-08-12T19:58:56.291Z",
+      "source": "scan"
+    },
+    ".specify/workflows/speckit/workflow.yml": {
+      "description": "",
+      "tokens": 626,
+      "hash": "a3b7c17724df02c7",
+      "size": 2197,
+      "mtimeMs": 1781809635282.5083,
+      "updatedAt": "2026-08-12T19:58:56.317Z",
+      "source": "scan"
+    },
+    ".specify/workflows/workflow-registry.json": {
+      "description": "",
+      "tokens": 109,
+      "hash": "fb91b253d9cac08e",
+      "size": 381,
+      "mtimeMs": 1786563162643.8926,
+      "updatedAt": "2026-08-12T19:58:56.332Z",
+      "source": "scan"
+    },
+    "AGENTS.md": {
+      "description": "OpenWolf",
+      "tokens": 701,
+      "hash": "37a0989b315517e3",
+      "size": 2806,
+      "mtimeMs": 1786563162536.7676,
+      "updatedAt": "2026-08-12T19:58:56.339Z",
+      "source": "scan"
+    },
+    "CLAUDE.md": {
+      "description": "OpenWolf",
+      "tokens": 564,
+      "hash": "7e27b81a1328cfde",
+      "size": 2259,
+      "mtimeMs": 1786563169396.0798,
+      "updatedAt": "2026-08-12T19:58:56.347Z",
+      "source": "scan"
+    },
+    "docker-compose.yml": {
+      "description": "Docker Compose services",
+      "tokens": 619,
+      "hash": "067ba9a9c597df09",
+      "size": 2164,
+      "mtimeMs": 1786562984464.033,
+      "updatedAt": "2026-08-12T19:58:56.353Z",
+      "source": "scan"
+    },
+    "Dockerfile": {
+      "description": "Docker container definition",
+      "tokens": 304,
+      "hash": "cae016d7787be2d7",
+      "size": 1138,
+      "mtimeMs": 1786387051376.5962,
+      "updatedAt": "2026-08-12T19:58:56.358Z",
+      "source": "scan"
+    },
+    "docs/Final_Project.md": {
+      "description": "Final Project: Log Ingestion and Query Service",
+      "tokens": 4615,
+      "hash": "d61c165cf730e004",
+      "size": 18478,
+      "mtimeMs": 1786381404313.0393,
+      "updatedAt": "2026-08-12T19:58:56.374Z",
+      "source": "scan"
+    },
+    "docs/suggestions_to_increase_the_performance.md": {
+      "description": "1. Slim the row",
+      "tokens": 1751,
+      "hash": "b5e1a8ac2b9d2db3",
+      "size": 7085,
+      "mtimeMs": 1786545431950.6985,
+      "updatedAt": "2026-08-12T19:58:56.384Z",
+      "source": "scan"
+    },
+    "eslint.config.mjs": {
+      "description": "ESLint flat configuration",
+      "tokens": 250,
+      "hash": "e94fea27c5d744a4",
+      "size": 934,
+      "mtimeMs": 1785681150701.5923,
+      "updatedAt": "2026-08-12T19:58:56.391Z",
+      "source": "scan"
+    },
+    "graphify-out/.graphify_analysis.json": {
+      "description": "",
+      "tokens": 3389,
+      "hash": "4579a4a51649f20a",
+      "size": 11859,
+      "mtimeMs": 1785681342153.272,
+      "updatedAt": "2026-08-12T19:58:56.407Z",
+      "source": "scan"
+    },
+    "graphify-out/.graphify_python": {
+      "description": "",
+      "tokens": 5,
+      "hash": "31f2aee4e71d21fb",
+      "size": 16,
+      "mtimeMs": 1786185350603.3965,
+      "updatedAt": "2026-08-12T19:58:56.420Z",
+      "source": "scan"
+    },
+    "graphify-out/.graphify_root": {
+      "description": "",
+      "tokens": 14,
+      "hash": "ee7f5830665ad4d4",
+      "size": 52,
+      "mtimeMs": 1785681342151.327,
+      "updatedAt": "2026-08-12T19:58:56.430Z",
+      "source": "scan"
+    },
+    "graphify-out/.vocab.txt": {
+      "description": "Declares types",
+      "tokens": 366,
+      "hash": "0c9750cec7cfb335",
+      "size": 1464,
+      "mtimeMs": 1786544299424.65,
+      "updatedAt": "2026-08-12T19:58:56.441Z",
+      "source": "scan"
+    },
+    "graphify-out/cache/ast/v0.9.32/42a7230cdc1aaf00f4a0a8c78bfa3fa46ca4b93a6eb4f28327722155638dc718.json": {
+      "description": "",
+      "tokens": 2716,
+      "hash": "9f5458f172c93d9e",
+      "size": 9503,
+      "mtimeMs": 1785681340430.5742,
+      "updatedAt": "2026-08-12T19:58:56.473Z",
+      "source": "scan"
+    },
+    "graphify-out/cache/ast/v0.9.32/46315faeec2a87b2ed4049fc128b6ff43f038a76097141721e2518640011e78f.json": {
+      "description": "",
+      "tokens": 790,
+      "hash": "35f3cb54ea90db41",
+      "size": 2765,
+      "mtimeMs": 1785681340426.2039,
+      "updatedAt": "2026-08-12T19:58:56.486Z",
+      "source": "scan"
+    },
+    "graphify-out/cache/ast/v0.9.32/6bace277a911f3dbc54ea989701f231f94b612ff5d77083b756a2159109eb60a.json": {
+      "description": "",
+      "tokens": 9836,
+      "hash": "885700731d282cbc",
+      "size": 34423,
+      "mtimeMs": 1785681340393.3977,
+      "updatedAt": "2026-08-12T19:58:56.499Z",
+      "source": "scan"
+    },
+    "graphify-out/cache/ast/v0.9.32/79254ad5647d674ed8ea7513f76dd67c80d96d1ecb3abdf0686a1c39887a9fda.json": {
+      "description": "",
+      "tokens": 168,
+      "hash": "bb9a6a46958ad6cf",
+      "size": 586,
+      "mtimeMs": 1785681340515.1028,
+      "updatedAt": "2026-08-12T19:58:56.509Z",
+      "source": "scan"
+    },
+    "graphify-out/cache/ast/v0.9.32/a289da2d045d96c4c551e39bcd85eeca5be69fe50bcbf600069df82ee2f3e748.json": {
+      "description": "",
+      "tokens": 585,
+      "hash": "4246104216b65eab",
+      "size": 2045,
+      "mtimeMs": 1785681340559.6482,
+      "updatedAt": "2026-08-12T19:58:56.519Z",
+      "source": "scan"
+    },
+    "graphify-out/cache/stat-index.json": {
+      "description": "",
+      "tokens": 2046,
+      "hash": "c4e37df4dc6f784d",
+      "size": 7160,
+      "mtimeMs": 1785681342187.8086,
+      "updatedAt": "2026-08-12T19:58:56.525Z",
+      "source": "scan"
+    },
+    "graphify-out/graph.json": {
+      "description": "",
+      "tokens": 59067,
+      "hash": "c0d15328292a03e9",
+      "size": 206733,
+      "mtimeMs": 1785681342147.3,
+      "updatedAt": "2026-08-12T19:58:56.535Z",
+      "source": "scan"
+    },
+    "graphify-out/manifest.json": {
+      "description": "",
+      "tokens": 1639,
+      "hash": "9de0aa5e2c2e7e4b",
+      "size": 5736,
+      "mtimeMs": 1785681342181.4365,
+      "updatedAt": "2026-08-12T19:58:56.541Z",
+      "source": "scan"
+    },
+    "nest-cli.json": {
+      "description": "",
+      "tokens": 49,
+      "hash": "bcb15e3049ff5d13",
+      "size": 171,
+      "mtimeMs": 1785771260296.4219,
+      "updatedAt": "2026-08-12T19:58:56.545Z",
+      "source": "scan"
+    },
+    "package-lock.json": {
+      "description": "npm lock file",
+      "tokens": 113853,
+      "hash": "ffe55df64669a2a0",
+      "size": 398483,
+      "mtimeMs": 1786562984472.1436,
+      "updatedAt": "2026-08-12T19:58:56.557Z",
+      "source": "scan"
+    },
+    "package.json": {
+      "description": "Node.js package manifest",
+      "tokens": 978,
+      "hash": "3a6ad056d8cb5e36",
+      "size": 3421,
+      "mtimeMs": 1786562984472.1436,
+      "updatedAt": "2026-08-12T19:58:56.561Z",
+      "source": "scan"
+    },
+    "projectSchema.dbml": {
+      "description": "",
+      "tokens": 305,
+      "hash": "5ef1368556481598",
+      "size": 1145,
+      "mtimeMs": 1786562984472.1436,
+      "updatedAt": "2026-08-12T19:58:56.565Z",
+      "source": "scan"
+    },
+    "prompt/testing.md": {
+      "description": "",
+      "tokens": 620,
+      "hash": "6135f8b2d0d11773",
+      "size": 2501,
+      "mtimeMs": 1786387404304.0024,
+      "updatedAt": "2026-08-12T19:58:56.575Z",
+      "source": "scan"
+    },
+    "README.md": {
+      "description": "Project documentation",
+      "tokens": 5230,
+      "hash": "d7f86b09555b322f",
+      "size": 21056,
+      "mtimeMs": 1786562984461.0127,
+      "updatedAt": "2026-08-12T19:58:56.579Z",
+      "source": "scan"
+    },
+    "requests/health.check.rest": {
+      "description": "GET /health",
+      "tokens": 90,
+      "hash": "440a76676a9b689d",
+      "size": 338,
+      "mtimeMs": 1786562984472.1436,
+      "updatedAt": "2026-08-12T19:58:56.603Z",
+      "source": "scan"
+    },
+    "requests/logs.aggregate.rest": {
+      "description": "Aggregates filtered logs into supported time buckets with optional grouping.",
+      "tokens": 119,
+      "hash": "4ebf086884887c3f",
+      "size": 445,
+      "mtimeMs": 1786562984472.1436,
+      "updatedAt": "2026-08-12T19:58:56.616Z",
+      "source": "scan"
+    },
+    "requests/logs.ingest.rest": {
+      "description": "Ingests a batch while preserving valid entries when another entry is rejected.",
+      "tokens": 241,
+      "hash": "718bd6d447ed7a83",
+      "size": 903,
+      "mtimeMs": 1786562984472.1436,
+      "updatedAt": "2026-08-12T19:58:56.625Z",
+      "source": "scan"
+    },
+    "requests/logs.list.rest": {
+      "description": "Queries logs with freely combinable filters and opaque cursor pagination.",
+      "tokens": 133,
+      "hash": "482920c7ba66d0f1",
+      "size": 497,
+      "mtimeMs": 1786562984480.3943,
+      "updatedAt": "2026-08-12T19:58:56.635Z",
+      "source": "scan"
+    },
+    "src/app.controller.ts": {
+      "description": "Exports AppController",
+      "tokens": 79,
+      "hash": "7bb4dccd0d05bcde",
+      "size": 274,
+      "mtimeMs": 1785692516807.3696,
+      "updatedAt": "2026-08-12T19:58:56.746Z",
+      "source": "scan"
+    },
+    "src/app.module.ts": {
+      "description": "Exports AppModule",
+      "tokens": 470,
+      "hash": "8dc223b26fa2f35c",
+      "size": 1880,
+      "mtimeMs": 1786562984480.3943,
+      "updatedAt": "2026-08-12T19:58:56.759Z",
+      "source": "scan"
+    },
+    "src/app.service.ts": {
+      "description": "Exports AppService",
+      "tokens": 41,
+      "hash": "eaf8514ce110fa42",
+      "size": 142,
+      "mtimeMs": 1785692516832.4646,
+      "updatedAt": "2026-08-12T19:58:56.772Z",
+      "source": "scan"
+    },
+    "src/common/constants/http.constants.ts": {
+      "description": "Exports DEFAULT_JSON_BODY_LIMIT",
+      "tokens": 14,
+      "hash": "08f5d043772fb18d",
+      "size": 47,
+      "mtimeMs": 1785772251214.6252,
+      "updatedAt": "2026-08-12T19:58:56.795Z",
+      "source": "scan"
+    },
+    "src/common/constants/log-api.constants.ts": {
+      "description": "Exports DEFAULT_LOG_QUERY_LIMIT, MAX_LOG_QUERY_LIMIT, MAX_FUTURE_TIMESTAMP_OFFSET_MS, ATTRIBUTE_QUERY_PREFIX + 6 more",
+      "tokens": 215,
+      "hash": "b10690574037079c",
+      "size": 752,
+      "mtimeMs": 1785772442068.7747,
+      "updatedAt": "2026-08-12T19:58:56.811Z",
+      "source": "scan"
+    },
+    "src/common/constants/log-query.constants.ts": {
+      "description": "Exports LOG_AGGREGATION_ORIGIN, LOG_AGGREGATION_BUCKET_INTERVALS, LOG_AGGREGATION_GROUP_COLUMNS",
+      "tokens": 91,
+      "hash": "3310708e32d768bf",
+      "size": 317,
+      "mtimeMs": 1785698963888.8147,
+      "updatedAt": "2026-08-12T19:58:56.829Z",
+      "source": "scan"
+    },
+    "src/common/constants/retention.constants.ts": {
+      "description": "Exports DEFAULT_LOG_RETENTION_DAYS, MAX_LOG_RETENTION_DAYS, DEFAULT_LOG_PARTITION_DAYS_AHEAD, MAX_LOG_PARTITION_DAYS_AHEAD + 4 more",
+      "tokens": 140,
+      "hash": "53e713d12c38305a",
+      "size": 490,
+      "mtimeMs": 1785853507533.6787,
+      "updatedAt": "2026-08-12T19:58:56.845Z",
+      "source": "scan"
+    },
+    "src/common/filters/global-exception.filter.ts": {
+      "description": "Global exception filter that normalizes all thrown exceptions into the",
+      "tokens": 791,
+      "hash": "a0ea647dd9f58890",
+      "size": 2775,
+      "mtimeMs": 1785772766804.0398,
+      "updatedAt": "2026-08-12T19:58:56.871Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "GlobalExceptionFilter",
+          "kind": "class",
+          "startLine": 25,
+          "endLine": 71,
+          "tokens": 465
+        },
+        {
+          "name": "ExternalClientError",
+          "kind": "section",
+          "startLine": 72,
+          "endLine": 76,
+          "tokens": 21
+        },
+        {
+          "name": "getExternalClientError",
+          "kind": "fn",
+          "startLine": 77,
+          "endLine": 89,
+          "tokens": 114
+        }
+      ]
+    },
+    "src/config/data-source.ts": {
+      "description": "Exports AppDataSource",
+      "tokens": 148,
+      "hash": "d1a900104ee94021",
+      "size": 516,
+      "mtimeMs": 1785692370719.1921,
+      "updatedAt": "2026-08-12T19:58:56.912Z",
+      "source": "scan"
+    },
+    "src/config/database.config.ts": {
+      "description": "Builds a TypeORM {@link DataSourceOptions} object from environment variables.",
+      "tokens": 551,
+      "hash": "2aedd549593e2779",
+      "size": 1935,
+      "mtimeMs": 1786430792369.2104,
+      "updatedAt": "2026-08-12T19:58:56.927Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "createDatabaseOptions",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 45,
+          "tokens": 316
+        },
+        {
+          "name": "createReadDatabaseOptions",
+          "kind": "fn",
+          "startLine": 46,
+          "endLine": 58,
+          "tokens": 85
+        }
+      ]
+    },
+    "src/health/health.controller.ts": {
+      "description": "Exposes the GET /health endpoint required by the project specification.",
+      "tokens": 398,
+      "hash": "5c45067f4074ed98",
+      "size": 1391,
+      "mtimeMs": 1786562984484.1133,
+      "updatedAt": "2026-08-12T19:58:56.940Z",
+      "source": "scan"
+    },
+    "src/health/health.module.ts": {
+      "description": "HealthModule — no TypeOrmModule.forFeature() needed here.",
+      "tokens": 158,
+      "hash": "5ecf77af6f9ea6b7",
+      "size": 552,
+      "mtimeMs": 1785692383417.1685,
+      "updatedAt": "2026-08-12T19:58:56.951Z",
+      "source": "scan"
+    },
+    "src/health/health.service.ts": {
+      "description": "Performs deep health checks against each infrastructure dependency.",
+      "tokens": 706,
+      "hash": "de531d3c1c867439",
+      "size": 2584,
+      "mtimeMs": 1786562984484.1133,
+      "updatedAt": "2026-08-12T19:58:56.961Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "HealthService",
+          "kind": "class",
+          "startLine": 21,
+          "endLine": 83,
+          "tokens": 510
+        }
+      ]
+    },
+    "src/health/health.types.ts": {
+      "description": "Exports DatabaseStatus, MigrationStatus, HealthStatus",
+      "tokens": 85,
+      "hash": "3a118eebda3e5c6c",
+      "size": 295,
+      "mtimeMs": 1786562984484.1133,
+      "updatedAt": "2026-08-12T19:58:56.972Z",
+      "source": "scan"
+    },
+    "src/logs/cursor/cursor.service.ts": {
+      "description": "Exports CursorService",
+      "tokens": 343,
+      "hash": "af6c50fe9b2eabb4",
+      "size": 1200,
+      "mtimeMs": 1785787889955.758,
+      "updatedAt": "2026-08-12T19:58:56.992Z",
+      "source": "scan"
+    },
+    "src/logs/dto/requests/aggregate-logs.dto.ts": {
+      "description": "Exports AggregateLogsDto",
+      "tokens": 339,
+      "hash": "6b5617c63bfbd20e",
+      "size": 1185,
+      "mtimeMs": 1785702388751.6614,
+      "updatedAt": "2026-08-12T19:58:57.015Z",
+      "source": "scan"
+    },
+    "src/logs/dto/requests/ingest-logs.dto.ts": {
+      "description": "Exports IngestLogsDto",
+      "tokens": 59,
+      "hash": "fbb6fb9f3b3e1dd7",
+      "size": 204,
+      "mtimeMs": 1785701989383.5935,
+      "updatedAt": "2026-08-12T19:58:57.030Z",
+      "source": "scan"
+    },
+    "src/logs/dto/requests/log-entry.dto.ts": {
+      "description": "Exports LogEntryDto",
+      "tokens": 238,
+      "hash": "6fed0558a7ebcb75",
+      "size": 831,
+      "mtimeMs": 1785702388668.739,
+      "updatedAt": "2026-08-12T19:58:57.045Z",
+      "source": "scan"
+    },
+    "src/logs/dto/requests/query-logs.dto.ts": {
+      "description": "Exports QueryLogsDto",
+      "tokens": 280,
+      "hash": "f8bcd04a0ff0db98",
+      "size": 979,
+      "mtimeMs": 1785702388722.4854,
+      "updatedAt": "2026-08-12T19:58:57.059Z",
+      "source": "scan"
+    },
+    "src/logs/dto/responses/aggregate-logs-response.dto.ts": {
+      "description": "Exports AggregateBucketDto, AggregateLogsResponseDto",
+      "tokens": 124,
+      "hash": "6db76bb9268578b2",
+      "size": 433,
+      "mtimeMs": 1785701989528.5276,
+      "updatedAt": "2026-08-12T19:58:57.076Z",
+      "source": "scan"
+    },
+    "src/logs/dto/responses/ingest-logs-response.dto.ts": {
+      "description": "Exports RejectedLogDto, IngestLogsResponseDto",
+      "tokens": 106,
+      "hash": "d62cbe2c9bcdb483",
+      "size": 369,
+      "mtimeMs": 1785701989472.7573,
+      "updatedAt": "2026-08-12T19:58:57.087Z",
+      "source": "scan"
+    },
+    "src/logs/dto/responses/query-logs-response.dto.ts": {
+      "description": "Exports LogResponseDto, QueryLogsResponseDto",
+      "tokens": 312,
+      "hash": "69fb857015997255",
+      "size": 1090,
+      "mtimeMs": 1785702388774.32,
+      "updatedAt": "2026-08-12T19:58:57.098Z",
+      "source": "scan"
+    },
+    "src/logs/entities/log.entity.ts": {
+      "description": "Exports Log",
+      "tokens": 443,
+      "hash": "12c279ab466ec5da",
+      "size": 1548,
+      "mtimeMs": 1786562984484.1133,
+      "updatedAt": "2026-08-12T19:58:57.111Z",
+      "source": "scan"
+    },
+    "src/logs/enums/aggregation-bucket.enum.ts": {
+      "description": "Exports AggregationBucket",
+      "tokens": 33,
+      "hash": "0b0ec75028cf2297",
+      "size": 115,
+      "mtimeMs": 1785693292636.333,
+      "updatedAt": "2026-08-12T19:58:57.123Z",
+      "source": "scan"
+    },
+    "src/logs/enums/aggregation-group.enum.ts": {
+      "description": "Exports AggregationGroup",
+      "tokens": 22,
+      "hash": "0da549291e39406e",
+      "size": 75,
+      "mtimeMs": 1785693294692.974,
+      "updatedAt": "2026-08-12T19:58:57.133Z",
+      "source": "scan"
+    },
+    "src/logs/enums/log-level.enum.ts": {
+      "description": "Exports LogLevel",
+      "tokens": 28,
+      "hash": "35b2874b269e83c4",
+      "size": 97,
+      "mtimeMs": 1785683210528.8293,
+      "updatedAt": "2026-08-12T19:58:57.143Z",
+      "source": "scan"
+    },
+    "src/logs/interfaces/cursor-payload.interface.ts": {
+      "description": "Exports CursorPayload",
+      "tokens": 20,
+      "hash": "285e0edd2e4e600f",
+      "size": 70,
+      "mtimeMs": 1785693634208.0154,
+      "updatedAt": "2026-08-12T19:58:57.154Z",
+      "source": "scan"
+    },
+    "src/logs/interfaces/log-query.interface.ts": {
+      "description": "Exports LogFilters, FindLogsQuery, LogPage, AggregateLogsQuery + 2 more",
+      "tokens": 305,
+      "hash": "313a7f4aa9b83d57",
+      "size": 1065,
+      "mtimeMs": 1786562984489.4114,
+      "updatedAt": "2026-08-12T19:58:57.162Z",
+      "source": "scan"
+    },
+    "src/logs/interfaces/log-repository.interface.ts": {
+      "description": "Exports LogAttributeValue, NewLog, LogRepositoryContract",
+      "tokens": 197,
+      "hash": "399a45a670b7847c",
+      "size": 689,
+      "mtimeMs": 1786562984489.4114,
+      "updatedAt": "2026-08-12T19:58:57.170Z",
+      "source": "scan"
+    },
+    "src/logs/logs.controller.ts": {
+      "description": "Exports LogsController",
+      "tokens": 1056,
+      "hash": "19166b9f73bff54f",
+      "size": 3696,
+      "mtimeMs": 1786562984492.8203,
+      "updatedAt": "2026-08-12T19:58:57.177Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "LogsController",
+          "kind": "class",
+          "startLine": 33,
+          "endLine": 93,
+          "tokens": 724
+        }
+      ]
+    },
+    "src/logs/logs.module.ts": {
+      "description": "Exports LogsModule",
+      "tokens": 297,
+      "hash": "6872953a1388de0f",
+      "size": 1038,
+      "mtimeMs": 1786430577352.1035,
+      "updatedAt": "2026-08-12T19:58:57.185Z",
+      "source": "scan"
+    },
+    "src/logs/mappers/log.mapper.ts": {
+      "description": "Exports mapLogEntryToNewLog, mapLogToResponse, mapAggregationToResponse",
+      "tokens": 536,
+      "hash": "561c965b85f41b4b",
+      "size": 1874,
+      "mtimeMs": 1786562984493.927,
+      "updatedAt": "2026-08-12T19:58:57.196Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "mapLogEntryToNewLog",
+          "kind": "fn",
+          "startLine": 11,
+          "endLine": 26,
+          "tokens": 114
+        },
+        {
+          "name": "mapLogToResponse",
+          "kind": "fn",
+          "startLine": 27,
+          "endLine": 37,
+          "tokens": 78
+        },
+        {
+          "name": "mapAggregationToResponse",
+          "kind": "fn",
+          "startLine": 38,
+          "endLine": 47,
+          "tokens": 63
+        },
+        {
+          "name": "sanitizeStoredAttributes",
+          "kind": "fn",
+          "startLine": 48,
+          "endLine": 65,
+          "tokens": 127
+        }
+      ]
+    },
+    "src/logs/query-builders/aggregation-query.builder.ts": {
+      "description": "Exports buildAggregationQuery",
+      "tokens": 459,
+      "hash": "e94651cb29b43c50",
+      "size": 1605,
+      "mtimeMs": 1786562984495.8362,
+      "updatedAt": "2026-08-12T19:58:57.207Z",
+      "source": "scan"
+    },
+    "src/logs/query-builders/log-filter.builder.ts": {
+      "description": "Exports applyLogFilters",
+      "tokens": 389,
+      "hash": "b8f4eea25444bb7e",
+      "size": 1361,
+      "mtimeMs": 1786548373385.31,
+      "updatedAt": "2026-08-12T19:58:57.218Z",
+      "source": "scan"
+    },
+    "src/logs/query-builders/log-query.builder.ts": {
+      "description": "Exports buildLogPageQuery",
+      "tokens": 249,
+      "hash": "e60cdf2472e85d35",
+      "size": 871,
+      "mtimeMs": 1786562984496.7996,
+      "updatedAt": "2026-08-12T19:58:57.228Z",
+      "source": "scan"
+    },
+    "src/logs/repositories/log-csv-encoder.ts": {
+      "description": "Encodes validated logs as CSV text for `COPY logs (...) FROM STDIN WITH",
+      "tokens": 387,
+      "hash": "98d0d46c865e6082",
+      "size": 1356,
+      "mtimeMs": 1786562984498.558,
+      "updatedAt": "2026-08-12T19:58:57.242Z",
+      "source": "scan"
+    },
+    "src/logs/repositories/log.repository.ts": {
+      "description": "Minimal shape of the internal replication API that TypeORM's Postgres",
+      "tokens": 1024,
+      "hash": "de6333eed7061cf6",
+      "size": 3585,
+      "mtimeMs": 1786562984500.4448,
+      "updatedAt": "2026-08-12T19:58:57.252Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "PostgresConnectionProvider",
+          "kind": "section",
+          "startLine": 30,
+          "endLine": 34,
+          "tokens": 34
+        },
+        {
+          "name": "LogRepository",
+          "kind": "class",
+          "startLine": 35,
+          "endLine": 114,
+          "tokens": 632
+        }
+      ]
+    },
+    "src/logs/services/log-aggregation.service.ts": {
+      "description": "Exports LogAggregationService",
+      "tokens": 305,
+      "hash": "979c235c0177d945",
+      "size": 1067,
+      "mtimeMs": 1786562984501.6682,
+      "updatedAt": "2026-08-12T19:58:57.266Z",
+      "source": "scan"
+    },
+    "src/logs/services/log-ingestion.service.ts": {
+      "description": "Exports LogIngestionService",
+      "tokens": 366,
+      "hash": "4f3100ebd2b7e259",
+      "size": 1278,
+      "mtimeMs": 1786562984502.848,
+      "updatedAt": "2026-08-12T19:58:57.275Z",
+      "source": "scan"
+    },
+    "src/logs/services/log-query.service.ts": {
+      "description": "Exports LogQueryService",
+      "tokens": 481,
+      "hash": "c0342814e742dfa9",
+      "size": 1681,
+      "mtimeMs": 1786562984503.431,
+      "updatedAt": "2026-08-12T19:58:57.287Z",
+      "source": "scan"
+    },
+    "src/logs/validators/cursor-payload.schema.ts": {
+      "description": "Zod schemas: cursorPayloadSchema",
+      "tokens": 128,
+      "hash": "6af5f4e1c5b39ba0",
+      "size": 447,
+      "mtimeMs": 1785772299038.757,
+      "updatedAt": "2026-08-12T19:58:57.299Z",
+      "source": "scan"
+    },
+    "src/logs/validators/iso-timestamp.schema.ts": {
+      "description": "Exports createIsoTimestampSchema",
+      "tokens": 112,
+      "hash": "fa66187022541d64",
+      "size": 391,
+      "mtimeMs": 1785772251253.4678,
+      "updatedAt": "2026-08-12T19:58:57.309Z",
+      "source": "scan"
+    },
+    "src/logs/validators/log-entry.schema.ts": {
+      "description": "Zod schemas: attributeValueSchema, logBatchSchema, logEntrySchema",
+      "tokens": 485,
+      "hash": "c61d8ec280218456",
+      "size": 1697,
+      "mtimeMs": 1785772261644.628,
+      "updatedAt": "2026-08-12T19:58:57.319Z",
+      "source": "scan"
+    },
+    "src/logs/validators/log-entry.validator.ts": {
+      "description": "Exports LogEntryValidator",
+      "tokens": 644,
+      "hash": "e7e21c5d3ee130df",
+      "size": 2253,
+      "mtimeMs": 1786562984504.44,
+      "updatedAt": "2026-08-12T19:58:57.330Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "LogEntryValidator",
+          "kind": "class",
+          "startLine": 14,
+          "endLine": 64,
+          "tokens": 438
+        },
+        {
+          "name": "readProperty",
+          "kind": "fn",
+          "startLine": 65,
+          "endLine": 70,
+          "tokens": 50
+        }
+      ]
+    },
+    "src/logs/validators/log-query.schema.ts": {
+      "description": "Zod schemas: attributeFilterKeySchema, aggregationBucketSchema",
+      "tokens": 944,
+      "hash": "4e07d2f8b86aa0f6",
+      "size": 3301,
+      "mtimeMs": 1785772261719.2346,
+      "updatedAt": "2026-08-12T19:58:57.343Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "createParametersSchema",
+          "kind": "fn",
+          "startLine": 16,
+          "endLine": 36,
+          "tokens": 172
+        },
+        {
+          "name": "createSingleStringSchema",
+          "kind": "fn",
+          "startLine": 37,
+          "endLine": 40,
+          "tokens": 38
+        },
+        {
+          "name": "createTimestampSchema",
+          "kind": "fn",
+          "startLine": 41,
+          "endLine": 112,
+          "tokens": 582
+        }
+      ]
+    },
+    "src/logs/validators/log-query.validator.ts": {
+      "description": "Exports LogQueryValidator",
+      "tokens": 725,
+      "hash": "e15bc6eca57715a5",
+      "size": 2536,
+      "mtimeMs": 1786562984504.44,
+      "updatedAt": "2026-08-12T19:58:57.357Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "LogQueryValidator",
+          "kind": "class",
+          "startLine": 20,
+          "endLine": 76,
+          "tokens": 510
+        }
+      ]
+    },
+    "src/logs/validators/zod-validation.utils.ts": {
+      "description": "Exports parseWithSchema, getFirstIssueMessage",
+      "tokens": 148,
+      "hash": "f98e33a3dabf9d8b",
+      "size": 515,
+      "mtimeMs": 1786562984504.44,
+      "updatedAt": "2026-08-12T19:58:57.371Z",
+      "source": "scan"
+    },
+    "src/main.ts": {
+      "description": "Declares bootstrap",
+      "tokens": 605,
+      "hash": "9a5ab2d2462c5d8a",
+      "size": 2335,
+      "mtimeMs": 1786383809026.5288,
+      "updatedAt": "2026-08-12T19:58:57.379Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "bootstrap",
+          "kind": "fn",
+          "startLine": 10,
+          "endLine": 54,
+          "tokens": 488
+        }
+      ]
+    },
+    "src/migrations/1785684350112-CreatePgTrgmExtension.ts": {
+      "description": "Installs the pg_trgm extension required for trigram-based",
+      "tokens": 253,
+      "hash": "c3e3e70cc95d0c56",
+      "size": 885,
+      "mtimeMs": 1785685227075.0012,
+      "updatedAt": "2026-08-12T19:58:57.398Z",
+      "source": "scan"
+    },
+    "src/migrations/1785684350113-CreateLogLevelEnum.ts": {
+      "description": "Creates the log_level PostgreSQL enum type.",
+      "tokens": 221,
+      "hash": "3b27233bc56414e6",
+      "size": 773,
+      "mtimeMs": 1785685235804.043,
+      "updatedAt": "2026-08-12T19:58:57.410Z",
+      "source": "scan"
+    },
+    "src/migrations/1785684350114-CreateLogsTable.ts": {
+      "description": "Creates the partitioned logs table with all column definitions,",
+      "tokens": 735,
+      "hash": "a17abaa59aded9cb",
+      "size": 2779,
+      "mtimeMs": 1786562984504.44,
+      "updatedAt": "2026-08-12T19:58:57.423Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "CreateLogsTable1785684350114",
+          "kind": "class",
+          "startLine": 12,
+          "endLine": 61,
+          "tokens": 591
+        }
+      ]
+    },
+    "src/migrations/1785684350115-CreateLogsTableBtreeIndexes.ts": {
+      "description": "Creates B-tree indexes for equality + range filtering and deterministic",
+      "tokens": 486,
+      "hash": "345307abc5960a49",
+      "size": 1711,
+      "mtimeMs": 1785692517050.68,
+      "updatedAt": "2026-08-12T19:58:57.435Z",
+      "source": "scan"
+    },
+    "src/migrations/1785684350116-CreateLogsTableGinIndexes.ts": {
+      "description": "Creates GIN indexes for unstructured search on the logs table.",
+      "tokens": 497,
+      "hash": "62632f5214f7a16d",
+      "size": 1739,
+      "mtimeMs": 1786548373522.6511,
+      "updatedAt": "2026-08-12T19:58:57.450Z",
+      "source": "scan"
+    },
+    "src/migrations/1785684350117-DropLogsMessageTrigramIndex.ts": {
+      "description": "Drops the trigram GIN index on `logs.message`.",
+      "tokens": 398,
+      "hash": "6f927f4328447ee4",
+      "size": 1392,
+      "mtimeMs": 1786393411855.8179,
+      "updatedAt": "2026-08-12T19:58:57.460Z",
+      "source": "scan"
+    },
+    "src/retention/interfaces/partition.interface.ts": {
+      "description": "Exports PartitionRow, PartitionExistsRow",
+      "tokens": 34,
+      "hash": "5e66eec7cf67a8f7",
+      "size": 119,
+      "mtimeMs": 1785853386385.3137,
+      "updatedAt": "2026-08-12T19:58:57.483Z",
+      "source": "scan"
+    },
+    "src/retention/interfaces/retention.interface.ts": {
+      "description": "Exports AdvisoryLockRow",
+      "tokens": 17,
+      "hash": "04ebfc5523b7ce5d",
+      "size": 58,
+      "mtimeMs": 1785853390155.5837,
+      "updatedAt": "2026-08-12T19:58:57.499Z",
+      "source": "scan"
+    },
+    "src/retention/partition.service.ts": {
+      "description": "Exports PartitionService",
+      "tokens": 1912,
+      "hash": "dc34f7410fc266c5",
+      "size": 6691,
+      "mtimeMs": 1786562984504.44,
+      "updatedAt": "2026-08-12T19:58:57.512Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "PartitionService",
+          "kind": "class",
+          "startLine": 15,
+          "endLine": 237,
+          "tokens": 1735
+        }
+      ]
+    },
+    "src/retention/retention.module.ts": {
+      "description": "Exports RetentionModule",
+      "tokens": 104,
+      "hash": "eb7b9fb1741538a7",
+      "size": 361,
+      "mtimeMs": 1785788908625.4668,
+      "updatedAt": "2026-08-12T19:58:57.525Z",
+      "source": "scan"
+    },
+    "src/retention/retention.scheduler.ts": {
+      "description": "Exports RetentionScheduler",
+      "tokens": 280,
+      "hash": "8251c55e2fa16b8d",
+      "size": 977,
+      "mtimeMs": 1785788908611.3943,
+      "updatedAt": "2026-08-12T19:58:57.538Z",
+      "source": "scan"
+    },
+    "src/retention/retention.service.ts": {
+      "description": "Exports RetentionService",
+      "tokens": 1029,
+      "hash": "004e6dcd2ac22394",
+      "size": 3599,
+      "mtimeMs": 1786383809081.4314,
+      "updatedAt": "2026-08-12T19:58:57.552Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "RetentionService",
+          "kind": "class",
+          "startLine": 17,
+          "endLine": 121,
+          "tokens": 861
+        }
+      ]
+    },
+    "src/scripts/create-database.ts": {
+      "description": "Declares createDatabase",
+      "tokens": 349,
+      "hash": "e2c28ae1d5b5d464",
+      "size": 1229,
+      "mtimeMs": 1785692517079.3943,
+      "updatedAt": "2026-08-12T19:58:57.571Z",
+      "source": "scan"
+    },
+    "src/scripts/drop-database.ts": {
+      "description": "Declares dropDatabase",
+      "tokens": 274,
+      "hash": "fa0bb4bfeea329ad",
+      "size": 962,
+      "mtimeMs": 1785692517092.0276,
+      "updatedAt": "2026-08-12T19:58:57.585Z",
+      "source": "scan"
+    },
+    "test/app.e2e-spec.ts": {
+      "description": "API routes: GET (1 endpoints)",
+      "tokens": 216,
+      "hash": "191eb3068fadbce1",
+      "size": 754,
+      "mtimeMs": 1785681150709.576,
+      "updatedAt": "2026-08-12T19:58:57.649Z",
+      "source": "scan"
+    },
+    "test/jest-e2e.json": {
+      "description": "",
+      "tokens": 75,
+      "hash": "954cf50ac87fdc5d",
+      "size": 262,
+      "mtimeMs": 1785853439305.8474,
+      "updatedAt": "2026-08-12T19:58:57.654Z",
+      "source": "scan"
+    },
+    "tsconfig.build.json": {
+      "description": "TypeScript build configuration",
+      "tokens": 28,
+      "hash": "3a016b4ee9713cd1",
+      "size": 97,
+      "mtimeMs": 1785771260418.28,
+      "updatedAt": "2026-08-12T19:58:57.655Z",
+      "source": "scan"
+    },
+    "tsconfig.json": {
+      "description": "TypeScript configuration",
+      "tokens": 207,
+      "hash": "451609cef80304c4",
+      "size": 722,
+      "mtimeMs": 1785771260425.1326,
+      "updatedAt": "2026-08-12T19:58:57.657Z",
+      "source": "scan"
+    }
+  }
+}

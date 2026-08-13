@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-08-12T20:00:00+03:00",
+      "error_message": "graphify: command not found; saved Graphify Python also reported missing graphify dependencies (graphify and networkx)",
+      "file": "graphify-out/.graphify_python",
+      "root_cause": "The existing graph was present, but neither the Graphify CLI nor its Python package was available in the recorded environment.",
+      "fix": "Used the skill's documented read-only graph fallback and direct project inspection for this configuration cleanup.",
+      "tags": ["graphify", "tooling", "environment"],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-08-13"
+    },
+    {
+      "id": "bug-002",
+      "timestamp": "2026-08-13T09:04:00+03:00",
+      "error_message": "correct the numbering in the file",
+      "file": "docs/suggestions_to_increase_the_performance.md",
+      "root_cause": "Removing subsection 1a left the remaining sibling headings numbered 1b and 1c.",
+      "fix": "Renumbered the remaining subsections from 1b/1c to 1a/1b.",
+      "tags": ["documentation", "numbering", "markdown"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-13"
+    },
+    {
+      "id": "bug-003",
+      "timestamp": "2026-08-13T09:24:00+03:00",
+      "error_message": "revert your changes from previos prompt",
+      "file": "src/migrations/1785684350115-CreateLogsTableBtreeIndexes.ts",
+      "root_cause": "The immediately preceding performance-index implementation was explicitly withdrawn by the user.",
+      "fix": "Reverted only the preceding assistant-authored implementation and documentation delta while preserving earlier and unrelated worktree changes.",
+      "tags": ["revert", "performance", "index"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-13"
+    },
+    {
+      "id": "bug-004",
+      "timestamp": "2026-08-13T09:28:00+03:00",
+      "error_message": "data-model.md was re-staged after restoring its pre-prompt index blob",
+      "file": "specs/001-multi-tenancy/data-model.md",
+      "root_cause": "A delayed repository hook staged the current worktree version after the first targeted index restoration.",
+      "fix": "Allowed the hook queue to settle, then restored and atomically verified all affected Spec Kit index blobs again.",
+      "tags": ["git-index", "hook", "revert"],
+      "related_bugs": ["bug-003"],
+      "occurrences": 1,
+      "last_seen": "2026-08-13"
+    },
+    {
+      "id": "bug-005",
+      "timestamp": "2026-08-13T19:16:08+03:00",
+      "error_message": "Running requests/health.check.rest returns socket hang up",
+      "file": "requests/health.check.rest",
+      "root_cause": "The app container was created from an outdated Docker image (built 2026-08-12) containing obsolete compiled tenancy migrations 1785684350118 through 1785684350122. The current database already records CreateTenancyTables1785684350118, so the obsolete CreateTenantsTable1785684350119 repeatedly fails with PostgreSQL 42P07 (relation tenants already exists) and the container restarts before it can serve HTTP.",
+      "fix": "Diagnosed without changing runtime state. Rebuild and recreate the app container from the current source with docker compose up -d --build app; preserve the existing database volume.",
+      "tags": ["health-check", "docker", "stale-image", "typeorm", "migration", "socket-hang-up"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-13"
+    },
+    {
+      "id": "bug-006",
+      "timestamp": "2026-08-13T19:12:00+03:00",
+      "error_message": "/bin/bash: unexpected EOF while looking for matching backtick",
+      "file": ".wolf/anatomy.md",
+      "root_cause": "A diagnostic rg pattern containing a Markdown backtick was placed inside a double-quoted shell command.",
+      "fix": "Removed the unnecessary backtick from the search pattern and reran the read-only diagnostic successfully.",
+      "tags": ["shell", "quoting", "diagnostics"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-13"
+    }
+  ]
+}

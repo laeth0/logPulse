@@ -1,0 +1,384 @@
+{
+  "communities": {
+    "0": [
+      "eslint",
+      "eslint_config_prettier",
+      "eslint_eslintrc",
+      "eslint_js",
+      "eslint_plugin_prettier",
+      "globals",
+      "jest",
+      "nestjs_cli",
+      "nestjs_schematics",
+      "nestjs_testing",
+      "package_devdependencies",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_config_prettier",
+      "package_devdependencies_eslint_eslintrc",
+      "package_devdependencies_eslint_js",
+      "package_devdependencies_eslint_plugin_prettier",
+      "package_devdependencies_globals",
+      "package_devdependencies_jest",
+      "package_devdependencies_nestjs_cli",
+      "package_devdependencies_nestjs_schematics",
+      "package_devdependencies_nestjs_testing",
+      "package_devdependencies_prettier",
+      "package_devdependencies_source_map_support",
+      "package_devdependencies_supertest",
+      "package_devdependencies_ts_jest",
+      "package_devdependencies_ts_loader",
+      "package_devdependencies_ts_node",
+      "package_devdependencies_tsconfig_paths",
+      "package_devdependencies_types_express",
+      "package_devdependencies_types_jest",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_supertest",
+      "package_devdependencies_typescript",
+      "package_devdependencies_typescript_eslint",
+      "prettier",
+      "source_map_support",
+      "supertest",
+      "ts_jest",
+      "ts_loader",
+      "ts_node",
+      "tsconfig_paths",
+      "types_express",
+      "types_jest",
+      "types_node",
+      "types_supertest",
+      "typescript",
+      "typescript_eslint"
+    ],
+    "1": [
+      "wolf_hooks_anatomy_store_loadstore",
+      "wolf_hooks_anatomy_store_lookupentry",
+      "wolf_hooks_post_read",
+      "wolf_hooks_post_read_main",
+      "wolf_hooks_post_write_main",
+      "wolf_hooks_pre_read",
+      "wolf_hooks_pre_read_main",
+      "wolf_hooks_precompact",
+      "wolf_hooks_precompact_main",
+      "wolf_hooks_session_start",
+      "wolf_hooks_session_start_anatomystalereason",
+      "wolf_hooks_session_start_buildsessiondigest",
+      "wolf_hooks_session_start_digestbudget",
+      "wolf_hooks_session_start_extractsection",
+      "wolf_hooks_session_start_main",
+      "wolf_hooks_shared",
+      "wolf_hooks_shared_appendmarkdown",
+      "wolf_hooks_shared_countsemanticentries",
+      "wolf_hooks_shared_detectagent",
+      "wolf_hooks_shared_ensurewolfdir",
+      "wolf_hooks_shared_estimatetokens",
+      "wolf_hooks_shared_extractdescription",
+      "wolf_hooks_shared_getprojectdir",
+      "wolf_hooks_shared_getwolfdir",
+      "wolf_hooks_shared_issensitivefile",
+      "wolf_hooks_shared_normalizepath",
+      "wolf_hooks_shared_readjson",
+      "wolf_hooks_shared_readstdin",
+      "wolf_hooks_shared_readtranscriptusage",
+      "wolf_hooks_shared_sensitive_basenames",
+      "wolf_hooks_shared_sensitive_extensions",
+      "wolf_hooks_shared_timeshort",
+      "wolf_hooks_shared_timestamp",
+      "wolf_hooks_shared_writejson",
+      "wolf_hooks_stop",
+      "wolf_hooks_stop_checkcerebrumfreshness",
+      "wolf_hooks_stop_checkformissingbuglogs",
+      "wolf_hooks_stop_checksemanticsummaries",
+      "wolf_hooks_stop_checkstatusfreshness",
+      "wolf_hooks_stop_main"
+    ],
+    "2": [
+      "nestjs_common",
+      "nestjs_core",
+      "nestjs_platform_express",
+      "package",
+      "package_author",
+      "package_dependencies",
+      "package_dependencies_nestjs_common",
+      "package_dependencies_nestjs_core",
+      "package_dependencies_nestjs_platform_express",
+      "package_dependencies_reflect_metadata",
+      "package_dependencies_rxjs",
+      "package_description",
+      "package_license",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_format",
+      "package_scripts_lint",
+      "package_scripts_start",
+      "package_scripts_start_debug",
+      "package_scripts_start_dev",
+      "package_scripts_start_prod",
+      "package_scripts_test",
+      "package_scripts_test_cov",
+      "package_scripts_test_debug",
+      "package_scripts_test_e2e",
+      "package_scripts_test_watch",
+      "package_version",
+      "reflect_metadata",
+      "rxjs"
+    ],
+    "3": [
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowsyntheticdefaultimports",
+      "tsconfig_compileroptions_baseurl",
+      "tsconfig_compileroptions_declaration",
+      "tsconfig_compileroptions_emitdecoratormetadata",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_experimentaldecorators",
+      "tsconfig_compileroptions_forceconsistentcasinginfilenames",
+      "tsconfig_compileroptions_incremental",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_compileroptions_noimplicitany",
+      "tsconfig_compileroptions_outdir",
+      "tsconfig_compileroptions_removecomments",
+      "tsconfig_compileroptions_resolvepackagejsonexports",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_sourcemap",
+      "tsconfig_compileroptions_strictbindcallapply",
+      "tsconfig_compileroptions_strictnullchecks",
+      "tsconfig_compileroptions_target"
+    ],
+    "4": [
+      "wolf_hooks_anatomy_lock",
+      "wolf_hooks_anatomy_lock_cli_lock_budget_ms",
+      "wolf_hooks_anatomy_lock_hook_lock_budget_ms",
+      "wolf_hooks_anatomy_lock_isstale",
+      "wolf_hooks_anatomy_lock_sleep",
+      "wolf_hooks_anatomy_lock_tryacquire",
+      "wolf_hooks_anatomy_lock_trysteal",
+      "wolf_hooks_anatomy_lock_withanatomylock",
+      "wolf_hooks_post_write",
+      "wolf_hooks_post_write_autodetectbugfix",
+      "wolf_hooks_post_write_bugautodetectenabled",
+      "wolf_hooks_post_write_detectfixpattern",
+      "wolf_hooks_post_write_extractcalls",
+      "wolf_hooks_post_write_extractchangedlines",
+      "wolf_hooks_post_write_extractcssprops",
+      "wolf_hooks_post_write_findoperatorchange",
+      "wolf_hooks_post_write_non_code_exts",
+      "wolf_hooks_post_write_summarizeedit",
+      "wolf_hooks_post_write_tokenizecode"
+    ],
+    "5": [
+      "controller",
+      "get",
+      "injectable",
+      "module",
+      "src_app_controller",
+      "src_app_controller_appcontroller",
+      "src_app_controller_appcontroller_constructor",
+      "src_app_controller_appcontroller_gethello",
+      "src_app_controller_spec",
+      "src_app_module",
+      "src_app_module_appmodule",
+      "src_app_service",
+      "src_app_service_appservice",
+      "src_app_service_appservice_gethello",
+      "src_main",
+      "src_main_bootstrap",
+      "test_app_e2e_spec"
+    ],
+    "6": [
+      "package_jest",
+      "package_jest_collectcoveragefrom",
+      "package_jest_coveragedirectory",
+      "package_jest_modulefileextensions",
+      "package_jest_rootdir",
+      "package_jest_testenvironment",
+      "package_jest_testregex",
+      "package_jest_transform",
+      "package_transform_t_j_s",
+      "ref_js",
+      "ref_json",
+      "ref_t_j_s",
+      "ref_ts"
+    ],
+    "7": [
+      "wolf_hooks_anatomy_store",
+      "wolf_hooks_anatomy_store_importfrommarkdown",
+      "wolf_hooks_anatomy_store_loadstorereconciled",
+      "wolf_hooks_anatomy_store_newstore",
+      "wolf_hooks_anatomy_store_parseanatomy",
+      "wolf_hooks_anatomy_store_renderstore",
+      "wolf_hooks_anatomy_store_rendertofile",
+      "wolf_hooks_anatomy_store_savestore",
+      "wolf_hooks_anatomy_store_sectionkeyof",
+      "wolf_hooks_anatomy_store_serializeanatomy",
+      "wolf_hooks_anatomy_store_sha256",
+      "wolf_hooks_anatomy_store_store_file"
+    ],
+    "8": [
+      "ref_dist",
+      "ref_node_modules",
+      "ref_spec_ts",
+      "ref_test",
+      "ref_tsconfig_json",
+      "tsconfig_build",
+      "tsconfig_build_exclude",
+      "tsconfig_build_extends"
+    ],
+    "9": [
+      "wolf_hooks_pre_write",
+      "wolf_hooks_pre_write_checkbuglog",
+      "wolf_hooks_pre_write_checkcerebrum",
+      "wolf_hooks_pre_write_main",
+      "wolf_hooks_pre_write_stop_words",
+      "wolf_hooks_pre_write_tokenize",
+      "wolf_hooks_shared_readmarkdown"
+    ],
+    "10": [
+      "nest_cli",
+      "nest_cli_collection",
+      "nest_cli_compileroptions",
+      "nest_cli_compileroptions_deleteoutdir",
+      "nest_cli_schema",
+      "nest_cli_sourceroot"
+    ],
+    "11": [
+      "wolf_hooks_package",
+      "wolf_hooks_package_type"
+    ],
+    "12": [
+      "eslint_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.0425531914893617,
+    "1": 0.19487179487179487,
+    "2": 0.06451612903225806,
+    "3": 0.08695652173913043,
+    "4": 0.1871345029239766,
+    "5": 0.19852941176470587,
+    "6": 0.15384615384615385,
+    "7": 0.2727272727272727,
+    "8": 0.25,
+    "9": 0.5238095238095238,
+    "10": 0.3333333333333333,
+    "11": 1.0,
+    "12": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 22
+    },
+    {
+      "id": "wolf_hooks_post_write_main",
+      "label": "main()",
+      "degree": 20
+    },
+    {
+      "id": "wolf_hooks_shared_readjson",
+      "label": "readJSON()",
+      "degree": 20
+    },
+    {
+      "id": "wolf_hooks_shared_getwolfdir",
+      "label": "getWolfDir()",
+      "degree": 17
+    },
+    {
+      "id": "wolf_hooks_shared_ensurewolfdir",
+      "label": "ensureWolfDir()",
+      "degree": 16
+    },
+    {
+      "id": "wolf_hooks_shared_readstdin",
+      "label": "readStdin()",
+      "degree": 15
+    },
+    {
+      "id": "wolf_hooks_shared_writejson",
+      "label": "writeJSON()",
+      "degree": 14
+    },
+    {
+      "id": "wolf_hooks_stop_main",
+      "label": "main()",
+      "degree": 14
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 13
+    },
+    {
+      "id": "wolf_hooks_session_start_main",
+      "label": "main()",
+      "degree": 12
+    }
+  ],
+  "surprises": [
+    {
+      "source": "main()",
+      "target": "withAnatomyLock()",
+      "source_files": [
+        ".wolf/hooks/post-write.js",
+        ".wolf/hooks/anatomy-lock.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "main()",
+      "target": "sha256()",
+      "source_files": [
+        ".wolf/hooks/post-write.js",
+        ".wolf/hooks/anatomy-store.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "main()",
+      "target": "saveStore()",
+      "source_files": [
+        ".wolf/hooks/post-write.js",
+        ".wolf/hooks/anatomy-store.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "main()",
+      "target": "renderToFile()",
+      "source_files": [
+        ".wolf/hooks/post-write.js",
+        ".wolf/hooks/anatomy-store.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "main()",
+      "target": "loadStoreReconciled()",
+      "source_files": [
+        ".wolf/hooks/post-write.js",
+        ".wolf/hooks/anatomy-store.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
