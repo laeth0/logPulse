@@ -60,6 +60,26 @@ curl -s 'http://localhost:8080/logs?service=coalesce-tenant-a' -H "Authorization
 # expect: tenant A sees exactly its own log.
 ```
 
+**A single request larger than the coalescing cap is never split** (research.md Decision 1, F1 fix) — `docs/Final_Project.md` sets no maximum batch size, so this is a real case, not a hypothetical:
+
+```bash
+# Build one request whose own logs array exceeds the configured max-batch-rows cap
+# (e.g., 5,000 entries against a default cap in the low thousands).
+python3 -c "
+import json
+logs = [{'timestamp': '$(date -u +%Y-%m-%dT%H:%M:%S.000Z)', 'level': 'info', 'service': 'oversized-batch', 'message': str(i), 'attributes': {}} for i in range(5000)]
+print(json.dumps({'logs': logs}))
+" > oversized_batch.json
+
+curl -s -X POST http://localhost:8080/logs -H 'Content-Type: application/json' --data @oversized_batch.json
+# expect: {"accepted":5000,"rejected":[]} — one single, complete result for the whole request,
+# never a partial/ambiguous outcome from being split across two internal flushes.
+
+curl -s 'http://localhost:8080/logs?service=oversized-batch&limit=1'
+# expect: immediately queryable — confirms the entire oversized batch was durably committed
+# as a unit before the 200 was returned, not just the portion that fit under the cap.
+```
+
 ## Scenario 2 — Aggregation stays fast and correct while ingestion is active (User Story 2)
 
 ```bash
@@ -106,9 +126,9 @@ curl -s "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&buck
 # not from the two tenants' data happening to land in different buckets.
 ```
 
-## Scenario 3 — Rollup consistency survives an unclean restart, with no rebuild delay (research.md Decisions 6, 8; supersedes the original FR-019 rebuild-based test)
+## Scenario 3 — Rollup consistency survives an unclean restart, with no new readiness dependency (spec.md FR-009, FR-019; research.md Decisions 6, 8)
 
-Per research.md Decision 6, `COPY` and the rollup upsert commit atomically in one transaction against a durable (`LOGGED`) `log_rollups` table — an unclean restart can no longer leave rollups out of sync with `logs`, so there is no "rebuild" step to wait for or verify a fallback against. This scenario proves that directly, rather than testing a rebuild mechanism that no longer exists:
+Per research.md Decision 6, `COPY` and the rollup upsert commit atomically in one transaction against a durable (`LOGGED`) `log_rollups` table — an unclean restart can no longer leave rollups out of sync with `logs`, so there is no "rebuild" step to wait for or verify a fallback against, and `GET /health` gains no new readiness dependency (FR-019). This scenario proves that directly:
 
 ```bash
 # Ingest a batch, then immediately kill -9 the app mid-flush-window (not a graceful stop) to
