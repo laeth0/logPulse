@@ -17,6 +17,7 @@ export class CreateLogsTable1785684350114 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "logs" (
         "id"              BIGINT GENERATED ALWAYS AS IDENTITY,
+        "tenant_id"       UUID                 NOT NULL,
         "timestamp"       TIMESTAMPTZ          NOT NULL,
         "level"           "public"."log_level" NOT NULL,
         "service"         TEXT                 NOT NULL,

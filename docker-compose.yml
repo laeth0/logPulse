@@ -16,6 +16,11 @@ services:
       DB_NAME: ${DB_NAME:-log_pulse}
       DB_SSL: ${DB_SSL:-false}
       DB_READ_POOL_MAX: ${DB_READ_POOL_MAX:-5}
+      AUTH_ENABLED: ${AUTH_ENABLED:-false}
+      LOADGEN_API_KEY: ${LOADGEN_API_KEY:-lp_n_xrXP288usaY5rSTdQsTwkIKL-vVM9i}
+      JWT_SECRET: ${JWT_SECRET:-please-change-me-in-production}
+      JWT_ACCESS_TOKEN_TTL_SECONDS: ${JWT_ACCESS_TOKEN_TTL_SECONDS:-900}
+      JWT_REFRESH_TOKEN_TTL_DAYS: ${JWT_REFRESH_TOKEN_TTL_DAYS:-7}
     ports:
       - '8080:8080'
     depends_on:

@@ -1,0 +1,20 @@
+# Exchanges a valid refresh token for a new access + refresh pair (rotation:
+# the presented refresh token is invalidated as part of this call). Copy a
+# real refresh_token value from a tenancy.login.rest response first — the
+# placeholder below will correctly return 401.
+
+### Happy path (replace refresh_token with a real value from /tenants/login)
+POST http://localhost:8080/tenants/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "REPLACE_WITH_REAL_REFRESH_TOKEN"
+}
+
+### Invalid/expired/already-used refresh token — expect 401
+POST http://localhost:8080/tenants/refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "not-a-real-token"
+}

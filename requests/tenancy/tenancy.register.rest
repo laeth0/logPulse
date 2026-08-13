@@ -1,0 +1,30 @@
+# Self-registers a new Tenant account (email + password). No auth required —
+# reachable regardless of AUTH_ENABLED. No tokens are issued here; call
+# tenancy.login.rest next.
+
+### Happy path
+POST http://localhost:8080/tenants/register
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "correct-horse-battery-staple"
+}
+
+### Duplicate email — expect 409
+POST http://localhost:8080/tenants/register
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "another-password-here"
+}
+
+### Malformed body — expect 400
+POST http://localhost:8080/tenants/register
+Content-Type: application/json
+
+{
+  "email": "not-an-email",
+  "password": "short"
+}

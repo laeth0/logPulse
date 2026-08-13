@@ -1,0 +1,29 @@
+# Authenticates a Tenant and issues an access token (account/API-key
+# management only — never valid on the log endpoints) plus a refresh token.
+
+### Happy path
+POST http://localhost:8080/tenants/login
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "correct-horse-battery-staple"
+}
+
+### Wrong password — expect 401, same message as an unknown email
+POST http://localhost:8080/tenants/login
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "totally-wrong-password"
+}
+
+### Unknown email — expect 401 with the identical message (no disclosure)
+POST http://localhost:8080/tenants/login
+Content-Type: application/json
+
+{
+  "email": "nobody@example.com",
+  "password": "correct-horse-battery-staple"
+}

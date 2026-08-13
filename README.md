@@ -78,12 +78,17 @@ All variables have defaults — none are required. `docker-compose.yml` supplies
 | `DB_PASS` | `postgres` | PostgreSQL password |
 | `DB_NAME` | `log_pulse` | PostgreSQL database name |
 | `DB_SSL` | `false` | Enable TLS to PostgreSQL |
+| `AUTH_ENABLED` | `false` | Master switch for authentication and multi-tenancy — see [Optional features](#optional-features) |
+| `LOADGEN_API_KEY` | *(unset)* | API key idempotently seeded at startup, scoped to one tenant, when `AUTH_ENABLED=true` |
+| `JWT_SECRET` | `please-change-me-in-production` | Signing secret for Tenant access/refresh tokens — change this for anything beyond local/grading use |
+| `JWT_ACCESS_TOKEN_TTL_SECONDS` | `900` | Tenant access token lifetime (15 minutes) |
+| `JWT_REFRESH_TOKEN_TTL_DAYS` | `7` | Tenant refresh token lifetime |
 
-No authentication, API key, rate limiting, or multi-tenancy variables exist because none of those optional features are implemented — see [Optional features](#optional-features).
+No rate-limiting variables exist because that optional feature isn't implemented — see [Optional features](#optional-features) for what is.
 
 ## API documentation
 
-Full runnable examples for every endpoint (happy path + filters) live in [`requests/`](requests/) as REST Client `.rest` files: [`health.check.rest`](requests/health.check.rest), [`logs.ingest.rest`](requests/logs.ingest.rest), [`logs.list.rest`](requests/logs.list.rest), [`logs.aggregate.rest`](requests/logs.aggregate.rest). Interactive Swagger UI is at `/api/docs` outside production.
+Full runnable examples for every required endpoint (happy path + filters) live in [`requests/`](requests/) as REST Client `.rest` files: [`health.check.rest`](requests/health.check.rest), [`logs.ingest.rest`](requests/logs.ingest.rest), [`logs.list.rest`](requests/logs.list.rest), [`logs.aggregate.rest`](requests/logs.aggregate.rest). The optional multi-tenancy endpoints have their own examples under [`requests/tenancy/`](requests/tenancy/) — see [Multi-tenancy](#multi-tenancy). Interactive Swagger UI is at `/api/docs` outside production.
 
 ### `GET /health`
 
@@ -179,6 +184,7 @@ One row per bucket × group combination, ordered by bucket start ascending. Empt
 ```
 logs (parent, PARTITION BY RANGE (timestamp))
 ├── id               bigint  GENERATED ALWAYS AS IDENTITY
+├── tenant_id         uuid         NOT NULL  -- see Multi-tenancy under Optional features
 ├── timestamp         timestamptz  NOT NULL
 ├── level              log_level (enum: debug | info | warn | error)
 ├── service            text
@@ -202,12 +208,43 @@ Indexes (all per-partition, PostgreSQL propagates them automatically to new part
 | Index | Type | Supports |
 | --- | --- | --- |
 | `pk_logs (timestamp, id)` | B-tree | Range scans + the `(timestamp, id)` cursor tie-break |
-| `idx_logs_service_timestamp_id (service, timestamp DESC, id DESC)` | B-tree | `service=` filter, pre-sorted for pagination |
-| `idx_logs_level_timestamp_id (level, timestamp DESC, id DESC)` | B-tree | `level=` filter, pre-sorted for pagination |
+| `idx_logs_tenant_timestamp_id (tenant_id, timestamp DESC, id DESC)` | B-tree | Tenant-scoped pagination with no `service`/`level` filter |
+| `idx_logs_tenant_service_timestamp_id (tenant_id, service, timestamp DESC, id DESC)` | B-tree | `service=` filter, pre-sorted for pagination |
+| `idx_logs_tenant_level_timestamp_id (tenant_id, level, timestamp DESC, id DESC)` | B-tree | `level=` filter, pre-sorted for pagination |
 | `idx_logs_attributes_text_gin (attributes_text, jsonb_path_ops)` | GIN | `attr.<key>=` containment lookups |
 | `idx_logs_message_trigram (message, gin_trgm_ops)` | GIN (`pg_trgm`) | Case-insensitive `q=` substring search |
 
 `jsonb_path_ops` is used instead of the default `jsonb_ops` GIN operator class because the API only ever needs `@>` containment equality on attributes, never JSON path queries — `jsonb_path_ops` produces a smaller, faster index for exactly that case.
+
+All three B-tree indexes lead with `tenant_id` because every query against `logs` now carries an unconditional `tenant_id = $1` predicate (see [Multi-tenancy](#multi-tenancy)) — the same leading-equality-column pattern the `service`/`level` indexes already used, with `tenant_id` added as the new outermost equality column. `tenant_id` has **no foreign key** to `tenants.id`: the existing schema has zero foreign keys anywhere, and tenant existence is already guaranteed by construction (the value only ever comes from a successfully-resolved API key, or a fixed internal constant — never from request input), so an FK would tax the hot `COPY` ingestion path for no correctness benefit.
+
+### Tenant tables
+
+Three additional, unpartitioned tables support self-service multi-tenancy (see [Multi-tenancy](#multi-tenancy) for the full auth model). None have foreign keys, for the same reason as `logs.tenant_id` above.
+
+```
+tenants
+├── id             uuid  PRIMARY KEY DEFAULT gen_random_uuid()
+├── email          text  NOT NULL UNIQUE
+├── password_hash  text  NOT NULL
+└── created_at     timestamptz  DEFAULT now()
+
+api_keys
+├── id          uuid  PRIMARY KEY DEFAULT gen_random_uuid()
+├── tenant_id   uuid  NOT NULL                          -- indexed
+├── key_value   text  NOT NULL UNIQUE                   -- full cleartext secret; see Multi-tenancy
+├── status      text  NOT NULL DEFAULT 'active'          -- 'active' | 'revoked', CHECK-constrained
+├── created_at  timestamptz  DEFAULT now()
+└── revoked_at  timestamptz
+
+tenant_refresh_tokens
+├── id          uuid  PRIMARY KEY DEFAULT gen_random_uuid()
+├── tenant_id   uuid  NOT NULL                          -- indexed
+├── token_hash  text  NOT NULL UNIQUE                   -- scrypt hash, unlike api_keys.key_value
+├── expires_at  timestamptz  NOT NULL
+├── created_at  timestamptz  DEFAULT now()
+└── revoked_at  timestamptz
+```
 
 ## Attribute storage strategy
 
@@ -237,10 +274,45 @@ Retention is partition-based, not row-based, for the reasons in [Schema and inde
   3. Creates any missing daily partitions from the retention boundary through `LOG_PARTITION_DAYS_AHEAD` days ahead.
 - A **PostgreSQL advisory lock** (`pg_try_advisory_lock`) guards the whole maintenance run, so if the app ever scales to multiple instances, only one performs retention maintenance at a time — the rest skip the run instead of racing.
 - Creating a new daily partition briefly takes an `ACCESS EXCLUSIVE` lock on the parent `logs` table while handing off any rows that landed in `logs_default` for that day. In steady state this is a near-instant no-op (there are normally zero such rows, since partitions are created 7 days ahead of when they're needed) — it only becomes meaningful if partition creation has fallen behind, which the 7-day lead time is designed to prevent.
+- **Retention is tenant-aware where it has to be, and deliberately not where it doesn't.** The retention *policy* (what's expired, on what schedule) stays system-wide across all tenants by design — there's no per-tenant retention configuration. But the row hand-off described above (moving rows from `logs_default` into a newly created named partition) is a raw SQL `INSERT ... SELECT` that must explicitly carry every column, including `tenant_id`, or it fails outright against `logs.tenant_id`'s `NOT NULL` constraint. This was caught and fixed before it could surface as a production incident — see `specs/001-multi-tenancy/research.md` Decision 13.
 
 ## Optional features
 
-**None are implemented.** No authentication, API keys, multi-tenancy, or rate limiting. `docker compose up` with no environment file, no arguments, and no manual setup produces exactly the plain, unauthenticated core service described by the spec, on all four required endpoints — verified by tearing down the stack, removing any local `.env`, and rebuilding from a clean checkout.
+### Multi-tenancy
+
+Implemented, **off by default**. `docker compose up` with no environment file, no arguments, and no manual setup still produces exactly the plain, unauthenticated core service described by the spec on all four required endpoints — verified end-to-end: `AUTH_ENABLED` unset, no credential on any request, and the response shapes are byte-for-byte identical to the pre-multi-tenancy contract. See `specs/001-multi-tenancy/quickstart.md` Scenario 1 for the reproducible steps.
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `AUTH_ENABLED` | `false` | Master switch. `false`/unset → all four required endpoints behave exactly as the unauthenticated core service; an `Authorization` header, if sent anyway, is silently ignored, never rejected. |
+| `LOADGEN_API_KEY` | *(unset)* | When `AUTH_ENABLED=true`, this key is idempotently seeded at startup — before the service reports healthy — scoped to one fixed internal tenant with ingest+query permission. Restarting with the same value never duplicates the tenant or the key. Left unset, the service still starts and stays healthy; it just has no seeded key. |
+| `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | see [Configuration](#configuration) | Sign/verify Tenant account tokens (below). `JWT_SECRET`'s zero-config default is intentionally insecure, mirroring `DB_PASS`'s existing convention — override it for anything beyond local development or grading. |
+
+**Two separate credential types, two separate purposes — never interchangeable:**
+
+- **API keys** (`Authorization: Bearer lp_...`) — machine credentials for the log data-plane: `POST /logs`, `GET /logs`, `GET /logs/aggregate`. Every valid key resolves to exactly one tenant; tenant identity is derived only from the credential, never accepted as a request field. When `AUTH_ENABLED=false`, these three endpoints ignore credentials entirely and every request lands in one shared, fixed internal tenant — an issued key simply has no enforcement effect until `AUTH_ENABLED=true`.
+- **Tenant access tokens** (JWTs, `Authorization: Bearer eyJ...`) — human/account-plane credentials for managing a Tenant's own account and API keys. **Always required, regardless of `AUTH_ENABLED`** — this is deliberate, not an oversight: presenting an API key to an account-management endpoint (or an access token to a log endpoint) returns `403`, not success.
+
+A credential presented on the wrong surface, or missing where required, gets the same status codes used elsewhere in the API: `401` for missing/invalid/expired, `403` for the wrong credential type, `{"error": "<description>"}` in both cases.
+
+**Self-service account flow** (no administrator role exists — a Tenant is a single customer account, not an organization):
+
+| Endpoint | Guard | Purpose |
+| --- | --- | --- |
+| `POST /tenants/register` | none | Create a Tenant account (email + password) |
+| `POST /tenants/login` | none | Exchange credentials for an access token (15 min) + refresh token (7 days) |
+| `POST /tenants/refresh` | none | Rotate a refresh token for a new pair (single-use — the presented token is invalidated) |
+| `POST /tenants/api-keys` | Tenant access token | Create a new API key for the caller's own account |
+| `GET /tenants/api-keys` | Tenant access token | List the caller's own keys, **including each key's full secret** (retrievable anytime, not shown once — deliberate, see below) |
+| `DELETE /tenants/api-keys/:id` | Tenant access token | Revoke one of the caller's own keys — rejected on the very next request, no grace period |
+
+Runnable examples for every one of these live in [`requests/tenancy/`](requests/tenancy/); exact request/response shapes are in `specs/001-multi-tenancy/contracts/`.
+
+**Notable design decisions** (full rationale in `specs/001-multi-tenancy/research.md`):
+
+- Passwords are hashed with Node's built-in `crypto.scrypt` — no `bcrypt`/`argon2` native-binding dependency, which would have complicated the multi-stage Alpine Docker build for no security benefit at this scale.
+- API keys store their **full value in cleartext**, not hashed — a deliberate consequence of requiring keys to be retrievable again later via the list endpoint, not the industry-default "show once" pattern. Refresh tokens, which are never redisplayed, are hashed as usual.
+- Guards are applied directly per-controller (`@UseGuards(...)`), not via a single global default-deny guard — this project previously shipped a bug from exactly that pattern (a controller meant to bypass a global guard forgot the opt-out decorator); per-controller guards make that entire bug class structurally impossible.
 
 ## Performance
 
@@ -279,9 +351,12 @@ The Docker build itself was also a hidden risk: the original multi-stage `Docker
 ## Known limitations
 
 - **No formal, repeatable load-testing harness is currently in this repository.** The numbers in [Performance](#performance) are real measurements against the real constrained stack, but they come from ad hoc scripts, not a checked-in, reproducible suite. The full target scenario from the spec — sustained 15,000+ logs/sec, 1M rows, concurrent aggregation at 1 request/sec, p95 latency, and 20-second ingest-to-queryable visibility, all measured together — has not yet been formally executed and recorded. Rebuilding this harness is the top open item.
+- **Tenant isolation has no automated test yet** (per this project's current no-`.test.`/`.spec.` convention) — it was verified manually instead, end-to-end against the real constrained stack: two tenants were self-registered, each given its own API key, and each ingested distinct, service-tagged logs. `GET /logs` (filtered and unfiltered), `GET /logs/aggregate`, and cursor-based pagination were all confirmed to return zero cross-tenant rows in both directions — including replaying one tenant's pagination cursor with the other tenant's key, which returned only that second tenant's own data, never the first's. See `specs/001-multi-tenancy/quickstart.md` Scenario 4 for the reproducible steps.
 - **No unit or integration test suite yet.** CI runs a black-box HTTP smoke test (`docker compose up` + curl against all four endpoints) but there is no unit coverage for validators, cursor handling, or query builders, and no integration suite exercising edge cases (empty ranges, every rejection reason, full cursor pagination walks) against a real database.
 - **GIN indexes trade ingestion cost for query cost.** `idx_logs_attributes_text_gin` and `idx_logs_message_trigram` make `attr.<key>` and `q` filtering fast but add write amplification on every insert. This hasn't been benchmarked against a configuration without them, so the exact cost isn't quantified — only that the measured ingestion rate above already includes it.
-- **No optional features.** No authentication, rate limiting, multi-tenancy, or backpressure shedding — the service will accept load until PostgreSQL or the application container itself becomes the bottleneck, with no graceful `429`/`503` shedding in between.
+- **The tenant-aware index redesign (above) hasn't been re-benchmarked against the external load-testing portal yet.** `idx_logs_tenant_timestamp_id` is a net-new index on the hottest write path in the system, added by reasoning about query patterns rather than by measurement. This project's own history (the GIN-trigram-index episode above) is direct evidence that assumption-based indexing decisions here can be wrong in exactly this way — the index strategy should be revisited, not defended, if a re-benchmark shows an ingestion regression.
+- **`tenant_refresh_tokens` rows are never purged** after `expires_at` passes or `revoked_at` is set. At the "tens of tenants" scale this project targets, the table's growth rate is immaterial, and a cleanup job (cron delete, or folding into `RetentionService`) is straightforward to add later without any schema change — this is an accepted, deliberately out-of-scope gap for this iteration, not an oversight.
+- **No rate limiting or backpressure shedding.** Authentication and multi-tenancy are implemented (see [Optional features](#optional-features)), but the service still accepts load until PostgreSQL or the application container itself becomes the bottleneck, with no graceful `429`/`503` shedding in between.
 - **Swagger UI is unavailable in the default (production) Compose posture** by design (`NODE_ENV=production` disables it) — use `requests/*.rest` for runnable examples instead, or set `NODE_ENV` to a non-production value to enable it.
 
 ## Project structure

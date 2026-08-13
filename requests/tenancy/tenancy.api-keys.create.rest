@@ -1,0 +1,22 @@
+# Creates a new API key for the authenticated Tenant's own account. Requires
+# a Tenant access token (from /tenants/login), never an API key itself.
+
+### Happy path (replace with a real access_token from tenancy.login.rest)
+POST http://localhost:8080/tenants/api-keys
+Authorization: Bearer REPLACE_WITH_REAL_ACCESS_TOKEN
+Content-Type: application/json
+
+{}
+
+### No credential — expect 401
+POST http://localhost:8080/tenants/api-keys
+Content-Type: application/json
+
+{}
+
+### An API key presented instead of an access token — expect 403
+POST http://localhost:8080/tenants/api-keys
+Authorization: Bearer lp_some_api_key_value
+Content-Type: application/json
+
+{}

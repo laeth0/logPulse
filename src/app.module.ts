@@ -11,6 +11,7 @@ import {
 import { HealthModule } from '@/health/health.module';
 import { LogsModule } from '@/logs/logs.module';
 import { RetentionModule } from '@/retention/retention.module';
+import { TenancyModule } from '@/tenancy/tenancy.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { RetentionModule } from '@/retention/retention.module';
     HealthModule,
     LogsModule,
     RetentionModule,
+    TenancyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -31,6 +31,10 @@ async function bootstrap() {
       .setVersion('1.0')
       .addTag('logs', 'Log ingestion, querying, and aggregation')
       .addTag('health', 'Service health checks')
+      .addTag(
+        'tenancy',
+        'Tenant self-service: registration, login, and API-key management',
+      )
       .build();
 
     const document = SwaggerModule.createDocument(app, config);

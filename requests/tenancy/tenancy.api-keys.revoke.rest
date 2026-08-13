@@ -1,0 +1,10 @@
+# Revokes one of the authenticated Tenant's own API keys. Idempotent if
+# already revoked; the key is rejected on the very next log-endpoint request.
+
+### Happy path (replace :id and the access_token with real values)
+DELETE http://localhost:8080/tenants/api-keys/REPLACE_WITH_REAL_KEY_ID
+Authorization: Bearer REPLACE_WITH_REAL_ACCESS_TOKEN
+
+### Unknown id, or a key belonging to a different Tenant — expect 404
+DELETE http://localhost:8080/tenants/api-keys/00000000-0000-0000-0000-000000000000
+Authorization: Bearer REPLACE_WITH_REAL_ACCESS_TOKEN

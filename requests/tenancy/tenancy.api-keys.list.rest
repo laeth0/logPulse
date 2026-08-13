@@ -1,0 +1,9 @@
+# Lists every API key owned by the authenticated Tenant — including each
+# key's full secret value (retrievable anytime, not shown once).
+
+### Happy path (replace with a real access_token from tenancy.login.rest)
+GET http://localhost:8080/tenants/api-keys
+Authorization: Bearer REPLACE_WITH_REAL_ACCESS_TOKEN
+
+### No credential — expect 401
+GET http://localhost:8080/tenants/api-keys

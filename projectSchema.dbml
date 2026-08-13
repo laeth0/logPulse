@@ -12,6 +12,7 @@ Enum log_level {
 
 Table logs {
   id bigint [increment]
+  tenant_id uuid [not null]
   timestamp timestamptz [not null]
   level log_level [not null]
   service text [not null]
@@ -22,10 +23,60 @@ Table logs {
 
   indexes {
     (timestamp, id) [pk]
-    (service, timestamp, id) [name: 'idx_logs_service_timestamp_id']
-    (level, timestamp, id) [name: 'idx_logs_level_timestamp_id']
+    (tenant_id, timestamp, id) [name: 'idx_logs_tenant_timestamp_id']
+    (tenant_id, service, timestamp, id) [name: 'idx_logs_tenant_service_timestamp_id']
+    (tenant_id, level, timestamp, id) [name: 'idx_logs_tenant_level_timestamp_id']
     attributes_text [name: 'idx_logs_attributes_text_gin', type: gin]
   }
 
-  Note: 'idx_logs_message_trigram (GIN gin_trgm_ops on message) was dropped — see migration 1785684350117. It wrote ~1 index entry per character of message and was the dominant per-row database CPU cost, capping ingestion at ~2,457 logs/sec against a 15,000 logs/sec target. `q` ILIKE search now relies on partition-pruned sequential scan, which stays within the 1s query budget at the ~1M-row target scale.'
+  Note: '''
+    idx_logs_message_trigram (GIN gin_trgm_ops on message) was dropped, see migration 1785684350117. It wrote roughly one index entry per character of message and was the dominant per-row database CPU cost, capping ingestion at ~2,457 logs/sec against a 15,000 logs/sec target. The q ILIKE search now relies on partition-pruned sequential scan, which stays within the 1s query budget at the ~1M-row target scale.
+
+    tenant_id has no foreign key to tenants.id, see specs/001-multi-tenancy/research.md Decision 6. Tenant existence is guaranteed by construction (resolved API key, or the DEFAULT_TENANT_ID constant used when AUTH_ENABLED=false), and an FK would tax the hot COPY ingestion path for no correctness benefit. The (service, timestamp, id) / (level, timestamp, id) indexes were replaced with tenant-led equivalents, see migration 1785684350115 and Decision 10, because every query against this table now carries an unconditional tenant_id predicate.
+  '''
+}
+
+Table tenants {
+  id uuid [pk, default: `gen_random_uuid()`]
+  email text [not null, unique]
+  password_hash text [not null]
+  created_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
+
+  Note: '''
+    A single customer account, not an organization with members or roles. Self-registers via POST /tenants/register; no admin provisioning. password_hash never appears in any response DTO. No foreign keys point to this table, see the logs.tenant_id note. DEFAULT_TENANT_ID and LOADGEN_TENANT_ID (specs/001-multi-tenancy/research.md Decisions 6, 9) are fixed, reserved id constants: the latter backed by a real seeded row here, the former never inserted at all.
+  '''
+}
+
+Table api_keys {
+  id uuid [pk, default: `gen_random_uuid()`]
+  tenant_id uuid [not null]
+  key_value text [not null, unique]
+  status text [not null, default: 'active', note: 'active or revoked, enforced by a CHECK constraint']
+  created_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
+  revoked_at timestamptz
+
+  indexes {
+    tenant_id [name: 'idx_api_keys_tenant_id']
+  }
+
+  Note: '''
+    Machine credential for POST /logs, GET /logs, GET /logs/aggregate. key_value stores the full cleartext secret, not hashed, a deliberate consequence of spec.md's resolved clarification that a Tenant must be able to retrieve a previously created key again via GET /tenants/api-keys (research.md Decision 5). No FK to tenants.id, see the logs.tenant_id note.
+  '''
+}
+
+Table tenant_refresh_tokens {
+  id uuid [pk, default: `gen_random_uuid()`]
+  tenant_id uuid [not null]
+  token_hash text [not null, unique]
+  expires_at timestamptz [not null]
+  created_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
+  revoked_at timestamptz
+
+  indexes {
+    tenant_id [name: 'idx_tenant_refresh_tokens_tenant_id']
+  }
+
+  Note: '''
+    Session state backing Tenant access-token rotation (research.md Decisions 3, 4). Unlike api_keys, token_hash stores a scrypt hash, never the raw refresh token, since it is never redisplayed to the client. No FK to tenants.id. Expired/revoked row cleanup is an accepted, documented known limitation for this iteration (Decision 4), not implemented.
+  '''
 }
