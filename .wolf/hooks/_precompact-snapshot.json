@@ -1,447 +1,92 @@
 {
-  "at": "2026-08-13T07:51:22.897Z",
+  "at": "2026-08-13T19:46:18.892Z",
   "trigger": "auto",
   "session": {
-    "session_id": "",
-    "started": "",
+    "session_id": "session-2026-08-13-1910",
+    "started": "2026-08-13T16:10:49.538Z",
     "files_read": {
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/spec.md": {
-        "count": 5,
+      "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/spec.md": {
+        "count": 8,
         "tokens": 0,
-        "first_read": "2026-08-12T20:13:28.916Z"
+        "first_read": "2026-08-13T16:26:17.666Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/checklists/requirements.md": {
-        "count": 2,
+      "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/plan.md": {
+        "count": 3,
         "tokens": 0,
-        "first_read": "2026-08-12T20:15:08.667Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/.specify/memory/constitution.md": {
-        "count": 1,
-        "tokens": 584,
-        "first_read": "2026-08-12T20:20:59.349Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/plan.md": {
-        "count": 2,
-        "tokens": 0,
-        "first_read": "2026-08-12T20:28:41.960Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/.specify/templates/plan-template.md": {
-        "count": 1,
-        "tokens": 886,
-        "first_read": "2026-08-12T20:28:46.750Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/package.json": {
-        "count": 2,
-        "tokens": 978,
-        "first_read": "2026-08-12T20:29:07.636Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/logs.module.ts": {
-        "count": 3,
-        "tokens": 297,
-        "first_read": "2026-08-12T20:29:28.179Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/logs.controller.ts": {
-        "count": 3,
-        "tokens": 1056,
-        "first_read": "2026-08-12T20:29:28.718Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/query-builders/log-query.builder.ts": {
-        "count": 1,
-        "tokens": 249,
-        "first_read": "2026-08-12T20:29:29.295Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/query-builders/log-filter.builder.ts": {
-        "count": 2,
-        "tokens": 389,
-        "first_read": "2026-08-12T20:29:29.827Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/query-builders/aggregation-query.builder.ts": {
-        "count": 1,
-        "tokens": 459,
-        "first_read": "2026-08-12T20:29:30.108Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/cursor/cursor.service.ts": {
-        "count": 1,
-        "tokens": 343,
-        "first_read": "2026-08-12T20:29:37.219Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/interfaces/log-query.interface.ts": {
-        "count": 3,
-        "tokens": 305,
-        "first_read": "2026-08-12T20:29:37.757Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/interfaces/cursor-payload.interface.ts": {
-        "count": 1,
-        "tokens": 20,
-        "first_read": "2026-08-12T20:29:38.390Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/repositories/log.repository.ts": {
-        "count": 3,
-        "tokens": 1024,
-        "first_read": "2026-08-12T20:29:38.852Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-ingestion.service.ts": {
-        "count": 2,
-        "tokens": 366,
-        "first_read": "2026-08-12T20:29:38.987Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350114-CreateLogsTable.ts": {
-        "count": 2,
-        "tokens": 735,
-        "first_read": "2026-08-12T20:30:00.090Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350115-CreateLogsTableBtreeIndexes.ts": {
-        "count": 1,
-        "tokens": 486,
-        "first_read": "2026-08-12T20:30:00.581Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350116-CreateLogsTableGinIndexes.ts": {
-        "count": 1,
-        "tokens": 497,
-        "first_read": "2026-08-12T20:30:01.129Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350117-DropLogsMessageTrigramIndex.ts": {
-        "count": 1,
-        "tokens": 398,
-        "first_read": "2026-08-12T20:30:01.705Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/repositories/log-csv-encoder.ts": {
-        "count": 3,
-        "tokens": 387,
-        "first_read": "2026-08-12T20:30:01.808Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/partition.service.ts": {
-        "count": 2,
-        "tokens": 1912,
-        "first_read": "2026-08-12T20:30:21.538Z"
+        "first_read": "2026-08-13T16:29:19.907Z"
       },
       "c:/Users/LaethNueirat/Desktop/logPulse/src/config/database.config.ts": {
         "count": 1,
         "tokens": 551,
-        "first_read": "2026-08-12T20:30:22.063Z"
+        "first_read": "2026-08-13T16:29:28.595Z"
       },
       "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/retention.service.ts": {
         "count": 1,
         "tokens": 1029,
-        "first_read": "2026-08-12T20:30:22.072Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/config/data-source.ts": {
-        "count": 1,
-        "tokens": 148,
-        "first_read": "2026-08-12T20:30:22.426Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/retention.constants.ts": {
-        "count": 1,
-        "tokens": 140,
-        "first_read": "2026-08-12T20:30:39.237Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/http.constants.ts": {
-        "count": 1,
-        "tokens": 14,
-        "first_read": "2026-08-12T20:30:39.779Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/filters/global-exception.filter.ts": {
-        "count": 1,
-        "tokens": 791,
-        "first_read": "2026-08-12T20:30:40.323Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/app.module.ts": {
-        "count": 2,
-        "tokens": 470,
-        "first_read": "2026-08-12T20:30:46.316Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/health/health.service.ts": {
-        "count": 1,
-        "tokens": 706,
-        "first_read": "2026-08-12T20:30:46.871Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml": {
-        "count": 1,
-        "tokens": 619,
-        "first_read": "2026-08-12T20:30:47.436Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/.env.example": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-12T20:30:47.569Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/validators/log-entry.schema.ts": {
-        "count": 1,
-        "tokens": 485,
-        "first_read": "2026-08-12T20:30:54.078Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/validators/log-entry.validator.ts": {
-        "count": 1,
-        "tokens": 644,
-        "first_read": "2026-08-12T20:30:54.642Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/interfaces/log-repository.interface.ts": {
-        "count": 3,
-        "tokens": 197,
-        "first_read": "2026-08-12T20:30:55.168Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/mappers/log.mapper.ts": {
-        "count": 2,
-        "tokens": 536,
-        "first_read": "2026-08-12T20:30:55.719Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-query.service.ts": {
-        "count": 2,
-        "tokens": 481,
-        "first_read": "2026-08-12T20:30:55.742Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/projectSchema.dbml": {
-        "count": 3,
-        "tokens": 305,
-        "first_read": "2026-08-12T20:32:16.839Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/validators/zod-validation.utils.ts": {
-        "count": 1,
-        "tokens": 148,
-        "first_read": "2026-08-12T20:32:16.867Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/retention.module.ts": {
-        "count": 1,
-        "tokens": 104,
-        "first_read": "2026-08-12T20:32:33.805Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/health/health.module.ts": {
-        "count": 1,
-        "tokens": 158,
-        "first_read": "2026-08-12T20:32:34.278Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/log-query.constants.ts": {
-        "count": 1,
-        "tokens": 91,
-        "first_read": "2026-08-12T20:32:34.829Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/Dockerfile": {
-        "count": 1,
-        "tokens": 304,
-        "first_read": "2026-08-12T20:32:35.011Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/.github/workflows/ci.yml": {
-        "count": 3,
-        "tokens": 1214,
-        "first_read": "2026-08-12T20:32:44.494Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/enums/log-level.enum.ts": {
-        "count": 1,
-        "tokens": 28,
-        "first_read": "2026-08-12T20:32:53.388Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/validators/log-query.validator.ts": {
-        "count": 1,
-        "tokens": 725,
-        "first_read": "2026-08-12T20:32:53.607Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/AGENTS.md": {
-        "count": 1,
-        "tokens": 701,
-        "first_read": "2026-08-12T20:34:01.568Z"
+        "first_read": "2026-08-13T16:29:38.417Z"
       },
       "c:/Users/LaethNueirat/Desktop/logPulse/.specify/templates/tasks-template.md": {
         "count": 1,
         "tokens": 2284,
-        "first_read": "2026-08-12T20:40:09.864Z"
+        "first_read": "2026-08-13T16:56:07.988Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/research.md": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/research.md": {
+        "count": 3,
+        "tokens": 0,
+        "first_read": "2026-08-13T17:12:42.757Z"
+      },
+      "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/data-model.md": {
+        "count": 1,
+        "tokens": 0,
+        "first_read": "2026-08-13T17:17:03.052Z"
+      },
+      "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/quickstart.md": {
+        "count": 5,
+        "tokens": 0,
+        "first_read": "2026-08-13T17:17:46.528Z"
+      },
+      "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/tasks.md": {
         "count": 2,
         "tokens": 0,
-        "first_read": "2026-08-12T21:01:45.577Z"
+        "first_read": "2026-08-13T17:18:45.172Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/tasks.md": {
-        "count": 10,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:08:07.739Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/data-model.md": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/.env.example": {
         "count": 1,
         "tokens": 0,
-        "first_read": "2026-08-13T06:08:14.000Z"
+        "first_read": "2026-08-13T19:41:10.481Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/contracts/api-keys-api.md": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml": {
         "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:08:18.833Z"
+        "tokens": 619,
+        "first_read": "2026-08-13T19:41:24.376Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/contracts/tenant-accounts-api.md": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/log-api.constants.ts": {
         "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:08:19.357Z"
+        "tokens": 215,
+        "first_read": "2026-08-13T19:43:42.618Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/contracts/logs-endpoints-auth.md": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/retention.constants.ts": {
         "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:08:19.946Z"
+        "tokens": 140,
+        "first_read": "2026-08-13T19:43:49.263Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/specs/001-multi-tenancy/quickstart.md": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/repositories/log.repository.ts": {
         "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:08:20.126Z"
+        "tokens": 1024,
+        "first_read": "2026-08-13T19:45:50.141Z"
       },
-      "c:/Users/LaethNueirat/Desktop/logPulse/.gitignore": {
+      "c:/Users/LaethNueirat/Desktop/logPulse/tsconfig.json": {
         "count": 1,
         "tokens": 207,
-        "first_read": "2026-08-13T06:27:35.102Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/.dockerignore": {
-        "count": 1,
-        "tokens": 56,
-        "first_read": "2026-08-13T06:27:35.721Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/entities/log.entity.ts": {
-        "count": 2,
-        "tokens": 443,
-        "first_read": "2026-08-13T06:33:21.384Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-aggregation.service.ts": {
-        "count": 2,
-        "tokens": 305,
-        "first_read": "2026-08-13T06:46:36.063Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/entities/api-key.entity.ts": {
-        "count": 2,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:59:42.340Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/tenancy.constants.ts": {
-        "count": 2,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:59:42.923Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/guards/api-key-auth.guard.ts": {
-        "count": 2,
-        "tokens": 0,
-        "first_read": "2026-08-13T06:59:42.974Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/tenancy.module.ts": {
-        "count": 6,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:00:25.969Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/dto/requests/log-entry.dto.ts": {
-        "count": 1,
-        "tokens": 238,
-        "first_read": "2026-08-13T07:09:48.768Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/dto/responses/ingest-logs-response.dto.ts": {
-        "count": 1,
-        "tokens": 106,
-        "first_read": "2026-08-13T07:09:49.283Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/dto/requests/ingest-logs.dto.ts": {
-        "count": 1,
-        "tokens": 59,
-        "first_read": "2026-08-13T07:09:49.562Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/validators/iso-timestamp.schema.ts": {
-        "count": 1,
-        "tokens": 112,
-        "first_read": "2026-08-13T07:11:25.778Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/utils/password-hasher.util.ts": {
-        "count": 2,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:15:17.151Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/requests/logs.ingest.rest": {
-        "count": 1,
-        "tokens": 241,
-        "first_read": "2026-08-13T07:16:44.825Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/services/api-key.service.ts": {
-        "count": 2,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:21:39.944Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/README.md": {
-        "count": 3,
-        "tokens": 5230,
-        "first_read": "2026-08-13T07:35:33.506Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/entities/tenant.entity.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:41.720Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/entities/refresh-token.entity.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:42.872Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/guards/tenant-jwt-auth.guard.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:43.624Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/services/loadgen-key-seeder.service.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:50.931Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/services/tenant-auth.service.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:50.939Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/services/token.service.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:51.188Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/utils/api-key-generator.util.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:52.079Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/controllers/tenant-auth.controller.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:58.762Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/controllers/api-keys.controller.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:59.315Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/decorators/current-tenant-id.decorator.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:49:59.859Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/validators/tenant-auth.schema.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:50:00.881Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/validators/api-key.schema.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:50:00.983Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/dto/requests/register-tenant.dto.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:50:08.630Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/dto/responses/api-key.dto.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:50:09.168Z"
-      },
-      "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/interfaces/jwt-payload.interface.ts": {
-        "count": 1,
-        "tokens": 0,
-        "first_read": "2026-08-13T07:50:09.920Z"
+        "first_read": "2026-08-13T19:46:18.414Z"
       }
     },
     "files_written": [],
     "edit_counts": {},
-    "anatomy_hits": 54,
-    "anatomy_misses": 32,
-    "repeated_reads_warned": 54,
+    "anatomy_hits": 8,
+    "anatomy_misses": 7,
+    "repeated_reads_warned": 16,
     "cerebrum_warnings": 0,
-    "stop_count": 17
+    "stop_count": 12
   }
 }
