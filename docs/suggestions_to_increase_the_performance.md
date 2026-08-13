@@ -1,25 +1,6 @@
 ## 1. Slim the row
 
-### 1a. Drop the duplicate `attributes_text` column — ✅ done in code, pending benchmark
-
-`mapLogEntryToNewLog()` used to write every attribute map twice: once as `attributes` (typed) and
-once as `attributes_text` (all values stringified, GIN-indexed for `attr.<key>`). Measured cost:
-**heap 81 MB → 59 MB (−27%)**, WAL −8%, and it doubled the JSONB the app serialised, transmitted
-over the COPY stream, and PostgreSQL parsed.
-
-**Implemented via the expression-index option** (the cheaper, full-benefit one): `attributes_text`
-is gone. `logs_attributes_as_text(attributes)`, an `IMMUTABLE` SQL function, reproduces the same
-per-value string coercion on demand, and `idx_logs_attributes_gin` is a GIN index on that
-expression instead of a stored column — folded into the original `CreateLogsTable`/
-`CreateLogsTableGinIndexes` migrations rather than layered as a new one (pre-release). Verified
-live: `attr.retries=3` still matches `{"retries": 3}` (and boolean/string values), a non-matching
-filter correctly returns empty, and `EXPLAIN` confirms the GIN expression index is used on every
-partition, not a seq scan.
-
-Not yet re-submitted to the benchmark portal — holding off until §1b/§1c also land, since the
-measured −33% figure above is for all three combined, not this sub-item alone.
-
-### 1b. Drop `idx_logs_level_timestamp_id`
+### 1a. Drop `idx_logs_level_timestamp_id`
 
 `level` has four possible values, so this index is weakly selective yet pays a full B-tree insert on
 every row. Measured on 300k rows: it is **15 MB of the 51 MB index total (29%)**.
@@ -36,7 +17,7 @@ Paying a per-row write on all ~3,000 rows/sec to save 1.7 ms on an occasional qu
 at this bottleneck. **Keep `idx_logs_service_timestamp_id`** — `service` is high-cardinality *and*
 it serves the aggregation as an index-only scan (`Heap Fetches: 0` confirmed).
 
-### 1c. Drop `ingested_at`
+### 1b. Drop `ingested_at`
 
 Grepped the whole of `src/`: it is written on every row and **never read by any query** — it appears
 only in the entity, the create-table migration, and the partition handoff `INSERT`. It costs 8 bytes
