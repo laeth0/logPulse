@@ -6,11 +6,6 @@
 This project uses OpenWolf for context management. Read and follow .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
 <!-- openwolf:end -->
 
-## Excluded Directories
-
-- **`LogIngestion-majed/`** is a separate, unrelated project that happens to sit inside this repo. It is **not** part of logPulse.
-- **Never read, open, search, modify, or delete anything inside `LogIngestion-majed/`.** Do not include it in build/lint/test scope, code reviews, or any analysis of this codebase.
-
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
