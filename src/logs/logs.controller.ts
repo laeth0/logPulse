@@ -6,6 +6,7 @@ import {
   Post,
   Query,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -27,9 +28,12 @@ import { LogLevel } from '@/logs/enums/log-level.enum';
 import { LogAggregationService } from '@/logs/services/log-aggregation.service';
 import { LogIngestionService } from '@/logs/services/log-ingestion.service';
 import { LogQueryService } from '@/logs/services/log-query.service';
+import { CurrentTenantId } from '@/tenancy/decorators/current-tenant-id.decorator';
+import { ApiKeyAuthGuard } from '@/tenancy/guards/api-key-auth.guard';
 
 @ApiTags('logs')
 @Controller('logs')
+@UseGuards(ApiKeyAuthGuard)
 export class LogsController {
   constructor(
     private readonly ingestionService: LogIngestionService,
@@ -46,9 +50,10 @@ export class LogsController {
   })
   async ingest(
     @Body() body: unknown,
+    @CurrentTenantId() tenantId: string,
     @Res() response: Response,
   ): Promise<void> {
-    const result = await this.ingestionService.ingest(body);
+    const result = await this.ingestionService.ingest(body, tenantId);
     const status =
       result.accepted === 0 ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
     response.status(status).json(result);
@@ -68,8 +73,9 @@ export class LogsController {
   @ApiBadRequestResponse({ description: 'Invalid aggregation parameters' })
   aggregate(
     @Query() query: Record<string, unknown>,
+    @CurrentTenantId() tenantId: string,
   ): Promise<AggregateLogsResponseDto> {
-    return this.aggregationService.aggregate(query);
+    return this.aggregationService.aggregate(query, tenantId);
   }
 
   @Get()
@@ -86,7 +92,8 @@ export class LogsController {
   @ApiBadRequestResponse({ description: 'Invalid query parameters' })
   query(
     @Query() query: Record<string, unknown>,
+    @CurrentTenantId() tenantId: string,
   ): Promise<QueryLogsResponseDto> {
-    return this.queryService.query(query);
+    return this.queryService.query(query, tenantId);
   }
 }
