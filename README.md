@@ -226,8 +226,7 @@ Three additional, unpartitioned tables support self-service multi-tenancy (see [
 tenants
 ├── id             uuid  PRIMARY KEY DEFAULT gen_random_uuid()
 ├── email          text  NOT NULL UNIQUE
-├── password_hash  text  NOT NULL
-└── created_at     timestamptz  DEFAULT now()
+└── password_hash  text  NOT NULL
 
 api_keys
 ├── id          uuid  PRIMARY KEY DEFAULT gen_random_uuid()
@@ -240,7 +239,7 @@ api_keys
 tenant_refresh_tokens
 ├── id          uuid  PRIMARY KEY DEFAULT gen_random_uuid()
 ├── tenant_id   uuid  NOT NULL                          -- indexed
-├── token_hash  text  NOT NULL UNIQUE                   -- scrypt hash, unlike api_keys.key_value
+├── token_hash  text  NOT NULL UNIQUE                   -- bcryptjs hash, unlike api_keys.key_value
 ├── expires_at  timestamptz  NOT NULL
 ├── created_at  timestamptz  DEFAULT now()
 └── revoked_at  timestamptz
@@ -310,7 +309,7 @@ Runnable examples for every one of these live in [`requests/tenancy/`](requests/
 
 **Notable design decisions** (full rationale in `specs/001-multi-tenancy/research.md`):
 
-- Passwords are hashed with Node's built-in `crypto.scrypt` — no `bcrypt`/`argon2` native-binding dependency, which would have complicated the multi-stage Alpine Docker build for no security benefit at this scale.
+- Passwords (and refresh tokens) are hashed with `bcryptjs` — a pure-JS bcrypt implementation, chosen over native `bcrypt`/`argon2` specifically to avoid a native-binding dependency that would break the multi-stage Alpine Docker build (neither build stage installs a C/C++ toolchain). The input is SHA-256-prehashed first since bcrypt only uses the first 72 bytes of its input, and refresh tokens (~200+ character JWTs) would otherwise lose most of their entropy to silent truncation.
 - API keys store their **full value in cleartext**, not hashed — a deliberate consequence of requiring keys to be retrievable again later via the list endpoint, not the industry-default "show once" pattern. Refresh tokens, which are never redisplayed, are hashed as usual.
 - Guards are applied directly per-controller (`@UseGuards(...)`), not via a single global default-deny guard — this project previously shipped a bug from exactly that pattern (a controller meant to bypass a global guard forgot the opt-out decorator); per-controller guards make that entire bug class structurally impossible.
 

@@ -17,7 +17,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { parseWithSchema } from '@/logs/validators/zod-validation.utils';
+import { parseWithSchema } from '@/common/validators/zod-validation.utils';
 import { CurrentTenantId } from '@/tenancy/decorators/current-tenant-id.decorator';
 import { ApiKeyListDto } from '@/tenancy/dto/responses/api-key-list.dto';
 import { ApiKeyDto } from '@/tenancy/dto/responses/api-key.dto';

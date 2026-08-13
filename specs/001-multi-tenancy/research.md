@@ -2,16 +2,18 @@
 
 Each decision below resolves one technical unknown from the plan's Technical Context, grounded in the actual codebase (inspected directly — see plan.md's Technical Context for the file list) rather than assumptions.
 
-## Decision 1: Password hashing — Node's built-in `crypto.scrypt`
+## Decision 1: Password hashing — `bcryptjs`
 
-**Decision**: Hash Tenant passwords with Node's built-in `crypto.scryptSync`/`scrypt` (no new dependency), storing a single text column formatted as `scrypt$<N>$<r>$<p>$<saltHex>$<hashHex>`.
+**Decision** (revised): Hash Tenant passwords with `bcryptjs` (`bcrypt.hash()`/`bcrypt.compare()`, cost factor 10), storing bcrypt's own self-describing `$2b$10$...` output directly. The input is first passed through SHA-256 (`createHash('sha256').update(value).digest('hex')`, a fixed 64-char hex string) before being handed to bcrypt, because this same `hash()`/`verify()` pair is reused for refresh-token hashing (Decision 4) and bcrypt silently truncates any input past 72 bytes — a ~200+ character JWT would otherwise lose most of its entropy before hashing, weakening the single-use rotation guarantee (Decision 3) rather than just the password case.
 
-**Rationale**: The Dockerfile builds on `node:24-alpine` in a multi-stage build (`npm ci` in both the build and production stages). `bcrypt` requires native compilation (or a prebuilt binary matching musl/Alpine), which is a documented source of slow/fragile Docker builds — the project's own Dockerfile comment already flags build-time fragility as a concern ("risked timing out the load generator's Build containers step"). `argon2` has the same native-binding issue. Node's `crypto.scrypt` is a memory-hard KDF built into the runtime already present in the container, needs zero new dependencies, and is more than adequate for a system with tens of tenants. This directly satisfies spec FR-029 (strong one-way hash, never plaintext).
+**Original decision (superseded)**: Node's built-in `crypto.scrypt`, storing a custom `scrypt$<N>$<r>$<p>$<saltHex>$<hashHex>` format, specifically to avoid a native-binding dependency (`bcrypt`/`argon2`) that could complicate the multi-stage Alpine Docker build (`npm ci` runs fresh in both the build and production stages, neither of which installs a C/C++ toolchain — real `bcrypt`'s `node-gyp` compile step would fail there as the Dockerfile stands).
+
+**Why revisited**: The user asked for simpler, more idiomatic code over the hand-rolled scrypt implementation (manual `Promise` wrapper around `crypto.scrypt`'s callback form, forced by a `promisify()`/TypeScript overload bug — see tasks.md T035 — plus a custom serialization format and manual `timingSafeEqual` call). `bcryptjs` is a pure-JavaScript reimplementation of bcrypt with an identical API and output format to native `bcrypt`, but zero native compilation — it satisfies the original Decision 1 rationale (no Docker build risk) while eliminating essentially all of the removed code's complexity, since `bcrypt.hash()`/`bcrypt.compare()` already handle salting, encoding, and constant-time comparison internally.
 
 **Alternatives considered**:
-- `bcrypt` — native binding, adds Docker build risk and image size for no security benefit at this scale.
+- Native `bcrypt` — still rejected; same native-binding/Docker-build risk as originally noted.
 - `argon2` — same native-binding concern; also heavier than needed here.
-- `bcryptjs` (pure JS) — viable, but adds a dependency for something `crypto.scrypt` already does natively.
+- Keeping `crypto.scrypt` — zero dependencies, but the hand-rolled Promise wrapper and custom format are meaningfully more code to maintain for no behavioral benefit at this project's scale.
 
 ## Decision 2: JWT signing — `@nestjs/jwt`
 
@@ -37,7 +39,7 @@ Each decision below resolves one technical unknown from the plan's Technical Con
 
 ## Decision 4: Refresh tokens stored hashed, not plaintext
 
-**Decision**: `tenant_refresh_tokens.token_hash` stores a `crypto.scrypt` hash of the refresh token value (same helper as Decision 1), never the raw token.
+**Decision**: `tenant_refresh_tokens.token_hash` stores a `bcryptjs` hash of the refresh token value (same helper as Decision 1, SHA-256-prehashed to stay under bcrypt's 72-byte input limit), never the raw token.
 
 **Rationale**: Unlike API keys, the spec never requires a refresh token to be redisplayed to the client (it's an internal session artifact — the client already holds the one it was issued). The "retrievable anytime" clarification was scoped specifically to API keys (Decision 5), not refresh tokens, so the standard hash-and-compare pattern applies here with no conflict.
 

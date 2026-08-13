@@ -10,7 +10,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { parseWithSchema } from '@/logs/validators/zod-validation.utils';
+import { parseWithSchema } from '@/common/validators/zod-validation.utils';
 import { LoginTenantDto } from '@/tenancy/dto/requests/login-tenant.dto';
 import { RefreshTokenDto } from '@/tenancy/dto/requests/refresh-token.dto';
 import { RegisterTenantDto } from '@/tenancy/dto/requests/register-tenant.dto';

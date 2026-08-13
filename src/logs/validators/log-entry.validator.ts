@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { ZodIssue } from 'zod';
 
+import { parseWithSchema } from '@/common/validators/zod-validation.utils';
 import { IngestLogsDto } from '@/logs/dto/requests/ingest-logs.dto';
 import { LogEntryDto } from '@/logs/dto/requests/log-entry.dto';
 import { RejectedLogDto } from '@/logs/dto/responses/ingest-logs-response.dto';
@@ -8,7 +9,6 @@ import {
   logBatchSchema,
   logEntrySchema,
 } from '@/logs/validators/log-entry.schema';
-import { parseWithSchema } from '@/logs/validators/zod-validation.utils';
 
 @Injectable()
 export class LogEntryValidator {

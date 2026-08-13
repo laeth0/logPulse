@@ -76,6 +76,6 @@ Table tenant_refresh_tokens {
   }
 
   Note: '''
-    Session state backing Tenant access-token rotation (research.md Decisions 3, 4). Unlike api_keys, token_hash stores a scrypt hash, never the raw refresh token, since it is never redisplayed to the client. No FK to tenants.id. Expired/revoked row cleanup is an accepted, documented known limitation for this iteration (Decision 4), not implemented.
+    Session state backing Tenant access-token rotation (research.md Decisions 3, 4). Unlike api_keys, token_hash stores a bcryptjs hash, never the raw refresh token, since it is never redisplayed to the client. No FK to tenants.id. Expired/revoked row cleanup is an accepted, documented known limitation for this iteration (Decision 4), not implemented.
   '''
 }

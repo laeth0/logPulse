@@ -10,7 +10,7 @@ Maps to spec's **Tenant** entity — a single customer account (not an organizat
 |---|---|---|---|
 | `id` | `uuid` | PK, `gen_random_uuid()` default | Postgres 16 has `gen_random_uuid()` built in (core since PG13) — no `pgcrypto` extension needed. |
 | `email` | `text` | `NOT NULL`, `UNIQUE` | Login identifier (spec Clarifications: email + password). Case-folded to lowercase before storage/comparison to avoid `Foo@x.com` / `foo@x.com` duplicate registration. |
-| `password_hash` | `text` | `NOT NULL` | `scrypt$...` format — Decision 1. Never selected in any response DTO. |
+| `password_hash` | `text` | `NOT NULL` | `bcryptjs`'s `$2b$10$...` format — Decision 1. Never selected in any response DTO. |
 
 **Relationships**: A Tenant owns zero or more `ApiKey` rows and zero or more `TenantRefreshToken` rows (both via `tenant_id`, no DB-level FK — app-enforced, consistent with `logs.tenant_id`; see research.md Decision 6 for the no-FK rationale, which applies equally here since these are also low-cardinality, always-app-resolved references). A Tenant "owns" `Log` rows transitively through `logs.tenant_id`, also FK-free.
 
@@ -62,7 +62,7 @@ Maps to spec's **Tenant Session (Refresh Token)** entity.
 |---|---|---|---|
 | `id` | `uuid` | PK, `gen_random_uuid()` default | |
 | `tenant_id` | `uuid` | `NOT NULL` | No FK, same rationale as above. Indexed. |
-| `token_hash` | `text` | `NOT NULL`, `UNIQUE` | `scrypt` hash of the refresh token value — Decision 4 (never stored in cleartext, unlike API keys). |
+| `token_hash` | `text` | `NOT NULL`, `UNIQUE` | `bcryptjs` hash of the refresh token value — Decision 4 (never stored in cleartext, unlike API keys). |
 | `expires_at` | `timestamptz` | `NOT NULL` | `created_at + 7 days` (Decision 3). |
 | `created_at` | `timestamptz` | `NOT NULL DEFAULT CURRENT_TIMESTAMP` | |
 | `revoked_at` | `timestamptz` | nullable | Set when the token is consumed by rotation (Decision 3) or would be set by an explicit logout, if one is added later (not in this iteration's scope — see plan.md). |

@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { ATTRIBUTE_QUERY_PREFIX } from '@/common/constants/log-api.constants';
+import { parseWithSchema } from '@/common/validators/zod-validation.utils';
 import { AggregateLogsDto } from '@/logs/dto/requests/aggregate-logs.dto';
 import { QueryLogsDto } from '@/logs/dto/requests/query-logs.dto';
 import {
@@ -14,7 +15,6 @@ import {
   optionalAggregationGroupSchema,
   optionalCursorSchema,
 } from '@/logs/validators/log-query.schema';
-import { parseWithSchema } from '@/logs/validators/zod-validation.utils';
 
 @Injectable()
 export class LogQueryValidator {

@@ -14,7 +14,7 @@ Technically, this is a single new column (`logs.tenant_id`) threaded through the
 
 **Language/Version**: TypeScript 5.7 on Node.js 24 (existing — see `Dockerfile`, `tsconfig.json`)
 
-**Primary Dependencies**: NestJS 11 (`@nestjs/common`, `@nestjs/core`, `@nestjs/platform-express`), TypeORM + `@nestjs/typeorm`, `zod` (existing request validation pattern), `pg` / `pg-copy-streams` (existing COPY-based ingestion). **New**: `@nestjs/jwt` for Tenant access/refresh token signing — see [research.md](./research.md) Decision 2. No other new runtime dependencies (password hashing and API-key generation use Node's built-in `crypto` module — Decisions 1 and 5).
+**Primary Dependencies**: NestJS 11 (`@nestjs/common`, `@nestjs/core`, `@nestjs/platform-express`), TypeORM + `@nestjs/typeorm`, `zod` (existing request validation pattern), `pg` / `pg-copy-streams` (existing COPY-based ingestion). **New**: `@nestjs/jwt` for Tenant access/refresh token signing (Decision 2) and `bcryptjs` for password/refresh-token hashing (Decision 1 — pure-JS, no native-binding Docker build risk). API-key generation uses Node's built-in `crypto` module, no dependency needed (Decision 5).
 
 **Storage**: PostgreSQL 16 (existing single source of truth, existing `postgres:16-alpine` container). No new datastore. Three new tables (`tenants`, `api_keys`, `tenant_refresh_tokens`); one new column (`logs.tenant_id`).
 
@@ -97,7 +97,7 @@ src/
 │   │   └── responses/       # auth-tokens, api-key, api-key-list
 │   ├── validators/          # zod schemas, mirroring src/logs/validators/*
 │   ├── utils/
-│   │   ├── password-hasher.util.ts   # wraps crypto.scrypt
+│   │   ├── password-hasher.util.ts   # wraps bcryptjs (SHA-256-prehashed)
 │   │   └── api-key-generator.util.ts # wraps crypto.randomBytes
 │   ├── services/
 │   │   ├── tenant-auth.service.ts     # register/login/refresh
