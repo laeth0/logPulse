@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 814228,
-    "total_reads": 1902,
+    "total_tokens_estimated": 821144,
+    "total_reads": 1910,
     "total_writes": 0,
     "total_sessions": 12,
-    "anatomy_hits": 1317,
-    "anatomy_misses": 585,
-    "repeated_reads_blocked": 999,
-    "estimated_savings_vs_bare_cli": 889103,
-    "real_input_tokens": 388414,
-    "real_output_tokens": 39027763,
-    "real_cache_read_tokens": 17896874082,
-    "real_cache_creation_tokens": 169377336,
-    "real_api_calls": 36272
+    "anatomy_hits": 1321,
+    "anatomy_misses": 588,
+    "repeated_reads_blocked": 1000,
+    "estimated_savings_vs_bare_cli": 895133,
+    "real_input_tokens": 404617,
+    "real_output_tokens": 40258890,
+    "real_cache_read_tokens": 18466363495,
+    "real_cache_creation_tokens": 176235797,
+    "real_api_calls": 37463
   },
   "sessions": [
     {
@@ -12819,6 +12819,78 @@
         "cache_read_input_tokens": 569044290,
         "cache_creation_input_tokens": 6775481,
         "api_calls": 1186
+      }
+    },
+    {
+      "id": "session-2026-08-14-1120",
+      "agent": "claude",
+      "started": "2026-08-14T08:20:42.603Z",
+      "ended": "2026-08-14T09:07:10.635Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/log_src/README.md",
+          "tokens_estimated": 5230,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/log_src/src/ingestion/writeBuffer.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/log_src/src/db/logs.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/test/jest-e2e.json",
+          "tokens_estimated": 75,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/test/app.e2e-spec.ts",
+          "tokens_estimated": 216,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-ingestion.service.ts",
+          "tokens_estimated": 366,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/guards/api-key-auth.guard.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/retention.service.ts",
+          "tokens_estimated": 1029,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 6916,
+        "output_tokens_estimated": 0,
+        "reads_count": 8,
+        "writes_count": 0,
+        "repeated_reads_blocked": 1,
+        "anatomy_lookups": 4
+      },
+      "real_usage": {
+        "input_tokens": 16203,
+        "output_tokens": 1231127,
+        "cache_read_input_tokens": 569489413,
+        "cache_creation_input_tokens": 6858461,
+        "api_calls": 1191
       }
     }
   ],

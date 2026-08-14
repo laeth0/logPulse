@@ -16,13 +16,58 @@
       "count": 1,
       "tokens": 0,
       "first_read": "2026-08-14T08:51:09.991Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/test/jest-e2e.json": {
+      "count": 1,
+      "tokens": 75,
+      "first_read": "2026-08-14T09:05:25.051Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/test/app.e2e-spec.ts": {
+      "count": 1,
+      "tokens": 216,
+      "first_read": "2026-08-14T09:05:25.288Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-ingestion.service.ts": {
+      "count": 1,
+      "tokens": 366,
+      "first_read": "2026-08-14T09:06:23.681Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/guards/api-key-auth.guard.ts": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-14T09:06:24.229Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/retention.service.ts": {
+      "count": 1,
+      "tokens": 1029,
+      "first_read": "2026-08-14T09:06:24.264Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/guards/tenant-jwt-auth.guard.ts": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-14T09:08:38.508Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/common/filters/global-exception.filter.ts": {
+      "count": 1,
+      "tokens": 791,
+      "first_read": "2026-08-14T09:08:39.055Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/services/token.service.ts": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-14T09:08:39.604Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/logs.module.ts": {
+      "count": 1,
+      "tokens": 297,
+      "first_read": "2026-08-14T09:08:39.703Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 1,
-  "anatomy_misses": 2,
+  "anatomy_hits": 6,
+  "anatomy_misses": 5,
   "repeated_reads_warned": 1,
   "cerebrum_warnings": 0,
-  "stop_count": 1
+  "stop_count": 2
 }
