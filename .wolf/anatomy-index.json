@@ -1,12 +1,12 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-08-14T14:03:12.578Z",
+    "lastScanned": "2026-08-14T19:32:51.897Z",
     "fileCount": 229,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "28becf0f7d6b71d60fa18149a5208f994d0fdc843d356c914e72fe8567f2e6d8",
-    "storeUpdatedAt": "2026-08-14T14:03:12.580Z"
+    "renderedHash": "f13ad01494b1ff637bbb655d99c3640d2e81efcc1da278dd817bc119a979b628",
+    "storeUpdatedAt": "2026-08-14T19:32:51.899Z"
   },
   "files": {
     ".agents/skills/speckit-agent-context-update/SKILL.md": {
@@ -15,7 +15,7 @@
       "hash": "53afb27e02c53ebb",
       "size": 1531,
       "mtimeMs": 1786563162674.4275,
-      "updatedAt": "2026-08-14T14:03:12.496Z",
+      "updatedAt": "2026-08-14T19:32:51.781Z",
       "source": "scan"
     },
     ".agents/skills/speckit-analyze/SKILL.md": {
@@ -24,7 +24,7 @@
       "hash": "2740b8aeab8d0104",
       "size": 10866,
       "mtimeMs": 1786563162482.942,
-      "updatedAt": "2026-08-14T14:03:12.497Z",
+      "updatedAt": "2026-08-14T19:32:51.781Z",
       "source": "scan"
     },
     ".agents/skills/speckit-checklist/SKILL.md": {
@@ -33,7 +33,7 @@
       "hash": "29d47cc5fe240450",
       "size": 20420,
       "mtimeMs": 1786563162520.4788,
-      "updatedAt": "2026-08-14T14:03:12.497Z",
+      "updatedAt": "2026-08-14T19:32:51.782Z",
       "source": "scan"
     },
     ".agents/skills/speckit-clarify/SKILL.md": {
@@ -42,7 +42,7 @@
       "hash": "2c184d847f288f93",
       "size": 17310,
       "mtimeMs": 1786563162487.7634,
-      "updatedAt": "2026-08-14T14:03:12.498Z",
+      "updatedAt": "2026-08-14T19:32:51.783Z",
       "source": "scan"
     },
     ".agents/skills/speckit-constitution/SKILL.md": {
@@ -51,7 +51,7 @@
       "hash": "e2cbe859958c5a05",
       "size": 8575,
       "mtimeMs": 1786563162496.2,
-      "updatedAt": "2026-08-14T14:03:12.498Z",
+      "updatedAt": "2026-08-14T19:32:51.783Z",
       "source": "scan"
     },
     ".agents/skills/speckit-converge/SKILL.md": {
@@ -60,7 +60,7 @@
       "hash": "a5a1047a4820a1e4",
       "size": 11863,
       "mtimeMs": 1786563162510.03,
-      "updatedAt": "2026-08-14T14:03:12.500Z",
+      "updatedAt": "2026-08-14T19:32:51.784Z",
       "source": "scan"
     },
     ".agents/skills/speckit-implement/SKILL.md": {
@@ -69,7 +69,7 @@
       "hash": "80db51bc215ce505",
       "size": 11376,
       "mtimeMs": 1786563162496.2,
-      "updatedAt": "2026-08-14T14:03:12.500Z",
+      "updatedAt": "2026-08-14T19:32:51.784Z",
       "source": "scan"
     },
     ".agents/skills/speckit-plan/SKILL.md": {
@@ -78,7 +78,7 @@
       "hash": "b92428f869e93676",
       "size": 7411,
       "mtimeMs": 1786563162515.4575,
-      "updatedAt": "2026-08-14T14:03:12.501Z",
+      "updatedAt": "2026-08-14T19:32:51.785Z",
       "source": "scan"
     },
     ".agents/skills/speckit-specify/SKILL.md": {
@@ -87,7 +87,7 @@
       "hash": "b63e3f76c18a5527",
       "size": 17591,
       "mtimeMs": 1786563162523.9185,
-      "updatedAt": "2026-08-14T14:03:12.501Z",
+      "updatedAt": "2026-08-14T19:32:51.785Z",
       "source": "scan"
     },
     ".agents/skills/speckit-tasks/SKILL.md": {
@@ -96,7 +96,7 @@
       "hash": "4b9a311eb6797801",
       "size": 10183,
       "mtimeMs": 1786563162528.7627,
-      "updatedAt": "2026-08-14T14:03:12.502Z",
+      "updatedAt": "2026-08-14T19:32:51.786Z",
       "source": "scan"
     },
     ".agents/skills/speckit-taskstoissues/SKILL.md": {
@@ -105,7 +105,7 @@
       "hash": "a7a7d3f51f20dd13",
       "size": 4462,
       "mtimeMs": 1786563162528.7627,
-      "updatedAt": "2026-08-14T14:03:12.502Z",
+      "updatedAt": "2026-08-14T19:32:51.787Z",
       "source": "scan"
     },
     ".claude/commands/reframe.md": {
@@ -114,7 +114,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786564496263.0945,
-      "updatedAt": "2026-08-14T14:03:12.503Z",
+      "updatedAt": "2026-08-14T19:32:51.788Z",
       "source": "scan"
     },
     ".claude/commands/security-audit.md": {
@@ -123,7 +123,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786564496263.0945,
-      "updatedAt": "2026-08-14T14:03:12.503Z",
+      "updatedAt": "2026-08-14T19:32:51.788Z",
       "source": "scan"
     },
     ".claude/rules/openwolf.md": {
@@ -132,7 +132,7 @@
       "hash": "6d735b2c1c54a916",
       "size": 1323,
       "mtimeMs": 1786564496183.0813,
-      "updatedAt": "2026-08-14T14:03:12.503Z",
+      "updatedAt": "2026-08-14T19:32:51.789Z",
       "source": "scan"
     },
     ".claude/settings.json": {
@@ -141,7 +141,7 @@
       "hash": "f68759bb50af5ee4",
       "size": 1799,
       "mtimeMs": 1786564496183.0813,
-      "updatedAt": "2026-08-14T14:03:12.504Z",
+      "updatedAt": "2026-08-14T19:32:51.789Z",
       "source": "scan"
     },
     ".claude/skills/speckit-analyze/SKILL.md": {
@@ -150,7 +150,7 @@
       "hash": "adb9c4baed1d0e27",
       "size": 10970,
       "mtimeMs": 1786563169396.0798,
-      "updatedAt": "2026-08-14T14:03:12.504Z",
+      "updatedAt": "2026-08-14T19:32:51.790Z",
       "source": "scan"
     },
     ".claude/skills/speckit-checklist/SKILL.md": {
@@ -159,7 +159,7 @@
       "hash": "82a54d9ce969ae87",
       "size": 20529,
       "mtimeMs": 1786563169412.9163,
-      "updatedAt": "2026-08-14T14:03:12.505Z",
+      "updatedAt": "2026-08-14T19:32:51.791Z",
       "source": "scan"
     },
     ".claude/skills/speckit-clarify/SKILL.md": {
@@ -168,7 +168,7 @@
       "hash": "fd720c2b468f10f8",
       "size": 17418,
       "mtimeMs": 1786563169404.8015,
-      "updatedAt": "2026-08-14T14:03:12.505Z",
+      "updatedAt": "2026-08-14T19:32:51.791Z",
       "source": "scan"
     },
     ".claude/skills/speckit-constitution/SKILL.md": {
@@ -177,7 +177,7 @@
       "hash": "c1a044aba243ca6a",
       "size": 8695,
       "mtimeMs": 1786563169404.8015,
-      "updatedAt": "2026-08-14T14:03:12.506Z",
+      "updatedAt": "2026-08-14T19:32:51.792Z",
       "source": "scan"
     },
     ".claude/skills/speckit-converge/SKILL.md": {
@@ -186,7 +186,7 @@
       "hash": "0c16a3220a920425",
       "size": 11916,
       "mtimeMs": 1786563169364.196,
-      "updatedAt": "2026-08-14T14:03:12.506Z",
+      "updatedAt": "2026-08-14T19:32:51.793Z",
       "source": "scan"
     },
     ".claude/skills/speckit-implement/SKILL.md": {
@@ -195,7 +195,7 @@
       "hash": "97a339450a2a81cb",
       "size": 11494,
       "mtimeMs": 1786563169408.508,
-      "updatedAt": "2026-08-14T14:03:12.507Z",
+      "updatedAt": "2026-08-14T19:32:51.793Z",
       "source": "scan"
     },
     ".claude/skills/speckit-plan/SKILL.md": {
@@ -204,7 +204,7 @@
       "hash": "08e693951151193e",
       "size": 7522,
       "mtimeMs": 1786563169411.5483,
-      "updatedAt": "2026-08-14T14:03:12.507Z",
+      "updatedAt": "2026-08-14T19:32:51.793Z",
       "source": "scan"
     },
     ".claude/skills/speckit-specify/SKILL.md": {
@@ -213,7 +213,7 @@
       "hash": "ebe19db388407058",
       "size": 17702,
       "mtimeMs": 1786563169412.9163,
-      "updatedAt": "2026-08-14T14:03:12.508Z",
+      "updatedAt": "2026-08-14T19:32:51.794Z",
       "source": "scan"
     },
     ".claude/skills/speckit-tasks/SKILL.md": {
@@ -222,7 +222,7 @@
       "hash": "84c276f7037693eb",
       "size": 10290,
       "mtimeMs": 1786563169412.9163,
-      "updatedAt": "2026-08-14T14:03:12.508Z",
+      "updatedAt": "2026-08-14T19:32:51.795Z",
       "source": "scan"
     },
     ".claude/skills/speckit-taskstoissues/SKILL.md": {
@@ -231,7 +231,7 @@
       "hash": "e326c30c89a6bb67",
       "size": 4575,
       "mtimeMs": 1786563169417.2456,
-      "updatedAt": "2026-08-14T14:03:12.508Z",
+      "updatedAt": "2026-08-14T19:32:51.795Z",
       "source": "scan"
     },
     ".codex/config.toml": {
@@ -240,7 +240,7 @@
       "hash": "d37497c327812159",
       "size": 24,
       "mtimeMs": 1785681317970.1682,
-      "updatedAt": "2026-08-14T14:03:12.509Z",
+      "updatedAt": "2026-08-14T19:32:51.796Z",
       "source": "scan"
     },
     ".codex/hooks.json": {
@@ -249,7 +249,7 @@
       "hash": "6ef5903ad4a52d5a",
       "size": 2425,
       "mtimeMs": 1786564496237.531,
-      "updatedAt": "2026-08-14T14:03:12.509Z",
+      "updatedAt": "2026-08-14T19:32:51.796Z",
       "source": "scan"
     },
     ".codex/hooks.json.graphify-bak": {
@@ -258,7 +258,7 @@
       "hash": "e61bb03af894a7b8",
       "size": 2523,
       "mtimeMs": 1785681350103.3848,
-      "updatedAt": "2026-08-14T14:03:12.509Z",
+      "updatedAt": "2026-08-14T19:32:51.796Z",
       "source": "scan"
     },
     ".codex/prompts/reframe.md": {
@@ -267,7 +267,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786564496269.4185,
-      "updatedAt": "2026-08-14T14:03:12.510Z",
+      "updatedAt": "2026-08-14T19:32:51.797Z",
       "source": "scan"
     },
     ".codex/prompts/security-audit.md": {
@@ -276,7 +276,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786564496269.4185,
-      "updatedAt": "2026-08-14T14:03:12.510Z",
+      "updatedAt": "2026-08-14T19:32:51.797Z",
       "source": "scan"
     },
     ".codex/skills/graphify/.graphify_version": {
@@ -285,7 +285,7 @@
       "hash": "56ec283f9c20d3ae",
       "size": 6,
       "mtimeMs": 1785681355314.423,
-      "updatedAt": "2026-08-14T14:03:12.510Z",
+      "updatedAt": "2026-08-14T19:32:51.797Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/add-watch.md": {
@@ -294,7 +294,7 @@
       "hash": "b3f6757024058268",
       "size": 2486,
       "mtimeMs": 1785652519946.9714,
-      "updatedAt": "2026-08-14T14:03:12.510Z",
+      "updatedAt": "2026-08-14T19:32:51.798Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/exports.md": {
@@ -303,7 +303,7 @@
       "hash": "ee47fae477f106d8",
       "size": 3362,
       "mtimeMs": 1785652519946.9714,
-      "updatedAt": "2026-08-14T14:03:12.510Z",
+      "updatedAt": "2026-08-14T19:32:51.798Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/extraction-spec.md": {
@@ -312,7 +312,7 @@
       "hash": "32d7decad42d5812",
       "size": 4431,
       "mtimeMs": 1785652519947.9968,
-      "updatedAt": "2026-08-14T14:03:12.510Z",
+      "updatedAt": "2026-08-14T19:32:51.799Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/github-and-merge.md": {
@@ -321,7 +321,7 @@
       "hash": "e5ebd90c7686f503",
       "size": 2177,
       "mtimeMs": 1785652519947.9968,
-      "updatedAt": "2026-08-14T14:03:12.511Z",
+      "updatedAt": "2026-08-14T19:32:51.799Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/hooks.md": {
@@ -330,7 +330,7 @@
       "hash": "b9a4e9f66813c6fc",
       "size": 1267,
       "mtimeMs": 1785652519949.2395,
-      "updatedAt": "2026-08-14T14:03:12.511Z",
+      "updatedAt": "2026-08-14T19:32:51.799Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/query.md": {
@@ -339,7 +339,7 @@
       "hash": "e563ddcb1e155aa2",
       "size": 13456,
       "mtimeMs": 1785652519964.2893,
-      "updatedAt": "2026-08-14T14:03:12.511Z",
+      "updatedAt": "2026-08-14T19:32:51.800Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/transcribe.md": {
@@ -348,7 +348,7 @@
       "hash": "676a1e39aa6d43cd",
       "size": 3173,
       "mtimeMs": 1785652519965.2903,
-      "updatedAt": "2026-08-14T14:03:12.512Z",
+      "updatedAt": "2026-08-14T19:32:51.800Z",
       "source": "scan"
     },
     ".codex/skills/graphify/references/update.md": {
@@ -357,7 +357,7 @@
       "hash": "661f559b3ff4f3db",
       "size": 10425,
       "mtimeMs": 1785652519966.406,
-      "updatedAt": "2026-08-14T14:03:12.512Z",
+      "updatedAt": "2026-08-14T19:32:51.800Z",
       "source": "scan"
     },
     ".codex/skills/graphify/SKILL.md": {
@@ -366,7 +366,7 @@
       "hash": "9024289348cceb61",
       "size": 40537,
       "mtimeMs": 1785681355314.423,
-      "updatedAt": "2026-08-14T14:03:12.512Z",
+      "updatedAt": "2026-08-14T19:32:51.801Z",
       "source": "scan"
     },
     ".dockerignore": {
@@ -375,7 +375,7 @@
       "hash": "deda84a2255fbef9",
       "size": 208,
       "mtimeMs": 1786379493803.1167,
-      "updatedAt": "2026-08-14T14:03:12.513Z",
+      "updatedAt": "2026-08-14T19:32:51.801Z",
       "source": "scan"
     },
     ".github/workflows/ci.yml": {
@@ -384,7 +384,7 @@
       "hash": "adb2cd2312208b64",
       "size": 9250,
       "mtimeMs": 1786710105620.3801,
-      "updatedAt": "2026-08-14T14:03:12.513Z",
+      "updatedAt": "2026-08-14T19:32:51.802Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -393,7 +393,7 @@
       "hash": "cfa3b159f46f7f0e",
       "size": 569,
       "mtimeMs": 1786650129244.9685,
-      "updatedAt": "2026-08-14T14:03:12.514Z",
+      "updatedAt": "2026-08-14T19:32:51.802Z",
       "source": "scan"
     },
     ".prettierrc": {
@@ -402,7 +402,7 @@
       "hash": "30d23aaa58117206",
       "size": 56,
       "mtimeMs": 1785681150698.9954,
-      "updatedAt": "2026-08-14T14:03:12.514Z",
+      "updatedAt": "2026-08-14T19:32:51.802Z",
       "source": "scan"
     },
     ".specify/extensions/.registry": {
@@ -411,7 +411,7 @@
       "hash": "fc1ce5d814b4792b",
       "size": 635,
       "mtimeMs": 1786563162678.65,
-      "updatedAt": "2026-08-14T14:03:12.514Z",
+      "updatedAt": "2026-08-14T19:32:51.802Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/agent-context-config.yml": {
@@ -420,7 +420,7 @@
       "hash": "12e5112a14c8bdeb",
       "size": 105,
       "mtimeMs": 1786563177860.9138,
-      "updatedAt": "2026-08-14T14:03:12.514Z",
+      "updatedAt": "2026-08-14T19:32:51.803Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/commands/speckit.agent-context.update.md": {
@@ -429,7 +429,7 @@
       "hash": "385c981d0af647f6",
       "size": 1292,
       "mtimeMs": 1781809635273.6663,
-      "updatedAt": "2026-08-14T14:03:12.515Z",
+      "updatedAt": "2026-08-14T19:32:51.803Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/extension.yml": {
@@ -438,7 +438,7 @@
       "hash": "9a1dc02d2d0139bb",
       "size": 932,
       "mtimeMs": 1781809635268.6726,
-      "updatedAt": "2026-08-14T14:03:12.515Z",
+      "updatedAt": "2026-08-14T19:32:51.803Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/README.md": {
@@ -447,7 +447,7 @@
       "hash": "e7983ef661a494d5",
       "size": 2675,
       "mtimeMs": 1781809635259.4514,
-      "updatedAt": "2026-08-14T14:03:12.515Z",
+      "updatedAt": "2026-08-14T19:32:51.804Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/scripts/bash/update-agent-context.sh": {
@@ -456,7 +456,7 @@
       "hash": "9dc5dbe765dfb6d6",
       "size": 6599,
       "mtimeMs": 1781809635279.5051,
-      "updatedAt": "2026-08-14T14:03:12.516Z",
+      "updatedAt": "2026-08-14T19:32:51.804Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": {
@@ -465,7 +465,7 @@
       "hash": "dd8f714bcf477a0e",
       "size": 7706,
       "mtimeMs": 1781809635278.5007,
-      "updatedAt": "2026-08-14T14:03:12.516Z",
+      "updatedAt": "2026-08-14T19:32:51.806Z",
       "source": "scan"
     },
     ".specify/extensions.yml": {
@@ -474,7 +474,7 @@
       "hash": "619a95e524c8ff95",
       "size": 628,
       "mtimeMs": 1786563162678.65,
-      "updatedAt": "2026-08-14T14:03:12.516Z",
+      "updatedAt": "2026-08-14T19:32:51.806Z",
       "source": "scan"
     },
     ".specify/feature.json": {
@@ -483,7 +483,7 @@
       "hash": "8890aef90ec73ba3",
       "size": 62,
       "mtimeMs": 1786714841108.1223,
-      "updatedAt": "2026-08-14T14:03:12.517Z",
+      "updatedAt": "2026-08-14T19:32:51.806Z",
       "source": "scan"
     },
     ".specify/init-options.json": {
@@ -492,7 +492,7 @@
       "hash": "e0ecbf098bdd7757",
       "size": 178,
       "mtimeMs": 1786563177860.9138,
-      "updatedAt": "2026-08-14T14:03:12.517Z",
+      "updatedAt": "2026-08-14T19:32:51.806Z",
       "source": "scan"
     },
     ".specify/integration.json": {
@@ -501,7 +501,7 @@
       "hash": "7eb1c41e33d52553",
       "size": 383,
       "mtimeMs": 1786563177860.9138,
-      "updatedAt": "2026-08-14T14:03:12.517Z",
+      "updatedAt": "2026-08-14T19:32:51.806Z",
       "source": "scan"
     },
     ".specify/integrations/claude.manifest.json": {
@@ -510,7 +510,7 @@
       "hash": "5c6c1bdcbc42c99f",
       "size": 1302,
       "mtimeMs": 1786563169417.2456,
-      "updatedAt": "2026-08-14T14:03:12.517Z",
+      "updatedAt": "2026-08-14T19:32:51.807Z",
       "source": "scan"
     },
     ".specify/integrations/codex.manifest.json": {
@@ -519,7 +519,7 @@
       "hash": "1cab5bc9c80214a7",
       "size": 1301,
       "mtimeMs": 1786563162539.9475,
-      "updatedAt": "2026-08-14T14:03:12.517Z",
+      "updatedAt": "2026-08-14T19:32:51.807Z",
       "source": "scan"
     },
     ".specify/integrations/speckit.manifest.json": {
@@ -528,7 +528,7 @@
       "hash": "7812488554b3e23a",
       "size": 1315,
       "mtimeMs": 1786563177856.7532,
-      "updatedAt": "2026-08-14T14:03:12.517Z",
+      "updatedAt": "2026-08-14T19:32:51.807Z",
       "source": "scan"
     },
     ".specify/memory/constitution.md": {
@@ -537,7 +537,7 @@
       "hash": "ce7549540fa45543",
       "size": 2346,
       "mtimeMs": 1786563162599.3154,
-      "updatedAt": "2026-08-14T14:03:12.518Z",
+      "updatedAt": "2026-08-14T19:32:51.807Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/check-prerequisites.ps1": {
@@ -546,7 +546,7 @@
       "hash": "7302acc26ed7920e",
       "size": 4773,
       "mtimeMs": 1786563177819.7334,
-      "updatedAt": "2026-08-14T14:03:12.518Z",
+      "updatedAt": "2026-08-14T19:32:51.808Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/common.ps1": {
@@ -555,7 +555,7 @@
       "hash": "3846917aff1e3fc6",
       "size": 20731,
       "mtimeMs": 1786563177819.7334,
-      "updatedAt": "2026-08-14T14:03:12.519Z",
+      "updatedAt": "2026-08-14T19:32:51.808Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/create-new-feature.ps1": {
@@ -564,7 +564,7 @@
       "hash": "1cd5b716e56c1df1",
       "size": 9282,
       "mtimeMs": 1786563177830.2634,
-      "updatedAt": "2026-08-14T14:03:12.519Z",
+      "updatedAt": "2026-08-14T19:32:51.808Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/setup-plan.ps1": {
@@ -573,7 +573,7 @@
       "hash": "d55b161c13b1a83d",
       "size": 2121,
       "mtimeMs": 1786563177830.2634,
-      "updatedAt": "2026-08-14T14:03:12.520Z",
+      "updatedAt": "2026-08-14T19:32:51.809Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/setup-tasks.ps1": {
@@ -582,7 +582,7 @@
       "hash": "441f3a6cfa1da236",
       "size": 2926,
       "mtimeMs": 1786563177836.1042,
-      "updatedAt": "2026-08-14T14:03:12.520Z",
+      "updatedAt": "2026-08-14T19:32:51.809Z",
       "source": "scan"
     },
     ".specify/templates/checklist-template.md": {
@@ -591,7 +591,7 @@
       "hash": "c37695297e5d3153",
       "size": 1312,
       "mtimeMs": 1786563177840.252,
-      "updatedAt": "2026-08-14T14:03:12.520Z",
+      "updatedAt": "2026-08-14T19:32:51.809Z",
       "source": "scan"
     },
     ".specify/templates/constitution-template.md": {
@@ -600,7 +600,7 @@
       "hash": "ce7549540fa45543",
       "size": 2346,
       "mtimeMs": 1786563177844.487,
-      "updatedAt": "2026-08-14T14:03:12.521Z",
+      "updatedAt": "2026-08-14T19:32:51.810Z",
       "source": "scan"
     },
     ".specify/templates/plan-template.md": {
@@ -609,7 +609,7 @@
       "hash": "cc7f7979cf8d8836",
       "size": 3703,
       "mtimeMs": 1786563177848.2288,
-      "updatedAt": "2026-08-14T14:03:12.521Z",
+      "updatedAt": "2026-08-14T19:32:51.810Z",
       "source": "scan"
     },
     ".specify/templates/spec-template.md": {
@@ -618,7 +618,7 @@
       "hash": "3945437fc35cd30a",
       "size": 4556,
       "mtimeMs": 1786563177852.1467,
-      "updatedAt": "2026-08-14T14:03:12.521Z",
+      "updatedAt": "2026-08-14T19:32:51.810Z",
       "source": "scan"
     },
     ".specify/templates/tasks-template.md": {
@@ -627,7 +627,7 @@
       "hash": "fc29a233f6f5a27c",
       "size": 9171,
       "mtimeMs": 1786563177852.1467,
-      "updatedAt": "2026-08-14T14:03:12.521Z",
+      "updatedAt": "2026-08-14T19:32:51.810Z",
       "source": "scan"
     },
     ".specify/workflows/speckit/workflow.yml": {
@@ -636,7 +636,7 @@
       "hash": "a3b7c17724df02c7",
       "size": 2197,
       "mtimeMs": 1781809635282.5083,
-      "updatedAt": "2026-08-14T14:03:12.521Z",
+      "updatedAt": "2026-08-14T19:32:51.811Z",
       "source": "scan"
     },
     ".specify/workflows/workflow-registry.json": {
@@ -645,7 +645,7 @@
       "hash": "fb91b253d9cac08e",
       "size": 381,
       "mtimeMs": 1786563162643.8926,
-      "updatedAt": "2026-08-14T14:03:12.522Z",
+      "updatedAt": "2026-08-14T19:32:51.811Z",
       "source": "scan"
     },
     "AGENTS.md": {
@@ -654,7 +654,7 @@
       "hash": "6a375b7438c617e9",
       "size": 4168,
       "mtimeMs": 1786626762359.6042,
-      "updatedAt": "2026-08-14T14:03:12.522Z",
+      "updatedAt": "2026-08-14T19:32:51.811Z",
       "source": "scan"
     },
     "CLAUDE.md": {
@@ -663,7 +663,7 @@
       "hash": "8b75fca1a0bbe0d5",
       "size": 4590,
       "mtimeMs": 1786715703373.3164,
-      "updatedAt": "2026-08-14T14:03:12.522Z",
+      "updatedAt": "2026-08-14T19:32:51.812Z",
       "source": "scan"
     },
     "docker-compose.yml": {
@@ -672,7 +672,7 @@
       "hash": "5c77e506836e7000",
       "size": 2770,
       "mtimeMs": 1786650090762.1409,
-      "updatedAt": "2026-08-14T14:03:12.522Z",
+      "updatedAt": "2026-08-14T19:32:51.812Z",
       "source": "scan"
     },
     "Dockerfile": {
@@ -681,7 +681,7 @@
       "hash": "cae016d7787be2d7",
       "size": 1138,
       "mtimeMs": 1786387051376.5962,
-      "updatedAt": "2026-08-14T14:03:12.522Z",
+      "updatedAt": "2026-08-14T19:32:51.812Z",
       "source": "scan"
     },
     "docs/Final_Project.md": {
@@ -690,7 +690,7 @@
       "hash": "d61c165cf730e004",
       "size": 18478,
       "mtimeMs": 1786381404313.0393,
-      "updatedAt": "2026-08-14T14:03:12.522Z",
+      "updatedAt": "2026-08-14T19:32:51.813Z",
       "source": "scan"
     },
     "docs/Incremental Pre-Aggregation with Time-Based Rollup Tables.md": {
@@ -699,7 +699,7 @@
       "hash": "37fdc329f1852bad",
       "size": 67099,
       "mtimeMs": 1786696536500.232,
-      "updatedAt": "2026-08-14T14:03:12.523Z",
+      "updatedAt": "2026-08-14T19:32:51.814Z",
       "source": "scan"
     },
     "docs/unit_testing_implementation_plan.md": {
@@ -708,7 +708,7 @@
       "hash": "a053d4ffa969390a",
       "size": 16059,
       "mtimeMs": 1786698646443.975,
-      "updatedAt": "2026-08-14T14:03:12.523Z",
+      "updatedAt": "2026-08-14T19:32:51.814Z",
       "source": "scan"
     },
     "eslint.config.mjs": {
@@ -717,7 +717,7 @@
       "hash": "e94fea27c5d744a4",
       "size": 934,
       "mtimeMs": 1785681150701.5923,
-      "updatedAt": "2026-08-14T14:03:12.523Z",
+      "updatedAt": "2026-08-14T19:32:51.814Z",
       "source": "scan"
     },
     "graphify-out/.graphify_analysis.json": {
@@ -726,7 +726,7 @@
       "hash": "4579a4a51649f20a",
       "size": 11859,
       "mtimeMs": 1785681342153.272,
-      "updatedAt": "2026-08-14T14:03:12.524Z",
+      "updatedAt": "2026-08-14T19:32:51.814Z",
       "source": "scan"
     },
     "graphify-out/.graphify_python": {
@@ -735,7 +735,7 @@
       "hash": "31f2aee4e71d21fb",
       "size": 16,
       "mtimeMs": 1786185350603.3965,
-      "updatedAt": "2026-08-14T14:03:12.524Z",
+      "updatedAt": "2026-08-14T19:32:51.814Z",
       "source": "scan"
     },
     "graphify-out/.graphify_root": {
@@ -744,7 +744,7 @@
       "hash": "ee7f5830665ad4d4",
       "size": 52,
       "mtimeMs": 1785681342151.327,
-      "updatedAt": "2026-08-14T14:03:12.524Z",
+      "updatedAt": "2026-08-14T19:32:51.815Z",
       "source": "scan"
     },
     "graphify-out/.vocab.txt": {
@@ -753,7 +753,7 @@
       "hash": "0c9750cec7cfb335",
       "size": 1464,
       "mtimeMs": 1786626853093.5654,
-      "updatedAt": "2026-08-14T14:03:12.524Z",
+      "updatedAt": "2026-08-14T19:32:51.815Z",
       "source": "scan"
     },
     "graphify-out/cache/ast/v0.9.32/42a7230cdc1aaf00f4a0a8c78bfa3fa46ca4b93a6eb4f28327722155638dc718.json": {
@@ -762,7 +762,7 @@
       "hash": "9f5458f172c93d9e",
       "size": 9503,
       "mtimeMs": 1785681340430.5742,
-      "updatedAt": "2026-08-14T14:03:12.525Z",
+      "updatedAt": "2026-08-14T19:32:51.815Z",
       "source": "scan"
     },
     "graphify-out/cache/ast/v0.9.32/46315faeec2a87b2ed4049fc128b6ff43f038a76097141721e2518640011e78f.json": {
@@ -771,7 +771,7 @@
       "hash": "35f3cb54ea90db41",
       "size": 2765,
       "mtimeMs": 1785681340426.2039,
-      "updatedAt": "2026-08-14T14:03:12.525Z",
+      "updatedAt": "2026-08-14T19:32:51.816Z",
       "source": "scan"
     },
     "graphify-out/cache/ast/v0.9.32/6bace277a911f3dbc54ea989701f231f94b612ff5d77083b756a2159109eb60a.json": {
@@ -780,7 +780,7 @@
       "hash": "885700731d282cbc",
       "size": 34423,
       "mtimeMs": 1785681340393.3977,
-      "updatedAt": "2026-08-14T14:03:12.525Z",
+      "updatedAt": "2026-08-14T19:32:51.816Z",
       "source": "scan"
     },
     "graphify-out/cache/ast/v0.9.32/79254ad5647d674ed8ea7513f76dd67c80d96d1ecb3abdf0686a1c39887a9fda.json": {
@@ -789,7 +789,7 @@
       "hash": "bb9a6a46958ad6cf",
       "size": 586,
       "mtimeMs": 1785681340515.1028,
-      "updatedAt": "2026-08-14T14:03:12.526Z",
+      "updatedAt": "2026-08-14T19:32:51.816Z",
       "source": "scan"
     },
     "graphify-out/cache/ast/v0.9.32/a289da2d045d96c4c551e39bcd85eeca5be69fe50bcbf600069df82ee2f3e748.json": {
@@ -798,7 +798,7 @@
       "hash": "4246104216b65eab",
       "size": 2045,
       "mtimeMs": 1785681340559.6482,
-      "updatedAt": "2026-08-14T14:03:12.526Z",
+      "updatedAt": "2026-08-14T19:32:51.817Z",
       "source": "scan"
     },
     "graphify-out/cache/stat-index.json": {
@@ -807,7 +807,7 @@
       "hash": "c4e37df4dc6f784d",
       "size": 7160,
       "mtimeMs": 1785681342187.8086,
-      "updatedAt": "2026-08-14T14:03:12.527Z",
+      "updatedAt": "2026-08-14T19:32:51.817Z",
       "source": "scan"
     },
     "graphify-out/graph.json": {
@@ -816,7 +816,7 @@
       "hash": "c0d15328292a03e9",
       "size": 206733,
       "mtimeMs": 1785681342147.3,
-      "updatedAt": "2026-08-14T14:03:12.528Z",
+      "updatedAt": "2026-08-14T19:32:51.819Z",
       "source": "scan"
     },
     "graphify-out/manifest.json": {
@@ -825,7 +825,7 @@
       "hash": "9de0aa5e2c2e7e4b",
       "size": 5736,
       "mtimeMs": 1785681342181.4365,
-      "updatedAt": "2026-08-14T14:03:12.528Z",
+      "updatedAt": "2026-08-14T19:32:51.820Z",
       "source": "scan"
     },
     "nest-cli.json": {
@@ -834,7 +834,7 @@
       "hash": "bcb15e3049ff5d13",
       "size": 171,
       "mtimeMs": 1785771260296.4219,
-      "updatedAt": "2026-08-14T14:03:12.528Z",
+      "updatedAt": "2026-08-14T19:32:51.820Z",
       "source": "scan"
     },
     "package-lock.json": {
@@ -843,7 +843,7 @@
       "hash": "ceed74b5b9bee290",
       "size": 393092,
       "mtimeMs": 1786688705000.1704,
-      "updatedAt": "2026-08-14T14:03:12.529Z",
+      "updatedAt": "2026-08-14T19:32:51.821Z",
       "source": "scan"
     },
     "package.json": {
@@ -852,7 +852,7 @@
       "hash": "2c74ddecf7147567",
       "size": 3342,
       "mtimeMs": 1786715527458.291,
-      "updatedAt": "2026-08-14T14:03:12.529Z",
+      "updatedAt": "2026-08-14T19:32:51.822Z",
       "source": "scan"
     },
     "projectSchema.dbml": {
@@ -861,7 +861,7 @@
       "hash": "180a75326e330e7f",
       "size": 5502,
       "mtimeMs": 1786652320097.313,
-      "updatedAt": "2026-08-14T14:03:12.529Z",
+      "updatedAt": "2026-08-14T19:32:51.822Z",
       "source": "scan"
     },
     "prompt/RLS.md": {
@@ -870,7 +870,7 @@
       "hash": "7ca3a0c55982c933",
       "size": 12659,
       "mtimeMs": 1786618455898.8745,
-      "updatedAt": "2026-08-14T14:03:12.530Z",
+      "updatedAt": "2026-08-14T19:32:51.822Z",
       "source": "scan"
     },
     "README.md": {
@@ -879,7 +879,7 @@
       "hash": "f791cd69c51a81f4",
       "size": 37559,
       "mtimeMs": 1786658840792.2483,
-      "updatedAt": "2026-08-14T14:03:12.530Z",
+      "updatedAt": "2026-08-14T19:32:51.823Z",
       "source": "scan"
     },
     "requests/health.check.rest": {
@@ -888,7 +888,7 @@
       "hash": "440a76676a9b689d",
       "size": 338,
       "mtimeMs": 1786562984472.1436,
-      "updatedAt": "2026-08-14T14:03:12.530Z",
+      "updatedAt": "2026-08-14T19:32:51.823Z",
       "source": "scan"
     },
     "requests/logs.aggregate.rest": {
@@ -897,7 +897,7 @@
       "hash": "4ebf086884887c3f",
       "size": 445,
       "mtimeMs": 1786562984472.1436,
-      "updatedAt": "2026-08-14T14:03:12.530Z",
+      "updatedAt": "2026-08-14T19:32:51.823Z",
       "source": "scan"
     },
     "requests/logs.ingest.rest": {
@@ -906,7 +906,7 @@
       "hash": "718bd6d447ed7a83",
       "size": 903,
       "mtimeMs": 1786562984472.1436,
-      "updatedAt": "2026-08-14T14:03:12.530Z",
+      "updatedAt": "2026-08-14T19:32:51.823Z",
       "source": "scan"
     },
     "requests/logs.list.rest": {
@@ -915,7 +915,7 @@
       "hash": "482920c7ba66d0f1",
       "size": 497,
       "mtimeMs": 1786562984480.3943,
-      "updatedAt": "2026-08-14T14:03:12.531Z",
+      "updatedAt": "2026-08-14T19:32:51.824Z",
       "source": "scan"
     },
     "requests/tenancy/tenancy.api-keys.create.rest": {
@@ -924,7 +924,7 @@
       "hash": "94fee574c73013aa",
       "size": 660,
       "mtimeMs": 1786605887329.5137,
-      "updatedAt": "2026-08-14T14:03:12.531Z",
+      "updatedAt": "2026-08-14T19:32:51.824Z",
       "source": "scan"
     },
     "requests/tenancy/tenancy.api-keys.list.rest": {
@@ -933,7 +933,7 @@
       "hash": "3455f6be002acc5f",
       "size": 388,
       "mtimeMs": 1786605893372.1487,
-      "updatedAt": "2026-08-14T14:03:12.531Z",
+      "updatedAt": "2026-08-14T19:32:51.825Z",
       "source": "scan"
     },
     "requests/tenancy/tenancy.api-keys.revoke.rest": {
@@ -942,7 +942,7 @@
       "hash": "e813617b8ddc1cf9",
       "size": 551,
       "mtimeMs": 1786605900144.9175,
-      "updatedAt": "2026-08-14T14:03:12.531Z",
+      "updatedAt": "2026-08-14T19:32:51.825Z",
       "source": "scan"
     },
     "requests/tenancy/tenancy.login.rest": {
@@ -951,7 +951,7 @@
       "hash": "8bce6c77b782d253",
       "size": 772,
       "mtimeMs": 1786605422122.0496,
-      "updatedAt": "2026-08-14T14:03:12.532Z",
+      "updatedAt": "2026-08-14T19:32:51.826Z",
       "source": "scan"
     },
     "requests/tenancy/tenancy.refresh.rest": {
@@ -960,7 +960,7 @@
       "hash": "afe6fdfbc8ad7a9d",
       "size": 665,
       "mtimeMs": 1786605429535.3853,
-      "updatedAt": "2026-08-14T14:03:12.532Z",
+      "updatedAt": "2026-08-14T19:32:51.826Z",
       "source": "scan"
     },
     "requests/tenancy/tenancy.register.rest": {
@@ -969,7 +969,7 @@
       "hash": "39d2049bd72d3a48",
       "size": 707,
       "mtimeMs": 1786605415348.164,
-      "updatedAt": "2026-08-14T14:03:12.532Z",
+      "updatedAt": "2026-08-14T19:32:51.827Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/checklists/requirements.md": {
@@ -978,7 +978,7 @@
       "hash": "7b7a78b097bdfba1",
       "size": 2463,
       "mtimeMs": 1786566321435.3506,
-      "updatedAt": "2026-08-14T14:03:12.533Z",
+      "updatedAt": "2026-08-14T19:32:51.828Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/contracts/api-keys-api.md": {
@@ -987,7 +987,7 @@
       "hash": "123c2b7df8b4dc69",
       "size": 4059,
       "mtimeMs": 1786600402417.3672,
-      "updatedAt": "2026-08-14T14:03:12.534Z",
+      "updatedAt": "2026-08-14T19:32:51.828Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/contracts/logs-endpoints-auth.md": {
@@ -996,7 +996,7 @@
       "hash": "b198ea6b86b0b9da",
       "size": 3161,
       "mtimeMs": 1786567070340.3525,
-      "updatedAt": "2026-08-14T14:03:12.534Z",
+      "updatedAt": "2026-08-14T19:32:51.829Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/contracts/tenant-accounts-api.md": {
@@ -1005,7 +1005,7 @@
       "hash": "b52a5d7799cf0d55",
       "size": 3153,
       "mtimeMs": 1786621152947.5173,
-      "updatedAt": "2026-08-14T14:03:12.534Z",
+      "updatedAt": "2026-08-14T19:32:51.829Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/data-model.md": {
@@ -1014,7 +1014,7 @@
       "hash": "8a5026d0d65d64ff",
       "size": 9281,
       "mtimeMs": 1786624970658.5776,
-      "updatedAt": "2026-08-14T14:03:12.534Z",
+      "updatedAt": "2026-08-14T19:32:51.830Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/plan.md": {
@@ -1023,7 +1023,7 @@
       "hash": "32c73f8b78e51d33",
       "size": 13453,
       "mtimeMs": 1786624988127.1094,
-      "updatedAt": "2026-08-14T14:03:12.535Z",
+      "updatedAt": "2026-08-14T19:32:51.830Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/quickstart.md": {
@@ -1032,7 +1032,7 @@
       "hash": "3c63e15ab28b6ea0",
       "size": 6406,
       "mtimeMs": 1786621157487.8372,
-      "updatedAt": "2026-08-14T14:03:12.535Z",
+      "updatedAt": "2026-08-14T19:32:51.830Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/research.md": {
@@ -1041,7 +1041,7 @@
       "hash": "4f9d3b083e666791",
       "size": 36314,
       "mtimeMs": 1786625719321.9365,
-      "updatedAt": "2026-08-14T14:03:12.535Z",
+      "updatedAt": "2026-08-14T19:32:51.831Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/spec.md": {
@@ -1050,7 +1050,7 @@
       "hash": "be6a1762e4c43b7f",
       "size": 21980,
       "mtimeMs": 1786621163653.4617,
-      "updatedAt": "2026-08-14T14:03:12.536Z",
+      "updatedAt": "2026-08-14T19:32:51.832Z",
       "source": "scan"
     },
     "specs/001-multi-tenancy/tasks.md": {
@@ -1059,7 +1059,7 @@
       "hash": "0a66ac5140a26a2d",
       "size": 40299,
       "mtimeMs": 1786608241910.5144,
-      "updatedAt": "2026-08-14T14:03:12.536Z",
+      "updatedAt": "2026-08-14T19:32:51.833Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/checklists/requirements.md": {
@@ -1068,7 +1068,7 @@
       "hash": "6a02f27fef7e06d5",
       "size": 1871,
       "mtimeMs": 1786637615143.5847,
-      "updatedAt": "2026-08-14T14:03:12.536Z",
+      "updatedAt": "2026-08-14T19:32:51.834Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/data-model.md": {
@@ -1077,7 +1077,7 @@
       "hash": "c37ed08864d97199",
       "size": 6379,
       "mtimeMs": 1786641449690.2012,
-      "updatedAt": "2026-08-14T14:03:12.537Z",
+      "updatedAt": "2026-08-14T19:32:51.834Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/plan.md": {
@@ -1086,7 +1086,7 @@
       "hash": "7b3de878e2183190",
       "size": 16030,
       "mtimeMs": 1786642307282.0051,
-      "updatedAt": "2026-08-14T14:03:12.537Z",
+      "updatedAt": "2026-08-14T19:32:51.834Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/quickstart.md": {
@@ -1095,7 +1095,7 @@
       "hash": "b88a8114cdd8fa77",
       "size": 12794,
       "mtimeMs": 1786642362684.0327,
-      "updatedAt": "2026-08-14T14:03:12.537Z",
+      "updatedAt": "2026-08-14T19:32:51.835Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/research.md": {
@@ -1104,7 +1104,7 @@
       "hash": "61d35cfd887155fc",
       "size": 34926,
       "mtimeMs": 1786642274959.045,
-      "updatedAt": "2026-08-14T14:03:12.537Z",
+      "updatedAt": "2026-08-14T19:32:51.835Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/spec.md": {
@@ -1113,7 +1113,7 @@
       "hash": "ca1e2559e33c1c9b",
       "size": 20929,
       "mtimeMs": 1786642191810.793,
-      "updatedAt": "2026-08-14T14:03:12.537Z",
+      "updatedAt": "2026-08-14T19:32:51.836Z",
       "source": "scan"
     },
     "specs/002-performance-optimization/tasks.md": {
@@ -1122,7 +1122,7 @@
       "hash": "dbbc2c755181178b",
       "size": 27804,
       "mtimeMs": 1786659273964.2405,
-      "updatedAt": "2026-08-14T14:03:12.538Z",
+      "updatedAt": "2026-08-14T19:32:51.836Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/checklists/requirements.md": {
@@ -1131,7 +1131,7 @@
       "hash": "a24c6c3bbdad07f0",
       "size": 2315,
       "mtimeMs": 1786715146549.9,
-      "updatedAt": "2026-08-14T14:03:12.538Z",
+      "updatedAt": "2026-08-14T19:32:51.837Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/contracts/post-logs-backpressure.md": {
@@ -1140,43 +1140,43 @@
       "hash": "a806945e570a0496",
       "size": 3864,
       "mtimeMs": 1786715661415.8381,
-      "updatedAt": "2026-08-14T14:03:12.538Z",
+      "updatedAt": "2026-08-14T19:32:51.839Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/data-model.md": {
       "description": "Data Model: Optional Backpressure Support",
-      "tokens": 1219,
-      "hash": "fdc678a381e0ac8d",
-      "size": 4909,
-      "mtimeMs": 1786715640667.3901,
-      "updatedAt": "2026-08-14T14:03:12.538Z",
+      "tokens": 1800,
+      "hash": "cac61a72465d987d",
+      "size": 7241,
+      "mtimeMs": 1786735743125.938,
+      "updatedAt": "2026-08-14T19:32:51.840Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/plan.md": {
       "description": "Implementation Plan: Optional Backpressure Support",
-      "tokens": 2815,
-      "hash": "19b00e0ef6e6d22c",
-      "size": 11447,
-      "mtimeMs": 1786715561589.0208,
-      "updatedAt": "2026-08-14T14:03:12.538Z",
+      "tokens": 3550,
+      "hash": "7dc3386fd3d1e1fc",
+      "size": 14453,
+      "mtimeMs": 1786735622845.271,
+      "updatedAt": "2026-08-14T19:32:51.840Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/quickstart.md": {
       "description": "Quickstart: Validating Optional Backpressure Support",
-      "tokens": 1773,
-      "hash": "956e4289b028de5d",
-      "size": 7131,
-      "mtimeMs": 1786715691087.2383,
-      "updatedAt": "2026-08-14T14:03:12.539Z",
+      "tokens": 2218,
+      "hash": "761ba3e7553fd9ea",
+      "size": 8918,
+      "mtimeMs": 1786735771705.8606,
+      "updatedAt": "2026-08-14T19:32:51.841Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/research.md": {
       "description": "Research: Optional Backpressure Support",
-      "tokens": 3350,
-      "hash": "12a18d3e1c802f6f",
-      "size": 13480,
-      "mtimeMs": 1786715616760.2385,
-      "updatedAt": "2026-08-14T14:03:12.539Z",
+      "tokens": 4920,
+      "hash": "b5cc1d7a99c0c8c9",
+      "size": 19802,
+      "mtimeMs": 1786735709141.115,
+      "updatedAt": "2026-08-14T19:32:51.841Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/spec.md": {
@@ -1185,16 +1185,16 @@
       "hash": "41495e836eaa7b1e",
       "size": 18691,
       "mtimeMs": 1786715130910.745,
-      "updatedAt": "2026-08-14T14:03:12.539Z",
+      "updatedAt": "2026-08-14T19:32:51.841Z",
       "source": "scan"
     },
     "specs/003-ingestion-backpressure/tasks.md": {
       "description": "Tasks: Optional Backpressure Support",
-      "tokens": 5912,
-      "hash": "9afd2e57f2f85e71",
-      "size": 23803,
-      "mtimeMs": 1786716181398.42,
-      "updatedAt": "2026-08-14T14:03:12.540Z",
+      "tokens": 7131,
+      "hash": "19c8568a736dd87e",
+      "size": 28698,
+      "mtimeMs": 1786735914966.9917,
+      "updatedAt": "2026-08-14T19:32:51.842Z",
       "source": "scan"
     },
     "src/app.controller.ts": {
@@ -1203,7 +1203,7 @@
       "hash": "7bb4dccd0d05bcde",
       "size": 274,
       "mtimeMs": 1785692516807.3696,
-      "updatedAt": "2026-08-14T14:03:12.541Z",
+      "updatedAt": "2026-08-14T19:32:51.843Z",
       "source": "scan"
     },
     "src/app.module.ts": {
@@ -1212,7 +1212,7 @@
       "hash": "c5b6f66151f1878a",
       "size": 1914,
       "mtimeMs": 1786606874433.8616,
-      "updatedAt": "2026-08-14T14:03:12.541Z",
+      "updatedAt": "2026-08-14T19:32:51.844Z",
       "source": "scan"
     },
     "src/app.service.ts": {
@@ -1221,7 +1221,7 @@
       "hash": "eaf8514ce110fa42",
       "size": 142,
       "mtimeMs": 1785692516832.4646,
-      "updatedAt": "2026-08-14T14:03:12.542Z",
+      "updatedAt": "2026-08-14T19:32:51.845Z",
       "source": "scan"
     },
     "src/common/constants/http.constants.ts": {
@@ -1230,7 +1230,7 @@
       "hash": "08f5d043772fb18d",
       "size": 47,
       "mtimeMs": 1785772251214.6252,
-      "updatedAt": "2026-08-14T14:03:12.542Z",
+      "updatedAt": "2026-08-14T19:32:51.846Z",
       "source": "scan"
     },
     "src/common/constants/log-api.constants.ts": {
@@ -1239,7 +1239,7 @@
       "hash": "a095064e62988f97",
       "size": 1222,
       "mtimeMs": 1786650256635.038,
-      "updatedAt": "2026-08-14T14:03:12.542Z",
+      "updatedAt": "2026-08-14T19:32:51.847Z",
       "source": "scan"
     },
     "src/common/constants/log-query.constants.ts": {
@@ -1248,7 +1248,7 @@
       "hash": "3310708e32d768bf",
       "size": 317,
       "mtimeMs": 1785698963888.8147,
-      "updatedAt": "2026-08-14T14:03:12.543Z",
+      "updatedAt": "2026-08-14T19:32:51.847Z",
       "source": "scan"
     },
     "src/common/constants/postgres.constants.ts": {
@@ -1257,7 +1257,7 @@
       "hash": "c5fe0efefc39021a",
       "size": 207,
       "mtimeMs": 1786625365374.631,
-      "updatedAt": "2026-08-14T14:03:12.543Z",
+      "updatedAt": "2026-08-14T19:32:51.847Z",
       "source": "scan"
     },
     "src/common/constants/retention.constants.ts": {
@@ -1266,7 +1266,7 @@
       "hash": "c970188d93472640",
       "size": 914,
       "mtimeMs": 1786650264576.0916,
-      "updatedAt": "2026-08-14T14:03:12.543Z",
+      "updatedAt": "2026-08-14T19:32:51.848Z",
       "source": "scan"
     },
     "src/common/constants/tenancy.constants.ts": {
@@ -1275,7 +1275,7 @@
       "hash": "c6a9e68a3b5025bd",
       "size": 2271,
       "mtimeMs": 1786625661878.644,
-      "updatedAt": "2026-08-14T14:03:12.544Z",
+      "updatedAt": "2026-08-14T19:32:51.850Z",
       "source": "scan"
     },
     "src/common/filters/global-exception.filter.ts": {
@@ -1284,7 +1284,7 @@
       "hash": "a0ea647dd9f58890",
       "size": 2775,
       "mtimeMs": 1785772766804.0398,
-      "updatedAt": "2026-08-14T14:03:12.544Z",
+      "updatedAt": "2026-08-14T19:32:51.852Z",
       "source": "scan",
       "symbols": [
         {
@@ -1316,7 +1316,7 @@
       "hash": "b979bf8ff9164f95",
       "size": 1082,
       "mtimeMs": 1786659023139.9045,
-      "updatedAt": "2026-08-14T14:03:12.544Z",
+      "updatedAt": "2026-08-14T19:32:51.853Z",
       "source": "scan"
     },
     "src/common/validators/zod-validation.utils.ts": {
@@ -1325,7 +1325,7 @@
       "hash": "0d31b8da1df57c6e",
       "size": 496,
       "mtimeMs": 1786625139677.791,
-      "updatedAt": "2026-08-14T14:03:12.544Z",
+      "updatedAt": "2026-08-14T19:32:51.853Z",
       "source": "scan"
     },
     "src/config/data-source.ts": {
@@ -1334,7 +1334,7 @@
       "hash": "d1a900104ee94021",
       "size": 516,
       "mtimeMs": 1785692370719.1921,
-      "updatedAt": "2026-08-14T14:03:12.545Z",
+      "updatedAt": "2026-08-14T19:32:51.854Z",
       "source": "scan"
     },
     "src/config/database.config.ts": {
@@ -1343,7 +1343,7 @@
       "hash": "f20a75e88cb3a179",
       "size": 1991,
       "mtimeMs": 1786652131541.587,
-      "updatedAt": "2026-08-14T14:03:12.545Z",
+      "updatedAt": "2026-08-14T19:32:51.855Z",
       "source": "scan",
       "symbols": [
         {
@@ -1368,7 +1368,7 @@
       "hash": "8b98bc0d828924b6",
       "size": 1348,
       "mtimeMs": 1786606874520.416,
-      "updatedAt": "2026-08-14T14:03:12.545Z",
+      "updatedAt": "2026-08-14T19:32:51.855Z",
       "source": "scan"
     },
     "src/health/health.module.ts": {
@@ -1377,7 +1377,7 @@
       "hash": "5ecf77af6f9ea6b7",
       "size": 552,
       "mtimeMs": 1785692383417.1685,
-      "updatedAt": "2026-08-14T14:03:12.546Z",
+      "updatedAt": "2026-08-14T19:32:51.855Z",
       "source": "scan"
     },
     "src/health/health.service.ts": {
@@ -1386,7 +1386,7 @@
       "hash": "39471318438f51cc",
       "size": 2502,
       "mtimeMs": 1786606874532.3916,
-      "updatedAt": "2026-08-14T14:03:12.546Z",
+      "updatedAt": "2026-08-14T19:32:51.856Z",
       "source": "scan",
       "symbols": [
         {
@@ -1404,7 +1404,7 @@
       "hash": "2808547e9958a9c0",
       "size": 284,
       "mtimeMs": 1786606874532.3916,
-      "updatedAt": "2026-08-14T14:03:12.546Z",
+      "updatedAt": "2026-08-14T19:32:51.856Z",
       "source": "scan"
     },
     "src/logs/cursor/cursor.service.ts": {
@@ -1413,7 +1413,7 @@
       "hash": "af6c50fe9b2eabb4",
       "size": 1200,
       "mtimeMs": 1785787889955.758,
-      "updatedAt": "2026-08-14T14:03:12.547Z",
+      "updatedAt": "2026-08-14T19:32:51.857Z",
       "source": "scan"
     },
     "src/logs/dto/requests/aggregate-logs.dto.ts": {
@@ -1422,7 +1422,7 @@
       "hash": "6b5617c63bfbd20e",
       "size": 1185,
       "mtimeMs": 1785702388751.6614,
-      "updatedAt": "2026-08-14T14:03:12.547Z",
+      "updatedAt": "2026-08-14T19:32:51.857Z",
       "source": "scan"
     },
     "src/logs/dto/requests/ingest-logs.dto.ts": {
@@ -1431,7 +1431,7 @@
       "hash": "fbb6fb9f3b3e1dd7",
       "size": 204,
       "mtimeMs": 1785701989383.5935,
-      "updatedAt": "2026-08-14T14:03:12.547Z",
+      "updatedAt": "2026-08-14T19:32:51.857Z",
       "source": "scan"
     },
     "src/logs/dto/requests/log-entry.dto.ts": {
@@ -1440,7 +1440,7 @@
       "hash": "6fed0558a7ebcb75",
       "size": 831,
       "mtimeMs": 1785702388668.739,
-      "updatedAt": "2026-08-14T14:03:12.547Z",
+      "updatedAt": "2026-08-14T19:32:51.858Z",
       "source": "scan"
     },
     "src/logs/dto/requests/query-logs.dto.ts": {
@@ -1449,7 +1449,7 @@
       "hash": "f8bcd04a0ff0db98",
       "size": 979,
       "mtimeMs": 1785702388722.4854,
-      "updatedAt": "2026-08-14T14:03:12.548Z",
+      "updatedAt": "2026-08-14T19:32:51.858Z",
       "source": "scan"
     },
     "src/logs/dto/responses/aggregate-logs-response.dto.ts": {
@@ -1458,7 +1458,7 @@
       "hash": "6db76bb9268578b2",
       "size": 433,
       "mtimeMs": 1785701989528.5276,
-      "updatedAt": "2026-08-14T14:03:12.549Z",
+      "updatedAt": "2026-08-14T19:32:51.858Z",
       "source": "scan"
     },
     "src/logs/dto/responses/ingest-logs-response.dto.ts": {
@@ -1467,7 +1467,7 @@
       "hash": "d62cbe2c9bcdb483",
       "size": 369,
       "mtimeMs": 1785701989472.7573,
-      "updatedAt": "2026-08-14T14:03:12.549Z",
+      "updatedAt": "2026-08-14T19:32:51.859Z",
       "source": "scan"
     },
     "src/logs/dto/responses/query-logs-response.dto.ts": {
@@ -1476,7 +1476,7 @@
       "hash": "69fb857015997255",
       "size": 1090,
       "mtimeMs": 1785702388774.32,
-      "updatedAt": "2026-08-14T14:03:12.549Z",
+      "updatedAt": "2026-08-14T19:32:51.859Z",
       "source": "scan"
     },
     "src/logs/entities/log-rollup.entity.ts": {
@@ -1485,7 +1485,7 @@
       "hash": "70c7caca3f305c5e",
       "size": 1638,
       "mtimeMs": 1786651414885.1716,
-      "updatedAt": "2026-08-14T14:03:12.550Z",
+      "updatedAt": "2026-08-14T19:32:51.859Z",
       "source": "scan"
     },
     "src/logs/entities/log.entity.ts": {
@@ -1494,7 +1494,7 @@
       "hash": "93d5ff907e421bb4",
       "size": 1764,
       "mtimeMs": 1786652190947.024,
-      "updatedAt": "2026-08-14T14:03:12.550Z",
+      "updatedAt": "2026-08-14T19:32:51.860Z",
       "source": "scan",
       "symbols": [
         {
@@ -1512,7 +1512,7 @@
       "hash": "0b0ec75028cf2297",
       "size": 115,
       "mtimeMs": 1785693292636.333,
-      "updatedAt": "2026-08-14T14:03:12.550Z",
+      "updatedAt": "2026-08-14T19:32:51.860Z",
       "source": "scan"
     },
     "src/logs/enums/aggregation-group.enum.ts": {
@@ -1521,7 +1521,7 @@
       "hash": "0da549291e39406e",
       "size": 75,
       "mtimeMs": 1785693294692.974,
-      "updatedAt": "2026-08-14T14:03:12.550Z",
+      "updatedAt": "2026-08-14T19:32:51.860Z",
       "source": "scan"
     },
     "src/logs/enums/log-level.enum.ts": {
@@ -1530,7 +1530,7 @@
       "hash": "35b2874b269e83c4",
       "size": 97,
       "mtimeMs": 1785683210528.8293,
-      "updatedAt": "2026-08-14T14:03:12.550Z",
+      "updatedAt": "2026-08-14T19:32:51.860Z",
       "source": "scan"
     },
     "src/logs/interfaces/cursor-payload.interface.ts": {
@@ -1539,7 +1539,7 @@
       "hash": "285e0edd2e4e600f",
       "size": 70,
       "mtimeMs": 1785693634208.0154,
-      "updatedAt": "2026-08-14T14:03:12.551Z",
+      "updatedAt": "2026-08-14T19:32:51.861Z",
       "source": "scan"
     },
     "src/logs/interfaces/log-query.interface.ts": {
@@ -1548,7 +1548,7 @@
       "hash": "a43f39317979ec44",
       "size": 1362,
       "mtimeMs": 1786652252558.2175,
-      "updatedAt": "2026-08-14T14:03:12.551Z",
+      "updatedAt": "2026-08-14T19:32:51.861Z",
       "source": "scan"
     },
     "src/logs/interfaces/log-repository.interface.ts": {
@@ -1557,7 +1557,7 @@
       "hash": "8f5c16e2fd589f98",
       "size": 643,
       "mtimeMs": 1786652196494.8489,
-      "updatedAt": "2026-08-14T14:03:12.551Z",
+      "updatedAt": "2026-08-14T19:32:51.861Z",
       "source": "scan"
     },
     "src/logs/logs.controller.ts": {
@@ -1566,7 +1566,7 @@
       "hash": "a0bd386475c1a15b",
       "size": 3953,
       "mtimeMs": 1786606874632.189,
-      "updatedAt": "2026-08-14T14:03:12.551Z",
+      "updatedAt": "2026-08-14T19:32:51.861Z",
       "source": "scan",
       "symbols": [
         {
@@ -1584,7 +1584,7 @@
       "hash": "93f31aff8113ad88",
       "size": 1185,
       "mtimeMs": 1786651436248.5623,
-      "updatedAt": "2026-08-14T14:03:12.551Z",
+      "updatedAt": "2026-08-14T19:32:51.862Z",
       "source": "scan"
     },
     "src/logs/mappers/log.mapper.ts": {
@@ -1593,7 +1593,7 @@
       "hash": "d5ab4ea633a8ac78",
       "size": 1670,
       "mtimeMs": 1786652282590.8955,
-      "updatedAt": "2026-08-14T14:03:12.551Z",
+      "updatedAt": "2026-08-14T19:32:51.862Z",
       "source": "scan"
     },
     "src/logs/query-builders/aggregation-query.builder.ts": {
@@ -1602,7 +1602,7 @@
       "hash": "7a44e07408488bc0",
       "size": 4013,
       "mtimeMs": 1786651518989.1184,
-      "updatedAt": "2026-08-14T14:03:12.552Z",
+      "updatedAt": "2026-08-14T19:32:51.863Z",
       "source": "scan",
       "symbols": [
         {
@@ -1648,7 +1648,7 @@
       "hash": "8b47a3a530680bd4",
       "size": 4087,
       "mtimeMs": 1786652236281.2107,
-      "updatedAt": "2026-08-14T14:03:12.552Z",
+      "updatedAt": "2026-08-14T19:32:51.863Z",
       "source": "scan",
       "symbols": [
         {
@@ -1687,7 +1687,7 @@
       "hash": "55cb642f243a5fd0",
       "size": 1080,
       "mtimeMs": 1786652259453.2307,
-      "updatedAt": "2026-08-14T14:03:12.552Z",
+      "updatedAt": "2026-08-14T19:32:51.863Z",
       "source": "scan"
     },
     "src/logs/repositories/log.repository.ts": {
@@ -1696,7 +1696,7 @@
       "hash": "ab65362602368d00",
       "size": 11548,
       "mtimeMs": 1786689039933.9917,
-      "updatedAt": "2026-08-14T14:03:12.553Z",
+      "updatedAt": "2026-08-14T19:32:51.864Z",
       "source": "scan",
       "symbols": [
         {
@@ -1728,7 +1728,7 @@
       "hash": "cb0c4fa518e4c391",
       "size": 1084,
       "mtimeMs": 1786606874716.5388,
-      "updatedAt": "2026-08-14T14:03:12.553Z",
+      "updatedAt": "2026-08-14T19:32:51.864Z",
       "source": "scan"
     },
     "src/logs/services/log-ingestion.service.ts": {
@@ -1737,7 +1737,7 @@
       "hash": "237fff2e71a10e73",
       "size": 1309,
       "mtimeMs": 1786606874724.4324,
-      "updatedAt": "2026-08-14T14:03:12.554Z",
+      "updatedAt": "2026-08-14T19:32:51.865Z",
       "source": "scan"
     },
     "src/logs/services/log-query.service.ts": {
@@ -1746,7 +1746,7 @@
       "hash": "f6d64abeea49112a",
       "size": 1686,
       "mtimeMs": 1786652293115.6892,
-      "updatedAt": "2026-08-14T14:03:12.554Z",
+      "updatedAt": "2026-08-14T19:32:51.865Z",
       "source": "scan"
     },
     "src/logs/validators/cursor-payload.schema.ts": {
@@ -1755,7 +1755,7 @@
       "hash": "6af5f4e1c5b39ba0",
       "size": 447,
       "mtimeMs": 1785772299038.757,
-      "updatedAt": "2026-08-14T14:03:12.555Z",
+      "updatedAt": "2026-08-14T19:32:51.866Z",
       "source": "scan"
     },
     "src/logs/validators/iso-timestamp.schema.ts": {
@@ -1764,7 +1764,7 @@
       "hash": "fa66187022541d64",
       "size": 391,
       "mtimeMs": 1785772251253.4678,
-      "updatedAt": "2026-08-14T14:03:12.555Z",
+      "updatedAt": "2026-08-14T19:32:51.866Z",
       "source": "scan"
     },
     "src/logs/validators/log-entry.schema.ts": {
@@ -1773,7 +1773,7 @@
       "hash": "c61d8ec280218456",
       "size": 1697,
       "mtimeMs": 1785772261644.628,
-      "updatedAt": "2026-08-14T14:03:12.555Z",
+      "updatedAt": "2026-08-14T19:32:51.867Z",
       "source": "scan"
     },
     "src/logs/validators/log-entry.validator.ts": {
@@ -1782,7 +1782,7 @@
       "hash": "aed62541ab4113e5",
       "size": 2186,
       "mtimeMs": 1786625158905.545,
-      "updatedAt": "2026-08-14T14:03:12.556Z",
+      "updatedAt": "2026-08-14T19:32:51.867Z",
       "source": "scan",
       "symbols": [
         {
@@ -1807,7 +1807,7 @@
       "hash": "4e07d2f8b86aa0f6",
       "size": 3301,
       "mtimeMs": 1785772261719.2346,
-      "updatedAt": "2026-08-14T14:03:12.556Z",
+      "updatedAt": "2026-08-14T19:32:51.868Z",
       "source": "scan",
       "symbols": [
         {
@@ -1839,7 +1839,7 @@
       "hash": "c41521dd8d7c7183",
       "size": 2463,
       "mtimeMs": 1786625170985.5793,
-      "updatedAt": "2026-08-14T14:03:12.556Z",
+      "updatedAt": "2026-08-14T19:32:51.868Z",
       "source": "scan",
       "symbols": [
         {
@@ -1857,7 +1857,7 @@
       "hash": "423013c2a724302d",
       "size": 2453,
       "mtimeMs": 1786620665703.3987,
-      "updatedAt": "2026-08-14T14:03:12.556Z",
+      "updatedAt": "2026-08-14T19:32:51.869Z",
       "source": "scan",
       "symbols": [
         {
@@ -1875,7 +1875,7 @@
       "hash": "c3e3e70cc95d0c56",
       "size": 885,
       "mtimeMs": 1785685227075.0012,
-      "updatedAt": "2026-08-14T14:03:12.557Z",
+      "updatedAt": "2026-08-14T19:32:51.870Z",
       "source": "scan"
     },
     "src/migrations/1785684350113-CreateLogLevelEnum.ts": {
@@ -1884,7 +1884,7 @@
       "hash": "3b27233bc56414e6",
       "size": 773,
       "mtimeMs": 1785685235804.043,
-      "updatedAt": "2026-08-14T14:03:12.557Z",
+      "updatedAt": "2026-08-14T19:32:51.870Z",
       "source": "scan"
     },
     "src/migrations/1785684350114-CreateLogsTable.ts": {
@@ -1893,7 +1893,7 @@
       "hash": "ad682331c61aa9c3",
       "size": 2585,
       "mtimeMs": 1786652146911.1846,
-      "updatedAt": "2026-08-14T14:03:12.557Z",
+      "updatedAt": "2026-08-14T19:32:51.870Z",
       "source": "scan",
       "symbols": [
         {
@@ -1911,7 +1911,7 @@
       "hash": "825a67b811e83df8",
       "size": 2718,
       "mtimeMs": 1786602796631.0476,
-      "updatedAt": "2026-08-14T14:03:12.557Z",
+      "updatedAt": "2026-08-14T19:32:51.870Z",
       "source": "scan",
       "symbols": [
         {
@@ -1929,7 +1929,7 @@
       "hash": "9ede0fc8124b8778",
       "size": 1515,
       "mtimeMs": 1786652180021.6597,
-      "updatedAt": "2026-08-14T14:03:12.557Z",
+      "updatedAt": "2026-08-14T19:32:51.871Z",
       "source": "scan"
     },
     "src/migrations/1785684350117-DropLogsMessageTrigramIndex.ts": {
@@ -1938,7 +1938,7 @@
       "hash": "6f927f4328447ee4",
       "size": 1392,
       "mtimeMs": 1786393411855.8179,
-      "updatedAt": "2026-08-14T14:03:12.558Z",
+      "updatedAt": "2026-08-14T19:32:51.871Z",
       "source": "scan"
     },
     "src/migrations/1785684350118-CreateTenancyTables.ts": {
@@ -1947,7 +1947,7 @@
       "hash": "0cd03f993509c901",
       "size": 3742,
       "mtimeMs": 1786621121568.719,
-      "updatedAt": "2026-08-14T14:03:12.558Z",
+      "updatedAt": "2026-08-14T19:32:51.871Z",
       "source": "scan",
       "symbols": [
         {
@@ -1965,7 +1965,7 @@
       "hash": "0cd31cc5ee8f7868",
       "size": 2572,
       "mtimeMs": 1786651426826.453,
-      "updatedAt": "2026-08-14T14:03:12.558Z",
+      "updatedAt": "2026-08-14T19:32:51.871Z",
       "source": "scan",
       "symbols": [
         {
@@ -1983,7 +1983,7 @@
       "hash": "5e66eec7cf67a8f7",
       "size": 119,
       "mtimeMs": 1785853386385.3137,
-      "updatedAt": "2026-08-14T14:03:12.558Z",
+      "updatedAt": "2026-08-14T19:32:51.872Z",
       "source": "scan"
     },
     "src/retention/interfaces/retention.interface.ts": {
@@ -1992,7 +1992,7 @@
       "hash": "00bea2b22a0f8a3a",
       "size": 128,
       "mtimeMs": 1786651569434.697,
-      "updatedAt": "2026-08-14T14:03:12.558Z",
+      "updatedAt": "2026-08-14T19:32:51.872Z",
       "source": "scan"
     },
     "src/retention/partition.service.ts": {
@@ -2001,7 +2001,7 @@
       "hash": "2db1c1f29fe10a18",
       "size": 6443,
       "mtimeMs": 1786652161584.3557,
-      "updatedAt": "2026-08-14T14:03:12.559Z",
+      "updatedAt": "2026-08-14T19:32:51.872Z",
       "source": "scan",
       "symbols": [
         {
@@ -2019,7 +2019,7 @@
       "hash": "eb7b9fb1741538a7",
       "size": 361,
       "mtimeMs": 1785788908625.4668,
-      "updatedAt": "2026-08-14T14:03:12.559Z",
+      "updatedAt": "2026-08-14T19:32:51.872Z",
       "source": "scan"
     },
     "src/retention/retention.scheduler.ts": {
@@ -2028,7 +2028,7 @@
       "hash": "8251c55e2fa16b8d",
       "size": 977,
       "mtimeMs": 1785788908611.3943,
-      "updatedAt": "2026-08-14T14:03:12.559Z",
+      "updatedAt": "2026-08-14T19:32:51.872Z",
       "source": "scan"
     },
     "src/retention/retention.service.ts": {
@@ -2037,7 +2037,7 @@
       "hash": "1bc6ce88ac4421ce",
       "size": 6723,
       "mtimeMs": 1786659070810.5188,
-      "updatedAt": "2026-08-14T14:03:12.559Z",
+      "updatedAt": "2026-08-14T19:32:51.873Z",
       "source": "scan",
       "symbols": [
         {
@@ -2055,7 +2055,7 @@
       "hash": "e2c28ae1d5b5d464",
       "size": 1229,
       "mtimeMs": 1785692517079.3943,
-      "updatedAt": "2026-08-14T14:03:12.560Z",
+      "updatedAt": "2026-08-14T19:32:51.874Z",
       "source": "scan"
     },
     "src/scripts/drop-database.ts": {
@@ -2064,7 +2064,7 @@
       "hash": "fa0bb4bfeea329ad",
       "size": 962,
       "mtimeMs": 1785692517092.0276,
-      "updatedAt": "2026-08-14T14:03:12.560Z",
+      "updatedAt": "2026-08-14T19:32:51.874Z",
       "source": "scan"
     },
     "src/tenancy/controllers/api-keys.controller.ts": {
@@ -2073,7 +2073,7 @@
       "hash": "097bb7035e1e41b1",
       "size": 3438,
       "mtimeMs": 1786625179174.2556,
-      "updatedAt": "2026-08-14T14:03:12.560Z",
+      "updatedAt": "2026-08-14T19:32:51.875Z",
       "source": "scan",
       "symbols": [
         {
@@ -2098,7 +2098,7 @@
       "hash": "769288008bbb4a6d",
       "size": 2868,
       "mtimeMs": 1786625187584.6338,
-      "updatedAt": "2026-08-14T14:03:12.561Z",
+      "updatedAt": "2026-08-14T19:32:51.876Z",
       "source": "scan",
       "symbols": [
         {
@@ -2116,7 +2116,7 @@
       "hash": "c5f4038e4e4ca12c",
       "size": 633,
       "mtimeMs": 1786603002601.1265,
-      "updatedAt": "2026-08-14T14:03:12.561Z",
+      "updatedAt": "2026-08-14T19:32:51.877Z",
       "source": "scan"
     },
     "src/tenancy/dto/requests/login-tenant.dto.ts": {
@@ -2125,7 +2125,7 @@
       "hash": "635bc03b0efec277",
       "size": 240,
       "mtimeMs": 1786605184245.3225,
-      "updatedAt": "2026-08-14T14:03:12.561Z",
+      "updatedAt": "2026-08-14T19:32:51.878Z",
       "source": "scan"
     },
     "src/tenancy/dto/requests/refresh-token.dto.ts": {
@@ -2134,7 +2134,7 @@
       "hash": "da2e8ef9ba87e241",
       "size": 151,
       "mtimeMs": 1786605190017.6958,
-      "updatedAt": "2026-08-14T14:03:12.562Z",
+      "updatedAt": "2026-08-14T19:32:51.878Z",
       "source": "scan"
     },
     "src/tenancy/dto/requests/register-tenant.dto.ts": {
@@ -2143,7 +2143,7 @@
       "hash": "acaaa476d396ccde",
       "size": 243,
       "mtimeMs": 1786605178572.9785,
-      "updatedAt": "2026-08-14T14:03:12.562Z",
+      "updatedAt": "2026-08-14T19:32:51.878Z",
       "source": "scan"
     },
     "src/tenancy/dto/responses/api-key-list.dto.ts": {
@@ -2152,7 +2152,7 @@
       "hash": "c23c9bba4b6b43c1",
       "size": 208,
       "mtimeMs": 1786605781254.3347,
-      "updatedAt": "2026-08-14T14:03:12.562Z",
+      "updatedAt": "2026-08-14T19:32:51.879Z",
       "source": "scan"
     },
     "src/tenancy/dto/responses/api-key.dto.ts": {
@@ -2161,7 +2161,7 @@
       "hash": "793871b7a55726c8",
       "size": 626,
       "mtimeMs": 1786621446693.4812,
-      "updatedAt": "2026-08-14T14:03:12.563Z",
+      "updatedAt": "2026-08-14T19:32:51.879Z",
       "source": "scan"
     },
     "src/tenancy/dto/responses/auth-tokens.dto.ts": {
@@ -2170,7 +2170,7 @@
       "hash": "94e3c9b2c4f65bab",
       "size": 383,
       "mtimeMs": 1786605201424.0913,
-      "updatedAt": "2026-08-14T14:03:12.563Z",
+      "updatedAt": "2026-08-14T19:32:51.879Z",
       "source": "scan"
     },
     "src/tenancy/dto/responses/tenant.dto.ts": {
@@ -2179,7 +2179,7 @@
       "hash": "061c9c8537086749",
       "size": 227,
       "mtimeMs": 1786621132010.864,
-      "updatedAt": "2026-08-14T14:03:12.563Z",
+      "updatedAt": "2026-08-14T19:32:51.880Z",
       "source": "scan"
     },
     "src/tenancy/entities/api-key.entity.ts": {
@@ -2188,7 +2188,7 @@
       "hash": "4a4be3f9bd6a122f",
       "size": 826,
       "mtimeMs": 1786621420437.953,
-      "updatedAt": "2026-08-14T14:03:12.564Z",
+      "updatedAt": "2026-08-14T19:32:51.880Z",
       "source": "scan"
     },
     "src/tenancy/entities/refresh-token.entity.ts": {
@@ -2197,7 +2197,7 @@
       "hash": "564b2403aa57e4f1",
       "size": 709,
       "mtimeMs": 1786602753322.3228,
-      "updatedAt": "2026-08-14T14:03:12.564Z",
+      "updatedAt": "2026-08-14T19:32:51.880Z",
       "source": "scan"
     },
     "src/tenancy/entities/tenant.entity.ts": {
@@ -2206,7 +2206,7 @@
       "hash": "c3281f02867f45c5",
       "size": 387,
       "mtimeMs": 1786621115621.454,
-      "updatedAt": "2026-08-14T14:03:12.564Z",
+      "updatedAt": "2026-08-14T19:32:51.880Z",
       "source": "scan"
     },
     "src/tenancy/enums/api-key-status.enum.ts": {
@@ -2215,7 +2215,7 @@
       "hash": "e8368014999776c0",
       "size": 73,
       "mtimeMs": 1786621406891.595,
-      "updatedAt": "2026-08-14T14:03:12.564Z",
+      "updatedAt": "2026-08-14T19:32:51.881Z",
       "source": "scan"
     },
     "src/tenancy/guards/api-key-auth.guard.ts": {
@@ -2224,7 +2224,7 @@
       "hash": "c4fe56b00fe5df6a",
       "size": 2416,
       "mtimeMs": 1786604410196.8784,
-      "updatedAt": "2026-08-14T14:03:12.564Z",
+      "updatedAt": "2026-08-14T19:32:51.881Z",
       "source": "scan",
       "symbols": [
         {
@@ -2249,7 +2249,7 @@
       "hash": "ac0481fba9078b61",
       "size": 2181,
       "mtimeMs": 1786605742137.6719,
-      "updatedAt": "2026-08-14T14:03:12.565Z",
+      "updatedAt": "2026-08-14T19:32:51.882Z",
       "source": "scan",
       "symbols": [
         {
@@ -2274,7 +2274,7 @@
       "hash": "c7866f2bb0308eb7",
       "size": 83,
       "mtimeMs": 1786715527283.8813,
-      "updatedAt": "2026-08-14T14:03:12.565Z",
+      "updatedAt": "2026-08-14T19:32:51.882Z",
       "source": "scan"
     },
     "src/tenancy/services/api-key.service.ts": {
@@ -2283,7 +2283,7 @@
       "hash": "401a63c8db251a5c",
       "size": 2203,
       "mtimeMs": 1786621436746.7893,
-      "updatedAt": "2026-08-14T14:03:12.565Z",
+      "updatedAt": "2026-08-14T19:32:51.883Z",
       "source": "scan",
       "symbols": [
         {
@@ -2301,7 +2301,7 @@
       "hash": "87747d60089b97a3",
       "size": 2302,
       "mtimeMs": 1786625644468.0164,
-      "updatedAt": "2026-08-14T14:03:12.565Z",
+      "updatedAt": "2026-08-14T19:32:51.883Z",
       "source": "scan",
       "symbols": [
         {
@@ -2319,7 +2319,7 @@
       "hash": "07a280436166245c",
       "size": 4338,
       "mtimeMs": 1786625393231.824,
-      "updatedAt": "2026-08-14T14:03:12.566Z",
+      "updatedAt": "2026-08-14T19:32:51.883Z",
       "source": "scan",
       "symbols": [
         {
@@ -2351,7 +2351,7 @@
       "hash": "e89d76a99120ab05",
       "size": 2004,
       "mtimeMs": 1786715527320.6296,
-      "updatedAt": "2026-08-14T14:03:12.566Z",
+      "updatedAt": "2026-08-14T19:32:51.884Z",
       "source": "scan",
       "symbols": [
         {
@@ -2369,7 +2369,7 @@
       "hash": "01b9179db590ed36",
       "size": 1756,
       "mtimeMs": 1786605855606.448,
-      "updatedAt": "2026-08-14T14:03:12.566Z",
+      "updatedAt": "2026-08-14T19:32:51.884Z",
       "source": "scan",
       "symbols": [
         {
@@ -2387,7 +2387,7 @@
       "hash": "c5a9f9c4a9c99cce",
       "size": 373,
       "mtimeMs": 1786605688428.4053,
-      "updatedAt": "2026-08-14T14:03:12.567Z",
+      "updatedAt": "2026-08-14T19:32:51.885Z",
       "source": "scan"
     },
     "src/tenancy/utils/password-hasher.util.ts": {
@@ -2396,7 +2396,7 @@
       "hash": "b274dc41cb789739",
       "size": 1045,
       "mtimeMs": 1786624884067.5237,
-      "updatedAt": "2026-08-14T14:03:12.567Z",
+      "updatedAt": "2026-08-14T19:32:51.885Z",
       "source": "scan"
     },
     "src/tenancy/validators/api-key.schema.ts": {
@@ -2405,7 +2405,7 @@
       "hash": "0ddfcf6c503b7976",
       "size": 293,
       "mtimeMs": 1786605767953.9255,
-      "updatedAt": "2026-08-14T14:03:12.567Z",
+      "updatedAt": "2026-08-14T19:32:51.885Z",
       "source": "scan"
     },
     "src/tenancy/validators/tenant-auth.schema.ts": {
@@ -2414,7 +2414,7 @@
       "hash": "343257f3c4f77689",
       "size": 869,
       "mtimeMs": 1786605170756.6792,
-      "updatedAt": "2026-08-14T14:03:12.567Z",
+      "updatedAt": "2026-08-14T19:32:51.886Z",
       "source": "scan"
     },
     "test/app.e2e-spec.ts": {
@@ -2423,7 +2423,7 @@
       "hash": "191eb3068fadbce1",
       "size": 754,
       "mtimeMs": 1785681150709.576,
-      "updatedAt": "2026-08-14T14:03:12.568Z",
+      "updatedAt": "2026-08-14T19:32:51.886Z",
       "source": "scan"
     },
     "test/jest-e2e.json": {
@@ -2432,7 +2432,7 @@
       "hash": "954cf50ac87fdc5d",
       "size": 262,
       "mtimeMs": 1786710105633.0227,
-      "updatedAt": "2026-08-14T14:03:12.568Z",
+      "updatedAt": "2026-08-14T19:32:51.887Z",
       "source": "scan"
     },
     "tsconfig.build.json": {
@@ -2441,7 +2441,7 @@
       "hash": "3a016b4ee9713cd1",
       "size": 97,
       "mtimeMs": 1785771260418.28,
-      "updatedAt": "2026-08-14T14:03:12.569Z",
+      "updatedAt": "2026-08-14T19:32:51.887Z",
       "source": "scan"
     },
     "tsconfig.json": {
@@ -2450,7 +2450,7 @@
       "hash": "451609cef80304c4",
       "size": 722,
       "mtimeMs": 1785771260425.1326,
-      "updatedAt": "2026-08-14T14:03:12.569Z",
+      "updatedAt": "2026-08-14T19:32:51.887Z",
       "source": "scan"
     }
   }

@@ -28,7 +28,7 @@ wait
 # The existing required-contract smoke test (both AUTH_ENABLED configurations) must also pass unmodified.
 ```
 
-## Scenario 2 — Temporary capacity exhaustion returns 503 + Retry-After, admits nothing (User Story 2)
+## Scenario 2 — Temporary capacity exhaustion returns 503 + Retry-After, admits nothing, and is global across tenants (User Story 2, FR-008)
 
 ```bash
 # Restart with backpressure enabled and a deliberately tiny row cap, so a handful of
@@ -54,11 +54,40 @@ curl -s 'http://localhost:8080/logs?service=backpressure-503&limit=20' | jq '.lo
 # expect: exactly the count of requests that received 200 — none of the 503'd requests
 # ever wrote a row (SC-003/SC-004).
 
-# Wait past Retry-After, then confirm the service recovers on its own (SC-005, FR-013):
-sleep 2
-curl -s -o /dev/null -w '%{http_code}\n' -X POST http://localhost:8080/logs -H 'Content-Type: application/json' \
-  -d "{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\"}" # (placeholder — use a valid single-entry batch)
-# expect: 200 — no restart or manual intervention needed.
+# Confirm the service recovers on its own, and MEASURE how long it takes (SC-005: "within
+# a few seconds") rather than just asserting it eventually works:
+start=$(date +%s.%N)
+until curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8080/logs \
+  -H 'Content-Type: application/json' \
+  -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"backpressure-recovery\",\"message\":\"recovered\",\"attributes\":{}}]}" \
+  | grep -q '^200$'; do
+  sleep 0.2
+done
+end=$(date +%s.%N)
+echo "recovered after $(echo "$end - $start" | bc)s — no restart or manual intervention (FR-013)"
+# expect: a reported recovery time of a few seconds at most — report the actual measured
+# value, not just "it eventually worked."
+
+## Two-tenant capacity is shared globally, not per-tenant (FR-008)
+
+# With AUTH_ENABLED=true (see specs/001-multi-tenancy/quickstart.md for provisioning two
+# tenants' API keys), restart with the same tiny-cap config as above. Saturate capacity
+# using ONLY tenant A's traffic, then confirm tenant B — which has sent nothing itself —
+# is ALSO rejected. A per-tenant (rather than global) implementation would incorrectly
+# admit tenant B's request here.
+for i in $(seq 1 20); do
+  curl -s -o /dev/null -X POST http://localhost:8080/logs \
+    -H "Authorization: Bearer ${API_KEY_A}" -H 'Content-Type: application/json' \
+    -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"tenant-a-load\",\"message\":\"m$i\",\"attributes\":{}}]}" &
+done
+wait
+
+status=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8080/logs \
+  -H "Authorization: Bearer ${API_KEY_B}" -H 'Content-Type: application/json' \
+  -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"tenant-b-check\",\"message\":\"x\",\"attributes\":{}}]}")
+echo "tenant B (sent nothing itself) got: ${status}"
+# expect: 503 at least some of the time while tenant A's burst is still draining — tenant
+# B's request is judged against the SAME global counters tenant A's burst just filled.
 ```
 
 ## Scenario 3 — A batch that can never fit returns 413, not 503 (User Story 2, SC-008)

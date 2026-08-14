@@ -123,8 +123,8 @@
       "first_read": "2026-08-14T13:44:30.953Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/specs/003-ingestion-backpressure/plan.md": {
-      "count": 3,
-      "tokens": 2815,
+      "count": 4,
+      "tokens": 3550,
       "first_read": "2026-08-14T13:48:24.418Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/.specify/memory/constitution.md": {
@@ -203,18 +203,18 @@
       "first_read": "2026-08-14T13:58:42.073Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/specs/003-ingestion-backpressure/tasks.md": {
-      "count": 1,
-      "tokens": 5912,
+      "count": 5,
+      "tokens": 7131,
       "first_read": "2026-08-14T14:05:18.253Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/specs/003-ingestion-backpressure/data-model.md": {
-      "count": 1,
-      "tokens": 1219,
+      "count": 2,
+      "tokens": 1800,
       "first_read": "2026-08-14T14:06:38.707Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/specs/003-ingestion-backpressure/research.md": {
-      "count": 1,
-      "tokens": 3350,
+      "count": 2,
+      "tokens": 4920,
       "first_read": "2026-08-14T14:14:01.140Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/specs/003-ingestion-backpressure/contracts/post-logs-backpressure.md": {
@@ -223,8 +223,8 @@
       "first_read": "2026-08-14T14:14:01.523Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/specs/003-ingestion-backpressure/quickstart.md": {
-      "count": 1,
-      "tokens": 1773,
+      "count": 2,
+      "tokens": 2218,
       "first_read": "2026-08-14T19:25:03.313Z"
     }
   },
@@ -232,7 +232,7 @@
   "edit_counts": {},
   "anatomy_hits": 34,
   "anatomy_misses": 9,
-  "repeated_reads_warned": 6,
+  "repeated_reads_warned": 14,
   "cerebrum_warnings": 0,
-  "stop_count": 9
+  "stop_count": 11
 }

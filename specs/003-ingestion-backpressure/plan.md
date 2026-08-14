@@ -94,4 +94,4 @@ requests/                                    # CANDIDATE (deferred to tasks.md):
 
 ## Complexity Tracking
 
-*No entries — no constitution violations to justify.* This feature is, by design, the minimum machinery that satisfies every FR: two counters, two comparisons, one new exception class, one generic header pass-through. No new abstraction layer, no new dependency beyond promoting an already-vendored transitive one, no new persisted state.
+*No entries — no constitution violations to justify.* This feature is, by design, the minimum machinery that satisfies every FR: two counters, two comparisons, a pair of plain domain-error classes, a small translation step, one HTTP exception class, one generic header pass-through, and one centralized config factory. Four small new files, zero new services/modules — each file has exactly one reason to change, which is what keeps this a minimum rather than an under-factored one. No new dependency beyond promoting an already-vendored transitive one, no new persisted state.
