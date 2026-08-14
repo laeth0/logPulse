@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-14T13:55:13.007Z
-> Files: 228 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-14T14:03:12.578Z
+> Files: 229 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -298,6 +298,7 @@
 - `quickstart.md` — Quickstart: Validating Optional Backpressure Support (~1773 tok)
 - `research.md` — Research: Optional Backpressure Support (~3350 tok)
 - `spec.md` — Feature Specification: Optional Backpressure Support (~4654 tok)
+- `tasks.md` — Tasks: Optional Backpressure Support (~5912 tok)
 
 ## specs/003-ingestion-backpressure/checklists/
 
