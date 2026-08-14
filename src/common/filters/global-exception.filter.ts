@@ -52,6 +52,17 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       } else {
         message = exception.message;
       }
+
+      // Generic, duck-typed: any HttpException carrying a numeric
+      // retryAfterSeconds sets the header — not specific to BackpressureException,
+      // so any future exception wanting a Retry-After gets it for free. Scoped to
+      // this HttpException branch specifically (not the plain-Error/unhandled
+      // branches below) so a domain error exposing the same property name can
+      // never trigger this header on what should be a generic 500.
+      const retryAfterSeconds = getRetryAfterSeconds(exception);
+      if (retryAfterSeconds !== undefined) {
+        response.set('Retry-After', String(retryAfterSeconds));
+      }
     } else if (externalClientError) {
       status = externalClientError.status;
       message = externalClientError.message;
@@ -85,4 +96,12 @@ function getExternalClientError(
   return typeof statusCode === 'number' && statusCode >= 400 && statusCode < 500
     ? { status: statusCode, message: exception.message }
     : undefined;
+}
+
+function getRetryAfterSeconds(exception: HttpException): number | undefined {
+  const retryAfterSeconds: unknown = Reflect.get(
+    exception,
+    'retryAfterSeconds',
+  );
+  return typeof retryAfterSeconds === 'number' ? retryAfterSeconds : undefined;
 }

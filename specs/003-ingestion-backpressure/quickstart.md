@@ -55,18 +55,19 @@ curl -s 'http://localhost:8080/logs?service=backpressure-503&limit=20' | jq '.lo
 # ever wrote a row (SC-003/SC-004).
 
 # Confirm the service recovers on its own, and MEASURE how long it takes (SC-005: "within
-# a few seconds") rather than just asserting it eventually works:
-start=$(date +%s.%N)
+# a few seconds") rather than just asserting it eventually works. Millisecond epoch + integer
+# arithmetic, not `date +%s.%N` piped through `bc` — `bc` isn't installed everywhere.
+start=$(date +%s%3N)
 until curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8080/logs \
   -H 'Content-Type: application/json' \
   -d "{\"logs\":[{\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",\"level\":\"info\",\"service\":\"backpressure-recovery\",\"message\":\"recovered\",\"attributes\":{}}]}" \
   | grep -q '^200$'; do
   sleep 0.2
 done
-end=$(date +%s.%N)
-echo "recovered after $(echo "$end - $start" | bc)s — no restart or manual intervention (FR-013)"
-# expect: a reported recovery time of a few seconds at most — report the actual measured
-# value, not just "it eventually worked."
+end=$(date +%s%3N)
+echo "recovered after $((end - start)) ms — no restart or manual intervention (FR-013)"
+# expect: a reported recovery time of a few seconds at most (measured live during T017: 156ms
+# with a 5-row cap) — report the actual measured value, not just "it eventually worked."
 
 ## Two-tenant capacity is shared globally, not per-tenant (FR-008)
 

@@ -12,6 +12,23 @@ export const LOG_ID_PATTERN = /^[1-9]\d{0,18}$/;
 export const DEFAULT_INGEST_COALESCE_WINDOW_MS = 5;
 export const DEFAULT_INGEST_COALESCE_MAX_ROWS = 2000;
 
+// Optional backpressure tuning (specs/003-ingestion-backpressure research.md Decisions 2, 6).
+// Env-overridable via BACKPRESSURE_MAX_PENDING_ROWS / BACKPRESSURE_MAX_PENDING_BYTES /
+// BACKPRESSURE_RETRY_AFTER_SECONDS — starting defaults pending measurement, not fixed
+// values. BACKPRESSURE_ENABLED itself has no constant here: it's a plain boolean read
+// directly off `process.env.BACKPRESSURE_ENABLED === 'true'`, which is already `false`
+// (the documented default, FR-002) for both an unset and any non-'true' value.
+export const DEFAULT_BACKPRESSURE_MAX_PENDING_ROWS = 20_000;
+export const DEFAULT_BACKPRESSURE_MAX_PENDING_BYTES = '25mb';
+export const DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS = 1;
+
+// Fixed per-entry overhead folded into the field-length byte-size estimate, covering the
+// timestamp value, the level value, and JSON structural punctuation (field-name labels,
+// quotes, colons, commas, braces) that summing message/service/attribute lengths alone
+// wouldn't otherwise account for (research.md Decision 2) — an estimate, not an exact
+// figure; spec.md's Assumptions require only an estimate, not exact on-disk size.
+export const ESTIMATED_BYTES_OVERHEAD_PER_LOG_ENTRY = 128;
+
 export const ISO_8601_TIMESTAMP_PATTERN =
   /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/;
 

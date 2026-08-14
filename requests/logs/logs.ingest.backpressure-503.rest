@@ -1,0 +1,36 @@
+# Demonstrates the optional backpressure feature's 503 response (specs/003-ingestion-backpressure).
+# Only reachable when BACKPRESSURE_ENABLED=true and the service is currently at capacity —
+# with the default (disabled) configuration, this batch is simply accepted (200).
+#
+# To reproduce locally:
+#   BACKPRESSURE_ENABLED=true BACKPRESSURE_MAX_PENDING_ROWS=1 docker compose up --build -d
+# then fire this request concurrently with itself (or any other POST /logs traffic) a few
+# times in quick succession — one of the concurrent requests should land while the other
+# is still admitted-but-not-completed.
+
+### May return 200 (accepted) or 503 (temporarily at capacity), depending on concurrent load
+POST http://localhost:8080/logs
+Content-Type: application/json
+
+{
+  "logs": [
+    {
+      "timestamp": "2026-07-20T14:32:01.123Z",
+      "level": "info",
+      "service": "backpressure-demo",
+      "message": "may be shed under load",
+      "attributes": {}
+    }
+  ]
+}
+
+# Expected 503 response:
+#   HTTP/1.1 503 Service Unavailable
+#   Retry-After: 1
+#   Content-Type: application/json
+#
+#   {"error": "the service is temporarily at ingestion capacity; retry shortly"}
+#
+# Retrying the identical request after Retry-After seconds may succeed once other
+# admitted-but-not-completed work has drained (unlike the 413 case in
+# logs.ingest.oversized-413.rest, which can never succeed no matter when retried).

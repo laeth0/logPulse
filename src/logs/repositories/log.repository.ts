@@ -5,13 +5,19 @@ import type { DataSource, EntityManager, Repository } from 'typeorm';
 import {
   DEFAULT_INGEST_COALESCE_MAX_ROWS,
   DEFAULT_INGEST_COALESCE_WINDOW_MS,
+  ESTIMATED_BYTES_OVERHEAD_PER_LOG_ENTRY,
 } from '@/common/constants/log-api.constants';
 import {
   alignDownToRollupBucket,
   alignUpToRollupBucket,
 } from '@/common/utils/rollup-bucket.utils';
+import { createBackpressureConfig } from '@/logs/config/backpressure.config';
 import { LogRollup } from '@/logs/entities/log-rollup.entity';
 import { Log } from '@/logs/entities/log.entity';
+import {
+  IngestionBatchTooLargeError,
+  IngestionCapacityExceededError,
+} from '@/logs/errors/ingestion-capacity.errors';
 import type {
   AggregateLogsQuery,
   FindLogsQuery,
@@ -40,6 +46,8 @@ interface PendingInsert {
   logs: readonly NewLog[];
   resolve: () => void;
   reject: (error: unknown) => void;
+  /** This entry's contribution to `pendingByteCount`; `0` when backpressure is disabled (never computed). */
+  byteSize: number;
 }
 
 /** One (bucket, tenant_id, service, level) group's row-count delta from a single flush. */
@@ -60,6 +68,13 @@ export class LogRepository implements LogRepositoryContract {
   private readonly coalesceMaxRows = process.env.INGEST_COALESCE_MAX_ROWS
     ? Number(process.env.INGEST_COALESCE_MAX_ROWS)
     : DEFAULT_INGEST_COALESCE_MAX_ROWS;
+
+  // Optional admission control (specs/003-ingestion-backpressure). backpressureConfig is
+  // read once at construction; the two counters below track total admitted-but-not-
+  // completed row/byte count (queued + in-flight) and are only ever touched when enabled.
+  private readonly backpressureConfig = createBackpressureConfig();
+  private pendingRowCount = 0;
+  private pendingByteCount = 0;
 
   private readonly pendingInserts: PendingInsert[] = [];
   private flushTimer: NodeJS.Timeout | null = null;
@@ -83,10 +98,76 @@ export class LogRepository implements LogRepositoryContract {
       return Promise.resolve();
     }
 
+    let byteSize = 0;
+
+    if (this.backpressureConfig.enabled) {
+      byteSize = this.estimateByteSize(logs);
+      this.checkAdmission(logs, byteSize);
+      this.pendingRowCount += logs.length;
+      this.pendingByteCount += byteSize;
+    }
+
     return new Promise<void>((resolve, reject) => {
-      this.pendingInserts.push({ logs, resolve, reject });
+      this.pendingInserts.push({ logs, resolve, reject, byteSize });
       this.scheduleFlush();
     });
+  }
+
+  /**
+   * Estimates a batch's total byte size from already-materialized field
+   * lengths — never `JSON.stringify`+`Buffer.byteLength`, which would
+   * allocate and fully serialize each entry on the ingestion hot path for no
+   * precision this project's "estimate, not exact" requirement actually
+   * needs (research.md Decision 2). Computed exactly once per batch; the
+   * caller reuses the one result for both the admission check and the
+   * `PendingInsert.byteSize` field consumed at settlement.
+   */
+  private estimateByteSize(logs: readonly NewLog[]): number {
+    let total = 0;
+
+    for (const log of logs) {
+      total +=
+        log.message.length +
+        log.service.length +
+        log.tenant_id.length +
+        ESTIMATED_BYTES_OVERHEAD_PER_LOG_ENTRY;
+
+      for (const [key, value] of Object.entries(log.attributes)) {
+        total += key.length + String(value).length;
+      }
+    }
+
+    return total;
+  }
+
+  /**
+   * Throws if `logs` cannot be admitted, given `byteSize` (already computed
+   * once by the caller). Two-tier decision (research.md Decision 3):
+   *  1. Absolute check — the batch alone exceeds a configured limit, so it
+   *     could never be admitted regardless of load (`IngestionBatchTooLargeError`).
+   *  2. Headroom check — the batch would fit alone, but other admitted-but-
+   *     not-completed work is currently occupying the remaining capacity
+   *     (`IngestionCapacityExceededError`).
+   * Returns normally (admits) otherwise. Both errors are plain, HTTP-agnostic
+   * `Error` subclasses — `LogIngestionService` translates them to the actual
+   * HTTP response (research.md Decision 8).
+   */
+  private checkAdmission(logs: readonly NewLog[], byteSize: number): void {
+    const { maxPendingRows, maxPendingBytes, retryAfterSeconds } =
+      this.backpressureConfig;
+
+    if (logs.length > maxPendingRows || byteSize > maxPendingBytes) {
+      throw new IngestionBatchTooLargeError(
+        `batch of ${logs.length} entries (~${byteSize} bytes) exceeds the configured ingestion capacity limit and can never be admitted`,
+      );
+    }
+
+    if (
+      this.pendingRowCount + logs.length > maxPendingRows ||
+      this.pendingByteCount + byteSize > maxPendingBytes
+    ) {
+      throw new IngestionCapacityExceededError(retryAfterSeconds);
+    }
   }
 
   private scheduleFlush(): void {
@@ -176,13 +257,31 @@ export class LogRepository implements LogRepositoryContract {
       });
 
       for (const entry of batch) {
+        this.releaseCapacity(entry);
         entry.resolve();
       }
     } catch (error) {
       for (const entry of batch) {
+        this.releaseCapacity(entry);
         entry.reject(error);
       }
     }
+  }
+
+  /**
+   * Frees the capacity `insertMany()` reserved for this entry, whether its
+   * flush succeeded or failed — a failed flush must free capacity exactly as
+   * reliably as a successful one, so no entry is ever leaked (data-model.md's
+   * invariant). No-op when backpressure is disabled, since nothing was ever
+   * reserved in that case.
+   */
+  private releaseCapacity(entry: PendingInsert): void {
+    if (!this.backpressureConfig.enabled) {
+      return;
+    }
+
+    this.pendingRowCount -= entry.logs.length;
+    this.pendingByteCount -= entry.byteSize;
   }
 
   /**
