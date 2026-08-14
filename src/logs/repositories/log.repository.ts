@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
-import type { PoolClient } from 'pg';
-import { from as copyFromStdin } from 'pg-copy-streams';
-import type { DataSource, Repository } from 'typeorm';
+import type { DataSource, EntityManager, Repository } from 'typeorm';
 
 import {
   DEFAULT_INGEST_COALESCE_MAX_ROWS,
@@ -26,7 +24,6 @@ import type {
   LogRepositoryContract,
   NewLog,
 } from '@/logs/interfaces/log-repository.interface';
-import { encodeLogsAsCsv } from '@/logs/repositories/log-csv-encoder';
 import {
   buildAggregationQuery,
   buildRollupAggregationQuery,
@@ -35,20 +32,9 @@ import {
 import { buildLogPageQuery } from '@/logs/query-builders/log-query.builder';
 
 /**
- * Minimal shape of the internal replication API that TypeORM's Postgres
- * driver exposes for checking a raw `pg` connection out of its pool. Typed
- * locally rather than importing `typeorm/driver/postgres/PostgresDriver`
- * because that module is an internal implementation path, not part of
- * TypeORM's public API surface.
- */
-interface PostgresConnectionProvider {
-  obtainMasterConnection(): Promise<[PoolClient, () => void]>;
-}
-
-/**
  * One caller's still-pending insertMany() call: its rows plus the settlers
  * for the Promise that call is waiting on. A caller's own rows are always
- * flushed together in a single COPY — see takeBatch() (research.md Decision 1).
+ * flushed together in a single INSERT — see takeBatch() (research.md Decision 1).
  */
 interface PendingInsert {
   logs: readonly NewLog[];
@@ -80,8 +66,8 @@ export class LogRepository implements LogRepositoryContract {
   private isFlushing = false;
 
   constructor(
-    // Default connection: used only for the raw COPY ingestion path below,
-    // so ingestion and reads never contend for the same connection pool.
+    // Default connection: used only for the ingestion path below, so
+    // ingestion and reads never contend for the same connection pool.
     @InjectDataSource()
     private readonly dataSource: DataSource,
     // Dedicated read-pool connection for findPage()/aggregate() — see
@@ -170,36 +156,32 @@ export class LogRepository implements LogRepositoryContract {
 
   /**
    * Settles every caller in this batch only after their combined rows have
-   * actually finished a single COPY — resolved together on success,
+   * actually finished a single INSERT — resolved together on success,
    * rejected together (with the underlying error) on failure. No caller's
    * promise can resolve before its own rows are durably committed (FR-002).
    *
-   * The COPY and the rollup upsert run inside one explicit transaction on
-   * the same connection — BEGIN before COPY, COMMIT only after the rollup
-   * INSERT also succeeds — so the two tables can never drift out of sync
-   * after a crash (research.md Decision 6, "C1" fix).
+   * The batch INSERT and the rollup upsert run inside one explicit
+   * transaction on the same connection — `dataSource.transaction()` checks
+   * out a connection, begins, commits once the callback resolves, and rolls
+   * back (then re-throws) if it rejects — so the two tables can never drift
+   * out of sync after a crash (research.md Decision 6, "C1" fix).
    */
   private async flushBatch(batch: PendingInsert[]): Promise<void> {
     const logs = batch.flatMap((entry) => entry.logs);
-    const [connection, release] = await this.obtainRawConnection();
 
     try {
-      await connection.query('BEGIN');
-      await this.copyLogsIn(connection, logs);
-      await this.upsertRollups(connection, logs);
-      await connection.query('COMMIT');
+      await this.dataSource.transaction(async (manager) => {
+        await this.insertLogsIn(manager, logs);
+        await this.upsertRollups(manager, logs);
+      });
 
       for (const entry of batch) {
         entry.resolve();
       }
     } catch (error) {
-      await connection.query('ROLLBACK').catch(() => undefined);
-
       for (const entry of batch) {
         entry.reject(error);
       }
-    } finally {
-      release();
     }
   }
 
@@ -208,9 +190,21 @@ export class LogRepository implements LogRepositoryContract {
    * minute-bucket) in application code — no extra query, the rows are
    * already in memory — and issues one multi-row upsert covering every
    * distinct group the flush touched (research.md Decision 6).
+   *
+   * Goes through `manager.query()` rather than `manager.getRepository(LogRollup)`'s
+   * QueryBuilder `.orUpdate()` because this TypeORM version's `.orUpdate()`
+   * can only generate `SET col = EXCLUDED.col` (a plain overwrite) for a
+   * list of columns — it has no way to express the relative-delta
+   * `count = log_rollups.count + EXCLUDED.count` this upsert needs. A
+   * snapshot-read-then-write overwrite would reintroduce exactly the race
+   * under concurrent flushes that the relative delta exists to avoid
+   * (research.md Decision 9's "M2" fix), so this one statement stays raw
+   * SQL — still issued through the ORM's transactional `manager`, on the
+   * same connection/transaction as everything else in this flush, not a
+   * separate raw `pg` connection.
    */
   private async upsertRollups(
-    connection: PoolClient,
+    manager: EntityManager,
     logs: readonly NewLog[],
   ): Promise<void> {
     const deltas = this.groupIntoRollupDeltas(logs);
@@ -227,7 +221,7 @@ export class LogRepository implements LogRepositoryContract {
       return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4}, $${offset + 5})`;
     });
 
-    await connection.query(
+    await manager.query(
       `
         INSERT INTO log_rollups (bucket, tenant_id, service, level, count)
         VALUES ${rows.join(', ')}
@@ -350,33 +344,20 @@ export class LogRepository implements LogRepositoryContract {
     );
   }
 
-  private async obtainRawConnection(): Promise<[PoolClient, () => void]> {
-    const provider = this.dataSource
-      .driver as unknown as PostgresConnectionProvider;
-    return provider.obtainMasterConnection();
-  }
-
-  private async copyLogsIn(
-    connection: PoolClient,
+  /** A single multi-row `INSERT ... VALUES (...), (...), ...` via the entity's own repository. */
+  private async insertLogsIn(
+    manager: EntityManager,
     logs: readonly NewLog[],
   ): Promise<void> {
-    const copyStream = connection.query(
-      copyFromStdin(`
-        COPY logs (
-          timestamp,
-          tenant_id,
-          level,
-          service,
-          message,
-          attributes
-        ) FROM STDIN WITH (FORMAT csv)
-      `),
+    await manager.getRepository(Log).insert(
+      logs.map((log) => ({
+        timestamp: log.timestamp,
+        tenant_id: log.tenant_id,
+        level: log.level,
+        service: log.service,
+        message: log.message,
+        attributes: log.attributes,
+      })),
     );
-
-    await new Promise<void>((resolve, reject) => {
-      copyStream.on('error', reject);
-      copyStream.on('finish', resolve);
-      copyStream.end(encodeLogsAsCsv(logs), 'utf8');
-    });
   }
 }

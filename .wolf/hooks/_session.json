@@ -68,7 +68,7 @@
       "first_read": "2026-08-13T19:43:49.263Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/repositories/log.repository.ts": {
-      "count": 4,
+      "count": 10,
       "tokens": 1024,
       "first_read": "2026-08-13T19:45:50.141Z"
     },
@@ -262,7 +262,7 @@
   "edit_counts": {},
   "anatomy_hits": 37,
   "anatomy_misses": 14,
-  "repeated_reads_warned": 40,
+  "repeated_reads_warned": 46,
   "cerebrum_warnings": 0,
-  "stop_count": 19
+  "stop_count": 22
 }
