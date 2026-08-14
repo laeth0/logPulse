@@ -1,268 +1,28 @@
 {
-  "session_id": "session-2026-08-13-1910",
-  "started": "2026-08-13T16:10:49.538Z",
+  "session_id": "session-2026-08-14-1120",
+  "started": "2026-08-14T08:20:42.603Z",
   "files_read": {
-    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/spec.md": {
-      "count": 9,
-      "tokens": 0,
-      "first_read": "2026-08-13T16:26:17.666Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/plan.md": {
-      "count": 4,
-      "tokens": 0,
-      "first_read": "2026-08-13T16:29:19.907Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/config/database.config.ts": {
+    "c:/Users/LaethNueirat/Desktop/logPulse/log_src/README.md": {
       "count": 2,
-      "tokens": 551,
-      "first_read": "2026-08-13T16:29:28.595Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/retention.service.ts": {
-      "count": 6,
-      "tokens": 1029,
-      "first_read": "2026-08-13T16:29:38.417Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/.specify/templates/tasks-template.md": {
-      "count": 1,
-      "tokens": 2284,
-      "first_read": "2026-08-13T16:56:07.988Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/research.md": {
-      "count": 4,
-      "tokens": 0,
-      "first_read": "2026-08-13T17:12:42.757Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/data-model.md": {
-      "count": 2,
-      "tokens": 0,
-      "first_read": "2026-08-13T17:17:03.052Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/quickstart.md": {
-      "count": 5,
-      "tokens": 0,
-      "first_read": "2026-08-13T17:17:46.528Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/tasks.md": {
-      "count": 4,
-      "tokens": 0,
-      "first_read": "2026-08-13T17:18:45.172Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/.env.example": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T19:41:10.481Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml": {
-      "count": 1,
-      "tokens": 619,
-      "first_read": "2026-08-13T19:41:24.376Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/log-api.constants.ts": {
-      "count": 1,
-      "tokens": 215,
-      "first_read": "2026-08-13T19:43:42.618Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/retention.constants.ts": {
-      "count": 1,
-      "tokens": 140,
-      "first_read": "2026-08-13T19:43:49.263Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/repositories/log.repository.ts": {
-      "count": 10,
-      "tokens": 1024,
-      "first_read": "2026-08-13T19:45:50.141Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/tsconfig.json": {
-      "count": 1,
-      "tokens": 207,
-      "first_read": "2026-08-13T19:46:18.414Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/interfaces/log-repository.interface.ts": {
-      "count": 1,
-      "tokens": 197,
-      "first_read": "2026-08-13T19:49:41.787Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/requests/logs.ingest.rest": {
-      "count": 1,
-      "tokens": 241,
-      "first_read": "2026-08-13T19:53:08.148Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/logs.controller.ts": {
-      "count": 1,
-      "tokens": 1056,
-      "first_read": "2026-08-13T19:53:18.400Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-ingestion.service.ts": {
-      "count": 1,
-      "tokens": 366,
-      "first_read": "2026-08-13T19:53:24.558Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/decorators/current-tenant-id.decorator.ts": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T19:53:33.326Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/requests/tenancy/tenancy.register.rest": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T19:53:39.101Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/requests/tenancy/tenancy.api-keys.create.rest": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T19:53:41.637Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/guards/api-key-auth.guard.ts": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T19:54:37.559Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/tenancy/dto/responses/api-key.dto.ts": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T19:54:53.285Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/entities/log.entity.ts": {
-      "count": 1,
-      "tokens": 443,
-      "first_read": "2026-08-13T19:58:18.598Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/logs.module.ts": {
-      "count": 1,
-      "tokens": 297,
-      "first_read": "2026-08-13T19:58:19.701Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/query-builders/aggregation-query.builder.ts": {
-      "count": 1,
-      "tokens": 459,
-      "first_read": "2026-08-13T19:58:20.179Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/common/constants/log-query.constants.ts": {
-      "count": 1,
-      "tokens": 91,
-      "first_read": "2026-08-13T19:58:25.385Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/query-builders/log-filter.builder.ts": {
-      "count": 2,
-      "tokens": 389,
-      "first_read": "2026-08-13T19:58:25.921Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/interfaces/log-query.interface.ts": {
-      "count": 3,
-      "tokens": 305,
-      "first_read": "2026-08-13T19:58:26.527Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-aggregation.service.ts": {
-      "count": 1,
-      "tokens": 305,
-      "first_read": "2026-08-13T19:58:55.890Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350114-CreateLogsTable.ts": {
-      "count": 2,
-      "tokens": 735,
-      "first_read": "2026-08-13T20:00:04.949Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350118-CreateTenancyTables.ts": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-13T20:00:04.990Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/enums/log-level.enum.ts": {
-      "count": 1,
-      "tokens": 28,
-      "first_read": "2026-08-13T20:00:47.720Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/enums/aggregation-group.enum.ts": {
-      "count": 1,
-      "tokens": 22,
-      "first_read": "2026-08-13T20:00:48.236Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/enums/aggregation-bucket.enum.ts": {
-      "count": 1,
-      "tokens": 33,
-      "first_read": "2026-08-13T20:00:48.463Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/partition.service.ts": {
-      "count": 1,
-      "tokens": 1912,
-      "first_read": "2026-08-13T20:02:11.562Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/projectSchema.dbml": {
-      "count": 2,
-      "tokens": 305,
-      "first_read": "2026-08-13T20:03:17.102Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/retention/interfaces/retention.interface.ts": {
-      "count": 1,
-      "tokens": 17,
-      "first_read": "2026-08-13T20:06:06.141Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350116-CreateLogsTableGinIndexes.ts": {
-      "count": 1,
-      "tokens": 497,
-      "first_read": "2026-08-13T20:13:24.855Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/repositories/log-csv-encoder.ts": {
-      "count": 1,
-      "tokens": 387,
-      "first_read": "2026-08-13T20:13:25.394Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/mappers/log.mapper.ts": {
-      "count": 1,
-      "tokens": 536,
-      "first_read": "2026-08-13T20:13:25.950Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/query-builders/log-query.builder.ts": {
-      "count": 1,
-      "tokens": 249,
-      "first_read": "2026-08-13T20:13:26.208Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/services/log-query.service.ts": {
-      "count": 1,
-      "tokens": 481,
-      "first_read": "2026-08-13T20:13:31.765Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/dto/responses/query-logs-response.dto.ts": {
-      "count": 1,
-      "tokens": 312,
-      "first_read": "2026-08-13T20:13:32.318Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/logs/cursor/cursor.service.ts": {
-      "count": 1,
-      "tokens": 343,
-      "first_read": "2026-08-13T20:13:32.638Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/README.md": {
-      "count": 5,
       "tokens": 5230,
-      "first_read": "2026-08-13T22:03:59.536Z"
+      "first_read": "2026-08-14T08:50:02.734Z"
     },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350117-DropLogsMessageTrigramIndex.ts": {
-      "count": 1,
-      "tokens": 398,
-      "first_read": "2026-08-13T22:04:48.490Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/src/migrations/1785684350115-CreateLogsTableBtreeIndexes.ts": {
-      "count": 1,
-      "tokens": 486,
-      "first_read": "2026-08-13T22:04:48.580Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/.env": {
+    "c:/Users/LaethNueirat/Desktop/logPulse/log_src/src/ingestion/writeBuffer.ts": {
       "count": 1,
       "tokens": 0,
-      "first_read": "2026-08-13T22:07:43.262Z"
+      "first_read": "2026-08-14T08:50:02.890Z"
     },
-    "c:/Users/LaethNueirat/Desktop/logPulse/.specify/memory/constitution.md": {
+    "c:/Users/LaethNueirat/Desktop/logPulse/log_src/src/db/logs.ts": {
       "count": 1,
-      "tokens": 584,
-      "first_read": "2026-08-13T22:17:59.241Z"
+      "tokens": 0,
+      "first_read": "2026-08-14T08:51:09.991Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 37,
-  "anatomy_misses": 14,
-  "repeated_reads_warned": 46,
+  "anatomy_hits": 1,
+  "anatomy_misses": 2,
+  "repeated_reads_warned": 1,
   "cerebrum_warnings": 0,
-  "stop_count": 22
+  "stop_count": 1
 }

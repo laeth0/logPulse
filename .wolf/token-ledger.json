@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 808998,
-    "total_reads": 1899,
+    "total_tokens_estimated": 814228,
+    "total_reads": 1902,
     "total_writes": 0,
-    "total_sessions": 7,
-    "anatomy_hits": 1316,
-    "anatomy_misses": 583,
-    "repeated_reads_blocked": 998,
-    "estimated_savings_vs_bare_cli": 883673,
-    "real_input_tokens": 376005,
-    "real_output_tokens": 37805305,
-    "real_cache_read_tokens": 17327829792,
-    "real_cache_creation_tokens": 162601855,
-    "real_api_calls": 35086
+    "total_sessions": 11,
+    "anatomy_hits": 1317,
+    "anatomy_misses": 585,
+    "repeated_reads_blocked": 999,
+    "estimated_savings_vs_bare_cli": 889103,
+    "real_input_tokens": 388414,
+    "real_output_tokens": 39027763,
+    "real_cache_read_tokens": 17896874082,
+    "real_cache_creation_tokens": 169377336,
+    "real_api_calls": 36272
   },
   "sessions": [
     {
@@ -12777,6 +12777,48 @@
         "cache_read_input_tokens": 561180448,
         "cache_creation_input_tokens": 6182587,
         "api_calls": 1172
+      }
+    },
+    {
+      "id": "session-2026-08-14-1120",
+      "agent": "claude",
+      "started": "2026-08-14T08:20:42.603Z",
+      "ended": "2026-08-14T08:54:19.338Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/log_src/README.md",
+          "tokens_estimated": 5230,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/log_src/src/ingestion/writeBuffer.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/log_src/src/db/logs.ts",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5230,
+        "output_tokens_estimated": 0,
+        "reads_count": 3,
+        "writes_count": 0,
+        "repeated_reads_blocked": 1,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 12409,
+        "output_tokens": 1222458,
+        "cache_read_input_tokens": 569044290,
+        "cache_creation_input_tokens": 6775481,
+        "api_calls": 1186
       }
     }
   ],

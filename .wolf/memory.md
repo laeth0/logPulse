@@ -29,3 +29,14 @@
 | 20:10 | Implemented `/speckit-implement Phase 4` (US2 rollup pre-aggregation, T010-T018) | `src/logs/entities/log-rollup.entity.ts`, `src/migrations/1785684350119-CreateLogRollupsTable.ts`, `src/logs/logs.module.ts`, `src/logs/repositories/log.repository.ts`, `src/logs/query-builders/aggregation-query.builder.ts`, `src/retention/retention.service.ts`, `src/common/utils/rollup-bucket.utils.ts`, `projectSchema.dbml` | Build passed; live-validated migration backfill against pre-populated data (exact match), rollup-vs-raw-scan exact match incl. jagged edges, cross-tenant isolation, and SIGKILL crash-consistency (2598=2598, no new health dependency) | ~55k |
 | 20:21 | Implemented `/speckit-implement Phase 5` (US3 query/write overhead reduction, T019-T031) | `src/config/database.config.ts`, `src/migrations/1785684350114-CreateLogsTable.ts`, `src/migrations/1785684350116-CreateLogsTableGinIndexes.ts`, `src/logs/entities/log.entity.ts`, `src/logs/interfaces/log-repository.interface.ts`, `src/logs/interfaces/log-query.interface.ts`, `src/logs/repositories/log-csv-encoder.ts`, `src/logs/repositories/log.repository.ts`, `src/logs/mappers/log.mapper.ts`, `src/logs/query-builders/log-filter.builder.ts`, `src/logs/query-builders/log-query.builder.ts`, `src/logs/services/log-query.service.ts`, `src/retention/partition.service.ts`, `projectSchema.dbml` | Build passed; `attributes_text` fully removed (folded into original migrations); live-validated mixed-type attr equality (string/number/bool/non-canonical-numeric all correctly disambiguated), byte-shape response unchanged, `DB_WRITE_POOL_MAX` wiring confirmed; caught and fixed an unlisted breakage in `PartitionService`'s hardcoded INSERT column list | ~60k |
 | 22:14 | Implemented `/speckit-implement Phase 6` (Polish, T032-T036); T037 left for the user (external benchmark portal) | `README.md`, `src/retention/retention.service.ts` | build+format+lint all pass; lint caught and fixed a real `no-unsafe-assignment` error (`queryRunner.query()` has no generic overload — switched to `dataSource.query<T>(sql, params, queryRunner)`); re-verified zero-config behavior and measured SC-005 at 163ms against a stack with the session's own `.env` genuinely absent, then restored it | ~40k |
+
+## Session: 2026-08-14 10:40
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-14 11:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 06:40 | Read log_src (friend's "John Log" project), wrote comparison doc vs. its writeBuffer.ts and schema | `docs/performance_comparison_with_log_src.md` (new) | Verdict: write-buffer concept already matched by existing coalescing; message_lower (q= filter) is the clear adoptable win; synchronous_commit=off rejected (FR-003); single-flight flushing choice corroborated independently | ~45k |
