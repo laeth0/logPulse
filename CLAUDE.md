@@ -47,12 +47,20 @@ Performance is a first-class requirement for this project.
 - **Do not run the linter (`npm run lint`) or formatter (`npm run format` / `npm run format:check`) automatically after implementing a prompt.** Only run them when the user explicitly asks, or immediately before a commit/PR. This avoids unnecessary token consumption on routine changes. (A TypeScript build/compile check is a separate, correctness concern — still fine to run when useful.)
 
 <!-- SPECKIT START -->
-Active feature: Performance Optimization (`002-performance-optimization`).
+Active feature: Optional Backpressure Support (`003-ingestion-backpressure`).
 For technologies, project structure, and design decisions for this feature,
-read `specs/002-performance-optimization/plan.md` (and its `research.md`,
-`data-model.md`, `quickstart.md` siblings — no `contracts/` for this feature,
-since it introduces no new/changed external interface; see plan.md's Project
-Structure section for why).
+read `specs/003-ingestion-backpressure/plan.md` (and its `research.md`,
+`data-model.md`, `quickstart.md`, `contracts/post-logs-backpressure.md`
+siblings). Admission control is opt-in (`BACKPRESSURE_ENABLED`, default
+`false`) and lives directly on `LogRepository` in front of the existing
+write-coalescing queue — no new service/module; see plan.md's Project
+Structure section for why.
+
+Prior feature, implemented: Performance Optimization (`002-performance-optimization`) —
+`specs/002-performance-optimization/plan.md`. Write coalescing, rollup
+pre-aggregation, and query/write overhead reductions this feature's changes
+must not disturb (T037's external load-testing portal confirmation was still
+pending as of this feature's start).
 
 Prior feature, implemented: Multi-Tenancy (`001-multi-tenancy`) —
 `specs/001-multi-tenancy/plan.md`. Still the reference for the tenancy module,

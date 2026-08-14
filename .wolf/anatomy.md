@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-14T09:11:14.462Z
-> Files: 221 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-14T13:55:13.007Z
+> Files: 228 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -9,7 +9,7 @@
 - `.gitignore` — Git ignore rules (~152 tok)
 - `.prettierrc` — Prettier configuration (~15 tok)
 - `AGENTS.md` — OpenWolf (~1041 tok)
-- `CLAUDE.md` — OpenWolf (~1025 tok)
+- `CLAUDE.md` — OpenWolf (~1145 tok)
 - `docker-compose.yml` — Docker Compose services (~792 tok)
 - `Dockerfile` — Docker container definition (~304 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~250 tok)
@@ -152,7 +152,7 @@
 ## .specify/
 
 - `extensions.yml` (~180 tok)
-- `feature.json` (~19 tok)
+- `feature.json` (~18 tok)
 - `init-options.json` (~51 tok)
 - `integration.json` (~110 tok)
 
@@ -290,6 +290,22 @@
 ## specs/002-performance-optimization/checklists/
 
 - `requirements.md` — Specification Quality Checklist: Performance Optimization (~468 tok)
+
+## specs/003-ingestion-backpressure/
+
+- `data-model.md` — Data Model: Optional Backpressure Support (~1219 tok)
+- `plan.md` — Implementation Plan: Optional Backpressure Support (~2815 tok)
+- `quickstart.md` — Quickstart: Validating Optional Backpressure Support (~1773 tok)
+- `research.md` — Research: Optional Backpressure Support (~3350 tok)
+- `spec.md` — Feature Specification: Optional Backpressure Support (~4654 tok)
+
+## specs/003-ingestion-backpressure/checklists/
+
+- `requirements.md` — Specification Quality Checklist: Optional Backpressure Support (~578 tok)
+
+## specs/003-ingestion-backpressure/contracts/
+
+- `post-logs-backpressure.md` — Contract: Additive Backpressure Responses on `POST /logs` (~958 tok)
 
 ## src/
 

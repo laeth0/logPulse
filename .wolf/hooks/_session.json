@@ -191,13 +191,23 @@
       "count": 1,
       "tokens": 1025,
       "first_read": "2026-08-14T13:51:54.370Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/.specify/templates/tasks-template.md": {
+      "count": 1,
+      "tokens": 2284,
+      "first_read": "2026-08-14T13:58:41.554Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/specs/002-performance-optimization/tasks.md": {
+      "count": 1,
+      "tokens": 6904,
+      "first_read": "2026-08-14T13:58:42.073Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 28,
+  "anatomy_hits": 30,
   "anatomy_misses": 9,
   "repeated_reads_warned": 3,
   "cerebrum_warnings": 0,
-  "stop_count": 5
+  "stop_count": 6
 }

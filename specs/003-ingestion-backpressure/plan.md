@@ -1,113 +1,91 @@
-# Implementation Plan: [FEATURE]
+# Implementation Plan: Optional Backpressure Support
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Branch**: `003-ingestion-backpressure` | **Date**: 2026-08-14 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
-
-**Note**: This template is filled in by the `/speckit-plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
+**Input**: Feature specification from `specs/003-ingestion-backpressure/spec.md`
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Add an opt-in admission-control gate directly in front of the existing `LogRepository` write-coalescing queue (`log.repository.ts`), which today accepts unbounded work into its in-process `pendingInserts` array. When `BACKPRESSURE_ENABLED=true`, every `insertMany()` call — one per `POST /logs` caller, invoked only after per-entry validation has already run — is checked against two independent, globally-shared limits (total admitted-but-not-completed row count, total admitted-but-not-completed estimated byte size) before its rows are pushed onto the queue. A batch that could never fit under either limit, even at zero load, is rejected once with `413`; a batch that would fit but is temporarily blocked by other pending work is rejected with `503` + `Retry-After`. When disabled (the default), zero code paths related to this feature execute — `insertMany()`'s behavior is identical to today's.
+
+No new service, module, or abstraction is introduced: the two running counters, the two threshold checks, and the byte-estimation helper live as private fields/methods on `LogRepository` itself, mirroring exactly how the existing coalescing tuning (`coalesceWindowMs`, `coalesceMaxRows`) already lives there. The only other production code touched is one new, small exception class and a four-line addition to the already-central `GlobalExceptionFilter`, which reuses the existing `{"error": "<description>"}` envelope and adds a generic (duck-typed) `Retry-After` header pass-through — not a backpressure-specific one, so it's reusable by any future exception that wants a `Retry-After`.
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
+**Language/Version**: TypeScript 5.7 on Node.js 24 (existing — unchanged).
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+**Primary Dependencies**: NestJS 11, `@nestjs/common`'s built-in `PayloadTooLargeException` (413) and `ServiceUnavailableException` (413/503 — used as the base class for a new `BackpressureException`), both already available with zero new install. One new *direct* dependency: `bytes` (parses `"25mb"`-style size strings) — already present in `node_modules` today as a transitive dependency of `body-parser`/`express` (the same package that already parses `JSON_BODY_LIMIT`), so this is a promotion to a declared direct dependency, not a new supply-chain addition.
 
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+**Storage**: PostgreSQL 16 (existing, unchanged). **No schema change** — this feature introduces no new persisted entity, only in-memory, process-scoped counters. `projectSchema.dbml` is not touched.
 
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+**Testing**: No `.test.ts`/`.spec.ts` files, per explicit instruction and this project's established convention (`specs/001-multi-tenancy/plan.md`, `specs/002-performance-optimization/plan.md`, `.wolf/cerebrum.md`). Verification is via `quickstart.md`'s runnable manual scenarios (deterministic, using intentionally tiny thresholds — this feature's correctness does not depend on reaching 15,000 logs/sec, unlike `002`) plus a CI smoke-test extension proving the *disabled default* behaves identically to today (spec.md User Story 3 / SC-006).
 
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
+**Target Platform**: Linux containers via `docker compose` (existing, unchanged).
 
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: Single NestJS web-service (monolith) — existing structure. Extends the existing `logs/` module; no new top-level feature module.
 
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]
+**Performance Goals**: Per spec.md's Success Criteria — zero throughput/latency regression when disabled (SC-002, the default) or when enabled-but-under-threshold (SC-007, must still clear the 15,000 logs/sec baseline); the admission check itself must be cheap enough not to threaten either, since it runs synchronously on every `POST /logs` request once opted in (see research.md Decision 6 on why no lock/mutex is needed and Decision 2 on why per-entry `JSON.stringify` is an acceptable cost only when opted in).
 
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
+**Constraints**: Same fixed container limits as the base project (app: 0.5 CPU / 256 MB; PostgreSQL: 1 CPU / 1 GB — unchanged, and the actual reason this feature exists). Admission MUST be atomic per caller (FR-004) — satisfied by construction, not by a lock, because the check-then-push sequence for one `insertMany()` call runs synchronously within Node's single-threaded event loop with no `await` in between (research.md Decision 6). The capacity check MUST run strictly after per-entry validation (FR-005) — satisfied by construction, because `checkAdmission()` lives inside `insertMany()`, which `LogIngestionService.ingest()` only calls with the already-validated, already-filtered array. Capacity MUST be global, not per-tenant (FR-008) — satisfied by construction, because the counters are private instance fields on `LogRepository`, a process-wide Nest singleton, with no tenant key anywhere in their state.
 
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
-
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Scale/Scope**: Same ~1,000,000 log rows / ~1 month of daily partitions / tens of tenants as `001`/`002` (unchanged). This feature adds no new data volume of its own — its state is two integers.
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+`.specify/memory/constitution.md` is still the unfilled template — no ratified project constitution exists (same as `001`/`002`). This plan is held to `CLAUDE.md`'s "Engineering Quality and Performance Principles" instead: keep code simple and cohesive, apply patterns only where they genuinely simplify the design, treat performance as a first-class requirement, avoid unnecessary abstractions on performance-critical paths, and preserve the existing architecture and API contracts unless a requirement explicitly requires a change.
+
+**Result**: PASS. The design deliberately rejects every abstraction that isn't strictly necessary: no new service/module (counters live on the existing `LogRepository`), no new persisted state (no DLQ, no external broker, no database table), no new concurrency-control primitive (relies on the same single-threaded-synchronous-check property the existing coalescing code already relies on for its own `isFlushing` guard), and no new response envelope (reuses `GlobalExceptionFilter`'s existing `{"error": ...}` shape). Every explicit exclusion in spec.md FR-010/FR-017 (no DLQ/Kafka/Redis/RabbitMQ, no CPU/event-loop-lag/DB-utilization signals, no per-tenant scheduling) is honored by simply not building any of it — the entire mechanism is two counters and two comparisons.
+
+*Post-Phase-1 re-check*: PASS — see [research.md](./research.md)'s per-decision rationale. No decision here touches an existing hard requirement (durability, tenant isolation, `AUTH_ENABLED`/`LOADGEN_API_KEY`, retention, zero-config, the required API contract) except additively, as spec.md's Clarifications and FR-002/FR-004/FR-005/FR-008/FR-009/FR-011/FR-012 require and research.md's decisions each confirm.
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
+specs/003-ingestion-backpressure/
 ├── plan.md              # This file (/speckit-plan command output)
-├── research.md          # Phase 0 output (/speckit-plan command)
-├── data-model.md        # Phase 1 output (/speckit-plan command)
-├── quickstart.md        # Phase 1 output (/speckit-plan command)
-├── contracts/           # Phase 1 output (/speckit-plan command)
-└── tasks.md             # Phase 2 output (/speckit-tasks command - NOT created by /speckit-plan)
+├── research.md          # Phase 0 output
+├── data-model.md         # Phase 1 output — in-memory state model (no DB entities)
+├── contracts/
+│   └── post-logs-backpressure.md   # Phase 1 output — additive 503/413 responses on POST /logs
+├── quickstart.md         # Phase 1 output
+├── checklists/
+│   └── requirements.md   # already produced by /speckit-specify + /speckit-clarify
+└── tasks.md              # Phase 2 output (/speckit-tasks — NOT created by /speckit-plan)
 ```
+
+**`contracts/` is included this time** (unlike `002`, which had none): this feature *does* add new externally-visible response codes (`413`, `503` + `Retry-After`) to `POST /logs` — an additive change to the existing contract, not a new endpoint, but still worth documenting explicitly per the project's established contracts-doc convention (`specs/001-multi-tenancy/contracts/logs-endpoints-auth.md`).
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
+
+Existing NestJS layout — no new top-level module, no new feature module. New/changed paths only; everything else in `src/` is unchanged:
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+├── common/
+│   ├── constants/
+│   │   └── log-api.constants.ts          # CHANGED: + 4 backpressure tuning defaults (enabled flag, max rows, max bytes, Retry-After seconds)
+│   └── filters/
+│       └── global-exception.filter.ts    # CHANGED: generic Retry-After header pass-through (duck-typed on a `retryAfterSeconds` property — no import from logs/, stays feature-agnostic)
+└── logs/                                  # existing module — CHANGED, not restructured
+    ├── exceptions/
+    │   └── backpressure.exception.ts     # NEW: BackpressureException extends ServiceUnavailableException, carries retryAfterSeconds
+    └── repositories/
+        └── log.repository.ts              # CHANGED: insertMany() gains an admission check (2 new private counters, 1 new private byte-estimation method, 1 new private admission-check method); flushBatch()'s existing settle loops gain 2 decrement lines each
 
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+docker-compose.yml / .env.example           # CHANGED: + 4 new optional env vars, all with safe defaults (feature stays disabled/inert with none of them set)
+package.json                                 # CHANGED: `bytes` promoted from transitive to direct dependency
+README.md                                    # CHANGED: "Optional features" + "Configuration" sections document this feature per docs/Final_Project.md's Optional Features contract (FR-015)
+requests/                                    # CANDIDATE (deferred to tasks.md): example .rest requests demonstrating the new 413/503 responses — this feature adds no new endpoint, so it's not strictly required by CLAUDE.md's per-endpoint rule, but is consistent with existing practice
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Not touched**: `logs.controller.ts`, `log-ingestion.service.ts`, `log-entry.validator.ts`/`log-entry.schema.ts`, every query-builder, every entity, every migration, `retention/`, `tenancy/` (any module), `projectSchema.dbml`. The design's entire point is that admission control is a gate in front of one existing method (`insertMany()`), not a new code path threaded through the ingestion pipeline — see research.md Decision 1 for why this placement satisfies FR-005/FR-009's ordering requirements (validation-then-capacity, auth-then-capacity) without any new sequencing code.
+
+**Structure Decision**: Extend `logs/` in place, keeping every new piece of state and logic on `LogRepository` itself rather than introducing an `AdmissionControlService` or similar — directly per the user's explicit instruction ("prefer keeping admission/capacity ownership close to the existing LogRepository queue; avoid unnecessary abstractions") and consistent with how the existing coalescing mechanism is already implemented as private state on the same class, not a separate collaborator.
 
 ## Complexity Tracking
 
-> **Fill ONLY if Constitution Check has violations that must be justified**
-
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+*No entries — no constitution violations to justify.* This feature is, by design, the minimum machinery that satisfies every FR: two counters, two comparisons, one new exception class, one generic header pass-through. No new abstraction layer, no new dependency beyond promoting an already-vendored transitive one, no new persisted state.
