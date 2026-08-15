@@ -80,8 +80,5 @@
 | 12:02 | Synchronized Claude's project instructions with the current Codex instructions and recorded the ongoing synchronization preference | `CLAUDE.md`, `.wolf/cerebrum.md` | `CLAUDE.md` now matches `AGENTS.md`; future shared instruction changes should be mirrored | ~350 |
 | 12:08 | Extracted integration helpers into cohesive support modules and verified compilation | `test/integration/{logs,tenancy,support}/`, `.wolf/{STATUS,cerebrum,buglog}.md` | SRP/DRY refactor complete; TypeScript and Nest build pass; integration bootstrap blocked before suites by the current test-DB password mismatch (bug-021) | ~2500 |
 
-## Session: 2026-08-15 12:05
-
-| Time | Action | File(s) | Outcome | ~Tokens |
-|------|--------|---------|---------|--------|
 | 12:14 | Unified default Jest discovery across source and integration tests | `package.json` | `npm run test -- --listTests` discovers all four integration suites and future `*.spec.ts`/`*.test.ts` files; full execution reaches global setup but remains blocked by the known test-DB password mismatch | ~1200 |
+| 12:30 | Reorganized project into monorepo structure: moved all backend code and configs to `backend/`, created empty `frontend/` folder, kept `docker-compose.yml` and root configs at root, updated CI workflow and .gitignore | `backend/`, `frontend/`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.gitignore`, `AGENTS.md`, `CLAUDE.md` | Monorepo structure established; backend compiles cleanly via `npm run build` | ~2500 |

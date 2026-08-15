@@ -8,11 +8,11 @@ This project uses OpenWolf for context management. Read and follow .wolf/OPENWOL
 
 ## Schema Updates
 
-- **CRITICAL RULE**: When you modify database entities, you must also reflect those modifications in `projectSchema.dbml`.
+- **CRITICAL RULE**: When you modify database entities, you must also reflect those modifications in `backend/projectSchema.dbml`.
 
 ## HTTP Request Files
 
-- **RULE**: Every time you create or implement an API endpoint, you MUST create a corresponding `.rest` file inside the `requests/` directory.
+- **RULE**: Every time you create or implement an API endpoint, you MUST create a corresponding `.rest` file inside the `backend/requests/` directory.
 - Each endpoint gets its **own dedicated file** — one file per endpoint (separation of concerns).
 - File naming convention: `<resource>.<action>.rest`
   - Examples: `logs.ingest.rest`, `logs.list.rest`, `logs.aggregate.rest`

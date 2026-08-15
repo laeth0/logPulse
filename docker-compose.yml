@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: .
+      context: ./backend
       target: production
     environment:
       NODE_ENV: ${NODE_ENV:-production}

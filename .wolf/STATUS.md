@@ -10,6 +10,8 @@
 
 <!-- Move items here from "🚀 Next phase" when finished. Group by area. -->
 
+- Reorganized project into a monorepo: moved all backend code, configurations, tests, migrations, requests, specs, and prompts into `backend/`, created empty `frontend/` with `.gitkeep`, placed `docker-compose.yml` at root with `context: ./backend`, updated `.github/workflows/ci.yml` working directories, updated `.gitignore`, and updated `AGENTS.md`/`CLAUDE.md` path references. `backend` compiles cleanly via `npm run build`.
+
 - OpenWolf integrations narrowed to Claude and Codex only.
 - Removed the project-local knowledge-graph integration, generated graph/cache artifacts, dedicated skill package, instructions, and backup artifact; no related Git hooks or merge driver were installed.
 - Removed generated Cursor, OpenCode, and Gemini adapters.
