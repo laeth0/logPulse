@@ -1,6 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
 import { getDataSourceToken } from '@nestjs/typeorm';
 import request from 'supertest';
+import type { App } from 'supertest/types';
 import type { DataSource } from 'typeorm';
 
 import type { HealthStatus } from '@/health/health.types';
@@ -15,10 +16,12 @@ interface MigrationRow {
 describe('GET /health readiness', () => {
   let app: INestApplication;
   let dataSource: DataSource;
+  let httpServer: App;
 
   beforeAll(async () => {
     app = await createIntegrationApp();
     dataSource = app.get<DataSource>(getDataSourceToken());
+    httpServer = app.getHttpServer() as App;
   }, 120_000);
 
   afterAll(async () => {
@@ -28,9 +31,7 @@ describe('GET /health readiness', () => {
   });
 
   it('reports ready through the public endpoint when PostgreSQL is connected and migrated', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/health')
-      .expect(200);
+    const response = await request(httpServer).get('/health').expect(200);
     const health = response.body as HealthStatus;
 
     expect(process.env.AUTH_ENABLED).toBe('true');
@@ -60,7 +61,7 @@ describe('GET /health readiness', () => {
     );
 
     try {
-      await request(app.getHttpServer()).get('/health').expect(503);
+      await request(httpServer).get('/health').expect(503);
     } finally {
       await dataSource.query(
         'UPDATE typeorm_migrations SET name = $1 WHERE id = $2',

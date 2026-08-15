@@ -1,0 +1,106 @@
+# STATUS — log-pulse
+
+> Single source of truth for resuming work. Read this FIRST when starting a session.
+> Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
+> Last updated: 2026-08-15
+
+---
+
+## ✅ Done
+
+<!-- Move items here from "🚀 Next phase" when finished. Group by area. -->
+
+- OpenWolf integrations narrowed to Claude and Codex only.
+- Removed generated Cursor, OpenCode, and Gemini adapters.
+- Added project-wide engineering quality and performance principles to `AGENTS.md` and `CLAUDE.md`.
+- Removed the original suggestion §1a from `docs/suggestions_to_increase_the_performance.md` and corrected the remaining subsection numbering.
+- Reverted the attempted implementation of performance suggestion §1a at the user's request; the index and original multi-tenancy plan remain unchanged.
+- Multi-tenancy feature (`specs/001-multi-tenancy/`) fully implemented and live-tested end-to-end under both `AUTH_ENABLED=false/true`.
+- Feature `002-performance-optimization`: spec/clarify/plan/tasks/analyze cycle complete (research.md, data-model.md, quickstart.md, tasks.md — 37 tasks, no `contracts/`).
+- **Phase 1 (Setup, T001-T002)** and **Phase 2 (Foundational, T003-T004)** implemented — coalescing/rollup constants and env wiring in `.env.example`/`docker-compose.yml`.
+- **Phase 3 (User Story 1 / MVP, T005-T009) implemented** — `src/logs/repositories/log.repository.ts`'s `insertMany()` now coalesces concurrent `POST /logs` writes into a debounced, drain-loop `COPY` flush (a manual deferred-promise pattern was used instead of `Promise.withResolvers()`, since this project's `tsconfig.json` targets `ES2023` and doesn't have that API in its `lib`). A single caller's own rows are never split across flushes (F1). Verified live against a freshly built Docker stack: 20 concurrent mixed valid/invalid batches keep exact per-request accepted/rejected semantics and are queryable in <100ms; a 2500-row single request (over the 2000-row cap) lands as one complete, non-fragmented result; two tenants' interleaved concurrent batches land under their own correct tenants only. `npm run build` passes.
+- **Phase 4 (User Story 2 / rollups, T010-T018) implemented** — new `LogRollup` entity + `CreateLogRollupsTable` migration (table + one-time historical backfill), `log.repository.ts`'s `flushBatch()` now wraps `COPY` and the rollup upsert in one explicit transaction (`BEGIN`/`COMMIT`/`ROLLBACK`), `aggregation-query.builder.ts` gained a rollup-first read path with unconditional `tenant_id` filtering and raw-scan fallback for partial-minute edges and `q`/`attr.*`-filtered requests, `retention.service.ts` now prunes `log_rollups` (bulk-delete expired buckets, delta-adjust the one boundary bucket via an atomic CTE — never a snapshot replace). New shared helper `src/common/utils/rollup-bucket.utils.ts` (`alignUpToRollupBucket`/`alignDownToRollupBucket`) used by all three of ingest, read, and retention so bucket-boundary math can never disagree. `projectSchema.dbml` updated. Verified live: migration backfill against an already-populated `logs` table (2560 pre-existing rows) produced an exact rollup-sum match (diff 0); rollup-path vs. raw-scan(`q`) aggregation totals matched exactly including jagged (non-minute-aligned) query edges; cross-tenant rollup isolation confirmed for a shared bucket/service; a real `docker kill -SIGKILL` mid-request followed by restart left `logs` and `log_rollups` totals exactly equal (2598 = 2598) with no new `GET /health` readiness dependency. `npm run build` passes.
+- **Phase 5 (User Story 3 / overhead reduction, T019-T031) implemented** — `attributes_text` (column, GIN index, CHECK constraint) fully removed, folded into the original `CreateLogsTable`/`CreateLogsTableGinIndexes` migrations per the pre-release convention; `attr.<key>=<value>` equality is now a type-branched containment predicate evaluated at query time directly against `attributes` (`log-filter.builder.ts`'s new `buildAttributeEqualityClause()`/`parseCanonicalNumber()`), with explicit `::text`/`::numeric`/`::boolean` casts and the numeric/boolean OR-branch only emitted when the value actually parses as one (avoids a bind-time cast error on non-numeric values). `LogRepository.findPage()` switched from `getMany()` to `getRawMany()` with explicit `.select()` column aliases (new `RawLogRow` interface); `database.config.ts`'s `createDatabaseOptions()` now sizes the write pool via `DB_WRITE_POOL_MAX` (default 20), mirroring the read pool's existing pattern. Also fixed an unlisted-but-necessary consequence: `PartitionService.ensureDailyPartition()`'s explicit `INSERT ... SELECT` column list still named `attributes_text` and would have broken the next daily-partition creation — updated in the same pass. Dev DB volume reset (T030, per Decision 11's documented already-migrated-database caveat) since it had run the pre-edit migrations. Verified live on a fresh stack: `\d logs` confirms the column/index/constraint are gone; mixed-type `attr.retries=` filtering exactly distinguishes string/number/boolean/non-canonical-numeric-string values (no false positives, e.g. `"3.0"` does NOT match numeric `3`); `GET /logs` response shape unchanged (`id, timestamp, level, service, message, attributes`, no `attributes_text` leakage); `DB_WRITE_POOL_MAX` config wiring confirmed via `pg_stat_activity`. `npm run build` passes.
+- **Phase 6 (Polish, T032-T036 of 37) implemented** — `README.md`'s Schema/index design, Attribute storage strategy, Retention strategy, Configuration, Optimizations applied, and Known limitations sections all brought current (new `log_rollups`/attribute-predicate/write-pool content, plus fixing pre-existing stale claims about two already-removed GIN indexes). quickstart.md Scenario 5 re-run against a genuinely zero-config stack (temporarily moved the session's own leftover local `.env` aside, then restored it byte-identical) — unchanged `{"accepted":1,"rejected":[]}` response confirmed, and SC-005's 20s ingest-to-queryable budget explicitly measured at 163ms (not just assumed from the debounce window). `npm run build`/`format`/`lint` all pass — lint caught one real `@typescript-eslint/no-unsafe-assignment` error in `retention.service.ts`'s new boundary-bucket query (fixed by switching `queryRunner.query()`, which has no generic overload, to `this.dataSource.query<T>(sql, params, queryRunner)`, the same pattern this file and `partition.service.ts` already use elsewhere — re-verified live afterward that retention maintenance still runs cleanly through the new call path).
+- **T037 (mandatory external benchmark gate) intentionally NOT run** — requires pushing and the project's external load-testing portal, which only the user can trigger; per this project's established workflow, local runs are diagnostic only and cannot substitute for it. This is the one remaining task in the entire `002-performance-optimization` feature (36/37 done). Still pending as of this update.
+- Added the first current integration-test slice for `src/health`: a dedicated `_testing` PostgreSQL bootstrap, `.env.test` / `.env.test.example`, reusable full-AppModule setup, and two high-value `GET /health` scenarios (public ready `200` with `AUTH_ENABLED=true`; pending-migration `503` with migration state restored). `npm run test:integration` passes 2/2 and `npm run build` passes. The run exposed and fixed a genuine named-read-DataSource shutdown bug by returning `name: 'read'` from `createReadDatabaseOptions()`.
+- Removed the unused Nest starter E2E suite (`test/app.e2e-spec.ts`, `test/jest-e2e.json`, and `test:e2e`) because this project will use integration tests only; stale README/planning references were removed.
+- Expanded `format`/`format:check` and `lint`/`lint:fix` to cover all current TypeScript/JSON files under both `src/` and `test/`. The expanded checks found two previously unformatted integration files and unsafe Supertest server arguments; both were fixed. `format:check`, `lint`, and the 2-test health integration suite all pass.
+- `003-ingestion-backpressure`: **spec → clarify → plan → tasks → analyze/review → remediation complete.** Spec has 18 FRs/8 SCs/3 user stories; clarified capacity signal (admitted-but-not-completed rows *and* estimated bytes, tracked globally, no CPU/event-loop/DB-utilization signals), validation-accepted-only counting, and the 413-vs-503 split. `tasks.md` (27 tasks, T001-T027) has domain-error throwing in `LogRepository` (HTTP-agnostic), translated to HTTP exceptions in `LogIngestionService`, config centralized via `createBackpressureConfig()`. Two review passes (`/speckit-analyze` + a fresh code-level re-read) found 8 real issues, all now resolved in the planning docs (no production code exists yet to fix): byte estimation switched from `JSON.stringify`/`Buffer.byteLength` to a cheap field-length sum (was real avoidable CPU cost on the 0.5-CPU ingestion path); `GlobalExceptionFilter`'s `Retry-After` check scoped to `instanceof HttpException` only (was an unconditional duck-type that could've fired on the domain error by accident); `plan.md`/`research.md`/`data-model.md` now consistently describe the domain-error→service→HTTP-exception layering (previously only `tasks.md` had it right); `T024` no longer depends on the optional `T023`; `T012`'s spurious dependency on `T011` removed (both now `[P]`); added a two-tenant global-capacity check to `quickstart.md`/`T017` (FR-008 had zero test coverage before); `T026` now measures capacity-counter headroom under load, not just throughput; `quickstart.md`'s recovery check now measures actual elapsed time (SC-005). Full docs: `specs/003-ingestion-backpressure/{spec,plan,research,data-model,quickstart,tasks}.md` + `contracts/post-logs-backpressure.md`.
+
+---
+
+## 🚀 Next phase
+
+**Integration-testing continuation:** `src/health` is complete. Continue one business capability at a time only when requested; the next module has not yet been selected. Keep the dedicated `log_pulse_testing` database and the small, contract-focused scenario style.
+
+**Goal:** `003-ingestion-backpressure` is done except **T027, the mandatory external-portal gate — this requires the user** (push + submit to the load-testing portal, same as `002`'s T037 precedent). Everything else (T001-T026) is complete and live-validated:
+- All 3 user stories (survive overload / actionable 503+413 signal with `Retry-After` and empirically-confirmed two-tenant global capacity / zero-config regression + zero-cost-when-disabled + auth-before-capacity) verified against real `docker compose` runs — see `tasks.md`'s inline notes on T013/T017/T018-T020 for exact evidence.
+- README documents the feature (`## Optional features` → `### Backpressure`, `## Configuration` table); 2 new `.rest` examples under `requests/logs/`.
+- `npm run build`/`format`/`lint` all clean — lint caught and fixed a real unused-import bug (bug-007, `DEFAULT_BACKPRESSURE_ENABLED`).
+- T026's local diagnostic (peak `pendingRowCount=7000/20000`, `pendingByteCount≈1.26MB/25MB` during a 10,000-entry burst) gives real headroom evidence, honestly caveated: it is **not** a re-measurement of `002`'s ~20k logs/sec baseline, since that methodology's external load-generation tool isn't available in this sandbox.
+
+**Next**: hand off to the user for T027 — push this branch and submit to the load-testing portal (both `BACKPRESSURE_ENABLED=false` default and `=true` at generous defaults), confirm no regression vs. the `002` baseline and that the ≥15k logs/sec target still clears with backpressure enabled-but-under-threshold, **never counting `503`/`413` responses as throughput**. Once T027 passes, this feature is fully done — mark it `[X]` in `tasks.md`.
+
+### Acceptance criteria
+1. Implement `tasks.md` phase by phase (Setup → Foundational → US1 → US2 → US3 → Polish), checking off `[X]` as each completes.
+2. Touches only: `.env.example`, `docker-compose.yml`, `log-api.constants.ts`, `package.json` (promote `bytes`), new `src/logs/config/backpressure.config.ts`, new `src/logs/errors/ingestion-capacity.errors.ts`, `log.repository.ts`, `log-ingestion.service.ts` (translation try/catch — a deliberate refinement over plan.md, see tasks.md's "Layering refinement" note), new `src/logs/exceptions/backpressure.exception.ts`, `global-exception.filter.ts`, `README.md`. Nothing in `logs.controller.ts`, validators, retention, or tenancy should need to change.
+3. No `.test.`/`.spec.` files — verification is `quickstart.md`'s manual scenarios (deterministic via tiny configured thresholds, not real load) plus, per this project's established gate, eventual external-portal confirmation (T027) that both the disabled default AND `BACKPRESSURE_ENABLED=true` at generous thresholds show no throughput regression (SC-007) — **never count `503`/`413` responses as throughput** when reading portal results.
+4. `002-performance-optimization`'s T037 is still outstanding and independent of this feature — mention it to the user if a natural opportunity arises, but it's not blocking `003`'s work.
+
+### Files to create / edit
+| Type | File | Content |
+|---|---|---|
+| CHANGED | `.env.example`, `docker-compose.yml` | 4 new optional env vars, safe defaults |
+| CHANGED | `src/common/constants/log-api.constants.ts` | 4 new `DEFAULT_BACKPRESSURE_*` constants |
+| CHANGED | `package.json` | `bytes` → direct dependency |
+| NEW | `src/logs/config/backpressure.config.ts` | centralized, validated config factory |
+| NEW | `src/logs/errors/ingestion-capacity.errors.ts` | HTTP-agnostic domain errors |
+| CHANGED | `src/logs/repositories/log.repository.ts` | 2 counters, `estimateByteSize()`, `checkAdmission()`, wired into `insertMany()`/`flushBatch()` |
+| CHANGED | `src/logs/services/log-ingestion.service.ts` | try/catch translating domain errors → HTTP exceptions |
+| NEW | `src/logs/exceptions/backpressure.exception.ts` | `BackpressureException extends ServiceUnavailableException` |
+| CHANGED | `src/common/filters/global-exception.filter.ts` | generic duck-typed `Retry-After` header pass-through |
+| CHANGED | `README.md` | Optional features + Configuration sections |
+
+### Closed decisions
+- OpenWolf supports only Claude and Codex because those are the user's active agents.
+- Write coalescing uses a manual `new Promise((resolve, reject) => ...)` deferred pattern, not `Promise.withResolvers()` — this repo's `tsconfig.json` (`target: ES2023`, no explicit `lib` override) doesn't type-check that API; the same pitfall was observed in `LogIngestion-majed`'s build.
+- Rollup-first aggregation merges rollup + raw-scan-edge result sets in application code (JS `Map` keyed by `(bucket,group)`), not a SQL `UNION ALL` — the installed TypeORM version's `SelectQueryBuilder` has no union support, and the app-level merge is simple enough to audit directly.
+- Attribute-equality predicate emits the numeric/boolean OR-branch SQL text only when the filter value actually parses as that type — always including the branch and gating it with a boolean flag would still error at bind time, since `::numeric`/`::boolean` casts apply to the parameter value itself regardless of surrounding AND/OR logic.
+- `queryRunner.query()` has no generic overload (returns `Promise<any>`); use `this.dataSource.query<T>(sql, params, queryRunner)` instead when a typed result is needed within an existing queryRunner's connection/transaction — already the established pattern in `partition.service.ts`.
+- `003-ingestion-backpressure`'s admission control lives entirely as private state/methods on the existing `LogRepository`, not a new `AdmissionControlService` — user's explicit instruction, and the check-then-push sequence needs no lock/mutex since it runs synchronously with no `await` on Node's single thread (same property the existing coalescing code already relies on).
+- A batch that can never fit under the configured capacity gets `413` (non-retryable), not `503` — decided by inspecting this project's own existing `JSON_BODY_LIMIT`/`GlobalExceptionFilter` precedent for exactly this distinction, per explicit instruction to check existing conventions before choosing.
+
+### Open decisions
+- Exact production-tuned values for `BACKPRESSURE_MAX_PENDING_ROWS`/`_BYTES` are starting defaults (20,000 rows / 25 MB) pending external-portal measurement, same as every other tunable in this project (coalescing window/row-cap, write-pool size).
+
+---
+
+## 📁 Active architecture
+
+- **Stack:** _<frameworks, libraries, runtime>_
+- **Key tables / modules:** _<list>_
+- **Patterns:** _<conventions enforced project-wide>_
+
+---
+
+## ⚠️ External blockers (don't block coding)
+
+- _<env vars, secrets, external accounts, manual steps>_
+
+---
+
+## 🔧 Useful commands
+
+```bash
+npm run test:integration
+npm run build
+```
+
+---
+
+## 📚 References (read IF needed)
+
+- `.wolf/cerebrum.md` — User Preferences + Do-Not-Repeat + Decision Log
+- `.wolf/anatomy.md` — token-efficient file index
+- `.wolf/buglog.json` — known bugs + fixes

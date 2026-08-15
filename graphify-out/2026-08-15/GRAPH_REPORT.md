@@ -1,11 +1,11 @@
 # Graph Report - logPulse  (2026-08-15)
 
 ## Corpus Check
-- 200 files · ~143,491 words
+- 198 files · ~143,382 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1617 nodes · 2153 edges · 149 communities (111 shown, 38 thin omitted)
+- 1615 nodes · 2150 edges · 153 communities (115 shown, 38 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
@@ -37,24 +37,24 @@
 - tenant-auth.service.ts
 - log-query.interface.ts
 - LogRepository
-- log-entry.validator.ts
+- logs.controller.ts
 - Introduce PostgreSQL Row-Level Security for Multi-Tenancy
 - Tasks: Optional Backpressure Support
 - .create
 - Tasks: Performance Optimization
-- logs.controller.ts
-- tenancy.module.ts
+- LogLevel
+- TenantRefreshToken
 - api-keys.controller.ts
 - .aggregate
 - .login
-- tenancy.constants.ts
+- tenancy.module.ts
 - log.repository.ts
 - Execution Steps
 - Execution Steps
 - tenant-auth.controller.ts
 - Final Project: Log Ingestion and Query Service
 - Unit Testing Implementation Plan
-- ApiKeyService
+- ApiKey
 - CursorService
 - logPulse
 - common.ps1
@@ -133,7 +133,7 @@
 - extraction-spec.md
 - 72. Technical terms worth studying next
 - @eslint/eslintrc
-- @eslint/js
+- TokenService
 - eslint-plugin-prettier
 - globals
 - jest
@@ -156,10 +156,14 @@
 - typescript
 - typescript-eslint
 - update-agent-context.sh
+- LogRollup
+- Tenant
+- password-hasher.util.ts
+- eslint-config-prettier
 
 ## God Nodes (most connected - your core abstractions)
-1. `scripts` - 26 edges
-2. `LogRepository` - 26 edges
+1. `LogRepository` - 26 edges
+2. `scripts` - 25 edges
 3. `compilerOptions` - 23 edges
 4. `Introduce PostgreSQL Row-Level Security for Multi-Tenancy` - 22 edges
 5. `LogLevel` - 21 edges
@@ -170,25 +174,25 @@
 10. `Tasks: Multi-Tenancy` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `LogEntryDto` --references--> `LogLevel`  [EXTRACTED]
-  src/logs/dto/requests/log-entry.dto.ts → src/logs/enums/log-level.enum.ts
-- `LogEntryDto` --references--> `LogAttributeValue`  [EXTRACTED]
-  src/logs/dto/requests/log-entry.dto.ts → src/logs/interfaces/log-repository.interface.ts
-- `LogResponseDto` --references--> `LogLevel`  [EXTRACTED]
-  src/logs/dto/responses/query-logs-response.dto.ts → src/logs/enums/log-level.enum.ts
+- `AggregateLogsDto` --references--> `LogLevel`  [EXTRACTED]
+  src/logs/dto/requests/aggregate-logs.dto.ts → src/logs/enums/log-level.enum.ts
 - `LogRollup` --references--> `LogLevel`  [EXTRACTED]
   src/logs/entities/log-rollup.entity.ts → src/logs/enums/log-level.enum.ts
 - `Log` --references--> `LogLevel`  [EXTRACTED]
   src/logs/entities/log.entity.ts → src/logs/enums/log-level.enum.ts
+- `Log` --references--> `LogAttributeValue`  [EXTRACTED]
+  src/logs/entities/log.entity.ts → src/logs/interfaces/log-repository.interface.ts
+- `LogFilters` --references--> `LogLevel`  [EXTRACTED]
+  src/logs/interfaces/log-query.interface.ts → src/logs/enums/log-level.enum.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (149 total, 38 thin omitted)
+## Communities (153 total, 38 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.29
-Nodes (7): eslint, eslint-config-prettier, devDependencies, eslint, eslint-config-prettier, tsconfig-paths, tsconfig-paths
+Nodes (7): eslint, @eslint/js, devDependencies, eslint, @eslint/js, tsconfig-paths, tsconfig-paths
 
 ### Community 1 - "Incremental Pre-Aggregation with Time-Based Rollup Tables.md"
 Cohesion: 0.03
@@ -196,15 +200,15 @@ Nodes (65): 10. The most important part: hybrid raw + rollup queries, 11. Why th
 
 ### Community 2 - "scripts"
 Cohesion: 0.04
-Nodes (45): author, description, jest, collectCoverageFrom, coverageDirectory, moduleFileExtensions, rootDir, testEnvironment (+37 more)
+Nodes (44): author, description, jest, collectCoverageFrom, coverageDirectory, moduleFileExtensions, rootDir, testEnvironment (+36 more)
 
 ### Community 3 - "compilerOptions"
 Cohesion: 0.08
 Nodes (23): compilerOptions, allowSyntheticDefaultImports, baseUrl, declaration, emitDecoratorMetadata, esModuleInterop, experimentalDecorators, forceConsistentCasingInFileNames (+15 more)
 
 ### Community 4 - "retention.service.ts"
-Cohesion: 0.07
-Nodes (23): Cron, DAILY_PARTITION_NAME_PATTERN, DEFAULT_LOG_PARTITION_DAYS_AHEAD, DEFAULT_LOG_RETENTION_DAYS, LOG_RETENTION_LOCK_ID, LOG_RETENTION_LOCK_NAMESPACE, MAX_LOG_PARTITION_DAYS_AHEAD, MAX_LOG_RETENTION_DAYS (+15 more)
+Cohesion: 0.08
+Nodes (22): Cron, DAILY_PARTITION_NAME_PATTERN, DEFAULT_LOG_PARTITION_DAYS_AHEAD, DEFAULT_LOG_RETENTION_DAYS, LOG_RETENTION_LOCK_ID, LOG_RETENTION_LOCK_NAMESPACE, MAX_LOG_PARTITION_DAYS_AHEAD, MAX_LOG_RETENTION_DAYS (+14 more)
 
 ### Community 5 - "app.module.ts"
 Cohesion: 0.05
@@ -263,20 +267,20 @@ Cohesion: 0.14
 Nodes (20): LOG_AGGREGATION_BUCKET_INTERVALS, LOG_AGGREGATION_GROUP_COLUMNS, LOG_AGGREGATION_ORIGIN, Log, Check, Column, CreateDateColumn, Entity (+12 more)
 
 ### Community 20 - "tenant-auth.service.ts"
-Cohesion: 0.14
-Nodes (11): POSTGRES_UNIQUE_VIOLATION, AuthTokensDto, ApiProperty, TenantDto, ApiProperty, isUniqueViolation(), normalizeEmail(), TenantAuthService (+3 more)
+Cohesion: 0.23
+Nodes (7): POSTGRES_UNIQUE_VIOLATION, AuthTokensDto, ApiProperty, TenantDto, ApiProperty, isUniqueViolation(), normalizeEmail()
 
 ### Community 21 - "log-query.interface.ts"
-Cohesion: 0.18
-Nodes (14): AggregateLogsDto, ApiProperty, ApiPropertyOptional, QueryLogsDto, ApiPropertyOptional, AggregationBucket, AggregationGroup, LogLevel (+6 more)
+Cohesion: 0.20
+Nodes (10): AggregateLogsDto, ApiProperty, ApiPropertyOptional, AggregationBucket, AggregationGroup, AggregateLogsQuery, FindLogsQuery, LogFilters (+2 more)
 
 ### Community 22 - "LogRepository"
-Cohesion: 0.15
-Nodes (9): alignUpToRollupBucket(), RawLogAggregation, NewLog, isRollupEligible(), LogRepository, PendingInsert, Injectable, InjectDataSource (+1 more)
+Cohesion: 0.28
+Nodes (4): NewLog, LogRepository, PendingInsert, Injectable
 
-### Community 23 - "log-entry.validator.ts"
-Cohesion: 0.14
-Nodes (14): IngestLogsDto, ApiProperty, LogEntryDto, ApiProperty, ApiPropertyOptional, IngestLogsResponseDto, RejectedLogDto, ApiProperty (+6 more)
+### Community 23 - "logs.controller.ts"
+Cohesion: 0.12
+Nodes (17): IngestLogsDto, ApiProperty, AggregateBucketDto, AggregateLogsResponseDto, ApiProperty, IngestLogsResponseDto, RejectedLogDto, ApiProperty (+9 more)
 
 ### Community 24 - "Introduce PostgreSQL Row-Level Security for Multi-Tenancy"
 Cohesion: 0.09
@@ -294,17 +298,17 @@ Nodes (16): ApiForbiddenResponse, ApiNotFoundResponse, Delete, Param, ApiKeysCon
 Cohesion: 0.09
 Nodes (21): Dependencies & Execution Order, Format: `[ID] [P?] [Story] Description`, Implementation for User Story 1, Implementation for User Story 2, Implementation for User Story 3, Implementation Strategy, Incremental Delivery Beyond MVP, MVP First (User Story 1 only) (+13 more)
 
-### Community 28 - "logs.controller.ts"
-Cohesion: 0.20
-Nodes (13): AggregateBucketDto, AggregateLogsResponseDto, ApiProperty, LogResponseDto, QueryLogsResponseDto, ApiProperty, RawLogRow, LogAttributeValue (+5 more)
+### Community 28 - "LogLevel"
+Cohesion: 0.18
+Nodes (15): LogEntryDto, ApiProperty, ApiPropertyOptional, QueryLogsDto, ApiPropertyOptional, LogResponseDto, QueryLogsResponseDto, ApiProperty (+7 more)
 
-### Community 29 - "tenancy.module.ts"
-Cohesion: 0.11
-Nodes (15): TenantRefreshToken, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, Tenant, Check (+7 more)
+### Community 29 - "TenantRefreshToken"
+Cohesion: 0.29
+Nodes (6): TenantRefreshToken, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn
 
 ### Community 30 - "api-keys.controller.ts"
-Cohesion: 0.19
-Nodes (13): ApiKeyDto, ApiProperty, ApiKeyListDto, ApiProperty, ApiKey, Check, Column, CreateDateColumn (+5 more)
+Cohesion: 0.35
+Nodes (6): ApiKeyDto, ApiProperty, ApiKeyListDto, ApiProperty, ApiKeyStatus, createApiKeySchema
 
 ### Community 31 - ".aggregate"
 Cohesion: 0.18
@@ -314,13 +318,13 @@ Nodes (15): ApiQuery, Query, Res, LogsController, ApiBadRequestResponse, ApiBody
 Cohesion: 0.21
 Nodes (13): ApiConflictResponse, HttpCode, TenantAuthController, ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation (+5 more)
 
-### Community 33 - "tenancy.constants.ts"
-Cohesion: 0.18
-Nodes (10): ACCESS_TOKEN_TTL_SECONDS, API_KEY_PREFIX, LOADGEN_TENANT_EMAIL, LOADGEN_TENANT_ID, LOADGEN_TENANT_PASSWORD, REFRESH_TOKEN_TTL_DAYS, TenantJwtPayload, hash() (+2 more)
+### Community 33 - "tenancy.module.ts"
+Cohesion: 0.16
+Nodes (11): ACCESS_TOKEN_TTL_SECONDS, API_KEY_HEADER, API_KEY_PREFIX, DEFAULT_TENANT_ID, LOADGEN_TENANT_EMAIL, LOADGEN_TENANT_ID, LOADGEN_TENANT_PASSWORD, REFRESH_TOKEN_TTL_DAYS (+3 more)
 
 ### Community 34 - "log.repository.ts"
-Cohesion: 0.19
-Nodes (8): LogRollup, Column, Entity, PrimaryColumn, IngestionBatchTooLargeError, IngestionCapacityExceededError, BackpressureException, RollupDelta
+Cohesion: 0.18
+Nodes (9): alignDownToRollupBucket(), alignUpToRollupBucket(), IngestionBatchTooLargeError, IngestionCapacityExceededError, BackpressureException, LogAggregation, RawLogAggregation, isRollupEligible() (+1 more)
 
 ### Community 35 - "Execution Steps"
 Cohesion: 0.12
@@ -342,13 +346,13 @@ Nodes (13): A Note on AI Usage, Core Requirements, Deliverables, Final Project: 
 Cohesion: 0.13
 Nodes (14): Explicitly not unit-tested (unchanged, still correct), Findings from this review (deviations from the original chat plan), `logs/repositories/log.repository.ts` — needs a specific fake-timer strategy, Phase 0 — Tooling, Phase 1 — Pure logic (no mocking, highest value-per-effort), Phase 2 — Query builders, Phase 3 — Guards & filters, Phase 4 — Services (+6 more)
 
-### Community 40 - "ApiKeyService"
-Cohesion: 0.18
-Nodes (8): API_KEY_HEADER, DEFAULT_TENANT_ID, ApiKeyAuthGuard, extractCredential(), Injectable, ApiKeyService, Injectable, InjectRepository
+### Community 40 - "ApiKey"
+Cohesion: 0.11
+Nodes (14): ApiKey, Check, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, ApiKeyAuthGuard (+6 more)
 
 ### Community 41 - "CursorService"
-Cohesion: 0.22
-Nodes (5): CursorService, Injectable, CursorPayload, LogQueryService, Injectable
+Cohesion: 0.33
+Nodes (3): CursorService, Injectable, CursorPayload
 
 ### Community 42 - "logPulse"
 Cohesion: 0.15
@@ -598,25 +602,41 @@ Nodes (3): 32. PostgreSQL implementation choices, Normal logged table, UNLOGGED 
 Cohesion: 0.67
 Nodes (3): Rollup table, Schema and index design, Tenant tables
 
+### Community 120 - "TokenService"
+Cohesion: 0.21
+Nodes (5): TenantAuthService, Injectable, InjectRepository, TokenService, Injectable
+
+### Community 149 - "LogRollup"
+Cohesion: 0.29
+Nodes (6): LogRollup, Column, Entity, PrimaryColumn, InjectDataSource, InjectRepository
+
+### Community 150 - "Tenant"
+Cohesion: 0.33
+Nodes (5): Tenant, Check, Column, Entity, PrimaryGeneratedColumn
+
+### Community 151 - "password-hasher.util.ts"
+Cohesion: 0.83
+Nodes (3): hash(), sha256Hex(), verify()
+
 ## Knowledge Gaps
-- **804 isolated node(s):** `update-agent-context.sh script`, `$schema`, `collection`, `sourceRoot`, `deleteOutDir` (+799 more)
+- **803 isolated node(s):** `update-agent-context.sh script`, `$schema`, `collection`, `sourceRoot`, `deleteOutDir` (+798 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **38 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `parseWithSchema()` connect `parseWithSchema` to `.login`, `tenant-auth.controller.ts`, `log-query.schema.ts`, `log-entry.validator.ts`, `.create`, `api-keys.controller.ts`?**
+- **Why does `parseWithSchema()` connect `parseWithSchema` to `.login`, `tenant-auth.controller.ts`, `log-query.schema.ts`, `logs.controller.ts`, `.create`, `api-keys.controller.ts`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `ApiKeysController` connect `.create` to `tenancy.module.ts`, `api-keys.controller.ts`?**
-  _High betweenness centrality (0.007) - this node is a cross-community bridge._
-- **Why does `Log` connect `aggregation-query.builder.ts` to `log.repository.ts`, `retention.service.ts`, `log-query.interface.ts`, `LogRepository`, `logs.controller.ts`?**
+- **Why does `Log` connect `aggregation-query.builder.ts` to `log.repository.ts`, `retention.service.ts`, `LogRollup`, `logs.controller.ts`, `LogLevel`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
+- **Why does `LogRepository` connect `LogRepository` to `log.repository.ts`, `CursorService`, `log-query.interface.ts`, `LogRollup`, `logs.controller.ts`, `LogLevel`?**
   _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **What connects `update-agent-context.sh script`, `$schema`, `collection` to the rest of the system?**
-  _804 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _803 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Incremental Pre-Aggregation with Time-Based Rollup Tables.md` be split into smaller, more focused modules?**
   _Cohesion score 0.030303030303030304 - nodes in this community are weakly interconnected._
 - **Should `scripts` be split into smaller, more focused modules?**
-  _Cohesion score 0.043478260869565216 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.044444444444444446 - nodes in this community are weakly interconnected._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
