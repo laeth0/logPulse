@@ -11,15 +11,15 @@ export default async function globalSetup(): Promise<void> {
     password: process.env.DB_PASS,
     database: 'postgres',
     ssl:
-      process.env.DB_SSL === 'true'
-        ? { rejectUnauthorized: false }
-        : undefined,
+      process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
   });
 
   await client.connect();
 
   try {
-    await client.query(`DROP DATABASE IF EXISTS "${databaseName}" WITH (FORCE)`);
+    await client.query(
+      `DROP DATABASE IF EXISTS "${databaseName}" WITH (FORCE)`,
+    );
     await client.query(`CREATE DATABASE "${databaseName}"`);
   } finally {
     await client.end();

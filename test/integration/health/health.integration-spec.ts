@@ -28,7 +28,9 @@ describe('GET /health readiness', () => {
   });
 
   it('reports ready through the public endpoint when PostgreSQL is connected and migrated', async () => {
-    const response = await request(app.getHttpServer()).get('/health').expect(200);
+    const response = await request(app.getHttpServer())
+      .get('/health')
+      .expect(200);
     const health = response.body as HealthStatus;
 
     expect(process.env.AUTH_ENABLED).toBe('true');
