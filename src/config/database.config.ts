@@ -1,5 +1,6 @@
 import * as path from 'node:path';
 
+import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import type { DataSourceOptions } from 'typeorm';
 
 /**
@@ -46,9 +47,10 @@ export function createDatabaseOptions(
  */
 export function createReadDatabaseOptions(
   baseDirectory: string,
-): DataSourceOptions {
+): TypeOrmModuleOptions {
   return {
     ...createDatabaseOptions(baseDirectory),
+    name: 'read',
     migrationsRun: false,
     extra: {
       application_name: 'logpulse-read',
