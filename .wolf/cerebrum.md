@@ -16,6 +16,7 @@
 - Keep shared project instructions synchronized between `AGENTS.md` and `CLAUDE.md`; changes made to one should be mirrored in the other.
 - Keep integration spec files focused on business scenarios; move reusable environment, HTTP, fixture, workflow, and assertion concerns into cohesive modules under `test/integration/support` rather than a generic production `utils` folder.
 - `npm run test` should discover and run every project test convention (`*.spec.ts`, `*.test.ts`, and `*.integration-spec.ts`), including the PostgreSQL integration suites; keep `test:integration` as the integration-only shortcut.
+- Keep the repeatable load-testing harness in a separate project; use k6 in Docker and maintain a backend-side Markdown handoff covering the health/log endpoints and the requested 15,000 HTTP requests/second profile.
 
 ## Key Learnings
 
@@ -63,3 +64,4 @@
 - **2026-08-15:** Root `AppController` integration coverage is deliberately one scenario asserting `GET /` returns `200`, HTML text content, and `Hello World!`; it uses the shared full application harness but requires no database cleanup.
 - **2026-08-15:** Removed the project-local knowledge-graph tooling and all generated artifacts/instructions at the user's request. Existing OpenWolf context management remains active and unchanged.
 - **2026-08-15:** Tenancy integration coverage uses three capability workflows in one full-AppModule suite: account/session lifecycle, tenant-owned API-key management and revocation, and authenticated data-plane isolation including cross-tenant cursor replay. It truncates tenancy plus logs/rollups before each scenario and owns/restores auth/backpressure environment state.
+- **2026-08-15:** The k6 handoff distinguishes the grading target of 15,000 accepted log entries/second from the additional 15,000 HTTP requests/second stress target; batch size must always be reported because it converts one metric into the other.

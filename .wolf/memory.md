@@ -82,3 +82,14 @@
 
 | 12:14 | Unified default Jest discovery across source and integration tests | `package.json` | `npm run test -- --listTests` discovers all four integration suites and future `*.spec.ts`/`*.test.ts` files; full execution reaches global setup but remains blocked by the known test-DB password mismatch | ~1200 |
 | 12:30 | Reorganized project into monorepo structure: moved all backend code and configs to `backend/`, created empty `frontend/` folder, kept `docker-compose.yml` and root configs at root, updated CI workflow and .gitignore | `backend/`, `frontend/`, `docker-compose.yml`, `.github/workflows/ci.yml`, `.gitignore`, `AGENTS.md`, `CLAUDE.md` | Monorepo structure established; backend compiles cleanly via `npm run build` | ~2500 |
+
+## Session: 2026-08-15 17:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 18:01 | Created a complete endpoint and benchmark handoff for the separate Dockerized k6 project, explicitly separating 15k accepted logs/s from 15k HTTP requests/s | `docs/K6_LOAD_TESTING_GUIDE.md`, `.wolf/anatomy.md`, `.wolf/cerebrum.md`, `.wolf/STATUS.md` | Four endpoint contracts, Docker networking, workload profiles, metrics, thresholds, safety, and reporting documented; OpenWolf index refreshed | ~6500 |
+
+## Session: 2026-08-15 18:14
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|

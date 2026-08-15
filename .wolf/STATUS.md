@@ -11,6 +11,7 @@
 <!-- Move items here from "🚀 Next phase" when finished. Group by area. -->
 
 - Reorganized project into a monorepo: moved all backend code, configurations, tests, migrations, requests, specs, and prompts into `backend/`, created empty `frontend/` with `.gitkeep`, placed `docker-compose.yml` at root with `context: ./backend`, updated `.github/workflows/ci.yml` working directories, updated `.gitignore`, and updated `AGENTS.md`/`CLAUDE.md` path references. `backend` compiles cleanly via `npm run build`.
+- Added `docs/K6_LOAD_TESTING_GUIDE.md` as a self-contained handoff for the separate Dockerized k6 project. It documents all `backend/src/health` and `backend/src/logs` endpoints, exact request/response/error behavior, Docker connectivity, auth/backpressure variants, the required 15,000 accepted logs/sec baseline, the separate 15,000 HTTP requests/sec stress profile, the 1M-row concurrent aggregation/visibility workload, metrics, retry/cleanup rules, and result reporting.
 
 - OpenWolf integrations narrowed to Claude and Codex only.
 - Removed the project-local knowledge-graph integration, generated graph/cache artifacts, dedicated skill package, instructions, and backup artifact; no related Git hooks or merge driver were installed.

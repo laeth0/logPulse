@@ -178,7 +178,7 @@
       "fix": "Left unrelated user-owned files untouched and relied on the requested src/test Prettier and ESLint checks, both of which passed.",
       "tags": ["git", "crlf", "whitespace", "unrelated-changes"],
       "related_bugs": [],
-      "occurrences": 1,
+      "occurrences": 2,
       "last_seen": "2026-08-15"
     },
     {
@@ -238,6 +238,30 @@
       "fix": "Restored bug-009 to one occurrence, updated bug-021 to two occurrences, and used bug-ID-specific patch context.",
       "tags": ["openwolf", "buglog", "apply-patch", "verification"],
       "related_bugs": ["bug-021"],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-023",
+      "timestamp": "2026-08-15T18:02:41+03:00",
+      "error_message": "apply_patch verification failed while updating OpenWolf session records because an expected cerebrum line did not match",
+      "file": ".wolf/cerebrum.md",
+      "root_cause": "The patch anchor paraphrased the existing tenancy decision as account registration/login/refresh rotation, but the file uses account/session lifecycle.",
+      "fix": "Located the exact existing lines with rg, then reapplied the updates using exact and section-level anchors.",
+      "tags": ["openwolf", "apply-patch", "context-mismatch"],
+      "related_bugs": ["bug-018", "bug-022"],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-024",
+      "timestamp": "2026-08-15T18:03:24+03:00",
+      "error_message": "/bin/bash: line 1: jq: command not found",
+      "file": ".wolf/buglog.json",
+      "root_cause": "The final verification assumed jq was installed in the environment, but this workspace does not provide it.",
+      "fix": "Validated the JSON with Node.js JSON.parse instead and continued the remaining checks.",
+      "tags": ["tooling", "json", "verification"],
+      "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
     }
