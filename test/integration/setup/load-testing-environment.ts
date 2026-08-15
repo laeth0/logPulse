@@ -2,16 +2,13 @@ import * as path from 'node:path';
 
 import * as dotenv from 'dotenv';
 
-const testingEnvironmentPath = path.resolve(
-  __dirname,
-  '../../../.env.testing',
-);
+const testEnvironmentPath = path.resolve(__dirname, '../../../.env.test');
 
-const result = dotenv.config({ path: testingEnvironmentPath, quiet: true });
+const result = dotenv.config({ path: testEnvironmentPath, quiet: true });
 
 if (result.error) {
   throw new Error(
-    `Could not load the integration-test environment at ${testingEnvironmentPath}: ${result.error.message}`,
+    `Could not load the integration-test environment at ${testEnvironmentPath}: ${result.error.message}`,
   );
 }
 

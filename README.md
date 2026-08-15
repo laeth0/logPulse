@@ -57,7 +57,6 @@ Useful scripts:
 | `npm run lint` / `npm run lint:fix` | ESLint (strict, zero warnings) |
 | `npm run format` / `npm run format:check` | Prettier |
 | `npm run test` | Unit tests (Jest, co-located `*.spec.ts`) |
-| `npm run test:e2e` | End-to-end tests (`test/*.e2e-spec.ts`) |
 | `npm run migration:generate` / `migration:run` / `migration:revert` / `migration:show` | TypeORM migrations |
 | `npm run db:create` / `db:drop` / `db:recreate` | Local database lifecycle helpers |
 
