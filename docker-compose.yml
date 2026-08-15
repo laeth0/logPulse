@@ -44,6 +44,19 @@ services:
           cpus: '0.50'
           memory: 256M
 
+  frontend:
+    build:
+      context: ./frontend
+      target: development
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend/src:/app/src  # hot-reload: changes in src/ reflect instantly
+    depends_on:
+      - app
+    restart: unless-stopped
+
+
   database:
     image: postgres:16-alpine
     command:

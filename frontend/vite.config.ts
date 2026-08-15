@@ -6,6 +6,10 @@ import babel from '@rolldown/plugin-babel'
 export default defineConfig({
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] })
+    babel({ presets: [reactCompilerPreset()] }),
   ],
+  server: {
+    host: '0.0.0.0', // required so Docker can expose the port to the host
+    port: 5173,
+  },
 })
