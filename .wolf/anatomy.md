@@ -1,21 +1,21 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-15T07:33:57.808Z
-> Files: 332 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-15T08:44:09.942Z
+> Files: 217 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
-- `.dockerignore` — Docker ignore rules (~56 tok)
-- `.gitignore` — Git ignore rules (~160 tok)
+- `.dockerignore` — Docker ignore rules (~51 tok)
+- `.gitignore` — Git ignore rules (~152 tok)
 - `.prettierrc` — Prettier configuration (~15 tok)
-- `AGENTS.md` — OpenWolf (~1041 tok)
+- `AGENTS.md` — OpenWolf (~759 tok)
 - `CLAUDE.md` — OpenWolf (~1145 tok)
 - `docker-compose.yml` — Docker Compose services (~877 tok)
 - `Dockerfile` — Docker container definition (~304 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~250 tok)
 - `nest-cli.json` (~49 tok)
 - `package-lock.json` — npm lock file (~112418 tok)
-- `package.json` — Node.js package manifest (~978 tok)
+- `package.json` — Node.js package manifest (~974 tok)
 - `projectSchema.dbml` (~1467 tok)
 - `README.md` — Project documentation (~10060 tok)
 - `tsconfig.build.json` — TypeScript build configuration (~28 tok)
@@ -123,28 +123,11 @@
 
 - `config.toml` (~7 tok)
 - `hooks.json` (~693 tok)
-- `hooks.json.graphify-bak` (~673 tok)
 
 ## .codex/prompts/
 
 - `reframe.md` — Mode: migrate [framework] (~551 tok)
 - `security-audit.md` — Layer 1 — Dependencies (~510 tok)
-
-## .codex/skills/graphify/
-
-- `.graphify_version` (~2 tok)
-- `SKILL.md` — /graphify (~10120 tok)
-
-## .codex/skills/graphify/references/
-
-- `add-watch.md` — graphify reference: add a URL and watch a folder (~619 tok)
-- `exports.md` — graphify reference: extra exports and benchmark (~840 tok)
-- `extraction-spec.md` — graphify reference: extraction subagent prompt (compact) (~1105 tok)
-- `github-and-merge.md` — graphify reference: GitHub clone and cross-repo merge (~541 tok)
-- `hooks.md` — graphify reference: commit hook and native CLAUDE.md integration (~317 tok)
-- `query.md` — graphify reference: query, path, explain (~3353 tok)
-- `transcribe.md` — graphify reference: transcribe video and audio (~792 tok)
-- `update.md` — graphify reference: incremental update and cluster-only (~2601 tok)
 
 ## .github/workflows/
 
@@ -215,133 +198,8 @@
 
 ## docs/
 
+- `Dead-letter handling.md` — Architecture & Design (V1 Proposal) for optional Dead-Letter Handling — design only, nothing implemented (~11113 tok)
 - `Final_Project.md` — Final Project: Log Ingestion and Query Service (~4615 tok)
-- `Incremental Pre-Aggregation with Time-Based Rollup Tables.md` — 1. Start with the problem (~16478 tok)
-- `unit_testing_implementation_plan.md` — Unit Testing Implementation Plan (~3994 tok)
-
-## graphify-out/
-
-- `.graphify_analysis.json` (~3389 tok)
-- `.graphify_labels.json` (~1672 tok)
-- `.graphify_labels.json.sig` (~1073 tok)
-- `.graphify_learning.json` (~26 tok)
-- `.graphify_python` (~5 tok)
-- `.graphify_root` (~1 tok)
-- `.vocab.txt` — Declares types (~366 tok)
-- `GRAPH_REPORT.md` — Graph Report - logPulse  (2026-08-15) (~8436 tok)
-- `manifest.json` (~10747 tok)
-
-## graphify-out/2026-08-15/
-
-- `.graphify_analysis.json` (~3389 tok)
-- `.graphify_labels.json` (~1646 tok)
-- `GRAPH_REPORT.md` — Graph Report - logPulse  (2026-08-15) (~8342 tok)
-- `manifest.json` (~10832 tok)
-
-## graphify-out/cache/
-
-- `last_query_stamp` (~5 tok)
-- `stat-index.json` (~12547 tok)
-
-## graphify-out/cache/ast/v0.9.43/
-
-- `003f52c07e4e5b0b0b55a566c0964d93d8650ecae684c5175694c01a470153d2.json` (~788 tok)
-- `00f2d24dba0e13e6664993e62ec63e377236d3419e19d442ffdc88bd708cdb5e.json` (~624 tok)
-- `03b8b6cbef88addf4cab611c8b7041ab037764e9bc6ddcf1b6a8aa79de5168cb.json` (~946 tok)
-- `0434b6213e1900295bffcecfc5ce6ac3d32c398013657b847a06fd780f9e0c23.json` (~67 tok)
-- `070ed0dfafd8310a243b51cc30b1b6dfb19883fdd5ad20e4b53e45eb7f939e3e.json` (~4358 tok)
-- `0a1caf034069ccc78e04f4710629b34e5b4cfd22e69d51dc3ea74b37609de792.json` (~2828 tok)
-- `0c2b336abdcc5962f9350e7135d072c2e5265c4b9b05c2d842171ce6d14202d5.json` (~4047 tok)
-- `0f3f298648924476c6314f7a7fb2b64adb9782bf78b4749449ef8dc05a1ff2fb.json` (~3956 tok)
-- `0faf7cb92cc9bd1bd1865315400a8ad3534e80ab6ed123ae16a5e53e8d087eff.json` (~2974 tok)
-- `145fda0ff0f8639963390b7cd6834c0c58cfb17bf267b15275030021caa7bbd5.json` (~1000 tok)
-- `15f26c9a4c1aad81328f9714dbf6eb707793be4808fb1d9030937c0c6eb8e725.json` (~2635 tok)
-- `1e4f68f54e362ae7cf5dbf00a27c483457b63109826a2d141c972955dd872422.json` (~695 tok)
-- `24967657d38b77421b058e00d3ab3c7e199006f6ceae8f7dea92a783e3aa562e.json` (~283 tok)
-- `267aa97c9f2ceb5c3a8b57c93a18d5be70822154b575b8cdb956f63eaf8f35cf.json` (~3372 tok)
-- `2734a509d4b2f34ee6258475c4fb2e80a6dbfcbc47c8552df5b6278907529250.json` (~2009 tok)
-- `2c41ce56e8d0d350c17a7029f35b29518ee4d7a626fba3ad2e3acf0090e04664.json` (~805 tok)
-- `2f22952763033f66504de8c9cabffb9a5e47380c0afff6057164a31436a331b8.json` (~1519 tok)
-- `2fa2cb30620647f1fcc416f26bbe9e2843060ecb9e23280a166e10b0219ab130.json` (~1559 tok)
-- `3098b5b7efb760e5b23b114a1d2af4c0040e19afd84be9f15e89e8b29105b66d.json` (~1450 tok)
-- `309bf07a1ce278901f8db5958e5be61070421d6e286cea2aaeebad203547f29c.json` (~1633 tok)
-- `399e12a1228296316a7d861857a75f5111f68b44269e095f9c514e1c8ecaac1e.json` (~9800 tok)
-- `39f8a5df275eb027c8d9432c52980ecb2500aa19d9ecdee4eb5b2581351654c1.json` (~1519 tok)
-- `3a5d7f03051c18cf19a97d36ba57a7b7dab876de089ccbed95db7c8a4b722c73.json` (~1049 tok)
-- `3ab9fdcfd44c1ee795d6deda18723812b245394cfb8c8b222955b74258570ed6.json` (~620 tok)
-- `3d10b446efec5f2ba6d95ffc523ce2b4dd83a1981ec1b6802b6936566f5bee58.json` (~601 tok)
-- `3db2b8db5356e235a364b6216893a22187df5132524678149f1ab91b57849639.json` (~1586 tok)
-- `3e6d7f686fb3696fff3c07db356a99cbf38e4cc08998856d6087ca4a9f5b1af3.json` (~1176 tok)
-- `40d6b75939233cc8edfb569d8d61fdf4b225a38f2cf49c2e5de750737d3c466a.json` (~1452 tok)
-- `420272aed1f0c173f4c32e5d040463d8b36e9fe0c67f0449c50156c2cefe2548.json` (~964 tok)
-- `429c4893b6c8dd7a38bc407253afad78b78c78c40b92326e141f1c55c474acb0.json` (~1586 tok)
-- `45b13a2418a57611712a73c4252cd928bdf5ce2afb7c15f48de95f7b7791059b.json` (~2363 tok)
-- `468b90e7cb9900d266633fa1acc6b706fe166f34e81a1f17fcbda87996d872a3.json` (~593 tok)
-- `49f84209cd39219b08c38093b2ba2d896b6f249aa053fb596fe0443e2ef96cf8.json` (~1084 tok)
-- `4d8a443d32c08ce1c279000b1d7774d7598c14a89dfbde40e14150476d698c86.json` (~1559 tok)
-- `4ea1323179e7a042f65b9c88856ee17a31f5cb7fe2f02e76048e3c2c904f4d16.json` (~70 tok)
-- `4eb90f006c6b6d079cd06b5cf34f705ae30adc598709047ab5e1bb7c5ad37ee3.json` (~2502 tok)
-- `51f14d46d5b6abddce28779396666792636c8d9629f0202e84501a5e759267ab.json` (~1488 tok)
-- `58f28c332fc5894bd594807a49e1f1f6738274e8b46255957504c7c76a6702be.json` (~496 tok)
-- `5aa14592891d0b1335a333f4eb9ee079544b54301321f8c946182ca2f0ac8392.json` (~1499 tok)
-- `5d14874c2b1d95371ef070aba02fb17a973d3a75d2cc6bfbc879743206b00477.json` (~1196 tok)
-- `6974d1c13c0d603731fb9d473d48ca5d1d18851457b8d3a9ed09fa3c7eeb0f6e.json` (~1015 tok)
-- `6b63e3ac1bfe4f031e335e2d64bc9d60c709046084ac0a7716e25577cf26d258.json` (~1622 tok)
-- `703c379e8c27529e235f70e2549dda0869626ddafdec4cb8feca7f93378ba3a5.json` (~709 tok)
-- `7170b075e473e44a44880f0b272bde0108c2a793c0a42d46de91f076980c6942.json` (~71 tok)
-- `75da9f8f4d891b9a115924a33e572caf1f3e1ed3b1a45b0338dfaf1b5c561b2d.json` (~4047 tok)
-- `7aefc125bffb446ba63881ed739ddeaacd7402e025fe0782c4b214bb56ca583f.json` (~1288 tok)
-- `7d00ca06cf1f79fe6a8b168a5cab633f11dc3ed961bbc628e66f44136650e959.json` (~982 tok)
-- `810575a2efb591609efd5a5887322e1f15b1bf3c4d1db8877461d2e4e3e1ab50.json` (~585 tok)
-- `86c586f83baa3d80f500da9d40a0fd918abac5e4a38cdd21ad36c4e71aa28c97.json` (~1615 tok)
-- `8db86b8942c42e13dde6fcb8f030e1735118db2b0c04bd9c806a4507e16350d3.json` (~695 tok)
-- `8e9d51a89eba18f63a79e39f356fd17eac18790e60ea8516cb8aba0eac9bde1e.json` (~1924 tok)
-- `92a872c3a9240783f1889d6a566f11c128cb8982356de4fcbf0e4f330dc25438.json` (~3037 tok)
-- `95393562bdc356e96a690e8a1227871e6307d1499d766c12bc733521d0376254.json` (~608 tok)
-- `95831626b6060dcb6db29b71a515692273d81bb7b6d085739c77313970257e47.json` (~1032 tok)
-- `9760f8f239d46595b278ded854cb70c704e3dc78ec57896258b51f6d599c55e1.json` (~480 tok)
-- `9b25429105876d990626dd16873bcedfc8fdd988dc5809dadaaa54ad24ce66d3.json` (~14378 tok)
-- `a2b6e55904c77037d25e570dccb6fcaa9da92007b350c5e4855020884c5e6c6d.json` (~14485 tok)
-- `a325b7f530ca3ad06d85a721a5f122d955f38b4f6ab99361592e8b09d264c31d.json` (~3372 tok)
-- `a412e829419ad03c761ab7f88fa02dc8bf6a01ce9f40869eafb6c76fe85a5bfa.json` (~708 tok)
-- `a434d767cca5c29f58b9ff43b7b582b588b4e0121f43e9196fbc01107a5a3651.json` (~1204 tok)
-- `a855ed650baaa432be63eea09f3c5c2a91f7a6ce3b2fb07463cb2f9877ba0fa0.json` (~2635 tok)
-- `aaaf12e1c72d3bbdfdc165d16d94f20c956359baadf77785fc0bfa5aa4d76710.json` (~700 tok)
-- `aaddd203e35b86fce83826eb7595e0e57a8d90b1224cb29f25e22620f80992a8.json` (~1863 tok)
-- `ab0f1166a678c963a1cc7dcd71d24a7519f38d506465b56d8a910843c12aadb1.json` (~706 tok)
-- `ae22b7c7ecb6ccd516fed25916e465146432c58f1bef904a92b535ac0bbecfcf.json` (~1669 tok)
-- `af8c917961112b02850cf77695f5843e8082ed29f573b51073015e845c71b1cb.json` (~469 tok)
-- `b89fa9af205fe8152be1aaba7e8f230371f2606e393f76aa2f5c6020ee2ee98f.json` (~790 tok)
-- `b9334f804c4916401aa39986fd8e00659b274f505866610de895d8e507b169db.json` (~1188 tok)
-- `b941f2602a3727d8bacfa0862acccba4510b808b7658ae6a0f4f1d43ab7f3f9a.json` (~2609 tok)
-- `bc0e497b056935a0b89d81dc5253b5077f0dc2fe3cfd4f16c53472f57dfc183a.json` (~503 tok)
-- `bce55da2774006bdee07c894a738cb1b9af0b72d6fb0048ff9533c08a9d79f66.json` (~2900 tok)
-- `bf6a461d3239842b41dcca3d473927e6cf9519992e6840b00be8a5d5ad11d97e.json` (~19114 tok)
-- `c5338c14a2dfca83285478fea4e5c750881c81074788b258e5cc7186048d49b1.json` (~5330 tok)
-- `c83f121c9cbd7d8be681115adf158d3ffe41f14430faefe7086cf65d88dc41c2.json` (~2672 tok)
-- `cd786dbc48133aa05f3d7262b766a8a66f8bec139c5bc8bc45c9bae597d567e8.json` (~3964 tok)
-- `cf99fd5fe0f4a8bc3a5e0e4250b43cc4aa6a68ab8cf48e9618fe4ac77083ffbd.json` (~815 tok)
-- `d1b9ee45fc15f698f37a7f072826e9916687d5e87f68c5f4c208e9de2a4bdfa6.json` (~1188 tok)
-- `d200fbab766f9a690204dd2b7509fa72e941380761cf13237fe414e771a74cc2.json` (~460 tok)
-- `d84f2cb44c669c2813cf2ff96db653bef23629e53bbdaf6265da5fad6d123d6f.json` (~1872 tok)
-- `d9bdc9983c918916765c36fcdbf0ae17dd6ab7427713575342bd64c18dbed2aa.json` (~4407 tok)
-- `e1ac748f60863d668adeb98a53b0beb198c0b9ecd4353f5d9588841ce6518cba.json` (~1734 tok)
-- `e2c43d56c0d0403fafb4ac80315a7f3d617cae3e8a88510b12f7a4fb351098d6.json` (~78 tok)
-- `e92a6562f4605e9f95b911ed9035633f73dceb1f2c21140f597cebb1503adb97.json` (~4091 tok)
-- `e996165d8802867290368b92e45d02df4330e88385421cf5ac7b0088581245ae.json` (~964 tok)
-- `ef7b776112fdd4f0eb394b7cc987e604dac3e3a0b8ff820994a9e721d84922e5.json` (~2001 tok)
-- `f10d3009a9c47a724edc1dab678b613811cdb8c4949845dd02030cb339f993ae.json` (~700 tok)
-- `f7b67c6dfca50ce12b9bf6cd3be1ee2b2e759c8464a2d7303ceca957ff3561c5.json` (~803 tok)
-- `f9b153fd36aab192070223d40c59a1d974940304049a33bc8e39f387a9421ce0.json` (~2502 tok)
-- `fd41d48fd40717da6ed10f1ada4219b2f5c401648798d8bbdd604b41b7dd685f.json` (~982 tok)
-
-## graphify-out/memory/
-
-- `query_20260815_073355_remove_unused_end_to_end_test_setup_and_standardiz.md` — Q: Remove unused end-to-end test setup and standardize test environment filenames (~206 tok)
-
-## graphify-out/reflections/
-
-- `LESSONS.md` — Lessons (~81 tok)
 
 ## prompt/
 
@@ -684,16 +542,42 @@
 
 - `jest-integration.json` (~131 tok)
 
+## test/integration/app/
+
+- `app.integration-spec.ts` — API routes: GET (1 endpoints) (~214 tok)
+
 ## test/integration/health/
 
-- `health.integration-spec.ts` — API routes: GET (2 endpoints) (~577 tok)
-  - section `MigrationRow` L10-70 (~485 tok)
+- `health.integration-spec.ts` — API routes: GET (2 endpoints) (~604 tok)
+  - section `MigrationRow` L11-73 (~500 tok)
+
+## test/integration/logs/
+
+- `logs.integration-spec.ts` — API routes: POST, GET (9 endpoints) (~2505 tok)
+  - fn `buildLog` L243-253 (~81 tok)
+  - fn `alignToMinute` L254-259 (~38 tok)
+  - fn `restoreEnvironmentVariable` L260-271 (~64 tok)
 
 ## test/integration/setup/
 
-- `global-setup.ts` — Declares globalSetup (~206 tok)
+- `global-setup.ts` — Declares globalSetup (~205 tok)
 - `load-testing-environment.ts` — Declares testEnvironmentPath (~206 tok)
 
 ## test/integration/support/
 
 - `create-integration-app.ts` — Exports createIntegrationApp (~240 tok)
+
+## test/integration/tenancy/
+
+- `tenancy.integration-spec.ts` — API routes: POST, GET, DELETE (24 endpoints) (~3272 tok)
+  - section `TenantSession` L20-256 (~2244 tok)
+  - fn `registerAndLogin` L257-269 (~117 tok)
+  - fn `loginTenant` L270-281 (~80 tok)
+  - fn `createApiKey` L282-293 (~83 tok)
+  - fn `ingestLogs` L294-305 (~85 tok)
+  - fn `aggregateLogs` L306-323 (~124 tok)
+  - fn `buildLog` L324-333 (~67 tok)
+  - fn `bearer` L334-337 (~24 tok)
+  - fn `expectAuthTokens` L338-346 (~68 tok)
+  - fn `sumBucketCounts` L347-350 (~44 tok)
+  - fn `restoreEnvironmentVariable` L351-362 (~64 tok)

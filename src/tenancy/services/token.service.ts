@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto';
+
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -38,7 +40,10 @@ export class TokenService {
   signRefreshToken(tenantId: string): Promise<string> {
     return this.jwtService.signAsync(
       { sub: tenantId, type: 'refresh' } satisfies TenantJwtPayload,
-      { expiresIn: `${REFRESH_TOKEN_TTL_DAYS}d` },
+      {
+        expiresIn: `${REFRESH_TOKEN_TTL_DAYS}d`,
+        jwtid: randomUUID(),
+      },
     );
   }
 

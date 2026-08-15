@@ -3,8 +3,6 @@
 .codex
 .claude
 .wolf
-graphify-out
-
 node_modules
 dist
 coverage

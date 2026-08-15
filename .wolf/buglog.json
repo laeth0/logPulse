@@ -2,18 +2,6 @@
   "version": 1,
   "bugs": [
     {
-      "id": "bug-001",
-      "timestamp": "2026-08-12T20:00:00+03:00",
-      "error_message": "graphify: command not found; saved Graphify Python also reported missing graphify dependencies (graphify and networkx)",
-      "file": "graphify-out/.graphify_python",
-      "root_cause": "The existing graph was present, but neither the Graphify CLI nor its Python package was available in the recorded environment.",
-      "fix": "Used the skill's documented read-only graph fallback and direct project inspection for this configuration cleanup.",
-      "tags": ["graphify", "tooling", "environment"],
-      "related_bugs": [],
-      "occurrences": 4,
-      "last_seen": "2026-08-15"
-    },
-    {
       "id": "bug-002",
       "timestamp": "2026-08-13T09:04:00+03:00",
       "error_message": "correct the numbering in the file",
@@ -130,6 +118,102 @@
       "fix": "Formatted all src/test TypeScript and JSON files, then stored the HTTP server once as Supertest's App type before making requests.",
       "tags": ["prettier", "eslint", "integration-tests", "typescript", "supertest"],
       "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-012",
+      "timestamp": "2026-08-15T10:47:00+03:00",
+      "error_message": "Automatic workspace commit 0168907 unexpectedly deleted two pre-existing docs while committing E2E cleanup",
+      "file": "docs/Incremental Pre-Aggregation with Time-Based Rollup Tables.md",
+      "root_cause": "The repository's delayed automatic staging/commit hook captured unrelated documentation deletions alongside the requested test cleanup.",
+      "fix": "Recovered both documents from the commit's parent, preserving the intentional no-E2E wording in unit_testing_implementation_plan.md.",
+      "tags": ["git", "hooks", "documentation", "recovery", "unrelated-changes"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-013",
+      "timestamp": "2026-08-15T22:20:00+03:00",
+      "error_message": "sed: can't read src/logs/repositories/log-filter.builder.ts: No such file or directory",
+      "file": "src/logs/query-builders/log-filter.builder.ts",
+      "root_cause": "The logs query builders live under src/logs/query-builders, but the inspection command incorrectly assumed they were under repositories.",
+      "fix": "Listed src/logs with rg --files and read the builders from their actual query-builders directory.",
+      "tags": ["inspection", "path", "integration-tests", "logs"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-014",
+      "timestamp": "2026-08-15T22:21:00+03:00",
+      "error_message": "tail: cannot open '.wolf/buglog.md' for reading: No such file or directory",
+      "file": ".wolf/buglog.json",
+      "root_cause": "The OpenWolf bug log was mistakenly addressed as Markdown instead of the JSON filename documented by OPENWOLF.md.",
+      "fix": "Located the OpenWolf files and read .wolf/buglog.json before recording the failures.",
+      "tags": ["openwolf", "path", "tooling"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-015",
+      "timestamp": "2026-08-15T22:22:00+03:00",
+      "error_message": "Inspection output appeared to show two consecutive releaseCapacity(entry) calls in the successful ingestion path",
+      "file": "src/logs/repositories/log.repository.ts",
+      "root_cause": "The file was printed with `sed -n '1,260p'` followed by `sed -n '260,560p'`; inclusive sed ranges printed boundary line 260 twice. The source has only one call and capacity accounting is unchanged.",
+      "fix": "Verified the numbered source directly, retracted the false production-bug report, and made no production change.",
+      "tags": ["logs", "inspection", "sed", "false-positive"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-017",
+      "timestamp": "2026-08-15T11:13:00+03:00",
+      "error_message": "git diff --check reported trailing whitespace across pre-existing unrelated CRLF-formatted worktree changes",
+      "file": ".agents/skills/speckit-agent-context-update/SKILL.md",
+      "root_cause": "Numerous unrelated modified files use CRLF line endings, which git diff --check reports as trailing whitespace on every changed line; the new logs test itself had already passed Prettier and ESLint.",
+      "fix": "Left unrelated user-owned files untouched and relied on the requested src/test Prettier and ESLint checks, both of which passed.",
+      "tags": ["git", "crlf", "whitespace", "unrelated-changes"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-018",
+      "timestamp": "2026-08-15T11:15:00+03:00",
+      "error_message": "apply_patch verification failed: invalid hunk; unexpected Update File marker",
+      "file": ".wolf/buglog.json",
+      "root_cause": "A multi-file patch included an extra hunk marker before the next Update File section, making the patch grammar invalid.",
+      "fix": "Split the correction into two valid apply_patch calls and applied both successfully.",
+      "tags": ["apply-patch", "tooling", "openwolf"],
+      "related_bugs": ["bug-015"],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-019",
+      "timestamp": "2026-08-15T12:35:00+03:00",
+      "error_message": "Refresh-token rotation returned the exact same JWT, so the previous token remained reusable",
+      "file": "src/tenancy/services/token.service.ts",
+      "root_cause": "Refresh JWTs contained only tenant id, token type, and second-resolution issued/expiry timestamps. Tokens issued for the same tenant within one second therefore had identical payloads and signatures; the newly stored active hash also accepted the supposedly revoked token string.",
+      "fix": "Added a cryptographically unique JWT ID to every refresh token via the standard jwtid signing option, making each rotated token distinct even within the same second.",
+      "tags": ["tenancy", "refresh-token", "rotation", "jwt", "integration-tests"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-020",
+      "timestamp": "2026-08-15T12:43:00+03:00",
+      "error_message": "Unsafe assignment of an `any` value in expectAuthTokens at lines 328, 329, and 331",
+      "file": "test/integration/tenancy/tenancy.integration-spec.ts",
+      "root_cause": "Jest's expect.any asymmetric matcher is typed as any when embedded as property values in toMatchObject, conflicting with the project's type-aware no-unsafe-assignment lint rule.",
+      "fix": "Replaced the asymmetric matcher object with direct string/number, non-empty, token-type, and positive-TTL assertions.",
+      "tags": ["eslint", "typescript", "jest", "integration-tests", "tenancy"],
+      "related_bugs": ["bug-011"],
       "occurrences": 1,
       "last_seen": "2026-08-15"
     }

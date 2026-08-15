@@ -12,6 +12,7 @@
 - Treat performance as a first-class requirement while preserving simple, maintainable code, existing architecture and API contracts, correctness, security, and tenant isolation; justify index changes with actual query patterns or measurements.
 - Build integration coverage one business module at a time; start with `src/health`, keep scenarios few and high-value, use real PostgreSQL, isolate tests through `.env.test` / `.env.test.example`, and do not maintain a separate end-to-end suite.
 - Formatting and linting scripts must cover both `src/` and `test/`: Prettier handles their TypeScript and JSON files, while ESLint type-checks every TypeScript file in both trees.
+- Do not add project-local knowledge-graph tooling or generated graph artifacts unless the user explicitly requests them again.
 
 ## Key Learnings
 
@@ -30,6 +31,8 @@
 - [2026-08-14] Manually load-testing a narrow race window (e.g. backpressure admission contention) against a local `docker compose` stack is much harder than expected: local Postgres flushes complete in single-digit ms, so 20-40 "concurrent" `curl &`-in-a-bash-loop requests often all succeed — bash's per-process fork overhead alone can stagger dispatch enough to miss the window. `AUTH_ENABLED=true` makes it *harder* still: `ApiKeyAuthGuard`'s DB lookup adds a real async round trip per request before it ever reaches the ingestion path, further staggering arrivals. What worked reliably: `seq N | xargs -P N -I{} bash -c '...'` for genuinely parallel dispatch (not a `for` loop with `&`), combined with an extreme cap (e.g. `BACKPRESSURE_MAX_PENDING_ROWS=1`) so even a couple of ms of overlap between two requests is enough to trigger contention. Also: `bc` is not installed in this environment's Bash tool — use `date +%s%3N` (millisecond epoch) with integer shell arithmetic for elapsed-time measurements instead of `date +%s.%N` piped through `bc`.
 - [2026-08-15] With two `TypeOrmModule.forRootAsync()` registrations, a named connection's `useFactory` result must include the same Nest-level `name` as the outer async options. Registration may appear to work without it, but `TypeOrmCoreModule.onApplicationShutdown()` derives its lookup token from the returned options and otherwise searches for the default `DataSource`, breaking clean shutdown.
 - [2026-08-15] Jest 30 depends on a platform-specific `unrs-resolver` native binding. A cross-platform/shared `node_modules` can omit the Linux optional package and make Jest misleadingly report valid transformers as "not found"; install the lockfile-pinned `@unrs/resolver-binding-linux-x64-gnu` in WSL rather than rewriting Jest paths.
+- [2026-08-15] Logs integration scenarios can share the full-AppModule harness safely by setting `AUTH_ENABLED=false` and `BACKPRESSURE_ENABLED=false` before application construction, restoring both afterward, and truncating both `logs` and its derived `log_rollups` before every test. Use minute-aligned timestamps when the scenario is specifically protecting the rollup-backed aggregation path.
+- [2026-08-15] `AppController` exposes an optional `GET /` greeting (`Hello World!`) that is not part of `Final_Project.md`'s required API contract and touches neither auth nor PostgreSQL. One full-AppModule response-contract integration test is sufficient; duplicating service or database checks adds no value.
 
 ## Do-Not-Repeat
 
@@ -40,6 +43,7 @@
 - [2026-08-13] When asked to revert a previous prompt, reverse only that prompt's assistant-authored delta and preserve all earlier or unrelated worktree changes.
 - [2026-08-13] Do not put Markdown backticks inside double-quoted shell command strings; use a simpler pattern or single-quoted shell syntax to avoid command-parsing failures.
 - [2026-08-15] Before diagnosing a Jest 30 "module in transform option was not found" error as a config problem, verify that `require('unrs-resolver')` can load its platform-native optional binding.
+- [2026-08-15] When printing consecutive sections of one file with `sed -n`, do not overlap the boundary line (for example, `1,260` followed by `260,560`): duplicate output can look like duplicated production code. Use non-overlapping ranges or numbered output before reporting a defect.
 
 ## Decision Log
 
@@ -50,3 +54,6 @@
 - **2026-08-15:** Health integration coverage uses the full Nest application and a real, freshly recreated PostgreSQL database named with a mandatory `_testing` suffix. The minimal protected invariants are ready/unauthenticated `200` and pending-migration `503`; other modules remain out of scope until requested.
 - **2026-08-15:** Removed the unused Nest starter E2E spec/config and `test:e2e` script. The project standard is now integration testing only, with conventional `.env.test` runtime configuration and `.env.test.example` template naming.
 - **2026-08-15:** Standardized quality scripts on `src/` + `test/` only: `format`/`format:check` target `*.{ts,json}`, and `lint`/`lint:fix` target `*.ts`. Expanding coverage found and fixed previously invisible integration-test formatting and Supertest typing issues.
+- **2026-08-15:** Logs integration coverage is deliberately limited to three capability-level scenarios: partial batch acceptance/persistence, combined filtering plus stable cursor pagination, and rollup-backed aggregation. Authentication/tenant lifecycle, backpressure, exhaustive validator cases, retention, and concurrency remain separate test slices.
+- **2026-08-15:** Root `AppController` integration coverage is deliberately one scenario asserting `GET /` returns `200`, HTML text content, and `Hello World!`; it uses the shared full application harness but requires no database cleanup.
+- **2026-08-15:** Removed the project-local knowledge-graph tooling and all generated artifacts/instructions at the user's request. Existing OpenWolf context management remains active and unchanged.
