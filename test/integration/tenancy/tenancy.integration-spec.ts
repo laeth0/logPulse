@@ -4,23 +4,28 @@ import request from 'supertest';
 import type { App } from 'supertest/types';
 import type { DataSource } from 'typeorm';
 
-import type { AggregateLogsResponseDto } from '@/logs/dto/responses/aggregate-logs-response.dto';
 import type { QueryLogsResponseDto } from '@/logs/dto/responses/query-logs-response.dto';
-import { LogLevel } from '@/logs/enums/log-level.enum';
 import type { ApiKeyListDto } from '@/tenancy/dto/responses/api-key-list.dto';
-import type { ApiKeyDto } from '@/tenancy/dto/responses/api-key.dto';
 import type { AuthTokensDto } from '@/tenancy/dto/responses/auth-tokens.dto';
 import type { TenantDto } from '@/tenancy/dto/responses/tenant.dto';
 import { ApiKeyStatus } from '@/tenancy/enums/api-key-status.enum';
 
 import { createIntegrationApp } from '../support/create-integration-app';
-
-const TEST_PASSWORD = 'integration-password';
-
-interface TenantSession {
-  tenant: TenantDto;
-  tokens: AuthTokensDto;
-}
+import { restoreEnvironmentVariable } from '../support/environment';
+import { bearer } from '../support/http-auth';
+import { buildTenantLog } from '../support/log-fixtures';
+import {
+  aggregateLogs,
+  ingestLogs,
+  sumBucketCounts,
+} from '../support/logs-api';
+import { expectAuthTokens } from '../support/tenancy-assertions';
+import {
+  createApiKey,
+  loginTenant,
+  registerAndLogin,
+  TEST_PASSWORD,
+} from '../support/tenancy-api';
 
 describe('Tenancy API', () => {
   let app: INestApplication | undefined;
@@ -189,11 +194,11 @@ describe('Tenancy API', () => {
     const since = new Date(now - 5 * 60_000);
     const until = new Date(now + 5_000);
     await ingestLogs(httpServer, keyA.key, [
-      buildLog('tenant A older', new Date(now - 120_000)),
-      buildLog('tenant A newer', new Date(now - 60_000)),
+      buildTenantLog('tenant A older', new Date(now - 120_000)),
+      buildTenantLog('tenant A newer', new Date(now - 60_000)),
     ]);
     await ingestLogs(httpServer, keyB.key, [
-      buildLog('tenant B only', new Date(now - 90_000)),
+      buildTenantLog('tenant B only', new Date(now - 90_000)),
     ]);
 
     const tenantAQueryResponse = await request(httpServer)
@@ -241,110 +246,3 @@ describe('Tenancy API', () => {
     expect(sumBucketCounts(tenantBAggregation)).toBe(1);
   });
 });
-
-async function registerAndLogin(
-  httpServer: App,
-  email: string,
-): Promise<TenantSession> {
-  const registrationResponse = await request(httpServer)
-    .post('/tenants/register')
-    .send({ email, password: TEST_PASSWORD })
-    .expect(201);
-  const tenant = registrationResponse.body as TenantDto;
-  const tokens = await loginTenant(httpServer, email, TEST_PASSWORD);
-  return { tenant, tokens };
-}
-
-async function loginTenant(
-  httpServer: App,
-  email: string,
-  password: string,
-): Promise<AuthTokensDto> {
-  const response = await request(httpServer)
-    .post('/tenants/login')
-    .send({ email, password })
-    .expect(200);
-  return response.body as AuthTokensDto;
-}
-
-async function createApiKey(
-  httpServer: App,
-  accessToken: string,
-): Promise<ApiKeyDto> {
-  const response = await request(httpServer)
-    .post('/tenants/api-keys')
-    .set('Authorization', bearer(accessToken))
-    .send({})
-    .expect(201);
-  return response.body as ApiKeyDto;
-}
-
-async function ingestLogs(
-  httpServer: App,
-  apiKey: string,
-  logs: readonly Record<string, unknown>[],
-): Promise<void> {
-  await request(httpServer)
-    .post('/logs')
-    .set('Authorization', bearer(apiKey))
-    .send({ logs })
-    .expect(200, { accepted: logs.length, rejected: [] });
-}
-
-async function aggregateLogs(
-  httpServer: App,
-  apiKey: string,
-  since: Date,
-  until: Date,
-): Promise<AggregateLogsResponseDto> {
-  const response = await request(httpServer)
-    .get('/logs/aggregate')
-    .set('Authorization', bearer(apiKey))
-    .query({
-      since: since.toISOString(),
-      until: until.toISOString(),
-      bucket: '1m',
-    })
-    .expect(200);
-  return response.body as AggregateLogsResponseDto;
-}
-
-function buildLog(message: string, timestamp: Date): Record<string, unknown> {
-  return {
-    timestamp: timestamp.toISOString(),
-    level: LogLevel.INFO,
-    service: 'tenancy-integration',
-    message,
-    attributes: {},
-  };
-}
-
-function bearer(credential: string): string {
-  return `Bearer ${credential}`;
-}
-
-function expectAuthTokens(tokens: AuthTokensDto): void {
-  expect(typeof tokens.access_token).toBe('string');
-  expect(tokens.access_token).not.toHaveLength(0);
-  expect(typeof tokens.refresh_token).toBe('string');
-  expect(tokens.refresh_token).not.toHaveLength(0);
-  expect(tokens.token_type).toBe('Bearer');
-  expect(typeof tokens.expires_in).toBe('number');
-  expect(tokens.expires_in).toBeGreaterThan(0);
-}
-
-function sumBucketCounts(aggregation: AggregateLogsResponseDto): number {
-  return aggregation.buckets.reduce((sum, bucket) => sum + bucket.count, 0);
-}
-
-function restoreEnvironmentVariable(
-  name: string,
-  originalValue: string | undefined,
-): void {
-  if (originalValue === undefined) {
-    delete process.env[name];
-    return;
-  }
-
-  process.env[name] = originalValue;
-}

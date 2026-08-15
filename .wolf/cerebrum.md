@@ -13,6 +13,9 @@
 - Build integration coverage one business module at a time; start with `src/health`, keep scenarios few and high-value, use real PostgreSQL, isolate tests through `.env.test` / `.env.test.example`, and do not maintain a separate end-to-end suite.
 - Formatting and linting scripts must cover both `src/` and `test/`: Prettier handles their TypeScript and JSON files, while ESLint type-checks every TypeScript file in both trees.
 - Do not add project-local knowledge-graph tooling or generated graph artifacts unless the user explicitly requests them again.
+- Keep shared project instructions synchronized between `AGENTS.md` and `CLAUDE.md`; changes made to one should be mirrored in the other.
+- Keep integration spec files focused on business scenarios; move reusable environment, HTTP, fixture, workflow, and assertion concerns into cohesive modules under `test/integration/support` rather than a generic production `utils` folder.
+- `npm run test` should discover and run every project test convention (`*.spec.ts`, `*.test.ts`, and `*.integration-spec.ts`), including the PostgreSQL integration suites; keep `test:integration` as the integration-only shortcut.
 
 ## Key Learnings
 
@@ -33,6 +36,7 @@
 - [2026-08-15] Jest 30 depends on a platform-specific `unrs-resolver` native binding. A cross-platform/shared `node_modules` can omit the Linux optional package and make Jest misleadingly report valid transformers as "not found"; install the lockfile-pinned `@unrs/resolver-binding-linux-x64-gnu` in WSL rather than rewriting Jest paths.
 - [2026-08-15] Logs integration scenarios can share the full-AppModule harness safely by setting `AUTH_ENABLED=false` and `BACKPRESSURE_ENABLED=false` before application construction, restoring both afterward, and truncating both `logs` and its derived `log_rollups` before every test. Use minute-aligned timestamps when the scenario is specifically protecting the rollup-backed aggregation path.
 - [2026-08-15] `AppController` exposes an optional `GET /` greeting (`Hello World!`) that is not part of `Final_Project.md`'s required API contract and touches neither auth nor PostgreSQL. One full-AppModule response-contract integration test is sufficient; duplicating service or database checks adds no value.
+- [2026-08-15] Refresh JWTs cannot rely only on `sub`, `type`, and second-resolution `iat`/`exp`: rotating within the same second reproduces the identical signed token, allowing the old string to match the new active refresh-token hash. Assign every refresh token a unique standard `jti` so rotation is unambiguous without sleeps or timing assumptions.
 
 ## Do-Not-Repeat
 
@@ -44,6 +48,7 @@
 - [2026-08-13] Do not put Markdown backticks inside double-quoted shell command strings; use a simpler pattern or single-quoted shell syntax to avoid command-parsing failures.
 - [2026-08-15] Before diagnosing a Jest 30 "module in transform option was not found" error as a config problem, verify that `require('unrs-resolver')` can load its platform-native optional binding.
 - [2026-08-15] When printing consecutive sections of one file with `sed -n`, do not overlap the boundary line (for example, `1,260` followed by `260,560`): duplicate output can look like duplicated production code. Use non-overlapping ranges or numbered output before reporting a defect.
+- [2026-08-15] When updating a repeated field such as `occurrences` in `.wolf/buglog.json`, include the target bug ID in the patch context and verify the intended entry afterward.
 
 ## Decision Log
 
@@ -57,3 +62,4 @@
 - **2026-08-15:** Logs integration coverage is deliberately limited to three capability-level scenarios: partial batch acceptance/persistence, combined filtering plus stable cursor pagination, and rollup-backed aggregation. Authentication/tenant lifecycle, backpressure, exhaustive validator cases, retention, and concurrency remain separate test slices.
 - **2026-08-15:** Root `AppController` integration coverage is deliberately one scenario asserting `GET /` returns `200`, HTML text content, and `Hello World!`; it uses the shared full application harness but requires no database cleanup.
 - **2026-08-15:** Removed the project-local knowledge-graph tooling and all generated artifacts/instructions at the user's request. Existing OpenWolf context management remains active and unchanged.
+- **2026-08-15:** Tenancy integration coverage uses three capability workflows in one full-AppModule suite: account/session lifecycle, tenant-owned API-key management and revocation, and authenticated data-plane isolation including cross-tenant cursor replay. It truncates tenancy plus logs/rollups before each scenario and owns/restores auth/backpressure environment state.

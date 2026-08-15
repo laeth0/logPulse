@@ -1,21 +1,21 @@
+<!-- openwolf:begin -->
 # OpenWolf
 
 @.wolf/OPENWOLF.md
 
 This project uses OpenWolf for context management. Read and follow .wolf/OPENWOLF.md every session. Check .wolf/cerebrum.md before generating code. Check .wolf/anatomy.md before reading files.
+<!-- openwolf:end -->
 
 ## Schema Updates
 
 - **CRITICAL RULE**: When you modify database entities, you must also reflect those modifications in `projectSchema.dbml`.
-- **Foreign keys go inline on the column**, as `column_name type [ref: > other_table.column]`, not as standalone `Ref:` lines at the bottom of the file. If a delete/update action needs documenting, add it via that column's `note:` setting (e.g. `note: 'ON DELETE CASCADE'`) since DBML's inline `ref:` shorthand doesn't carry those options itself.
 
 ## HTTP Request Files
 
 - **RULE**: Every time you create or implement an API endpoint, you MUST create a corresponding `.rest` file inside the `requests/` directory.
 - Each endpoint gets its **own dedicated file** — one file per endpoint (separation of concerns).
-- **`.rest` files are grouped into subfolders that mirror `src/`'s top-level feature modules** — e.g. `requests/logs/`, `requests/health/`, `requests/admin/`. When adding an endpoint to a new module, create the matching subfolder.
 - File naming convention: `<resource>.<action>.rest`
-  - Examples: `requests/logs/logs.ingest.rest`, `requests/logs/logs.list.rest`, `requests/admin/admin.tenants.create.rest`
+  - Examples: `logs.ingest.rest`, `logs.list.rest`, `logs.aggregate.rest`
 - Each `.rest` file must contain:
   - A descriptive comment explaining the endpoint's purpose.
   - One or more example HTTP requests covering the main use cases (happy path + filters).
@@ -47,22 +47,6 @@ Performance is a first-class requirement for this project.
 - **Do not run the linter (`npm run lint`) or formatter (`npm run format` / `npm run format:check`) automatically after implementing a prompt.** Only run them when the user explicitly asks, or immediately before a commit/PR. This avoids unnecessary token consumption on routine changes. (A TypeScript build/compile check is a separate, correctness concern — still fine to run when useful.)
 
 <!-- SPECKIT START -->
-Active feature: Optional Backpressure Support (`003-ingestion-backpressure`).
-For technologies, project structure, and design decisions for this feature,
-read `specs/003-ingestion-backpressure/plan.md` (and its `research.md`,
-`data-model.md`, `quickstart.md`, `contracts/post-logs-backpressure.md`
-siblings). Admission control is opt-in (`BACKPRESSURE_ENABLED`, default
-`false`) and lives directly on `LogRepository` in front of the existing
-write-coalescing queue — no new service/module; see plan.md's Project
-Structure section for why.
-
-Prior feature, implemented: Performance Optimization (`002-performance-optimization`) —
-`specs/002-performance-optimization/plan.md`. Write coalescing, rollup
-pre-aggregation, and query/write overhead reductions this feature's changes
-must not disturb (T037's external load-testing portal confirmation was still
-pending as of this feature's start).
-
-Prior feature, implemented: Multi-Tenancy (`001-multi-tenancy`) —
-`specs/001-multi-tenancy/plan.md`. Still the reference for the tenancy module,
-auth guards, and API-key model this feature's changes must not disturb.
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
 <!-- SPECKIT END -->

@@ -216,6 +216,30 @@
       "related_bugs": ["bug-011"],
       "occurrences": 1,
       "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-021",
+      "timestamp": "2026-08-15T12:08:09+03:00",
+      "error_message": "Jest globalSetup failed: password authentication failed for user postgres",
+      "file": ".env.test",
+      "root_cause": "The PostgreSQL instance reachable through the current test environment does not accept the DB_USER/DB_PASS credentials configured in .env.test. The failure occurred before Jest loaded any integration test suite.",
+      "fix": "No credential or database state was changed automatically. Verified the refactored test code with npx tsc --noEmit and verified production compilation with npm run build; rerun integration tests after aligning the test database credentials.",
+      "tags": ["postgresql", "integration-tests", "environment", "authentication"],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-022",
+      "timestamp": "2026-08-15T12:14:00+03:00",
+      "error_message": "Bug occurrence update changed bug-009 instead of bug-021",
+      "file": ".wolf/buglog.json",
+      "root_cause": "The patch hunk matched a repeated occurrences field without including the intended bug ID as sufficiently specific context.",
+      "fix": "Restored bug-009 to one occurrence, updated bug-021 to two occurrences, and used bug-ID-specific patch context.",
+      "tags": ["openwolf", "buglog", "apply-patch", "verification"],
+      "related_bugs": ["bug-021"],
+      "occurrences": 1,
+      "last_seen": "2026-08-15"
     }
   ]
 }

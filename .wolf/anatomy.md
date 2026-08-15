@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-15T08:44:09.942Z
-> Files: 217 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-15T09:09:03.268Z
+> Files: 222 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -9,7 +9,7 @@
 - `.gitignore` — Git ignore rules (~152 tok)
 - `.prettierrc` — Prettier configuration (~15 tok)
 - `AGENTS.md` — OpenWolf (~759 tok)
-- `CLAUDE.md` — OpenWolf (~1145 tok)
+- `CLAUDE.md` — OpenWolf (~759 tok)
 - `docker-compose.yml` — Docker Compose services (~877 tok)
 - `Dockerfile` — Docker container definition (~304 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~250 tok)
@@ -198,7 +198,6 @@
 
 ## docs/
 
-- `Dead-letter handling.md` — Architecture & Design (V1 Proposal) for optional Dead-Letter Handling — design only, nothing implemented (~11113 tok)
 - `Final_Project.md` — Final Project: Log Ingestion and Query Service (~4615 tok)
 
 ## prompt/
@@ -525,8 +524,8 @@
   - class `TenantAuthService` L20-131 (~902 tok)
   - fn `normalizeEmail` L132-135 (~26 tok)
   - fn `isUniqueViolation` L136-144 (~63 tok)
-- `token.service.ts` — Signs/verifies Tenant access and refresh tokens (research.md Decisions 2, (~573 tok)
-  - class `TokenService` L16-69 (~418 tok)
+- `token.service.ts` — Signs/verifies Tenant access and refresh tokens (research.md Decisions 2, (~598 tok)
+  - class `TokenService` L18-74 (~430 tok)
 
 ## src/tenancy/utils/
 
@@ -553,10 +552,7 @@
 
 ## test/integration/logs/
 
-- `logs.integration-spec.ts` — API routes: POST, GET (9 endpoints) (~2505 tok)
-  - fn `buildLog` L243-253 (~81 tok)
-  - fn `alignToMinute` L254-259 (~38 tok)
-  - fn `restoreEnvironmentVariable` L260-271 (~64 tok)
+- `logs.integration-spec.ts` — API routes: POST, GET (9 endpoints) (~2341 tok)
 
 ## test/integration/setup/
 
@@ -566,18 +562,13 @@
 ## test/integration/support/
 
 - `create-integration-app.ts` — Exports createIntegrationApp (~240 tok)
+- `environment.ts` — Exports restoreEnvironmentVariable (~66 tok)
+- `http-auth.ts` — Exports bearer (~26 tok)
+- `log-fixtures.ts` — Exports buildLog, buildTenantLog, alignToMinute (~230 tok)
+- `logs-api.ts` — API routes: POST, GET (2 endpoints) (~338 tok)
+- `tenancy-api.ts` — API routes: POST (3 endpoints) (~420 tok)
+- `tenancy-assertions.ts` — Exports expectAuthTokens (~143 tok)
 
 ## test/integration/tenancy/
 
-- `tenancy.integration-spec.ts` — API routes: POST, GET, DELETE (24 endpoints) (~3272 tok)
-  - section `TenantSession` L20-256 (~2244 tok)
-  - fn `registerAndLogin` L257-269 (~117 tok)
-  - fn `loginTenant` L270-281 (~80 tok)
-  - fn `createApiKey` L282-293 (~83 tok)
-  - fn `ingestLogs` L294-305 (~85 tok)
-  - fn `aggregateLogs` L306-323 (~124 tok)
-  - fn `buildLog` L324-333 (~67 tok)
-  - fn `bearer` L334-337 (~24 tok)
-  - fn `expectAuthTokens` L338-346 (~68 tok)
-  - fn `sumBucketCounts` L347-350 (~44 tok)
-  - fn `restoreEnvironmentVariable` L351-362 (~64 tok)
+- `tenancy.integration-spec.ts` — API routes: POST, GET, DELETE (19 endpoints) (~2529 tok)

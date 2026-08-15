@@ -4,13 +4,14 @@ import request from 'supertest';
 import type { App } from 'supertest/types';
 import type { DataSource } from 'typeorm';
 
-import type { LogEntryDto } from '@/logs/dto/requests/log-entry.dto';
 import type { AggregateLogsResponseDto } from '@/logs/dto/responses/aggregate-logs-response.dto';
 import type { IngestLogsResponseDto } from '@/logs/dto/responses/ingest-logs-response.dto';
 import type { QueryLogsResponseDto } from '@/logs/dto/responses/query-logs-response.dto';
 import { LogLevel } from '@/logs/enums/log-level.enum';
 
 import { createIntegrationApp } from '../support/create-integration-app';
+import { restoreEnvironmentVariable } from '../support/environment';
+import { alignToMinute, buildLog } from '../support/log-fixtures';
 
 describe('Logs API', () => {
   let app: INestApplication | undefined;
@@ -239,32 +240,3 @@ describe('Logs API', () => {
     );
   });
 });
-
-function buildLog(overrides: Partial<LogEntryDto> = {}): LogEntryDto {
-  return {
-    timestamp: new Date(Date.now() - 60_000).toISOString(),
-    level: LogLevel.ERROR,
-    service: 'checkout',
-    message: 'payment failed',
-    attributes: { retries: 3 },
-    ...overrides,
-  };
-}
-
-function alignToMinute(value: Date): Date {
-  const aligned = new Date(value);
-  aligned.setUTCSeconds(0, 0);
-  return aligned;
-}
-
-function restoreEnvironmentVariable(
-  name: string,
-  originalValue: string | undefined,
-): void {
-  if (originalValue === undefined) {
-    delete process.env[name];
-    return;
-  }
-
-  process.env[name] = originalValue;
-}
