@@ -114,3 +114,4 @@
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+| 09:38 | Switched pre-commit linting to fix mode and executed both package fix commands | `.git/hooks/pre-commit`, `frontend/src/App.tsx` | Frontend/backend `lint:fix` exited 0; frontend removed unused starter imports/state, backend reported no changes | ~3400 |

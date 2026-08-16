@@ -10,6 +10,10 @@ import { GlobalExceptionFilter } from '@/common/filters/global-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
+  });
+
   app.useBodyParser('json', {
     limit: process.env.JSON_BODY_LIMIT ?? DEFAULT_JSON_BODY_LIMIT,
   });

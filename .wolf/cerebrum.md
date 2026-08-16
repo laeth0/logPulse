@@ -8,6 +8,7 @@
 
 <!-- How the user likes things done. Code style, tools, patterns, communication. -->
 
+- Use `npm run lint:fix` in the local pre-commit hook so ESLint applies safe fixes instead of running only the check-only `npm run lint` command.
 - Use OpenWolf integrations for Claude and Codex only; do not generate Cursor, OpenCode, or Gemini adapters.
 - Treat performance as a first-class requirement while preserving simple, maintainable code, existing architecture and API contracts, correctness, security, and tenant isolation; justify index changes with actual query patterns or measurements.
 - Build integration coverage one business module at a time; start with `src/health`, keep scenarios few and high-value, use real PostgreSQL, isolate tests through `.env.test` / `.env.test.example`, and do not maintain a separate end-to-end suite.
@@ -45,6 +46,7 @@
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
 
+- [2026-08-16] When configuring the local pre-commit lint step, invoke each package's `lint:fix` script rather than its check-only `lint` script.
 - [2026-08-13] After removing a numbered section, check and correct the numbering of all subsequent sibling sections.
 - [2026-08-13] When asked to revert a previous prompt, reverse only that prompt's assistant-authored delta and preserve all earlier or unrelated worktree changes.
 - [2026-08-13] Do not put Markdown backticks inside double-quoted shell command strings; use a simpler pattern or single-quoted shell syntax to avoid command-parsing failures.

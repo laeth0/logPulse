@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: Manrope, 'Avenir Next', 'Segoe UI', sans-serif;
+  color: #eaffff;
+  background: #071518;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 20rem;
+  min-height: 100svh;
+  margin: 0;
+  background: #071518;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+::selection {
+  color: #071518;
+  background: #75e3e3;
+}

@@ -264,6 +264,18 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
+    },
+    {
+      "id": "bug-025",
+      "timestamp": "2026-08-16T09:45:00+03:00",
+      "error_message": "apply_patch verification failed: expected Vite starter title was not present in frontend/index.html",
+      "file": "frontend/index.html",
+      "root_cause": "The UI patch assumed the starter title was 'Vite + React + TS', but this repository had already renamed it to 'logpulse'.",
+      "fix": "Read the current HTML markup and split the UI implementation into smaller patches using exact file context.",
+      "tags": ["frontend", "apply-patch", "context-mismatch"],
+      "related_bugs": ["bug-023"],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
     }
   ]
 }
