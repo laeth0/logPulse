@@ -11,5 +11,11 @@ export default defineConfig({
   server: {
     host: '0.0.0.0', // required so Docker can expose the port to the host
     port: 5173,
+    watch: {
+      // Polling is required on Windows Docker (WSL2/Hyper-V don't forward
+      // inotify events from the host into the container).
+      usePolling: true,
+      interval: 300,
+    },
   },
 })

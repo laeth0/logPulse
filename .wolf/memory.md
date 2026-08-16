@@ -119,3 +119,13 @@
 | 09:59 | Opened backend CORS to every origin for testing | `backend/src/main.ts` | Set `origin: '*'`; backend build passes; credentials remain disabled; lint/format skipped | ~1800 |
 | 10:06 | Refactored registration page for SoC and DRY | `frontend/src/features/auth/{pages,components,constants,types}` | Page reduced to orchestration/composition; extracted five presentational components, shared password field, constants, and prop/error contracts; frontend build passes; lint/format skipped | ~7600 |
 | 10:08 | Fixed Axios initialization when the Vite API URL is absent | `frontend/src/shared/{api,constants}`, `frontend/src/vite-env.d.ts`, `.wolf/{buglog,STATUS,cerebrum,anatomy,memory}` | Added a typed local API fallback before URL normalization; frontend production build passes; lint/format skipped | ~3000 |
+
+## Session: 2026-08-16 10:38
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 10:39
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
