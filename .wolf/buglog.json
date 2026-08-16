@@ -276,6 +276,18 @@
       "related_bugs": ["bug-023"],
       "occurrences": 1,
       "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-026",
+      "timestamp": "2026-08-16T09:49:00+03:00",
+      "error_message": "TS2769: MUI v9 Stack does not accept alignItems/justifyContent as direct props in the installed type definitions",
+      "file": "frontend/src/features/auth/pages/RegisterPage.tsx",
+      "root_cause": "The registration page used legacy system-prop shorthand on Stack; the installed Material UI v9 Stack typing exposes those flexbox properties through sx instead.",
+      "fix": "Moved Stack alignment and justification values into each component's sx object, preserving the rendered layout.",
+      "tags": ["frontend", "typescript", "mui-v9", "build"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
     }
   ]
 }
