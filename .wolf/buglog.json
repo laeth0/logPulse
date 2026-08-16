@@ -288,6 +288,66 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-027",
+      "timestamp": "2026-08-16T09:51:00+03:00",
+      "error_message": "Vite build failed: Cannot find module @rolldown/binding-linux-x64-gnu",
+      "file": "frontend/node_modules/rolldown/dist/shared/binding-Zhafd14U.mjs",
+      "root_cause": "The cross-platform/shared frontend node_modules installation omitted Rolldown 1.2.4's Linux optional native binding even though package-lock.json already records it.",
+      "fix": "Install the lockfile-pinned @rolldown/binding-linux-x64-gnu@1.2.4 package without changing project dependencies, then rerun the frontend build.",
+      "tags": ["frontend", "vite", "rolldown", "optional-dependency", "wsl"],
+      "related_bugs": ["bug-008"],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-028",
+      "timestamp": "2026-08-16T09:56:00+03:00",
+      "error_message": "openwolf: unknown command 'designqc'",
+      "file": ".wolf/OPENWOLF.md",
+      "root_cause": "The repository guidance documents an OpenWolf designqc command that is not available in the installed OpenWolf CLI version.",
+      "fix": "Use the available Playwright browser tooling for visual responsive verification instead of the missing OpenWolf command.",
+      "tags": ["openwolf", "designqc", "frontend", "tooling"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-029",
+      "timestamp": "2026-08-16T09:58:00+03:00",
+      "error_message": "PlaywrightError: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome",
+      "file": "output/playwright",
+      "root_cause": "The Playwright CLI is installed through npx, but its required Chrome browser binary has not been installed in this environment.",
+      "fix": "Install Chrome through playwright-cli install-browser and repeat the read-only responsive browser inspection.",
+      "tags": ["playwright", "chrome", "frontend", "visual-testing"],
+      "related_bugs": ["bug-028"],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-030",
+      "timestamp": "2026-08-16T10:00:00+03:00",
+      "error_message": "Playwright Chromium failed to start: libnspr4.so cannot open shared object file",
+      "file": "output/playwright",
+      "root_cause": "The downloaded Chromium binary requires system browser libraries that are absent from WSL; Playwright's dependency installer needs sudo, which is unavailable non-interactively.",
+      "fix": "Stopped browser-based visual verification and retained build/type verification; install Playwright system dependencies with sudo before a later screenshot pass.",
+      "tags": ["playwright", "chromium", "wsl", "system-dependency", "visual-testing"],
+      "related_bugs": ["bug-029"],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-031",
+      "timestamp": "2026-08-16T10:01:00+03:00",
+      "error_message": "OpenWolf metadata patch failed because the Decision Log comment text did not match",
+      "file": ".wolf/cerebrum.md",
+      "root_cause": "The patch expected a shortened Decision Log comment, while the file includes the phrase 'with rationale'.",
+      "fix": "Read the exact section text and reapplied the metadata update with precise context.",
+      "tags": ["openwolf", "apply-patch", "context-mismatch"],
+      "related_bugs": ["bug-023", "bug-025"],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
     }
   ]
 }

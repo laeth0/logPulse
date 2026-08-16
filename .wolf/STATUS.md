@@ -10,6 +10,8 @@
 
 <!-- Move items here from "🚀 Next phase" when finished. Group by area. -->
 
+- Changed the NestJS CORS policy to explicitly allow all origins (`origin: '*'`) for testing. Credentialed cross-origin requests remain disabled. Backend build passes; lint and format were not run.
+- Implemented the first complete frontend feature: a responsive, telemetry-inspired tenant registration page at `/register` with a custom MUI v9 theme, mobile-first layout, accessible password controls, Zod form/response validation, an Axios API client using `frontend/.env`'s `VITE_API_BASE_URL`, feature API/hook/types layers, React Router wiring, success/error states, and backend CORS for `http://localhost:5173`. Removed all project-owned frontend `.gitkeep` markers. Frontend and backend builds pass; lint and format were intentionally not run per user preference.
 - Updated the local Git pre-commit hook so frontend and backend checks invoke `lint:fix` instead of check-only `lint`. Ran both fix commands successfully; frontend ESLint removed unused starter imports/state from `src/App.tsx`, while backend completed without reported changes or errors.
 - Scaffolded the feature-first frontend directory structure documented in `docs/frontend-folder-structure.md`, including router, auth, dashboard, logs, shared, store, styles, and lib directories. Added `.gitkeep` markers throughout the scaffold while preserving the existing in-progress frontend source edits.
 - Reorganized project into a monorepo: moved all backend code, configurations, tests, migrations, requests, specs, and prompts into `backend/`, created empty `frontend/` with `.gitkeep`, placed `docker-compose.yml` at root with `context: ./backend`, updated `.github/workflows/ci.yml` working directories, updated `.gitignore`, and updated `AGENTS.md`/`CLAUDE.md` path references. `backend` compiles cleanly via `npm run build`.
@@ -89,15 +91,15 @@
 
 ## 📁 Active architecture
 
-- **Stack:** _<frameworks, libraries, runtime>_
-- **Key tables / modules:** _<list>_
-- **Patterns:** _<conventions enforced project-wide>_
+- **Stack:** Backend: NestJS, TypeORM, PostgreSQL. Frontend: React 19, TypeScript, Vite 8, React Router 7, Material UI 9, Axios, Zod 4.
+- **Key tables / modules:** Backend tenancy/log ingestion/query/aggregation/retention; frontend registration flow under `src/features/auth`, shared Axios transport under `src/shared/api`, application routes under `src/router`.
+- **Patterns:** Feature-first frontend modules; Zod validation before requests and after responses; thin async API modules; stateful feature hooks; MUI theme tokens at the application root; direct MUI imports for bundle efficiency.
 
 ---
 
 ## ⚠️ External blockers (don't block coding)
 
-- _<env vars, secrets, external accounts, manual steps>_
+- Playwright visual capture needs WSL browser system libraries (`libnspr4` and related dependencies) installed with sudo. TypeScript and production builds pass without them.
 
 ---
 

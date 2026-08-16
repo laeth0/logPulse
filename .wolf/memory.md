@@ -115,3 +115,5 @@
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
 | 09:38 | Switched pre-commit linting to fix mode and executed both package fix commands | `.git/hooks/pre-commit`, `frontend/src/App.tsx` | Frontend/backend `lint:fix` exited 0; frontend removed unused starter imports/state, backend reported no changes | ~3400 |
+| 09:57 | Implemented tenant registration frontend end-to-end | `frontend/.env`, `frontend/src/{features/auth,shared/api,router,styles}`, `frontend/src/{App,main}.tsx`, `frontend/index.html`, `backend/src/main.ts` | Responsive MUI registration flow, Axios/Zod contract validation, routing, CORS, and success/error states complete; all project frontend `.gitkeep` files removed; frontend/backend builds pass; lint/format skipped by request | ~16500 |
+| 09:59 | Opened backend CORS to every origin for testing | `backend/src/main.ts` | Set `origin: '*'`; backend build passes; credentials remain disabled; lint/format skipped | ~1800 |

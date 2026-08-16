@@ -8,6 +8,7 @@
 
 <!-- How the user likes things done. Code style, tools, patterns, communication. -->
 
+- Do not run frontend linting or formatting automatically after implementation; the user will run those commands manually to reduce cloud-token usage. Build/type checks remain acceptable.
 - Use `npm run lint:fix` in the local pre-commit hook so ESLint applies safe fixes instead of running only the check-only `npm run lint` command.
 - Use OpenWolf integrations for Claude and Codex only; do not generate Cursor, OpenCode, or Gemini adapters.
 - Treat performance as a first-class requirement while preserving simple, maintainable code, existing architecture and API contracts, correctness, security, and tenant isolation; justify index changes with actual query patterns or measurements.
@@ -21,6 +22,9 @@
 
 ## Key Learnings
 
+- [2026-08-16] The browser frontend runs at `http://localhost:5173` and calls the Nest API at `http://localhost:8080`; the backend currently allows every CORS origin via `origin: '*'` for testing, without credentialed cross-origin requests.
+- [2026-08-16] With the installed Material UI v9 types, `Stack` flex alignment properties such as `alignItems` and `justifyContent` must be supplied through `sx`, and direct imports such as `@mui/material/Button` reduce transformed modules substantially versus the `@mui/material` barrel.
+- [2026-08-16] The shared frontend `node_modules` can omit Rolldown's Linux optional native binding. The lockfile-pinned `@rolldown/binding-linux-x64-gnu@1.2.4` restores Vite builds in WSL without changing declared dependencies.
 - [2026-08-16] The frontend follows the feature-first scaffold in `docs/frontend-folder-structure.md`: domain modules live under `src/features/{auth,dashboard,logs}`, reusable domain-neutral code under `src/shared`, and router/store/styles/lib remain top-level application concerns.
 - **Project:** log-pulse
 - **Description:** A high-throughput log ingestion and query service — a simplified version of Datadog / Grafana Loki. Applications send structured logs to the API; the service validates, stores, and makes them searchab
@@ -58,6 +62,7 @@
 
 <!-- Significant technical decisions with rationale. Why X was chosen over Y. -->
 
+- **2026-08-16:** Use an explicit wildcard CORS origin for project testing instead of restricting access to the local frontend origin; do not enable credentials with the wildcard policy.
 - **2026-08-13:** Removed performance suggestion §1a (dropping the duplicate `attributes_text` column) from the recommendations document at the user's request.
 - **2026-08-13:** Reverted the implementation of performance suggestion §1a at the user's request; `idx_logs_level_timestamp_id` and the pending three-index multi-tenancy design remain in place.
 - **2026-08-15:** Health integration coverage uses the full Nest application and a real, freshly recreated PostgreSQL database named with a mandatory `_testing` suffix. The minimal protected invariants are ready/unauthenticated `200` and pending-migration `503`; other modules remain out of scope until requested.

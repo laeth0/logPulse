@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T06:33:46.446Z
-> Files: 271 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T06:56:52.117Z
+> Files: 252 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -279,8 +279,8 @@
 - `app.controller.ts` — Exports AppController (~79 tok)
 - `app.module.ts` — Exports AppModule (~479 tok)
 - `app.service.ts` — Exports AppService (~41 tok)
-- `main.ts` — Declares bootstrap (~639 tok)
-  - fn `bootstrap` L10-58 (~522 tok)
+- `main.ts` — Declares bootstrap (~665 tok)
+  - fn `bootstrap` L10-62 (~548 tok)
 
 ## backend/src/common/constants/
 
@@ -584,7 +584,7 @@
 - `.prettierrc` — Prettier configuration (~34 tok)
 - `Dockerfile` — Docker container definition (~77 tok)
 - `eslint.config.js` — ESLint flat configuration (~211 tok)
-- `index.html` — logpulse (~96 tok)
+- `index.html` — Create your LogPulse workspace (~140 tok)
 - `package-lock.json` — npm lock file (~39142 tok)
 - `package.json` — Node.js package manifest (~385 tok)
 - `README.md` — Project documentation (~607 tok)
@@ -593,133 +593,55 @@
 - `tsconfig.node.json` (~160 tok)
 - `vite.config.ts` — Vite build configuration (~113 tok)
 
-## frontend/public/
-
-- `.gitkeep` (~1 tok)
-
 ## frontend/src/
 
-- `App.css` (~0 tok)
-- `App.tsx` — App — uses useState (~83 tok)
-- `index.css` (~0 tok)
-- `main.tsx` (~66 tok)
-
-## frontend/src/features/
-
-- `.gitkeep` (~1 tok)
+- `App.tsx` — App (~49 tok)
+- `main.tsx` (~132 tok)
+- `vite-env.d.ts` — / <reference types="vite/client" /> (~46 tok)
 
 ## frontend/src/features/auth/
 
-- `.gitkeep` (~1 tok)
+- `index.ts` (~15 tok)
 
 ## frontend/src/features/auth/api/
 
-- `.gitkeep` (~1 tok)
+- `auth.api.ts` — Exports register (~106 tok)
 
 ## frontend/src/features/auth/hooks/
 
-- `.gitkeep` (~1 tok)
+- `useRegister.ts` — Exports useRegister (~371 tok)
 
 ## frontend/src/features/auth/pages/
 
-- `.gitkeep` (~1 tok)
+- `RegisterPage.css` — Styles: 12 rules, 2 media queries, 2 animations (~695 tok)
+- `RegisterPage.tsx` — INITIAL_FORM — uses useState (~4658 tok)
+  - fn `RegisterPage` L41-324 (~2944 tok)
+  - section `SuccessStateProps` L325-330 (~26 tok)
+  - fn `SuccessState` L331-388 (~474 tok)
+  - fn `SignalStory` L389-462 (~734 tok)
 
 ## frontend/src/features/auth/schemas/
 
-- `.gitkeep` (~1 tok)
+- `register.schema.ts` — Zod schemas: tenantSchema (~164 tok)
 
 ## frontend/src/features/auth/types/
 
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/dashboard/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/dashboard/api/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/dashboard/components/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/dashboard/hooks/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/dashboard/pages/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/api/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/components/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/hooks/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/pages/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/schemas/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/features/logs/types/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/lib/
-
-- `.gitkeep` (~1 tok)
+- `auth.types.ts` — Exports RegisterPayload, Tenant (~38 tok)
 
 ## frontend/src/router/
 
-- `.gitkeep` (~1 tok)
-
-## frontend/src/shared/
-
-- `.gitkeep` (~1 tok)
+- `index.tsx` — router (~117 tok)
+- `routes.ts` — Exports ROUTES (~18 tok)
 
 ## frontend/src/shared/api/
 
-- `.gitkeep` (~1 tok)
-
-## frontend/src/shared/components/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/shared/components/layout/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/shared/components/ui/
-
-- `.gitkeep` (~1 tok)
-
-## frontend/src/shared/hooks/
-
-- `.gitkeep` (~1 tok)
+- `http.ts` — Exports http, getApiErrorMessage (~210 tok)
 
 ## frontend/src/shared/types/
 
-- `.gitkeep` (~1 tok)
-
-## frontend/src/store/
-
-- `.gitkeep` (~1 tok)
+- `api.types.ts` — Exports ApiErrorResponse (~16 tok)
 
 ## frontend/src/styles/
 
-- `.gitkeep` (~1 tok)
+- `index.css` — Styles: 1 rules (~175 tok)
+- `theme.ts` — Exports theme (~461 tok)
