@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T06:56:52.117Z
-> Files: 252 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T07:05:58.703Z
+> Files: 258 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -279,8 +279,8 @@
 - `app.controller.ts` — Exports AppController (~79 tok)
 - `app.module.ts` — Exports AppModule (~479 tok)
 - `app.service.ts` — Exports AppService (~41 tok)
-- `main.ts` — Declares bootstrap (~665 tok)
-  - fn `bootstrap` L10-62 (~548 tok)
+- `main.ts` — Declares bootstrap (~651 tok)
+  - fn `bootstrap` L10-62 (~534 tok)
 
 ## backend/src/common/constants/
 
@@ -607,6 +607,22 @@
 
 - `auth.api.ts` — Exports register (~106 tok)
 
+## frontend/src/features/auth/components/
+
+- `AuthHeader.tsx` — AuthHeader (~477 tok)
+- `PasswordField.tsx` — PasswordField (~507 tok)
+  - fn `PasswordField` L10-61 (~382 tok)
+- `RegisterForm.tsx` — RegisterForm (~1157 tok)
+  - fn `RegisterForm` L15-127 (~980 tok)
+- `SignalStory.tsx` — SignalStory (~825 tok)
+  - fn `SignalStory` L9-82 (~736 tok)
+- `SuccessState.tsx` — SuccessState (~563 tok)
+  - fn `SuccessState` L9-66 (~476 tok)
+
+## frontend/src/features/auth/constants/
+
+- `register.constants.ts` — Exports INITIAL_REGISTER_FORM, SIGNAL_BARS (~89 tok)
+
 ## frontend/src/features/auth/hooks/
 
 - `useRegister.ts` — Exports useRegister (~371 tok)
@@ -614,11 +630,8 @@
 ## frontend/src/features/auth/pages/
 
 - `RegisterPage.css` — Styles: 12 rules, 2 media queries, 2 animations (~695 tok)
-- `RegisterPage.tsx` — INITIAL_FORM — uses useState (~4658 tok)
-  - fn `RegisterPage` L41-324 (~2944 tok)
-  - section `SuccessStateProps` L325-330 (~26 tok)
-  - fn `SuccessState` L331-388 (~474 tok)
-  - fn `SignalStory` L389-462 (~734 tok)
+- `RegisterPage.tsx` — RegisterPage — uses useState (~1222 tok)
+  - fn `RegisterPage` L17-131 (~1017 tok)
 
 ## frontend/src/features/auth/schemas/
 
@@ -626,7 +639,7 @@
 
 ## frontend/src/features/auth/types/
 
-- `auth.types.ts` — Exports RegisterPayload, Tenant (~38 tok)
+- `auth.types.ts` — Exports RegisterPayload, Tenant, RegisterFieldErrors, RegisterFormProps + 2 more (~313 tok)
 
 ## frontend/src/router/
 

@@ -348,6 +348,18 @@
       "related_bugs": ["bug-023", "bug-025"],
       "occurrences": 1,
       "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-032",
+      "timestamp": "2026-08-16T10:07:00+03:00",
+      "error_message": "apply_patch rejected multiple delete/add operations targeting RegisterPage.tsx in one patch",
+      "file": "frontend/src/features/auth/pages/RegisterPage.tsx",
+      "root_cause": "The patch attempted to replace one file using both Delete File and Add File directives in the same operation, which this apply_patch implementation does not support.",
+      "fix": "Split the replacement into one delete patch followed by one add patch.",
+      "tags": ["frontend", "apply-patch", "refactor"],
+      "related_bugs": ["bug-018"],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
     }
   ]
 }

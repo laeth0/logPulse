@@ -1,12 +1,12 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-08-16T06:56:52.117Z",
-    "fileCount": 252,
+    "lastScanned": "2026-08-16T07:05:58.703Z",
+    "fileCount": 258,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "7ba1d23716ddd2ef47bf9c1281465042332212bd6dc98771f0922db357a54d2a",
-    "storeUpdatedAt": "2026-08-16T06:56:52.129Z"
+    "renderedHash": "c89406054cc61f61549b2ce21930027c3170eceffdbea8888aa53eaafea34c9a",
+    "storeUpdatedAt": "2026-08-16T07:05:58.715Z"
   },
   "files": {
     ".agents/skills/speckit-agent-context-update/SKILL.md": {
@@ -15,7 +15,7 @@
       "hash": "53afb27e02c53ebb",
       "size": 1531,
       "mtimeMs": 1786563162674.4275,
-      "updatedAt": "2026-08-16T06:56:48.561Z",
+      "updatedAt": "2026-08-16T07:05:56.548Z",
       "source": "scan"
     },
     ".agents/skills/speckit-analyze/SKILL.md": {
@@ -24,7 +24,7 @@
       "hash": "2740b8aeab8d0104",
       "size": 10866,
       "mtimeMs": 1786563162482.942,
-      "updatedAt": "2026-08-16T06:56:48.577Z",
+      "updatedAt": "2026-08-16T07:05:56.554Z",
       "source": "scan"
     },
     ".agents/skills/speckit-checklist/SKILL.md": {
@@ -33,7 +33,7 @@
       "hash": "29d47cc5fe240450",
       "size": 20420,
       "mtimeMs": 1786563162520.4788,
-      "updatedAt": "2026-08-16T06:56:48.593Z",
+      "updatedAt": "2026-08-16T07:05:56.560Z",
       "source": "scan"
     },
     ".agents/skills/speckit-clarify/SKILL.md": {
@@ -42,7 +42,7 @@
       "hash": "2c184d847f288f93",
       "size": 17310,
       "mtimeMs": 1786563162487.7634,
-      "updatedAt": "2026-08-16T06:56:48.609Z",
+      "updatedAt": "2026-08-16T07:05:56.566Z",
       "source": "scan"
     },
     ".agents/skills/speckit-constitution/SKILL.md": {
@@ -51,7 +51,7 @@
       "hash": "e2cbe859958c5a05",
       "size": 8575,
       "mtimeMs": 1786563162496.2,
-      "updatedAt": "2026-08-16T06:56:48.625Z",
+      "updatedAt": "2026-08-16T07:05:56.572Z",
       "source": "scan"
     },
     ".agents/skills/speckit-converge/SKILL.md": {
@@ -60,7 +60,7 @@
       "hash": "a5a1047a4820a1e4",
       "size": 11863,
       "mtimeMs": 1786563162510.03,
-      "updatedAt": "2026-08-16T06:56:48.641Z",
+      "updatedAt": "2026-08-16T07:05:56.579Z",
       "source": "scan"
     },
     ".agents/skills/speckit-implement/SKILL.md": {
@@ -69,7 +69,7 @@
       "hash": "80db51bc215ce505",
       "size": 11376,
       "mtimeMs": 1786563162496.2,
-      "updatedAt": "2026-08-16T06:56:48.656Z",
+      "updatedAt": "2026-08-16T07:05:56.586Z",
       "source": "scan"
     },
     ".agents/skills/speckit-plan/SKILL.md": {
@@ -78,7 +78,7 @@
       "hash": "b92428f869e93676",
       "size": 7411,
       "mtimeMs": 1786563162515.4575,
-      "updatedAt": "2026-08-16T06:56:48.672Z",
+      "updatedAt": "2026-08-16T07:05:56.592Z",
       "source": "scan"
     },
     ".agents/skills/speckit-specify/SKILL.md": {
@@ -87,7 +87,7 @@
       "hash": "b63e3f76c18a5527",
       "size": 17591,
       "mtimeMs": 1786563162523.9185,
-      "updatedAt": "2026-08-16T06:56:48.687Z",
+      "updatedAt": "2026-08-16T07:05:56.599Z",
       "source": "scan"
     },
     ".agents/skills/speckit-tasks/SKILL.md": {
@@ -96,7 +96,7 @@
       "hash": "4b9a311eb6797801",
       "size": 10183,
       "mtimeMs": 1786563162528.7627,
-      "updatedAt": "2026-08-16T06:56:48.704Z",
+      "updatedAt": "2026-08-16T07:05:56.604Z",
       "source": "scan"
     },
     ".agents/skills/speckit-taskstoissues/SKILL.md": {
@@ -105,7 +105,7 @@
       "hash": "a7a7d3f51f20dd13",
       "size": 4462,
       "mtimeMs": 1786563162528.7627,
-      "updatedAt": "2026-08-16T06:56:48.720Z",
+      "updatedAt": "2026-08-16T07:05:56.610Z",
       "source": "scan"
     },
     ".claude/commands/reframe.md": {
@@ -114,7 +114,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786564496263.0945,
-      "updatedAt": "2026-08-16T06:56:48.736Z",
+      "updatedAt": "2026-08-16T07:05:56.616Z",
       "source": "scan"
     },
     ".claude/commands/security-audit.md": {
@@ -123,7 +123,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786564496263.0945,
-      "updatedAt": "2026-08-16T06:56:48.746Z",
+      "updatedAt": "2026-08-16T07:05:56.619Z",
       "source": "scan"
     },
     ".claude/rules/openwolf.md": {
@@ -132,7 +132,7 @@
       "hash": "6d735b2c1c54a916",
       "size": 1323,
       "mtimeMs": 1786564496183.0813,
-      "updatedAt": "2026-08-16T06:56:48.760Z",
+      "updatedAt": "2026-08-16T07:05:56.625Z",
       "source": "scan"
     },
     ".claude/settings.json": {
@@ -141,7 +141,7 @@
       "hash": "f68759bb50af5ee4",
       "size": 1799,
       "mtimeMs": 1786564496183.0813,
-      "updatedAt": "2026-08-16T06:56:48.767Z",
+      "updatedAt": "2026-08-16T07:05:56.629Z",
       "source": "scan"
     },
     ".claude/settings.local.json": {
@@ -150,7 +150,7 @@
       "hash": "6c7556653374525c",
       "size": 653,
       "mtimeMs": 1786737112411.9749,
-      "updatedAt": "2026-08-16T06:56:48.775Z",
+      "updatedAt": "2026-08-16T07:05:56.634Z",
       "source": "scan"
     },
     ".claude/skills/speckit-analyze/SKILL.md": {
@@ -159,7 +159,7 @@
       "hash": "adb9c4baed1d0e27",
       "size": 10970,
       "mtimeMs": 1786563169396.0798,
-      "updatedAt": "2026-08-16T06:56:48.795Z",
+      "updatedAt": "2026-08-16T07:05:56.642Z",
       "source": "scan"
     },
     ".claude/skills/speckit-checklist/SKILL.md": {
@@ -168,7 +168,7 @@
       "hash": "82a54d9ce969ae87",
       "size": 20529,
       "mtimeMs": 1786563169412.9163,
-      "updatedAt": "2026-08-16T06:56:48.810Z",
+      "updatedAt": "2026-08-16T07:05:56.647Z",
       "source": "scan"
     },
     ".claude/skills/speckit-clarify/SKILL.md": {
@@ -177,7 +177,7 @@
       "hash": "fd720c2b468f10f8",
       "size": 17418,
       "mtimeMs": 1786563169404.8015,
-      "updatedAt": "2026-08-16T06:56:48.825Z",
+      "updatedAt": "2026-08-16T07:05:56.653Z",
       "source": "scan"
     },
     ".claude/skills/speckit-constitution/SKILL.md": {
@@ -186,7 +186,7 @@
       "hash": "c1a044aba243ca6a",
       "size": 8695,
       "mtimeMs": 1786563169404.8015,
-      "updatedAt": "2026-08-16T06:56:48.840Z",
+      "updatedAt": "2026-08-16T07:05:56.659Z",
       "source": "scan"
     },
     ".claude/skills/speckit-converge/SKILL.md": {
@@ -195,7 +195,7 @@
       "hash": "0c16a3220a920425",
       "size": 11916,
       "mtimeMs": 1786563169364.196,
-      "updatedAt": "2026-08-16T06:56:48.856Z",
+      "updatedAt": "2026-08-16T07:05:56.665Z",
       "source": "scan"
     },
     ".claude/skills/speckit-implement/SKILL.md": {
@@ -204,7 +204,7 @@
       "hash": "97a339450a2a81cb",
       "size": 11494,
       "mtimeMs": 1786563169408.508,
-      "updatedAt": "2026-08-16T06:56:48.871Z",
+      "updatedAt": "2026-08-16T07:05:56.670Z",
       "source": "scan"
     },
     ".claude/skills/speckit-plan/SKILL.md": {
@@ -213,7 +213,7 @@
       "hash": "08e693951151193e",
       "size": 7522,
       "mtimeMs": 1786563169411.5483,
-      "updatedAt": "2026-08-16T06:56:48.887Z",
+      "updatedAt": "2026-08-16T07:05:56.676Z",
       "source": "scan"
     },
     ".claude/skills/speckit-specify/SKILL.md": {
@@ -222,7 +222,7 @@
       "hash": "ebe19db388407058",
       "size": 17702,
       "mtimeMs": 1786563169412.9163,
-      "updatedAt": "2026-08-16T06:56:48.901Z",
+      "updatedAt": "2026-08-16T07:05:56.683Z",
       "source": "scan"
     },
     ".claude/skills/speckit-tasks/SKILL.md": {
@@ -231,7 +231,7 @@
       "hash": "84c276f7037693eb",
       "size": 10290,
       "mtimeMs": 1786563169412.9163,
-      "updatedAt": "2026-08-16T06:56:48.915Z",
+      "updatedAt": "2026-08-16T07:05:56.689Z",
       "source": "scan"
     },
     ".claude/skills/speckit-taskstoissues/SKILL.md": {
@@ -240,7 +240,7 @@
       "hash": "e326c30c89a6bb67",
       "size": 4575,
       "mtimeMs": 1786563169417.2456,
-      "updatedAt": "2026-08-16T06:56:48.928Z",
+      "updatedAt": "2026-08-16T07:05:56.695Z",
       "source": "scan"
     },
     ".codex/config.toml": {
@@ -249,7 +249,7 @@
       "hash": "d37497c327812159",
       "size": 24,
       "mtimeMs": 1785681317970.1682,
-      "updatedAt": "2026-08-16T06:56:48.938Z",
+      "updatedAt": "2026-08-16T07:05:56.700Z",
       "source": "scan"
     },
     ".codex/hooks.json": {
@@ -258,7 +258,7 @@
       "hash": "6ef5903ad4a52d5a",
       "size": 2425,
       "mtimeMs": 1786564496237.531,
-      "updatedAt": "2026-08-16T06:56:48.944Z",
+      "updatedAt": "2026-08-16T07:05:56.702Z",
       "source": "scan"
     },
     ".codex/prompts/reframe.md": {
@@ -267,7 +267,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786564496269.4185,
-      "updatedAt": "2026-08-16T06:56:48.956Z",
+      "updatedAt": "2026-08-16T07:05:56.708Z",
       "source": "scan"
     },
     ".codex/prompts/security-audit.md": {
@@ -276,7 +276,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786564496269.4185,
-      "updatedAt": "2026-08-16T06:56:48.965Z",
+      "updatedAt": "2026-08-16T07:05:56.713Z",
       "source": "scan"
     },
     ".github/workflows/ci.yml": {
@@ -285,7 +285,7 @@
       "hash": "1276be25dac1c931",
       "size": 9496,
       "mtimeMs": 1786786136177.832,
-      "updatedAt": "2026-08-16T06:56:48.982Z",
+      "updatedAt": "2026-08-16T07:05:56.719Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -294,7 +294,7 @@
       "hash": "f08d25424a1320a7",
       "size": 568,
       "mtimeMs": 1786786216104.7124,
-      "updatedAt": "2026-08-16T06:56:48.986Z",
+      "updatedAt": "2026-08-16T07:05:56.720Z",
       "source": "scan"
     },
     ".specify/extensions/.registry": {
@@ -303,7 +303,7 @@
       "hash": "fc1ce5d814b4792b",
       "size": 635,
       "mtimeMs": 1786563162678.65,
-      "updatedAt": "2026-08-16T06:56:49.001Z",
+      "updatedAt": "2026-08-16T07:05:56.727Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/agent-context-config.yml": {
@@ -312,7 +312,7 @@
       "hash": "12e5112a14c8bdeb",
       "size": 105,
       "mtimeMs": 1786563177860.9138,
-      "updatedAt": "2026-08-16T06:56:49.014Z",
+      "updatedAt": "2026-08-16T07:05:56.732Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/commands/speckit.agent-context.update.md": {
@@ -321,7 +321,7 @@
       "hash": "385c981d0af647f6",
       "size": 1292,
       "mtimeMs": 1781809635273.6663,
-      "updatedAt": "2026-08-16T06:56:49.033Z",
+      "updatedAt": "2026-08-16T07:05:56.739Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/extension.yml": {
@@ -330,7 +330,7 @@
       "hash": "9a1dc02d2d0139bb",
       "size": 932,
       "mtimeMs": 1781809635268.6726,
-      "updatedAt": "2026-08-16T06:56:49.043Z",
+      "updatedAt": "2026-08-16T07:05:56.745Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/README.md": {
@@ -339,7 +339,7 @@
       "hash": "e7983ef661a494d5",
       "size": 2675,
       "mtimeMs": 1781809635259.4514,
-      "updatedAt": "2026-08-16T06:56:49.050Z",
+      "updatedAt": "2026-08-16T07:05:56.748Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/scripts/bash/update-agent-context.sh": {
@@ -348,7 +348,7 @@
       "hash": "9dc5dbe765dfb6d6",
       "size": 6599,
       "mtimeMs": 1781809635279.5051,
-      "updatedAt": "2026-08-16T06:56:49.075Z",
+      "updatedAt": "2026-08-16T07:05:56.761Z",
       "source": "scan"
     },
     ".specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": {
@@ -357,7 +357,7 @@
       "hash": "dd8f714bcf477a0e",
       "size": 7706,
       "mtimeMs": 1781809635278.5007,
-      "updatedAt": "2026-08-16T06:56:49.096Z",
+      "updatedAt": "2026-08-16T07:05:56.770Z",
       "source": "scan"
     },
     ".specify/extensions.yml": {
@@ -366,7 +366,7 @@
       "hash": "619a95e524c8ff95",
       "size": 628,
       "mtimeMs": 1786563162678.65,
-      "updatedAt": "2026-08-16T06:56:49.105Z",
+      "updatedAt": "2026-08-16T07:05:56.772Z",
       "source": "scan"
     },
     ".specify/feature.json": {
@@ -375,7 +375,7 @@
       "hash": "8890aef90ec73ba3",
       "size": 62,
       "mtimeMs": 1786714841108.1223,
-      "updatedAt": "2026-08-16T06:56:49.113Z",
+      "updatedAt": "2026-08-16T07:05:56.775Z",
       "source": "scan"
     },
     ".specify/init-options.json": {
@@ -384,7 +384,7 @@
       "hash": "e0ecbf098bdd7757",
       "size": 178,
       "mtimeMs": 1786563177860.9138,
-      "updatedAt": "2026-08-16T06:56:49.122Z",
+      "updatedAt": "2026-08-16T07:05:56.778Z",
       "source": "scan"
     },
     ".specify/integration.json": {
@@ -393,7 +393,7 @@
       "hash": "7eb1c41e33d52553",
       "size": 383,
       "mtimeMs": 1786563177860.9138,
-      "updatedAt": "2026-08-16T06:56:49.130Z",
+      "updatedAt": "2026-08-16T07:05:56.782Z",
       "source": "scan"
     },
     ".specify/integrations/claude.manifest.json": {
@@ -402,7 +402,7 @@
       "hash": "5c6c1bdcbc42c99f",
       "size": 1302,
       "mtimeMs": 1786563169417.2456,
-      "updatedAt": "2026-08-16T06:56:49.146Z",
+      "updatedAt": "2026-08-16T07:05:56.788Z",
       "source": "scan"
     },
     ".specify/integrations/codex.manifest.json": {
@@ -411,7 +411,7 @@
       "hash": "1cab5bc9c80214a7",
       "size": 1301,
       "mtimeMs": 1786563162539.9475,
-      "updatedAt": "2026-08-16T06:56:49.156Z",
+      "updatedAt": "2026-08-16T07:05:56.791Z",
       "source": "scan"
     },
     ".specify/integrations/speckit.manifest.json": {
@@ -420,7 +420,7 @@
       "hash": "7812488554b3e23a",
       "size": 1315,
       "mtimeMs": 1786563177856.7532,
-      "updatedAt": "2026-08-16T06:56:49.167Z",
+      "updatedAt": "2026-08-16T07:05:56.796Z",
       "source": "scan"
     },
     ".specify/memory/constitution.md": {
@@ -429,7 +429,7 @@
       "hash": "ce7549540fa45543",
       "size": 2346,
       "mtimeMs": 1786563162599.3154,
-      "updatedAt": "2026-08-16T06:56:49.181Z",
+      "updatedAt": "2026-08-16T07:05:56.801Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/check-prerequisites.ps1": {
@@ -438,7 +438,7 @@
       "hash": "7302acc26ed7920e",
       "size": 4773,
       "mtimeMs": 1786563177819.7334,
-      "updatedAt": "2026-08-16T06:56:49.199Z",
+      "updatedAt": "2026-08-16T07:05:56.809Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/common.ps1": {
@@ -447,7 +447,7 @@
       "hash": "3846917aff1e3fc6",
       "size": 20731,
       "mtimeMs": 1786563177819.7334,
-      "updatedAt": "2026-08-16T06:56:49.212Z",
+      "updatedAt": "2026-08-16T07:05:56.813Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/create-new-feature.ps1": {
@@ -456,7 +456,7 @@
       "hash": "1cd5b716e56c1df1",
       "size": 9282,
       "mtimeMs": 1786563177830.2634,
-      "updatedAt": "2026-08-16T06:56:49.225Z",
+      "updatedAt": "2026-08-16T07:05:56.817Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/setup-plan.ps1": {
@@ -465,7 +465,7 @@
       "hash": "d55b161c13b1a83d",
       "size": 2121,
       "mtimeMs": 1786563177830.2634,
-      "updatedAt": "2026-08-16T06:56:49.237Z",
+      "updatedAt": "2026-08-16T07:05:56.822Z",
       "source": "scan"
     },
     ".specify/scripts/powershell/setup-tasks.ps1": {
@@ -474,7 +474,7 @@
       "hash": "441f3a6cfa1da236",
       "size": 2926,
       "mtimeMs": 1786563177836.1042,
-      "updatedAt": "2026-08-16T06:56:49.248Z",
+      "updatedAt": "2026-08-16T07:05:56.827Z",
       "source": "scan"
     },
     ".specify/templates/checklist-template.md": {
@@ -483,7 +483,7 @@
       "hash": "c37695297e5d3153",
       "size": 1312,
       "mtimeMs": 1786563177840.252,
-      "updatedAt": "2026-08-16T06:56:49.262Z",
+      "updatedAt": "2026-08-16T07:05:56.832Z",
       "source": "scan"
     },
     ".specify/templates/constitution-template.md": {
@@ -492,7 +492,7 @@
       "hash": "ce7549540fa45543",
       "size": 2346,
       "mtimeMs": 1786563177844.487,
-      "updatedAt": "2026-08-16T06:56:49.273Z",
+      "updatedAt": "2026-08-16T07:05:56.836Z",
       "source": "scan"
     },
     ".specify/templates/plan-template.md": {
@@ -501,7 +501,7 @@
       "hash": "cc7f7979cf8d8836",
       "size": 3703,
       "mtimeMs": 1786563177848.2288,
-      "updatedAt": "2026-08-16T06:56:49.283Z",
+      "updatedAt": "2026-08-16T07:05:56.840Z",
       "source": "scan"
     },
     ".specify/templates/spec-template.md": {
@@ -510,7 +510,7 @@
       "hash": "3945437fc35cd30a",
       "size": 4556,
       "mtimeMs": 1786563177852.1467,
-      "updatedAt": "2026-08-16T06:56:49.291Z",
+      "updatedAt": "2026-08-16T07:05:56.844Z",
       "source": "scan"
     },
     ".specify/templates/tasks-template.md": {
@@ -519,7 +519,7 @@
       "hash": "fc29a233f6f5a27c",
       "size": 9171,
       "mtimeMs": 1786563177852.1467,
-      "updatedAt": "2026-08-16T06:56:49.301Z",
+      "updatedAt": "2026-08-16T07:05:56.847Z",
       "source": "scan"
     },
     ".specify/workflows/speckit/workflow.yml": {
@@ -528,7 +528,7 @@
       "hash": "a3b7c17724df02c7",
       "size": 2197,
       "mtimeMs": 1781809635282.5083,
-      "updatedAt": "2026-08-16T06:56:49.322Z",
+      "updatedAt": "2026-08-16T07:05:56.854Z",
       "source": "scan"
     },
     ".specify/workflows/workflow-registry.json": {
@@ -537,7 +537,7 @@
       "hash": "fb91b253d9cac08e",
       "size": 381,
       "mtimeMs": 1786563162643.8926,
-      "updatedAt": "2026-08-16T06:56:49.331Z",
+      "updatedAt": "2026-08-16T07:05:56.858Z",
       "source": "scan"
     },
     "AGENTS.md": {
@@ -546,7 +546,7 @@
       "hash": "4bae60068fc4c2bb",
       "size": 3054,
       "mtimeMs": 1786786210532.4114,
-      "updatedAt": "2026-08-16T06:56:49.336Z",
+      "updatedAt": "2026-08-16T07:05:56.860Z",
       "source": "scan"
     },
     "backend/.dockerignore": {
@@ -555,7 +555,7 @@
       "hash": "4e2579480e617c57",
       "size": 191,
       "mtimeMs": 1786783117230.1206,
-      "updatedAt": "2026-08-16T06:56:49.345Z",
+      "updatedAt": "2026-08-16T07:05:56.863Z",
       "source": "scan"
     },
     "backend/.gitignore": {
@@ -564,7 +564,7 @@
       "hash": "f08d25424a1320a7",
       "size": 568,
       "mtimeMs": 1786786216104.7124,
-      "updatedAt": "2026-08-16T06:56:49.350Z",
+      "updatedAt": "2026-08-16T07:05:56.868Z",
       "source": "scan"
     },
     "backend/.prettierrc": {
@@ -573,7 +573,7 @@
       "hash": "30d23aaa58117206",
       "size": 56,
       "mtimeMs": 1785681150698.9954,
-      "updatedAt": "2026-08-16T06:56:49.355Z",
+      "updatedAt": "2026-08-16T07:05:56.874Z",
       "source": "scan"
     },
     "backend/Dockerfile": {
@@ -582,7 +582,7 @@
       "hash": "cae016d7787be2d7",
       "size": 1138,
       "mtimeMs": 1786387051376.5962,
-      "updatedAt": "2026-08-16T06:56:49.360Z",
+      "updatedAt": "2026-08-16T07:05:56.881Z",
       "source": "scan"
     },
     "backend/eslint.config.mjs": {
@@ -591,7 +591,7 @@
       "hash": "e94fea27c5d744a4",
       "size": 934,
       "mtimeMs": 1785681150701.5923,
-      "updatedAt": "2026-08-16T06:56:49.368Z",
+      "updatedAt": "2026-08-16T07:05:56.886Z",
       "source": "scan"
     },
     "backend/nest-cli.json": {
@@ -600,7 +600,7 @@
       "hash": "bcb15e3049ff5d13",
       "size": 171,
       "mtimeMs": 1785771260296.4219,
-      "updatedAt": "2026-08-16T06:56:49.376Z",
+      "updatedAt": "2026-08-16T07:05:56.895Z",
       "source": "scan"
     },
     "backend/package-lock.json": {
@@ -609,7 +609,7 @@
       "hash": "ddd00f5517943704",
       "size": 393460,
       "mtimeMs": 1786785935510.5205,
-      "updatedAt": "2026-08-16T06:56:49.395Z",
+      "updatedAt": "2026-08-16T07:05:56.917Z",
       "source": "scan"
     },
     "backend/package.json": {
@@ -618,7 +618,7 @@
       "hash": "3cfcf35d4f838752",
       "size": 3829,
       "mtimeMs": 1786786021476.5352,
-      "updatedAt": "2026-08-16T06:56:49.401Z",
+      "updatedAt": "2026-08-16T07:05:56.923Z",
       "source": "scan"
     },
     "backend/projectSchema.dbml": {
@@ -627,7 +627,7 @@
       "hash": "180a75326e330e7f",
       "size": 5502,
       "mtimeMs": 1786652320097.313,
-      "updatedAt": "2026-08-16T06:56:49.409Z",
+      "updatedAt": "2026-08-16T07:05:56.930Z",
       "source": "scan"
     },
     "backend/prompt/RLS.md": {
@@ -636,7 +636,7 @@
       "hash": "7ca3a0c55982c933",
       "size": 12659,
       "mtimeMs": 1786618455898.8745,
-      "updatedAt": "2026-08-16T06:56:49.423Z",
+      "updatedAt": "2026-08-16T07:05:56.943Z",
       "source": "scan"
     },
     "backend/requests/health.check.rest": {
@@ -645,7 +645,7 @@
       "hash": "440a76676a9b689d",
       "size": 338,
       "mtimeMs": 1786562984472.1436,
-      "updatedAt": "2026-08-16T06:56:49.437Z",
+      "updatedAt": "2026-08-16T07:05:56.954Z",
       "source": "scan"
     },
     "backend/requests/logs/logs.ingest.backpressure-503.rest": {
@@ -654,7 +654,7 @@
       "hash": "da5bf35975d4f727",
       "size": 1413,
       "mtimeMs": 1786738014752.7163,
-      "updatedAt": "2026-08-16T06:56:49.454Z",
+      "updatedAt": "2026-08-16T07:05:56.971Z",
       "source": "scan"
     },
     "backend/requests/logs/logs.ingest.oversized-413.rest": {
@@ -663,7 +663,7 @@
       "hash": "06c8567f5f8355da",
       "size": 1844,
       "mtimeMs": 1786738024851.215,
-      "updatedAt": "2026-08-16T06:56:49.467Z",
+      "updatedAt": "2026-08-16T07:05:56.986Z",
       "source": "scan"
     },
     "backend/requests/logs.aggregate.rest": {
@@ -672,7 +672,7 @@
       "hash": "4ebf086884887c3f",
       "size": 445,
       "mtimeMs": 1786562984472.1436,
-      "updatedAt": "2026-08-16T06:56:49.477Z",
+      "updatedAt": "2026-08-16T07:05:56.995Z",
       "source": "scan"
     },
     "backend/requests/logs.ingest.rest": {
@@ -681,7 +681,7 @@
       "hash": "718bd6d447ed7a83",
       "size": 903,
       "mtimeMs": 1786562984472.1436,
-      "updatedAt": "2026-08-16T06:56:49.486Z",
+      "updatedAt": "2026-08-16T07:05:57.003Z",
       "source": "scan"
     },
     "backend/requests/logs.list.rest": {
@@ -690,7 +690,7 @@
       "hash": "482920c7ba66d0f1",
       "size": 497,
       "mtimeMs": 1786562984480.3943,
-      "updatedAt": "2026-08-16T06:56:49.496Z",
+      "updatedAt": "2026-08-16T07:05:57.013Z",
       "source": "scan"
     },
     "backend/requests/tenancy/tenancy.api-keys.create.rest": {
@@ -699,7 +699,7 @@
       "hash": "94fee574c73013aa",
       "size": 660,
       "mtimeMs": 1786605887329.5137,
-      "updatedAt": "2026-08-16T06:56:49.513Z",
+      "updatedAt": "2026-08-16T07:05:57.033Z",
       "source": "scan"
     },
     "backend/requests/tenancy/tenancy.api-keys.list.rest": {
@@ -708,7 +708,7 @@
       "hash": "3455f6be002acc5f",
       "size": 388,
       "mtimeMs": 1786605893372.1487,
-      "updatedAt": "2026-08-16T06:56:49.522Z",
+      "updatedAt": "2026-08-16T07:05:57.044Z",
       "source": "scan"
     },
     "backend/requests/tenancy/tenancy.api-keys.revoke.rest": {
@@ -717,7 +717,7 @@
       "hash": "e813617b8ddc1cf9",
       "size": 551,
       "mtimeMs": 1786605900144.9175,
-      "updatedAt": "2026-08-16T06:56:49.531Z",
+      "updatedAt": "2026-08-16T07:05:57.055Z",
       "source": "scan"
     },
     "backend/requests/tenancy/tenancy.login.rest": {
@@ -726,7 +726,7 @@
       "hash": "8bce6c77b782d253",
       "size": 772,
       "mtimeMs": 1786605422122.0496,
-      "updatedAt": "2026-08-16T06:56:49.543Z",
+      "updatedAt": "2026-08-16T07:05:57.069Z",
       "source": "scan"
     },
     "backend/requests/tenancy/tenancy.refresh.rest": {
@@ -735,7 +735,7 @@
       "hash": "afe6fdfbc8ad7a9d",
       "size": 665,
       "mtimeMs": 1786605429535.3853,
-      "updatedAt": "2026-08-16T06:56:49.554Z",
+      "updatedAt": "2026-08-16T07:05:57.082Z",
       "source": "scan"
     },
     "backend/requests/tenancy/tenancy.register.rest": {
@@ -744,7 +744,7 @@
       "hash": "39d2049bd72d3a48",
       "size": 707,
       "mtimeMs": 1786605415348.164,
-      "updatedAt": "2026-08-16T06:56:49.563Z",
+      "updatedAt": "2026-08-16T07:05:57.094Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/checklists/requirements.md": {
@@ -753,7 +753,7 @@
       "hash": "7b7a78b097bdfba1",
       "size": 2463,
       "mtimeMs": 1786566321435.3506,
-      "updatedAt": "2026-08-16T06:56:49.586Z",
+      "updatedAt": "2026-08-16T07:05:57.124Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/contracts/api-keys-api.md": {
@@ -762,7 +762,7 @@
       "hash": "123c2b7df8b4dc69",
       "size": 4059,
       "mtimeMs": 1786600402417.3672,
-      "updatedAt": "2026-08-16T06:56:49.602Z",
+      "updatedAt": "2026-08-16T07:05:57.143Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/contracts/logs-endpoints-auth.md": {
@@ -771,7 +771,7 @@
       "hash": "b198ea6b86b0b9da",
       "size": 3161,
       "mtimeMs": 1786567070340.3525,
-      "updatedAt": "2026-08-16T06:56:49.613Z",
+      "updatedAt": "2026-08-16T07:05:57.159Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/contracts/tenant-accounts-api.md": {
@@ -780,7 +780,7 @@
       "hash": "b52a5d7799cf0d55",
       "size": 3153,
       "mtimeMs": 1786621152947.5173,
-      "updatedAt": "2026-08-16T06:56:49.626Z",
+      "updatedAt": "2026-08-16T07:05:57.171Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/data-model.md": {
@@ -789,7 +789,7 @@
       "hash": "8a5026d0d65d64ff",
       "size": 9281,
       "mtimeMs": 1786624970658.5776,
-      "updatedAt": "2026-08-16T06:56:49.636Z",
+      "updatedAt": "2026-08-16T07:05:57.183Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/plan.md": {
@@ -798,7 +798,7 @@
       "hash": "32c73f8b78e51d33",
       "size": 13453,
       "mtimeMs": 1786624988127.1094,
-      "updatedAt": "2026-08-16T06:56:49.649Z",
+      "updatedAt": "2026-08-16T07:05:57.194Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/quickstart.md": {
@@ -807,7 +807,7 @@
       "hash": "3c63e15ab28b6ea0",
       "size": 6406,
       "mtimeMs": 1786621157487.8372,
-      "updatedAt": "2026-08-16T06:56:49.663Z",
+      "updatedAt": "2026-08-16T07:05:57.204Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/research.md": {
@@ -816,7 +816,7 @@
       "hash": "4f9d3b083e666791",
       "size": 36314,
       "mtimeMs": 1786625719321.9365,
-      "updatedAt": "2026-08-16T06:56:49.680Z",
+      "updatedAt": "2026-08-16T07:05:57.216Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/spec.md": {
@@ -825,7 +825,7 @@
       "hash": "be6a1762e4c43b7f",
       "size": 21980,
       "mtimeMs": 1786621163653.4617,
-      "updatedAt": "2026-08-16T06:56:49.693Z",
+      "updatedAt": "2026-08-16T07:05:57.226Z",
       "source": "scan"
     },
     "backend/specs/001-multi-tenancy/tasks.md": {
@@ -834,7 +834,7 @@
       "hash": "0a66ac5140a26a2d",
       "size": 40299,
       "mtimeMs": 1786608241910.5144,
-      "updatedAt": "2026-08-16T06:56:49.705Z",
+      "updatedAt": "2026-08-16T07:05:57.237Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/checklists/requirements.md": {
@@ -843,7 +843,7 @@
       "hash": "6a02f27fef7e06d5",
       "size": 1871,
       "mtimeMs": 1786637615143.5847,
-      "updatedAt": "2026-08-16T06:56:49.722Z",
+      "updatedAt": "2026-08-16T07:05:57.255Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/data-model.md": {
@@ -852,7 +852,7 @@
       "hash": "c37ed08864d97199",
       "size": 6379,
       "mtimeMs": 1786641449690.2012,
-      "updatedAt": "2026-08-16T06:56:49.730Z",
+      "updatedAt": "2026-08-16T07:05:57.266Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/plan.md": {
@@ -861,7 +861,7 @@
       "hash": "7b3de878e2183190",
       "size": 16030,
       "mtimeMs": 1786642307282.0051,
-      "updatedAt": "2026-08-16T06:56:49.738Z",
+      "updatedAt": "2026-08-16T07:05:57.276Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/quickstart.md": {
@@ -870,7 +870,7 @@
       "hash": "b88a8114cdd8fa77",
       "size": 12794,
       "mtimeMs": 1786642362684.0327,
-      "updatedAt": "2026-08-16T06:56:49.749Z",
+      "updatedAt": "2026-08-16T07:05:57.286Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/research.md": {
@@ -879,7 +879,7 @@
       "hash": "61d35cfd887155fc",
       "size": 34926,
       "mtimeMs": 1786642274959.045,
-      "updatedAt": "2026-08-16T06:56:49.760Z",
+      "updatedAt": "2026-08-16T07:05:57.298Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/spec.md": {
@@ -888,7 +888,7 @@
       "hash": "ca1e2559e33c1c9b",
       "size": 20929,
       "mtimeMs": 1786642191810.793,
-      "updatedAt": "2026-08-16T06:56:49.771Z",
+      "updatedAt": "2026-08-16T07:05:57.310Z",
       "source": "scan"
     },
     "backend/specs/002-performance-optimization/tasks.md": {
@@ -897,7 +897,7 @@
       "hash": "dbbc2c755181178b",
       "size": 27804,
       "mtimeMs": 1786659273964.2405,
-      "updatedAt": "2026-08-16T06:56:49.780Z",
+      "updatedAt": "2026-08-16T07:05:57.320Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/checklists/requirements.md": {
@@ -906,7 +906,7 @@
       "hash": "a24c6c3bbdad07f0",
       "size": 2315,
       "mtimeMs": 1786715146549.9,
-      "updatedAt": "2026-08-16T06:56:49.797Z",
+      "updatedAt": "2026-08-16T07:05:57.342Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/contracts/post-logs-backpressure.md": {
@@ -915,7 +915,7 @@
       "hash": "a806945e570a0496",
       "size": 3864,
       "mtimeMs": 1786715661415.8381,
-      "updatedAt": "2026-08-16T06:56:49.809Z",
+      "updatedAt": "2026-08-16T07:05:57.360Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/data-model.md": {
@@ -924,7 +924,7 @@
       "hash": "cac61a72465d987d",
       "size": 7241,
       "mtimeMs": 1786735743125.938,
-      "updatedAt": "2026-08-16T06:56:49.818Z",
+      "updatedAt": "2026-08-16T07:05:57.372Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/plan.md": {
@@ -933,7 +933,7 @@
       "hash": "7dc3386fd3d1e1fc",
       "size": 14453,
       "mtimeMs": 1786735622845.271,
-      "updatedAt": "2026-08-16T06:56:49.827Z",
+      "updatedAt": "2026-08-16T07:05:57.382Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/quickstart.md": {
@@ -942,7 +942,7 @@
       "hash": "bd7a9adbe7b9edba",
       "size": 9076,
       "mtimeMs": 1786737147110.5796,
-      "updatedAt": "2026-08-16T06:56:49.839Z",
+      "updatedAt": "2026-08-16T07:05:57.394Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/research.md": {
@@ -951,7 +951,7 @@
       "hash": "b5cc1d7a99c0c8c9",
       "size": 19802,
       "mtimeMs": 1786735709141.115,
-      "updatedAt": "2026-08-16T06:56:49.851Z",
+      "updatedAt": "2026-08-16T07:05:57.406Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/spec.md": {
@@ -960,7 +960,7 @@
       "hash": "41495e836eaa7b1e",
       "size": 18691,
       "mtimeMs": 1786715130910.745,
-      "updatedAt": "2026-08-16T06:56:49.862Z",
+      "updatedAt": "2026-08-16T07:05:57.417Z",
       "source": "scan"
     },
     "backend/specs/003-ingestion-backpressure/tasks.md": {
@@ -969,7 +969,7 @@
       "hash": "f84bf9a1fb6d3aef",
       "size": 33809,
       "mtimeMs": 1786738477988.5754,
-      "updatedAt": "2026-08-16T06:56:49.872Z",
+      "updatedAt": "2026-08-16T07:05:57.431Z",
       "source": "scan"
     },
     "backend/src/app.controller.ts": {
@@ -978,7 +978,7 @@
       "hash": "7bb4dccd0d05bcde",
       "size": 274,
       "mtimeMs": 1785692516807.3696,
-      "updatedAt": "2026-08-16T06:56:49.881Z",
+      "updatedAt": "2026-08-16T07:05:57.445Z",
       "source": "scan"
     },
     "backend/src/app.module.ts": {
@@ -987,7 +987,7 @@
       "hash": "c5b6f66151f1878a",
       "size": 1914,
       "mtimeMs": 1786606874433.8616,
-      "updatedAt": "2026-08-16T06:56:49.889Z",
+      "updatedAt": "2026-08-16T07:05:57.454Z",
       "source": "scan"
     },
     "backend/src/app.service.ts": {
@@ -996,7 +996,7 @@
       "hash": "eaf8514ce110fa42",
       "size": 142,
       "mtimeMs": 1785692516832.4646,
-      "updatedAt": "2026-08-16T06:56:49.898Z",
+      "updatedAt": "2026-08-16T07:05:57.463Z",
       "source": "scan"
     },
     "backend/src/common/constants/http.constants.ts": {
@@ -1005,7 +1005,7 @@
       "hash": "08f5d043772fb18d",
       "size": 47,
       "mtimeMs": 1785772251214.6252,
-      "updatedAt": "2026-08-16T06:56:49.913Z",
+      "updatedAt": "2026-08-16T07:05:57.484Z",
       "source": "scan"
     },
     "backend/src/common/constants/log-api.constants.ts": {
@@ -1014,7 +1014,7 @@
       "hash": "2972bb9a464ff500",
       "size": 2431,
       "mtimeMs": 1786738185560.2622,
-      "updatedAt": "2026-08-16T06:56:49.924Z",
+      "updatedAt": "2026-08-16T07:05:57.502Z",
       "source": "scan"
     },
     "backend/src/common/constants/log-query.constants.ts": {
@@ -1023,7 +1023,7 @@
       "hash": "3310708e32d768bf",
       "size": 317,
       "mtimeMs": 1785698963888.8147,
-      "updatedAt": "2026-08-16T06:56:49.933Z",
+      "updatedAt": "2026-08-16T07:05:57.519Z",
       "source": "scan"
     },
     "backend/src/common/constants/postgres.constants.ts": {
@@ -1032,7 +1032,7 @@
       "hash": "c5fe0efefc39021a",
       "size": 207,
       "mtimeMs": 1786625365374.631,
-      "updatedAt": "2026-08-16T06:56:49.942Z",
+      "updatedAt": "2026-08-16T07:05:57.532Z",
       "source": "scan"
     },
     "backend/src/common/constants/retention.constants.ts": {
@@ -1041,7 +1041,7 @@
       "hash": "c970188d93472640",
       "size": 914,
       "mtimeMs": 1786650264576.0916,
-      "updatedAt": "2026-08-16T06:56:49.951Z",
+      "updatedAt": "2026-08-16T07:05:57.544Z",
       "source": "scan"
     },
     "backend/src/common/constants/tenancy.constants.ts": {
@@ -1050,7 +1050,7 @@
       "hash": "c6a9e68a3b5025bd",
       "size": 2271,
       "mtimeMs": 1786625661878.644,
-      "updatedAt": "2026-08-16T06:56:49.960Z",
+      "updatedAt": "2026-08-16T07:05:57.558Z",
       "source": "scan"
     },
     "backend/src/common/filters/global-exception.filter.ts": {
@@ -1059,7 +1059,7 @@
       "hash": "4c72e1d6abf2d129",
       "size": 3676,
       "mtimeMs": 1786736974706.1746,
-      "updatedAt": "2026-08-16T06:56:49.973Z",
+      "updatedAt": "2026-08-16T07:05:57.577Z",
       "source": "scan",
       "symbols": [
         {
@@ -1098,7 +1098,7 @@
       "hash": "b979bf8ff9164f95",
       "size": 1082,
       "mtimeMs": 1786659023139.9045,
-      "updatedAt": "2026-08-16T06:56:49.998Z",
+      "updatedAt": "2026-08-16T07:05:57.605Z",
       "source": "scan"
     },
     "backend/src/common/validators/zod-validation.utils.ts": {
@@ -1107,7 +1107,7 @@
       "hash": "0d31b8da1df57c6e",
       "size": 496,
       "mtimeMs": 1786625139677.791,
-      "updatedAt": "2026-08-16T06:56:50.010Z",
+      "updatedAt": "2026-08-16T07:05:57.623Z",
       "source": "scan"
     },
     "backend/src/config/data-source.ts": {
@@ -1116,7 +1116,7 @@
       "hash": "d1a900104ee94021",
       "size": 516,
       "mtimeMs": 1785692370719.1921,
-      "updatedAt": "2026-08-16T06:56:50.020Z",
+      "updatedAt": "2026-08-16T07:05:57.638Z",
       "source": "scan"
     },
     "backend/src/config/database.config.ts": {
@@ -1125,7 +1125,7 @@
       "hash": "c5d83177e6364a76",
       "size": 2073,
       "mtimeMs": 1786778400287.924,
-      "updatedAt": "2026-08-16T06:56:50.027Z",
+      "updatedAt": "2026-08-16T07:05:57.649Z",
       "source": "scan",
       "symbols": [
         {
@@ -1150,7 +1150,7 @@
       "hash": "8b98bc0d828924b6",
       "size": 1348,
       "mtimeMs": 1786606874520.416,
-      "updatedAt": "2026-08-16T06:56:50.043Z",
+      "updatedAt": "2026-08-16T07:05:57.661Z",
       "source": "scan"
     },
     "backend/src/health/health.module.ts": {
@@ -1159,7 +1159,7 @@
       "hash": "5ecf77af6f9ea6b7",
       "size": 552,
       "mtimeMs": 1785692383417.1685,
-      "updatedAt": "2026-08-16T06:56:50.057Z",
+      "updatedAt": "2026-08-16T07:05:57.671Z",
       "source": "scan"
     },
     "backend/src/health/health.service.ts": {
@@ -1168,7 +1168,7 @@
       "hash": "39471318438f51cc",
       "size": 2502,
       "mtimeMs": 1786606874532.3916,
-      "updatedAt": "2026-08-16T06:56:50.070Z",
+      "updatedAt": "2026-08-16T07:05:57.682Z",
       "source": "scan",
       "symbols": [
         {
@@ -1186,7 +1186,7 @@
       "hash": "2808547e9958a9c0",
       "size": 284,
       "mtimeMs": 1786606874532.3916,
-      "updatedAt": "2026-08-16T06:56:50.086Z",
+      "updatedAt": "2026-08-16T07:05:57.692Z",
       "source": "scan"
     },
     "backend/src/logs/config/backpressure.config.ts": {
@@ -1195,7 +1195,7 @@
       "hash": "b7e2e1caf6dd1c7c",
       "size": 2407,
       "mtimeMs": 1786738153405.3267,
-      "updatedAt": "2026-08-16T06:56:50.111Z",
+      "updatedAt": "2026-08-16T07:05:57.712Z",
       "source": "scan",
       "symbols": [
         {
@@ -1234,7 +1234,7 @@
       "hash": "af6c50fe9b2eabb4",
       "size": 1200,
       "mtimeMs": 1785787889955.758,
-      "updatedAt": "2026-08-16T06:56:50.129Z",
+      "updatedAt": "2026-08-16T07:05:57.729Z",
       "source": "scan"
     },
     "backend/src/logs/dto/requests/aggregate-logs.dto.ts": {
@@ -1243,7 +1243,7 @@
       "hash": "6b5617c63bfbd20e",
       "size": 1185,
       "mtimeMs": 1785702388751.6614,
-      "updatedAt": "2026-08-16T06:56:50.151Z",
+      "updatedAt": "2026-08-16T07:05:57.753Z",
       "source": "scan"
     },
     "backend/src/logs/dto/requests/ingest-logs.dto.ts": {
@@ -1252,7 +1252,7 @@
       "hash": "fbb6fb9f3b3e1dd7",
       "size": 204,
       "mtimeMs": 1785701989383.5935,
-      "updatedAt": "2026-08-16T06:56:50.164Z",
+      "updatedAt": "2026-08-16T07:05:57.767Z",
       "source": "scan"
     },
     "backend/src/logs/dto/requests/log-entry.dto.ts": {
@@ -1261,7 +1261,7 @@
       "hash": "6fed0558a7ebcb75",
       "size": 831,
       "mtimeMs": 1785702388668.739,
-      "updatedAt": "2026-08-16T06:56:50.184Z",
+      "updatedAt": "2026-08-16T07:05:57.780Z",
       "source": "scan"
     },
     "backend/src/logs/dto/requests/query-logs.dto.ts": {
@@ -1270,7 +1270,7 @@
       "hash": "f8bcd04a0ff0db98",
       "size": 979,
       "mtimeMs": 1785702388722.4854,
-      "updatedAt": "2026-08-16T06:56:50.203Z",
+      "updatedAt": "2026-08-16T07:05:57.791Z",
       "source": "scan"
     },
     "backend/src/logs/dto/responses/aggregate-logs-response.dto.ts": {
@@ -1279,7 +1279,7 @@
       "hash": "6db76bb9268578b2",
       "size": 433,
       "mtimeMs": 1785701989528.5276,
-      "updatedAt": "2026-08-16T06:56:50.224Z",
+      "updatedAt": "2026-08-16T07:05:57.810Z",
       "source": "scan"
     },
     "backend/src/logs/dto/responses/ingest-logs-response.dto.ts": {
@@ -1288,7 +1288,7 @@
       "hash": "d62cbe2c9bcdb483",
       "size": 369,
       "mtimeMs": 1785701989472.7573,
-      "updatedAt": "2026-08-16T06:56:50.237Z",
+      "updatedAt": "2026-08-16T07:05:57.822Z",
       "source": "scan"
     },
     "backend/src/logs/dto/responses/query-logs-response.dto.ts": {
@@ -1297,7 +1297,7 @@
       "hash": "69fb857015997255",
       "size": 1090,
       "mtimeMs": 1785702388774.32,
-      "updatedAt": "2026-08-16T06:56:50.254Z",
+      "updatedAt": "2026-08-16T07:05:57.837Z",
       "source": "scan"
     },
     "backend/src/logs/entities/log-rollup.entity.ts": {
@@ -1306,7 +1306,7 @@
       "hash": "70c7caca3f305c5e",
       "size": 1638,
       "mtimeMs": 1786651414885.1716,
-      "updatedAt": "2026-08-16T06:56:50.277Z",
+      "updatedAt": "2026-08-16T07:05:57.845Z",
       "source": "scan"
     },
     "backend/src/logs/entities/log.entity.ts": {
@@ -1315,7 +1315,7 @@
       "hash": "93d5ff907e421bb4",
       "size": 1764,
       "mtimeMs": 1786652190947.024,
-      "updatedAt": "2026-08-16T06:56:50.301Z",
+      "updatedAt": "2026-08-16T07:05:57.850Z",
       "source": "scan",
       "symbols": [
         {
@@ -1333,7 +1333,7 @@
       "hash": "0b0ec75028cf2297",
       "size": 115,
       "mtimeMs": 1785693292636.333,
-      "updatedAt": "2026-08-16T06:56:50.322Z",
+      "updatedAt": "2026-08-16T07:05:57.858Z",
       "source": "scan"
     },
     "backend/src/logs/enums/aggregation-group.enum.ts": {
@@ -1342,7 +1342,7 @@
       "hash": "0da549291e39406e",
       "size": 75,
       "mtimeMs": 1785693294692.974,
-      "updatedAt": "2026-08-16T06:56:50.335Z",
+      "updatedAt": "2026-08-16T07:05:57.863Z",
       "source": "scan"
     },
     "backend/src/logs/enums/log-level.enum.ts": {
@@ -1351,7 +1351,7 @@
       "hash": "35b2874b269e83c4",
       "size": 97,
       "mtimeMs": 1785683210528.8293,
-      "updatedAt": "2026-08-16T06:56:50.348Z",
+      "updatedAt": "2026-08-16T07:05:57.869Z",
       "source": "scan"
     },
     "backend/src/logs/errors/ingestion-capacity.errors.ts": {
@@ -1360,7 +1360,7 @@
       "hash": "4f9920954ed2f775",
       "size": 1097,
       "mtimeMs": 1786736497443.2253,
-      "updatedAt": "2026-08-16T06:56:50.366Z",
+      "updatedAt": "2026-08-16T07:05:57.875Z",
       "source": "scan"
     },
     "backend/src/logs/exceptions/backpressure.exception.ts": {
@@ -1369,7 +1369,7 @@
       "hash": "c25453a99f25c0fb",
       "size": 710,
       "mtimeMs": 1786736955999.0767,
-      "updatedAt": "2026-08-16T06:56:50.385Z",
+      "updatedAt": "2026-08-16T07:05:57.883Z",
       "source": "scan"
     },
     "backend/src/logs/interfaces/cursor-payload.interface.ts": {
@@ -1378,7 +1378,7 @@
       "hash": "285e0edd2e4e600f",
       "size": 70,
       "mtimeMs": 1785693634208.0154,
-      "updatedAt": "2026-08-16T06:56:50.399Z",
+      "updatedAt": "2026-08-16T07:05:57.890Z",
       "source": "scan"
     },
     "backend/src/logs/interfaces/log-query.interface.ts": {
@@ -1387,7 +1387,7 @@
       "hash": "a43f39317979ec44",
       "size": 1362,
       "mtimeMs": 1786652252558.2175,
-      "updatedAt": "2026-08-16T06:56:50.413Z",
+      "updatedAt": "2026-08-16T07:05:57.895Z",
       "source": "scan"
     },
     "backend/src/logs/interfaces/log-repository.interface.ts": {
@@ -1396,7 +1396,7 @@
       "hash": "8f5c16e2fd589f98",
       "size": 643,
       "mtimeMs": 1786652196494.8489,
-      "updatedAt": "2026-08-16T06:56:50.425Z",
+      "updatedAt": "2026-08-16T07:05:57.901Z",
       "source": "scan"
     },
     "backend/src/logs/logs.controller.ts": {
@@ -1405,7 +1405,7 @@
       "hash": "a0bd386475c1a15b",
       "size": 3953,
       "mtimeMs": 1786606874632.189,
-      "updatedAt": "2026-08-16T06:56:50.435Z",
+      "updatedAt": "2026-08-16T07:05:57.905Z",
       "source": "scan",
       "symbols": [
         {
@@ -1423,7 +1423,7 @@
       "hash": "93f31aff8113ad88",
       "size": 1185,
       "mtimeMs": 1786651436248.5623,
-      "updatedAt": "2026-08-16T06:56:50.448Z",
+      "updatedAt": "2026-08-16T07:05:57.909Z",
       "source": "scan"
     },
     "backend/src/logs/mappers/log.mapper.ts": {
@@ -1432,7 +1432,7 @@
       "hash": "d5ab4ea633a8ac78",
       "size": 1670,
       "mtimeMs": 1786652282590.8955,
-      "updatedAt": "2026-08-16T06:56:50.472Z",
+      "updatedAt": "2026-08-16T07:05:57.920Z",
       "source": "scan"
     },
     "backend/src/logs/query-builders/aggregation-query.builder.ts": {
@@ -1441,7 +1441,7 @@
       "hash": "7a44e07408488bc0",
       "size": 4013,
       "mtimeMs": 1786651518989.1184,
-      "updatedAt": "2026-08-16T06:56:50.492Z",
+      "updatedAt": "2026-08-16T07:05:57.936Z",
       "source": "scan",
       "symbols": [
         {
@@ -1487,7 +1487,7 @@
       "hash": "8b47a3a530680bd4",
       "size": 4087,
       "mtimeMs": 1786652236281.2107,
-      "updatedAt": "2026-08-16T06:56:50.508Z",
+      "updatedAt": "2026-08-16T07:05:57.950Z",
       "source": "scan",
       "symbols": [
         {
@@ -1526,7 +1526,7 @@
       "hash": "55cb642f243a5fd0",
       "size": 1080,
       "mtimeMs": 1786652259453.2307,
-      "updatedAt": "2026-08-16T06:56:50.523Z",
+      "updatedAt": "2026-08-16T07:05:57.962Z",
       "source": "scan"
     },
     "backend/src/logs/repositories/log.repository.ts": {
@@ -1535,7 +1535,7 @@
       "hash": "1e184154565e3071",
       "size": 15537,
       "mtimeMs": 1786738430335.778,
-      "updatedAt": "2026-08-16T06:56:50.544Z",
+      "updatedAt": "2026-08-16T07:05:57.983Z",
       "source": "scan",
       "symbols": [
         {
@@ -1567,7 +1567,7 @@
       "hash": "cb0c4fa518e4c391",
       "size": 1084,
       "mtimeMs": 1786606874716.5388,
-      "updatedAt": "2026-08-16T06:56:50.566Z",
+      "updatedAt": "2026-08-16T07:05:58.000Z",
       "source": "scan"
     },
     "backend/src/logs/services/log-ingestion.service.ts": {
@@ -1576,7 +1576,7 @@
       "hash": "8ec9bbce90bdfe49",
       "size": 2084,
       "mtimeMs": 1786736990332.3042,
-      "updatedAt": "2026-08-16T06:56:50.582Z",
+      "updatedAt": "2026-08-16T07:05:58.011Z",
       "source": "scan",
       "symbols": [
         {
@@ -1594,7 +1594,7 @@
       "hash": "f6d64abeea49112a",
       "size": 1686,
       "mtimeMs": 1786652293115.6892,
-      "updatedAt": "2026-08-16T06:56:50.600Z",
+      "updatedAt": "2026-08-16T07:05:58.023Z",
       "source": "scan"
     },
     "backend/src/logs/validators/cursor-payload.schema.ts": {
@@ -1603,7 +1603,7 @@
       "hash": "6af5f4e1c5b39ba0",
       "size": 447,
       "mtimeMs": 1785772299038.757,
-      "updatedAt": "2026-08-16T06:56:50.632Z",
+      "updatedAt": "2026-08-16T07:05:58.039Z",
       "source": "scan"
     },
     "backend/src/logs/validators/iso-timestamp.schema.ts": {
@@ -1612,7 +1612,7 @@
       "hash": "fa66187022541d64",
       "size": 391,
       "mtimeMs": 1785772251253.4678,
-      "updatedAt": "2026-08-16T06:56:50.648Z",
+      "updatedAt": "2026-08-16T07:05:58.051Z",
       "source": "scan"
     },
     "backend/src/logs/validators/log-entry.schema.ts": {
@@ -1621,7 +1621,7 @@
       "hash": "c61d8ec280218456",
       "size": 1697,
       "mtimeMs": 1785772261644.628,
-      "updatedAt": "2026-08-16T06:56:50.670Z",
+      "updatedAt": "2026-08-16T07:05:58.061Z",
       "source": "scan"
     },
     "backend/src/logs/validators/log-entry.validator.ts": {
@@ -1630,7 +1630,7 @@
       "hash": "aed62541ab4113e5",
       "size": 2186,
       "mtimeMs": 1786625158905.545,
-      "updatedAt": "2026-08-16T06:56:50.688Z",
+      "updatedAt": "2026-08-16T07:05:58.066Z",
       "source": "scan",
       "symbols": [
         {
@@ -1655,7 +1655,7 @@
       "hash": "4e07d2f8b86aa0f6",
       "size": 3301,
       "mtimeMs": 1785772261719.2346,
-      "updatedAt": "2026-08-16T06:56:50.703Z",
+      "updatedAt": "2026-08-16T07:05:58.070Z",
       "source": "scan",
       "symbols": [
         {
@@ -1687,7 +1687,7 @@
       "hash": "c41521dd8d7c7183",
       "size": 2463,
       "mtimeMs": 1786625170985.5793,
-      "updatedAt": "2026-08-16T06:56:50.719Z",
+      "updatedAt": "2026-08-16T07:05:58.075Z",
       "source": "scan",
       "symbols": [
         {
@@ -1701,11 +1701,11 @@
     },
     "backend/src/main.ts": {
       "description": "Declares bootstrap",
-      "tokens": 665,
-      "hash": "2b3511fccce35d49",
-      "size": 2543,
-      "mtimeMs": 1786862554226.9346,
-      "updatedAt": "2026-08-16T06:56:50.729Z",
+      "tokens": 651,
+      "hash": "642f9eddf4b2edc7",
+      "size": 2496,
+      "mtimeMs": 1786863487326.0261,
+      "updatedAt": "2026-08-16T07:05:58.080Z",
       "source": "scan",
       "symbols": [
         {
@@ -1713,7 +1713,7 @@
           "kind": "fn",
           "startLine": 10,
           "endLine": 62,
-          "tokens": 548
+          "tokens": 534
         }
       ]
     },
@@ -1723,7 +1723,7 @@
       "hash": "c3e3e70cc95d0c56",
       "size": 885,
       "mtimeMs": 1785685227075.0012,
-      "updatedAt": "2026-08-16T06:56:50.745Z",
+      "updatedAt": "2026-08-16T07:05:58.086Z",
       "source": "scan"
     },
     "backend/src/migrations/1785684350113-CreateLogLevelEnum.ts": {
@@ -1732,7 +1732,7 @@
       "hash": "3b27233bc56414e6",
       "size": 773,
       "mtimeMs": 1785685235804.043,
-      "updatedAt": "2026-08-16T06:56:50.756Z",
+      "updatedAt": "2026-08-16T07:05:58.090Z",
       "source": "scan"
     },
     "backend/src/migrations/1785684350114-CreateLogsTable.ts": {
@@ -1741,7 +1741,7 @@
       "hash": "ad682331c61aa9c3",
       "size": 2585,
       "mtimeMs": 1786652146911.1846,
-      "updatedAt": "2026-08-16T06:56:50.765Z",
+      "updatedAt": "2026-08-16T07:05:58.095Z",
       "source": "scan",
       "symbols": [
         {
@@ -1759,7 +1759,7 @@
       "hash": "825a67b811e83df8",
       "size": 2718,
       "mtimeMs": 1786602796631.0476,
-      "updatedAt": "2026-08-16T06:56:50.774Z",
+      "updatedAt": "2026-08-16T07:05:58.100Z",
       "source": "scan",
       "symbols": [
         {
@@ -1777,7 +1777,7 @@
       "hash": "9ede0fc8124b8778",
       "size": 1515,
       "mtimeMs": 1786652180021.6597,
-      "updatedAt": "2026-08-16T06:56:50.781Z",
+      "updatedAt": "2026-08-16T07:05:58.105Z",
       "source": "scan"
     },
     "backend/src/migrations/1785684350117-DropLogsMessageTrigramIndex.ts": {
@@ -1786,7 +1786,7 @@
       "hash": "6f927f4328447ee4",
       "size": 1392,
       "mtimeMs": 1786393411855.8179,
-      "updatedAt": "2026-08-16T06:56:50.789Z",
+      "updatedAt": "2026-08-16T07:05:58.108Z",
       "source": "scan"
     },
     "backend/src/migrations/1785684350118-CreateTenancyTables.ts": {
@@ -1795,7 +1795,7 @@
       "hash": "0cd03f993509c901",
       "size": 3742,
       "mtimeMs": 1786621121568.719,
-      "updatedAt": "2026-08-16T06:56:50.796Z",
+      "updatedAt": "2026-08-16T07:05:58.113Z",
       "source": "scan",
       "symbols": [
         {
@@ -1813,7 +1813,7 @@
       "hash": "0cd31cc5ee8f7868",
       "size": 2572,
       "mtimeMs": 1786651426826.453,
-      "updatedAt": "2026-08-16T06:56:50.807Z",
+      "updatedAt": "2026-08-16T07:05:58.117Z",
       "source": "scan",
       "symbols": [
         {
@@ -1831,7 +1831,7 @@
       "hash": "5e66eec7cf67a8f7",
       "size": 119,
       "mtimeMs": 1785853386385.3137,
-      "updatedAt": "2026-08-16T06:56:50.827Z",
+      "updatedAt": "2026-08-16T07:05:58.158Z",
       "source": "scan"
     },
     "backend/src/retention/interfaces/retention.interface.ts": {
@@ -1840,7 +1840,7 @@
       "hash": "00bea2b22a0f8a3a",
       "size": 128,
       "mtimeMs": 1786651569434.697,
-      "updatedAt": "2026-08-16T06:56:50.839Z",
+      "updatedAt": "2026-08-16T07:05:58.164Z",
       "source": "scan"
     },
     "backend/src/retention/partition.service.ts": {
@@ -1849,7 +1849,7 @@
       "hash": "2db1c1f29fe10a18",
       "size": 6443,
       "mtimeMs": 1786652161584.3557,
-      "updatedAt": "2026-08-16T06:56:50.847Z",
+      "updatedAt": "2026-08-16T07:05:58.168Z",
       "source": "scan",
       "symbols": [
         {
@@ -1867,7 +1867,7 @@
       "hash": "eb7b9fb1741538a7",
       "size": 361,
       "mtimeMs": 1785788908625.4668,
-      "updatedAt": "2026-08-16T06:56:50.853Z",
+      "updatedAt": "2026-08-16T07:05:58.172Z",
       "source": "scan"
     },
     "backend/src/retention/retention.scheduler.ts": {
@@ -1876,7 +1876,7 @@
       "hash": "8251c55e2fa16b8d",
       "size": 977,
       "mtimeMs": 1785788908611.3943,
-      "updatedAt": "2026-08-16T06:56:50.862Z",
+      "updatedAt": "2026-08-16T07:05:58.176Z",
       "source": "scan"
     },
     "backend/src/retention/retention.service.ts": {
@@ -1885,7 +1885,7 @@
       "hash": "1bc6ce88ac4421ce",
       "size": 6723,
       "mtimeMs": 1786659070810.5188,
-      "updatedAt": "2026-08-16T06:56:50.873Z",
+      "updatedAt": "2026-08-16T07:05:58.181Z",
       "source": "scan",
       "symbols": [
         {
@@ -1903,7 +1903,7 @@
       "hash": "e2c28ae1d5b5d464",
       "size": 1229,
       "mtimeMs": 1785692517079.3943,
-      "updatedAt": "2026-08-16T06:56:50.885Z",
+      "updatedAt": "2026-08-16T07:05:58.188Z",
       "source": "scan"
     },
     "backend/src/scripts/drop-database.ts": {
@@ -1912,7 +1912,7 @@
       "hash": "fa0bb4bfeea329ad",
       "size": 962,
       "mtimeMs": 1785692517092.0276,
-      "updatedAt": "2026-08-16T06:56:50.896Z",
+      "updatedAt": "2026-08-16T07:05:58.191Z",
       "source": "scan"
     },
     "backend/src/tenancy/controllers/api-keys.controller.ts": {
@@ -1921,7 +1921,7 @@
       "hash": "097bb7035e1e41b1",
       "size": 3438,
       "mtimeMs": 1786625179174.2556,
-      "updatedAt": "2026-08-16T06:56:50.919Z",
+      "updatedAt": "2026-08-16T07:05:58.200Z",
       "source": "scan",
       "symbols": [
         {
@@ -1946,7 +1946,7 @@
       "hash": "769288008bbb4a6d",
       "size": 2868,
       "mtimeMs": 1786625187584.6338,
-      "updatedAt": "2026-08-16T06:56:50.931Z",
+      "updatedAt": "2026-08-16T07:05:58.205Z",
       "source": "scan",
       "symbols": [
         {
@@ -1964,7 +1964,7 @@
       "hash": "c5f4038e4e4ca12c",
       "size": 633,
       "mtimeMs": 1786603002601.1265,
-      "updatedAt": "2026-08-16T06:56:50.948Z",
+      "updatedAt": "2026-08-16T07:05:58.212Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/requests/login-tenant.dto.ts": {
@@ -1973,7 +1973,7 @@
       "hash": "635bc03b0efec277",
       "size": 240,
       "mtimeMs": 1786605184245.3225,
-      "updatedAt": "2026-08-16T06:56:50.969Z",
+      "updatedAt": "2026-08-16T07:05:58.222Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/requests/refresh-token.dto.ts": {
@@ -1982,7 +1982,7 @@
       "hash": "da2e8ef9ba87e241",
       "size": 151,
       "mtimeMs": 1786605190017.6958,
-      "updatedAt": "2026-08-16T06:56:50.981Z",
+      "updatedAt": "2026-08-16T07:05:58.228Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/requests/register-tenant.dto.ts": {
@@ -1991,7 +1991,7 @@
       "hash": "acaaa476d396ccde",
       "size": 243,
       "mtimeMs": 1786605178572.9785,
-      "updatedAt": "2026-08-16T06:56:50.992Z",
+      "updatedAt": "2026-08-16T07:05:58.233Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/responses/api-key-list.dto.ts": {
@@ -2000,7 +2000,7 @@
       "hash": "c23c9bba4b6b43c1",
       "size": 208,
       "mtimeMs": 1786605781254.3347,
-      "updatedAt": "2026-08-16T06:56:51.006Z",
+      "updatedAt": "2026-08-16T07:05:58.242Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/responses/api-key.dto.ts": {
@@ -2009,7 +2009,7 @@
       "hash": "793871b7a55726c8",
       "size": 626,
       "mtimeMs": 1786621446693.4812,
-      "updatedAt": "2026-08-16T06:56:51.020Z",
+      "updatedAt": "2026-08-16T07:05:58.248Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/responses/auth-tokens.dto.ts": {
@@ -2018,7 +2018,7 @@
       "hash": "94e3c9b2c4f65bab",
       "size": 383,
       "mtimeMs": 1786605201424.0913,
-      "updatedAt": "2026-08-16T06:56:51.033Z",
+      "updatedAt": "2026-08-16T07:05:58.254Z",
       "source": "scan"
     },
     "backend/src/tenancy/dto/responses/tenant.dto.ts": {
@@ -2027,7 +2027,7 @@
       "hash": "061c9c8537086749",
       "size": 227,
       "mtimeMs": 1786621132010.864,
-      "updatedAt": "2026-08-16T06:56:51.048Z",
+      "updatedAt": "2026-08-16T07:05:58.260Z",
       "source": "scan"
     },
     "backend/src/tenancy/entities/api-key.entity.ts": {
@@ -2036,7 +2036,7 @@
       "hash": "4a4be3f9bd6a122f",
       "size": 826,
       "mtimeMs": 1786621420437.953,
-      "updatedAt": "2026-08-16T06:56:51.065Z",
+      "updatedAt": "2026-08-16T07:05:58.267Z",
       "source": "scan"
     },
     "backend/src/tenancy/entities/refresh-token.entity.ts": {
@@ -2045,7 +2045,7 @@
       "hash": "564b2403aa57e4f1",
       "size": 709,
       "mtimeMs": 1786602753322.3228,
-      "updatedAt": "2026-08-16T06:56:51.073Z",
+      "updatedAt": "2026-08-16T07:05:58.272Z",
       "source": "scan"
     },
     "backend/src/tenancy/entities/tenant.entity.ts": {
@@ -2054,7 +2054,7 @@
       "hash": "c3281f02867f45c5",
       "size": 387,
       "mtimeMs": 1786621115621.454,
-      "updatedAt": "2026-08-16T06:56:51.084Z",
+      "updatedAt": "2026-08-16T07:05:58.279Z",
       "source": "scan"
     },
     "backend/src/tenancy/enums/api-key-status.enum.ts": {
@@ -2063,7 +2063,7 @@
       "hash": "e8368014999776c0",
       "size": 73,
       "mtimeMs": 1786621406891.595,
-      "updatedAt": "2026-08-16T06:56:51.100Z",
+      "updatedAt": "2026-08-16T07:05:58.285Z",
       "source": "scan"
     },
     "backend/src/tenancy/guards/api-key-auth.guard.ts": {
@@ -2072,7 +2072,7 @@
       "hash": "c4fe56b00fe5df6a",
       "size": 2416,
       "mtimeMs": 1786604410196.8784,
-      "updatedAt": "2026-08-16T06:56:51.117Z",
+      "updatedAt": "2026-08-16T07:05:58.293Z",
       "source": "scan",
       "symbols": [
         {
@@ -2097,7 +2097,7 @@
       "hash": "ac0481fba9078b61",
       "size": 2181,
       "mtimeMs": 1786605742137.6719,
-      "updatedAt": "2026-08-16T06:56:51.130Z",
+      "updatedAt": "2026-08-16T07:05:58.298Z",
       "source": "scan",
       "symbols": [
         {
@@ -2122,7 +2122,7 @@
       "hash": "c7866f2bb0308eb7",
       "size": 83,
       "mtimeMs": 1786715527283.8813,
-      "updatedAt": "2026-08-16T06:56:51.148Z",
+      "updatedAt": "2026-08-16T07:05:58.304Z",
       "source": "scan"
     },
     "backend/src/tenancy/services/api-key.service.ts": {
@@ -2131,7 +2131,7 @@
       "hash": "401a63c8db251a5c",
       "size": 2203,
       "mtimeMs": 1786621436746.7893,
-      "updatedAt": "2026-08-16T06:56:51.168Z",
+      "updatedAt": "2026-08-16T07:05:58.311Z",
       "source": "scan",
       "symbols": [
         {
@@ -2149,7 +2149,7 @@
       "hash": "87747d60089b97a3",
       "size": 2302,
       "mtimeMs": 1786625644468.0164,
-      "updatedAt": "2026-08-16T06:56:51.180Z",
+      "updatedAt": "2026-08-16T07:05:58.316Z",
       "source": "scan",
       "symbols": [
         {
@@ -2167,7 +2167,7 @@
       "hash": "07a280436166245c",
       "size": 4338,
       "mtimeMs": 1786625393231.824,
-      "updatedAt": "2026-08-16T06:56:51.194Z",
+      "updatedAt": "2026-08-16T07:05:58.321Z",
       "source": "scan",
       "symbols": [
         {
@@ -2199,7 +2199,7 @@
       "hash": "a51e8305b7617c72",
       "size": 2091,
       "mtimeMs": 1786783530238.5527,
-      "updatedAt": "2026-08-16T06:56:51.207Z",
+      "updatedAt": "2026-08-16T07:05:58.326Z",
       "source": "scan",
       "symbols": [
         {
@@ -2217,7 +2217,7 @@
       "hash": "01b9179db590ed36",
       "size": 1756,
       "mtimeMs": 1786605855606.448,
-      "updatedAt": "2026-08-16T06:56:51.217Z",
+      "updatedAt": "2026-08-16T07:05:58.330Z",
       "source": "scan",
       "symbols": [
         {
@@ -2235,7 +2235,7 @@
       "hash": "c5a9f9c4a9c99cce",
       "size": 373,
       "mtimeMs": 1786605688428.4053,
-      "updatedAt": "2026-08-16T06:56:51.235Z",
+      "updatedAt": "2026-08-16T07:05:58.337Z",
       "source": "scan"
     },
     "backend/src/tenancy/utils/password-hasher.util.ts": {
@@ -2244,7 +2244,7 @@
       "hash": "b274dc41cb789739",
       "size": 1045,
       "mtimeMs": 1786624884067.5237,
-      "updatedAt": "2026-08-16T06:56:51.248Z",
+      "updatedAt": "2026-08-16T07:05:58.342Z",
       "source": "scan"
     },
     "backend/src/tenancy/validators/api-key.schema.ts": {
@@ -2253,7 +2253,7 @@
       "hash": "0ddfcf6c503b7976",
       "size": 293,
       "mtimeMs": 1786605767953.9255,
-      "updatedAt": "2026-08-16T06:56:51.262Z",
+      "updatedAt": "2026-08-16T07:05:58.349Z",
       "source": "scan"
     },
     "backend/src/tenancy/validators/tenant-auth.schema.ts": {
@@ -2262,7 +2262,7 @@
       "hash": "343257f3c4f77689",
       "size": 869,
       "mtimeMs": 1786605170756.6792,
-      "updatedAt": "2026-08-16T06:56:51.275Z",
+      "updatedAt": "2026-08-16T07:05:58.354Z",
       "source": "scan"
     },
     "backend/test/integration/app/app.integration-spec.ts": {
@@ -2271,7 +2271,7 @@
       "hash": "b6020998e3bf0304",
       "size": 746,
       "mtimeMs": 1786781800623.615,
-      "updatedAt": "2026-08-16T06:56:51.293Z",
+      "updatedAt": "2026-08-16T07:05:58.363Z",
       "source": "scan"
     },
     "backend/test/integration/health/health.integration-spec.ts": {
@@ -2280,7 +2280,7 @@
       "hash": "976cdea7e0d651c3",
       "size": 2113,
       "mtimeMs": 1786779508026.7986,
-      "updatedAt": "2026-08-16T06:56:51.315Z",
+      "updatedAt": "2026-08-16T07:05:58.370Z",
       "source": "scan",
       "symbols": [
         {
@@ -2298,7 +2298,7 @@
       "hash": "642ce7d564a077bf",
       "size": 8193,
       "mtimeMs": 1786786819322.4292,
-      "updatedAt": "2026-08-16T06:56:51.333Z",
+      "updatedAt": "2026-08-16T07:05:58.378Z",
       "source": "scan"
     },
     "backend/test/integration/setup/global-setup.ts": {
@@ -2307,7 +2307,7 @@
       "hash": "c12cf32e88ea6b00",
       "size": 715,
       "mtimeMs": 1786779459656.9304,
-      "updatedAt": "2026-08-16T06:56:51.354Z",
+      "updatedAt": "2026-08-16T07:05:58.388Z",
       "source": "scan"
     },
     "backend/test/integration/setup/load-testing-environment.ts": {
@@ -2316,7 +2316,7 @@
       "hash": "1b8ad4e56d52d032",
       "size": 719,
       "mtimeMs": 1786778915431.4614,
-      "updatedAt": "2026-08-16T06:56:51.369Z",
+      "updatedAt": "2026-08-16T07:05:58.394Z",
       "source": "scan"
     },
     "backend/test/integration/support/create-integration-app.ts": {
@@ -2325,7 +2325,7 @@
       "hash": "f7a686973f507792",
       "size": 840,
       "mtimeMs": 1786777776365.7036,
-      "updatedAt": "2026-08-16T06:56:51.391Z",
+      "updatedAt": "2026-08-16T07:05:58.401Z",
       "source": "scan"
     },
     "backend/test/integration/support/environment.ts": {
@@ -2334,7 +2334,7 @@
       "hash": "cf259c2227eeeb92",
       "size": 230,
       "mtimeMs": 1786786819449.472,
-      "updatedAt": "2026-08-16T06:56:51.408Z",
+      "updatedAt": "2026-08-16T07:05:58.406Z",
       "source": "scan"
     },
     "backend/test/integration/support/http-auth.ts": {
@@ -2343,7 +2343,7 @@
       "hash": "c03b3585c1285a07",
       "size": 88,
       "mtimeMs": 1786784724393.0566,
-      "updatedAt": "2026-08-16T06:56:51.423Z",
+      "updatedAt": "2026-08-16T07:05:58.411Z",
       "source": "scan"
     },
     "backend/test/integration/support/log-fixtures.ts": {
@@ -2352,7 +2352,7 @@
       "hash": "715140a02fbea86c",
       "size": 798,
       "mtimeMs": 1786785425394.8613,
-      "updatedAt": "2026-08-16T06:56:51.440Z",
+      "updatedAt": "2026-08-16T07:05:58.416Z",
       "source": "scan"
     },
     "backend/test/integration/support/logs-api.ts": {
@@ -2361,7 +2361,7 @@
       "hash": "9269e2bc9e782cb9",
       "size": 1178,
       "mtimeMs": 1786785425402.8713,
-      "updatedAt": "2026-08-16T06:56:51.456Z",
+      "updatedAt": "2026-08-16T07:05:58.421Z",
       "source": "scan"
     },
     "backend/test/integration/support/tenancy-api.ts": {
@@ -2370,7 +2370,7 @@
       "hash": "4029e517881cfc61",
       "size": 1467,
       "mtimeMs": 1786784880493.6406,
-      "updatedAt": "2026-08-16T06:56:51.474Z",
+      "updatedAt": "2026-08-16T07:05:58.427Z",
       "source": "scan"
     },
     "backend/test/integration/support/tenancy-assertions.ts": {
@@ -2379,7 +2379,7 @@
       "hash": "c3e801745ab406fd",
       "size": 498,
       "mtimeMs": 1786784880472.463,
-      "updatedAt": "2026-08-16T06:56:51.490Z",
+      "updatedAt": "2026-08-16T07:05:58.433Z",
       "source": "scan"
     },
     "backend/test/integration/tenancy/tenancy.integration-spec.ts": {
@@ -2388,7 +2388,7 @@
       "hash": "2294ce234a57a84e",
       "size": 8849,
       "mtimeMs": 1786786819669.967,
-      "updatedAt": "2026-08-16T06:56:51.511Z",
+      "updatedAt": "2026-08-16T07:05:58.442Z",
       "source": "scan"
     },
     "backend/test/jest-integration.json": {
@@ -2397,7 +2397,7 @@
       "hash": "cf19de03f863b9d9",
       "size": 458,
       "mtimeMs": 1786786819857.533,
-      "updatedAt": "2026-08-16T06:56:51.523Z",
+      "updatedAt": "2026-08-16T07:05:58.445Z",
       "source": "scan"
     },
     "backend/tsconfig.build.json": {
@@ -2406,7 +2406,7 @@
       "hash": "3a016b4ee9713cd1",
       "size": 97,
       "mtimeMs": 1785771260418.28,
-      "updatedAt": "2026-08-16T06:56:51.530Z",
+      "updatedAt": "2026-08-16T07:05:58.447Z",
       "source": "scan"
     },
     "backend/tsconfig.json": {
@@ -2415,7 +2415,7 @@
       "hash": "451609cef80304c4",
       "size": 722,
       "mtimeMs": 1785771260425.1326,
-      "updatedAt": "2026-08-16T06:56:51.538Z",
+      "updatedAt": "2026-08-16T07:05:58.449Z",
       "source": "scan"
     },
     "CLAUDE.md": {
@@ -2424,7 +2424,7 @@
       "hash": "4bae60068fc4c2bb",
       "size": 3054,
       "mtimeMs": 1786786215346.0486,
-      "updatedAt": "2026-08-16T06:56:51.551Z",
+      "updatedAt": "2026-08-16T07:05:58.451Z",
       "source": "scan"
     },
     "docker-compose.yml": {
@@ -2433,7 +2433,7 @@
       "hash": "f268bbd1203d941c",
       "size": 3346,
       "mtimeMs": 1786789765708.8496,
-      "updatedAt": "2026-08-16T06:56:51.557Z",
+      "updatedAt": "2026-08-16T07:05:58.452Z",
       "source": "scan"
     },
     "docs/Final_Project.md": {
@@ -2442,7 +2442,7 @@
       "hash": "d61c165cf730e004",
       "size": 18478,
       "mtimeMs": 1786381404313.0393,
-      "updatedAt": "2026-08-16T06:56:51.574Z",
+      "updatedAt": "2026-08-16T07:05:58.456Z",
       "source": "scan"
     },
     "docs/frontend-folder-structure.md": {
@@ -2451,7 +2451,7 @@
       "hash": "b5aaeecf22cf6cc5",
       "size": 7589,
       "mtimeMs": 1786790797965.8013,
-      "updatedAt": "2026-08-16T06:56:51.587Z",
+      "updatedAt": "2026-08-16T07:05:58.459Z",
       "source": "scan"
     },
     "frontend/.gitignore": {
@@ -2460,7 +2460,7 @@
       "hash": "fe718e7babb14f3c",
       "size": 253,
       "mtimeMs": 1786789303939.4966,
-      "updatedAt": "2026-08-16T06:56:51.597Z",
+      "updatedAt": "2026-08-16T07:05:58.462Z",
       "source": "scan"
     },
     "frontend/.prettierrc": {
@@ -2469,7 +2469,7 @@
       "hash": "f1cc57b105a2c057",
       "size": 124,
       "mtimeMs": 1786789569155.5718,
-      "updatedAt": "2026-08-16T06:56:51.604Z",
+      "updatedAt": "2026-08-16T07:05:58.464Z",
       "source": "scan"
     },
     "frontend/Dockerfile": {
@@ -2478,7 +2478,7 @@
       "hash": "e17dce9bab95fd67",
       "size": 406,
       "mtimeMs": 1786789691685.5852,
-      "updatedAt": "2026-08-16T06:56:51.611Z",
+      "updatedAt": "2026-08-16T07:05:58.466Z",
       "source": "scan"
     },
     "frontend/eslint.config.js": {
@@ -2487,7 +2487,7 @@
       "hash": "df3b54c747a846bd",
       "size": 740,
       "mtimeMs": 1786789562336.9768,
-      "updatedAt": "2026-08-16T06:56:51.619Z",
+      "updatedAt": "2026-08-16T07:05:58.468Z",
       "source": "scan"
     },
     "frontend/index.html": {
@@ -2496,7 +2496,7 @@
       "hash": "a6c76ed403c470e6",
       "size": 522,
       "mtimeMs": 1786862748956.2146,
-      "updatedAt": "2026-08-16T06:56:51.629Z",
+      "updatedAt": "2026-08-16T07:05:58.471Z",
       "source": "scan"
     },
     "frontend/package-lock.json": {
@@ -2505,7 +2505,7 @@
       "hash": "d2e0aba8a42f8cdc",
       "size": 136997,
       "mtimeMs": 1786789644108.3062,
-      "updatedAt": "2026-08-16T06:56:51.640Z",
+      "updatedAt": "2026-08-16T07:05:58.475Z",
       "source": "scan"
     },
     "frontend/package.json": {
@@ -2514,7 +2514,7 @@
       "hash": "0adb5efad21feb9f",
       "size": 1346,
       "mtimeMs": 1786789644050.027,
-      "updatedAt": "2026-08-16T06:56:51.645Z",
+      "updatedAt": "2026-08-16T07:05:58.476Z",
       "source": "scan"
     },
     "frontend/README.md": {
@@ -2523,7 +2523,7 @@
       "hash": "1980e124382e6e64",
       "size": 2425,
       "mtimeMs": 1786789345032.5532,
-      "updatedAt": "2026-08-16T06:56:51.657Z",
+      "updatedAt": "2026-08-16T07:05:58.483Z",
       "source": "scan"
     },
     "frontend/src/App.tsx": {
@@ -2532,7 +2532,7 @@
       "hash": "ad730479ffc2a473",
       "size": 169,
       "mtimeMs": 1786862748843.4907,
-      "updatedAt": "2026-08-16T06:56:51.674Z",
+      "updatedAt": "2026-08-16T07:05:58.512Z",
       "source": "scan"
     },
     "frontend/src/features/auth/api/auth.api.ts": {
@@ -2541,7 +2541,97 @@
       "hash": "287ad04670acddee",
       "size": 370,
       "mtimeMs": 1786862554204.7073,
-      "updatedAt": "2026-08-16T06:56:51.721Z",
+      "updatedAt": "2026-08-16T07:05:58.525Z",
+      "source": "scan"
+    },
+    "frontend/src/features/auth/components/AuthHeader.tsx": {
+      "description": "AuthHeader",
+      "tokens": 477,
+      "hash": "39983322bf387d95",
+      "size": 1670,
+      "mtimeMs": 1786863762769.2014,
+      "updatedAt": "2026-08-16T07:05:58.533Z",
+      "source": "scan"
+    },
+    "frontend/src/features/auth/components/PasswordField.tsx": {
+      "description": "PasswordField",
+      "tokens": 507,
+      "hash": "5f5a261a0477533c",
+      "size": 1774,
+      "mtimeMs": 1786863907702.9177,
+      "updatedAt": "2026-08-16T07:05:58.540Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "PasswordField",
+          "kind": "fn",
+          "startLine": 10,
+          "endLine": 61,
+          "tokens": 382
+        }
+      ]
+    },
+    "frontend/src/features/auth/components/RegisterForm.tsx": {
+      "description": "RegisterForm",
+      "tokens": 1157,
+      "hash": "cc74e3d1abbf4dac",
+      "size": 4049,
+      "mtimeMs": 1786863907727.8057,
+      "updatedAt": "2026-08-16T07:05:58.545Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "RegisterForm",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 127,
+          "tokens": 980
+        }
+      ]
+    },
+    "frontend/src/features/auth/components/SignalStory.tsx": {
+      "description": "SignalStory",
+      "tokens": 825,
+      "hash": "00ca6a383bc4a829",
+      "size": 2887,
+      "mtimeMs": 1786863762823.1248,
+      "updatedAt": "2026-08-16T07:05:58.551Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SignalStory",
+          "kind": "fn",
+          "startLine": 9,
+          "endLine": 82,
+          "tokens": 736
+        }
+      ]
+    },
+    "frontend/src/features/auth/components/SuccessState.tsx": {
+      "description": "SuccessState",
+      "tokens": 563,
+      "hash": "ee809f8dca5e34e4",
+      "size": 1968,
+      "mtimeMs": 1786863762794.8528,
+      "updatedAt": "2026-08-16T07:05:58.557Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "SuccessState",
+          "kind": "fn",
+          "startLine": 9,
+          "endLine": 66,
+          "tokens": 476
+        }
+      ]
+    },
+    "frontend/src/features/auth/constants/register.constants.ts": {
+      "description": "Exports INITIAL_REGISTER_FORM, SIGNAL_BARS",
+      "tokens": 89,
+      "hash": "88f6b45af0eb1d9f",
+      "size": 311,
+      "mtimeMs": 1786863762731.3022,
+      "updatedAt": "2026-08-16T07:05:58.564Z",
       "source": "scan"
     },
     "frontend/src/features/auth/hooks/useRegister.ts": {
@@ -2550,7 +2640,7 @@
       "hash": "ab0d7022458eecdf",
       "size": 1298,
       "mtimeMs": 1786862554214.6404,
-      "updatedAt": "2026-08-16T06:56:51.744Z",
+      "updatedAt": "2026-08-16T07:05:58.571Z",
       "source": "scan"
     },
     "frontend/src/features/auth/index.ts": {
@@ -2559,7 +2649,7 @@
       "hash": "8d4025b42081c4be",
       "size": 52,
       "mtimeMs": 1786862748826.479,
-      "updatedAt": "2026-08-16T06:56:51.762Z",
+      "updatedAt": "2026-08-16T07:05:58.576Z",
       "source": "scan"
     },
     "frontend/src/features/auth/pages/RegisterPage.css": {
@@ -2568,45 +2658,24 @@
       "hash": "5d443477d28cee33",
       "size": 2430,
       "mtimeMs": 1786862877086.0283,
-      "updatedAt": "2026-08-16T06:56:51.794Z",
+      "updatedAt": "2026-08-16T07:05:58.585Z",
       "source": "scan"
     },
     "frontend/src/features/auth/pages/RegisterPage.tsx": {
-      "description": "INITIAL_FORM — uses useState",
-      "tokens": 4658,
-      "hash": "1224577676549142",
-      "size": 16303,
-      "mtimeMs": 1786863340778.63,
-      "updatedAt": "2026-08-16T06:56:51.822Z",
+      "description": "RegisterPage — uses useState",
+      "tokens": 1222,
+      "hash": "1256618ab9e886d8",
+      "size": 4274,
+      "mtimeMs": 1786863861882.7778,
+      "updatedAt": "2026-08-16T07:05:58.591Z",
       "source": "scan",
       "symbols": [
         {
           "name": "RegisterPage",
           "kind": "fn",
-          "startLine": 41,
-          "endLine": 324,
-          "tokens": 2944
-        },
-        {
-          "name": "SuccessStateProps",
-          "kind": "section",
-          "startLine": 325,
-          "endLine": 330,
-          "tokens": 26
-        },
-        {
-          "name": "SuccessState",
-          "kind": "fn",
-          "startLine": 331,
-          "endLine": 388,
-          "tokens": 474
-        },
-        {
-          "name": "SignalStory",
-          "kind": "fn",
-          "startLine": 389,
-          "endLine": 462,
-          "tokens": 734
+          "startLine": 17,
+          "endLine": 131,
+          "tokens": 1017
         }
       ]
     },
@@ -2616,16 +2685,16 @@
       "hash": "82b2e6102f0c1d8f",
       "size": 571,
       "mtimeMs": 1786862554189.3237,
-      "updatedAt": "2026-08-16T06:56:51.848Z",
+      "updatedAt": "2026-08-16T07:05:58.599Z",
       "source": "scan"
     },
     "frontend/src/features/auth/types/auth.types.ts": {
-      "description": "Exports RegisterPayload, Tenant",
-      "tokens": 38,
-      "hash": "cf85149c34d412bc",
-      "size": 130,
-      "mtimeMs": 1786862554165.3828,
-      "updatedAt": "2026-08-16T06:56:51.879Z",
+      "description": "Exports RegisterPayload, Tenant, RegisterFieldErrors, RegisterFormProps + 2 more",
+      "tokens": 313,
+      "hash": "37cfb1ac0abe4b13",
+      "size": 1093,
+      "mtimeMs": 1786863907674.6228,
+      "updatedAt": "2026-08-16T07:05:58.606Z",
       "source": "scan"
     },
     "frontend/src/main.tsx": {
@@ -2634,7 +2703,7 @@
       "hash": "7196e79fbb3a5d2d",
       "size": 461,
       "mtimeMs": 1786863340799.659,
-      "updatedAt": "2026-08-16T06:56:51.993Z",
+      "updatedAt": "2026-08-16T07:05:58.635Z",
       "source": "scan"
     },
     "frontend/src/router/index.tsx": {
@@ -2643,7 +2712,7 @@
       "hash": "5ad73900136a692a",
       "size": 409,
       "mtimeMs": 1786862748810.4436,
-      "updatedAt": "2026-08-16T06:56:52.017Z",
+      "updatedAt": "2026-08-16T07:05:58.640Z",
       "source": "scan"
     },
     "frontend/src/router/routes.ts": {
@@ -2652,7 +2721,7 @@
       "hash": "9db9a1932d2c7fc9",
       "size": 60,
       "mtimeMs": 1786862748794.9282,
-      "updatedAt": "2026-08-16T06:56:52.033Z",
+      "updatedAt": "2026-08-16T07:05:58.645Z",
       "source": "scan"
     },
     "frontend/src/shared/api/http.ts": {
@@ -2661,7 +2730,7 @@
       "hash": "987738d5b388d4c4",
       "size": 734,
       "mtimeMs": 1786862554142.7458,
-      "updatedAt": "2026-08-16T06:56:52.055Z",
+      "updatedAt": "2026-08-16T07:05:58.652Z",
       "source": "scan"
     },
     "frontend/src/shared/types/api.types.ts": {
@@ -2670,7 +2739,7 @@
       "hash": "3f87824292c3ef4c",
       "size": 54,
       "mtimeMs": 1786862554119.6963,
-      "updatedAt": "2026-08-16T06:56:52.074Z",
+      "updatedAt": "2026-08-16T07:05:58.665Z",
       "source": "scan"
     },
     "frontend/src/styles/index.css": {
@@ -2679,7 +2748,7 @@
       "hash": "a78985206f6d0c0a",
       "size": 612,
       "mtimeMs": 1786862748886.9463,
-      "updatedAt": "2026-08-16T06:56:52.082Z",
+      "updatedAt": "2026-08-16T07:05:58.673Z",
       "source": "scan"
     },
     "frontend/src/styles/theme.ts": {
@@ -2688,7 +2757,7 @@
       "hash": "b3efc7803ed525f9",
       "size": 1612,
       "mtimeMs": 1786862748780.7615,
-      "updatedAt": "2026-08-16T06:56:52.087Z",
+      "updatedAt": "2026-08-16T07:05:58.677Z",
       "source": "scan"
     },
     "frontend/src/vite-env.d.ts": {
@@ -2697,7 +2766,7 @@
       "hash": "341a9e7661be8c21",
       "size": 160,
       "mtimeMs": 1786862554098.0771,
-      "updatedAt": "2026-08-16T06:56:52.091Z",
+      "updatedAt": "2026-08-16T07:05:58.680Z",
       "source": "scan"
     },
     "frontend/tsconfig.app.json": {
@@ -2706,7 +2775,7 @@
       "hash": "8e5d12ba330e7d86",
       "size": 655,
       "mtimeMs": 1786789304073.772,
-      "updatedAt": "2026-08-16T06:56:52.097Z",
+      "updatedAt": "2026-08-16T07:05:58.684Z",
       "source": "scan"
     },
     "frontend/tsconfig.json": {
@@ -2715,7 +2784,7 @@
       "hash": "770b4140bbb581e2",
       "size": 119,
       "mtimeMs": 1786789304078.3184,
-      "updatedAt": "2026-08-16T06:56:52.100Z",
+      "updatedAt": "2026-08-16T07:05:58.686Z",
       "source": "scan"
     },
     "frontend/tsconfig.node.json": {
@@ -2724,7 +2793,7 @@
       "hash": "d366cc0827139db3",
       "size": 558,
       "mtimeMs": 1786789304078.3184,
-      "updatedAt": "2026-08-16T06:56:52.102Z",
+      "updatedAt": "2026-08-16T07:05:58.688Z",
       "source": "scan"
     },
     "frontend/vite.config.ts": {
@@ -2733,7 +2802,7 @@
       "hash": "298c63d4bef6bfcd",
       "size": 395,
       "mtimeMs": 1786789683713.0012,
-      "updatedAt": "2026-08-16T06:56:52.104Z",
+      "updatedAt": "2026-08-16T07:05:58.690Z",
       "source": "scan"
     },
     "README.md": {
@@ -2742,7 +2811,7 @@
       "hash": "1bb2d20dfea1c850",
       "size": 40606,
       "mtimeMs": 1786778915447.9202,
-      "updatedAt": "2026-08-16T06:56:52.106Z",
+      "updatedAt": "2026-08-16T07:05:58.692Z",
       "source": "scan"
     }
   }

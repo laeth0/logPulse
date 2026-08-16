@@ -8,6 +8,7 @@
 
 <!-- How the user likes things done. Code style, tools, patterns, communication. -->
 
+- Always apply separation of concerns and DRY in frontend features: pages should orchestrate rather than contain nested presentational components; reusable components belong in a feature `components/` folder, static values in `constants/`, and interfaces/component contracts in `types/`.
 - Do not run frontend linting or formatting automatically after implementation; the user will run those commands manually to reduce cloud-token usage. Build/type checks remain acceptable.
 - Use `npm run lint:fix` in the local pre-commit hook so ESLint applies safe fixes instead of running only the check-only `npm run lint` command.
 - Use OpenWolf integrations for Claude and Codex only; do not generate Cursor, OpenCode, or Gemini adapters.
@@ -22,6 +23,7 @@
 
 ## Key Learnings
 
+- [2026-08-16] The auth feature now uses explicit intra-feature layers: `pages/RegisterPage.tsx` orchestrates, `components/` renders, `constants/register.constants.ts` owns immutable form/signal data, `types/auth.types.ts` owns props and field-error contracts, `hooks/` owns API state, and `api/` owns HTTP calls.
 - [2026-08-16] The browser frontend runs at `http://localhost:5173` and calls the Nest API at `http://localhost:8080`; the backend currently allows every CORS origin via `origin: '*'` for testing, without credentialed cross-origin requests.
 - [2026-08-16] With the installed Material UI v9 types, `Stack` flex alignment properties such as `alignItems` and `justifyContent` must be supplied through `sx`, and direct imports such as `@mui/material/Button` reduce transformed modules substantially versus the `@mui/material` barrel.
 - [2026-08-16] The shared frontend `node_modules` can omit Rolldown's Linux optional native binding. The lockfile-pinned `@rolldown/binding-linux-x64-gnu@1.2.4` restores Vite builds in WSL without changing declared dependencies.
@@ -50,6 +52,7 @@
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
 
+- [2026-08-16] Do not leave feature constants, prop interfaces, or independently reusable presentational components nested inside a page module; place them in the feature's dedicated `constants/`, `types/`, and `components/` folders.
 - [2026-08-16] When configuring the local pre-commit lint step, invoke each package's `lint:fix` script rather than its check-only `lint` script.
 - [2026-08-13] After removing a numbered section, check and correct the numbering of all subsequent sibling sections.
 - [2026-08-13] When asked to revert a previous prompt, reverse only that prompt's assistant-authored delta and preserve all earlier or unrelated worktree changes.
