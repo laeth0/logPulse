@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T07:05:58.703Z
-> Files: 258 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T07:09:15.765Z
+> Files: 259 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -648,7 +648,11 @@
 
 ## frontend/src/shared/api/
 
-- `http.ts` — Exports http, getApiErrorMessage (~210 tok)
+- `http.ts` — Exports http, getApiErrorMessage (~253 tok)
+
+## frontend/src/shared/constants/
+
+- `api.constants.ts` — Exports DEFAULT_API_BASE_URL (~18 tok)
 
 ## frontend/src/shared/types/
 

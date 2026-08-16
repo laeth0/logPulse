@@ -23,6 +23,7 @@
 
 ## Key Learnings
 
+- [2026-08-16] `VITE_API_BASE_URL` may be absent in the active Vite/Docker runtime even when `frontend/.env` exists locally. Its `ImportMetaEnv` declaration must remain optional, and the shared Axios client resolves it through the `http://localhost:8080` default before applying string normalization.
 - [2026-08-16] The auth feature now uses explicit intra-feature layers: `pages/RegisterPage.tsx` orchestrates, `components/` renders, `constants/register.constants.ts` owns immutable form/signal data, `types/auth.types.ts` owns props and field-error contracts, `hooks/` owns API state, and `api/` owns HTTP calls.
 - [2026-08-16] The browser frontend runs at `http://localhost:5173` and calls the Nest API at `http://localhost:8080`; the backend currently allows every CORS origin via `origin: '*'` for testing, without credentialed cross-origin requests.
 - [2026-08-16] With the installed Material UI v9 types, `Stack` flex alignment properties such as `alignItems` and `justifyContent` must be supplied through `sx`, and direct imports such as `@mui/material/Button` reduce transformed modules substantially versus the `@mui/material` barrel.
@@ -52,6 +53,7 @@
 <!-- Mistakes made and corrected. Each entry prevents the same mistake recurring. -->
 <!-- Format: [YYYY-MM-DD] Description of what went wrong and what to do instead. -->
 
+- [2026-08-16] Do not call string methods directly on Vite environment variables or declare them as unconditionally present; normalize an optional value only after resolving a safe default.
 - [2026-08-16] Do not leave feature constants, prop interfaces, or independently reusable presentational components nested inside a page module; place them in the feature's dedicated `constants/`, `types/`, and `components/` folders.
 - [2026-08-16] When configuring the local pre-commit lint step, invoke each package's `lint:fix` script rather than its check-only `lint` script.
 - [2026-08-13] After removing a numbered section, check and correct the numbering of all subsequent sibling sections.

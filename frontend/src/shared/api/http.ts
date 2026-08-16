@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+import { DEFAULT_API_BASE_URL } from '../constants/api.constants'
 import type { ApiErrorResponse } from '../types/api.types'
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '')
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim()
+const apiBaseUrl = (configuredApiBaseUrl || DEFAULT_API_BASE_URL).replace(/\/+$/, '')
 
 export const http = axios.create({
   baseURL: apiBaseUrl,

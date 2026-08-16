@@ -360,6 +360,30 @@
       "related_bugs": ["bug-018"],
       "occurrences": 1,
       "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-033",
+      "timestamp": "2026-08-16T10:08:00+03:00",
+      "error_message": "Uncaught TypeError: Cannot read properties of undefined (reading 'replace') at http.ts:5:54",
+      "file": "frontend/src/shared/api/http.ts",
+      "root_cause": "VITE_API_BASE_URL was absent from the active Vite runtime environment, but the Axios client treated it as required and called replace() on it directly.",
+      "fix": "Resolve the optional environment value safely and fall back to the local backend URL from shared constants before removing trailing slashes.",
+      "tags": ["frontend", "axios", "vite", "environment", "runtime"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-034",
+      "timestamp": "2026-08-16T10:09:00+03:00",
+      "error_message": "git diff --check reported trailing whitespace across OpenWolf metadata after openwolf scan",
+      "file": ".wolf/buglog.json",
+      "root_cause": "The generated OpenWolf metadata uses CRLF line endings, which git diff --check in the WSL environment reports as trailing carriage-return whitespace across unchanged lines.",
+      "fix": "Treat generated OpenWolf metadata separately and run the whitespace check only against the changed frontend source files.",
+      "tags": ["openwolf", "git", "crlf", "wsl", "tooling"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
     }
   ]
 }
