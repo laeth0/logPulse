@@ -2,7 +2,7 @@
 
 > OpenWolf's learning memory. Updated automatically as the AI learns from interactions.
 > Do not edit manually unless correcting an error.
-> Last updated: 2026-08-15
+> Last updated: 2026-08-16
 
 ## User Preferences
 
@@ -20,6 +20,7 @@
 
 ## Key Learnings
 
+- [2026-08-16] The frontend follows the feature-first scaffold in `docs/frontend-folder-structure.md`: domain modules live under `src/features/{auth,dashboard,logs}`, reusable domain-neutral code under `src/shared`, and router/store/styles/lib remain top-level application concerns.
 - **Project:** log-pulse
 - **Description:** A high-throughput log ingestion and query service — a simplified version of Datadog / Grafana Loki. Applications send structured logs to the API; the service validates, stores, and makes them searchab
 - `LogIngestion-majed` uses PostgreSQL/Prisma with three current tables (`Log`, `LogRollup`, `LogSecondRollup`) and no foreign-key constraints. The two rollup tables are unlogged, derived aggregates of `Log` keyed by `(bucket, service, level)` at minute and second granularity.

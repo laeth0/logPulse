@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-15T15:02:08.482Z
-> Files: 241 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T06:33:46.446Z
+> Files: 271 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -577,7 +577,6 @@
 
 - `Final_Project.md` — Final Project: Log Ingestion and Query Service (~4615 tok)
 - `frontend-folder-structure.md` — LogPulse — Frontend Folder Structure (~1690 tok)
-- `K6_LOAD_TESTING_GUIDE.md` — k6 Load-Testing Guide for logPulse (~6402 tok)
 
 ## frontend/
 
@@ -594,10 +593,133 @@
 - `tsconfig.node.json` (~160 tok)
 - `vite.config.ts` — Vite build configuration (~113 tok)
 
+## frontend/public/
+
+- `.gitkeep` (~1 tok)
+
 ## frontend/src/
 
-- `App.css` — Styles: 8 rules, 6 media queries (~823 tok)
-- `App.tsx` — App — uses useState (~950 tok)
-  - fn `App` L7-103 (~899 tok)
-- `index.css` — Styles: 3 rules, 23 vars, 4 media queries (~617 tok)
+- `App.css` (~0 tok)
+- `App.tsx` — App — uses useState (~83 tok)
+- `index.css` (~0 tok)
 - `main.tsx` (~66 tok)
+
+## frontend/src/features/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/auth/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/auth/api/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/auth/hooks/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/auth/pages/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/auth/schemas/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/auth/types/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/dashboard/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/dashboard/api/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/dashboard/components/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/dashboard/hooks/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/dashboard/pages/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/api/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/components/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/hooks/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/pages/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/schemas/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/features/logs/types/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/lib/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/router/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/api/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/components/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/components/layout/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/components/ui/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/hooks/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/shared/types/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/store/
+
+- `.gitkeep` (~1 tok)
+
+## frontend/src/styles/
+
+- `.gitkeep` (~1 tok)

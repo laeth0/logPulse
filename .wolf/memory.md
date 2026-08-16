@@ -87,9 +87,30 @@
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+| 09:33 | Scaffolded documented frontend folder architecture and refreshed OpenWolf indexes | `frontend/public`, `frontend/src/{router,features,shared,store,styles,lib}`, `.wolf/{STATUS,cerebrum,anatomy,memory}.md` | Added `.gitkeep` markers without overwriting existing frontend edits; anatomy scan indexed 271 files | ~4300 |
 | 18:01 | Created a complete endpoint and benchmark handoff for the separate Dockerized k6 project, explicitly separating 15k accepted logs/s from 15k HTTP requests/s | `docs/K6_LOAD_TESTING_GUIDE.md`, `.wolf/anatomy.md`, `.wolf/cerebrum.md`, `.wolf/STATUS.md` | Four endpoint contracts, Docker networking, workload profiles, metrics, thresholds, safety, and reporting documented; OpenWolf index refreshed | ~6500 |
 
 ## Session: 2026-08-15 18:14
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-15 22:02
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-15 22:06
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-15 22:06
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 09:29
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|

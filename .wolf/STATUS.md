@@ -2,7 +2,7 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-15
+> Last updated: 2026-08-16
 
 ---
 
@@ -10,6 +10,7 @@
 
 <!-- Move items here from "🚀 Next phase" when finished. Group by area. -->
 
+- Scaffolded the feature-first frontend directory structure documented in `docs/frontend-folder-structure.md`, including router, auth, dashboard, logs, shared, store, styles, and lib directories. Added `.gitkeep` markers throughout the scaffold while preserving the existing in-progress frontend source edits.
 - Reorganized project into a monorepo: moved all backend code, configurations, tests, migrations, requests, specs, and prompts into `backend/`, created empty `frontend/` with `.gitkeep`, placed `docker-compose.yml` at root with `context: ./backend`, updated `.github/workflows/ci.yml` working directories, updated `.gitignore`, and updated `AGENTS.md`/`CLAUDE.md` path references. `backend` compiles cleanly via `npm run build`.
 - Added `docs/K6_LOAD_TESTING_GUIDE.md` as a self-contained handoff for the separate Dockerized k6 project. It documents all `backend/src/health` and `backend/src/logs` endpoints, exact request/response/error behavior, Docker connectivity, auth/backpressure variants, the required 15,000 accepted logs/sec baseline, the separate 15,000 HTTP requests/sec stress profile, the 1M-row concurrent aggregation/visibility workload, metrics, retry/cleanup rules, and result reporting.
 

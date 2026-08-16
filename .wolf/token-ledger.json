@@ -3,18 +3,18 @@
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
     "total_tokens_estimated": 1749674,
-    "total_reads": 2596,
+    "total_reads": 2597,
     "total_writes": 0,
-    "total_sessions": 21,
+    "total_sessions": 26,
     "anatomy_hits": 1833,
-    "anatomy_misses": 725,
+    "anatomy_misses": 726,
     "repeated_reads_blocked": 1199,
     "estimated_savings_vs_bare_cli": 1677175,
-    "real_input_tokens": 703915,
-    "real_output_tokens": 67120557,
-    "real_cache_read_tokens": 29784563385,
-    "real_cache_creation_tokens": 322728647,
-    "real_api_calls": 62556
+    "real_input_tokens": 703931,
+    "real_output_tokens": 67124415,
+    "real_cache_read_tokens": 29784991922,
+    "real_cache_creation_tokens": 322810521,
+    "real_api_calls": 62564
   },
   "sessions": [
     {
@@ -17415,6 +17415,36 @@
         "cache_read_input_tokens": 761108204,
         "cache_creation_input_tokens": 9543914,
         "api_calls": 1659
+      }
+    },
+    {
+      "id": "session-2026-08-15-2202",
+      "agent": "claude",
+      "started": "2026-08-15T19:02:17.360Z",
+      "ended": "2026-08-15T19:05:10.256Z",
+      "reads": [
+        {
+          "file": "C:/Users/LaethNueirat/.claude/skills/delegate-setup/references/schema.md",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 0,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 0
+      },
+      "real_usage": {
+        "input_tokens": 16,
+        "output_tokens": 3858,
+        "cache_read_input_tokens": 428537,
+        "cache_creation_input_tokens": 81874,
+        "api_calls": 8
       }
     }
   ],
