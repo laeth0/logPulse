@@ -1,11 +1,11 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T07:56:14.697Z
-> Files: 275 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T08:31:37.074Z
+> Files: 314 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
-- `.gitignore` — Git ignore rules (~152 tok)
+- `.gitignore` — Git ignore rules (~192 tok)
 - `AGENTS.md` — OpenWolf (~763 tok)
 - `CLAUDE.md` — OpenWolf (~763 tok)
 - `docker-compose.yml` — Docker Compose services (~956 tok)
@@ -622,7 +622,7 @@
 
 ## frontend/src/features/auth/constants/
 
-- `login.constants.ts` — Exports INITIAL_LOGIN_FORM (~44 tok)
+- `login.constants.ts` — Exports INITIAL_LOGIN_FORM (~60 tok)
 - `register.constants.ts` — Exports INITIAL_REGISTER_FORM, SIGNAL_BARS (~89 tok)
 
 ## frontend/src/features/auth/hooks/
@@ -663,12 +663,108 @@
 
 ## frontend/src/features/dashboard/pages/
 
-- `DashboardPage.tsx` — DashboardPage — uses useNavigate, useState (~1280 tok)
-  - fn `DashboardPage` L19-122 (~1041 tok)
+- `DashboardPage.tsx` — DashboardPage — uses useNavigate, useState (~1589 tok)
+  - fn `DashboardPage` L24-136 (~1294 tok)
 
 ## frontend/src/features/dashboard/utils/
 
 - `api-key.utils.ts` — Exports maskApiKey (~102 tok)
+
+## frontend/src/features/logs/
+
+- `index.ts` (~49 tok)
+
+## frontend/src/features/logs/api/
+
+- `logs.api.ts` — The contract returns HTTP 400 (not 200) when every entry in the batch is (~575 tok)
+  - fn `authHeaders` L12-21 (~112 tok)
+  - fn `ingestLogs` L22-36 (~149 tok)
+  - fn `queryLogs` L37-41 (~73 tok)
+  - fn `aggregateLogs` L42-46 (~79 tok)
+
+## frontend/src/features/logs/components/
+
+- `AggregateBarChart.tsx` — CHART_HEIGHT — renders chart (~1309 tok)
+  - fn `AggregateBarChart` L16-111 (~1162 tok)
+- `AggregateFiltersForm.tsx` — AggregateFiltersForm — renders chart (~1275 tok)
+  - fn `AggregateFiltersForm` L13-138 (~1105 tok)
+- `AggregatePanel.tsx` — AggregatePanel — renders chart (~716 tok)
+  - fn `AggregatePanel` L18-65 (~492 tok)
+- `AggregateResultsTable.tsx` — AggregateResultsTable — renders table (~465 tok)
+- `AttributeFilterRowsEditor.tsx` — AttributeFilterRowsEditor (~594 tok)
+  - fn `AttributeFilterRowsEditor` L11-60 (~468 tok)
+- `IngestEntryCard.tsx` — IngestEntryCard (~1809 tok)
+  - fn `IngestEntryCard` L19-171 (~1546 tok)
+- `IngestPanel.tsx` — IngestPanel — uses useState (~1830 tok)
+  - fn `IngestPanel` L27-176 (~1439 tok)
+- `IngestResultSummary.tsx` — IngestResultSummary (~376 tok)
+- `LevelChip.tsx` — LevelChip (~167 tok)
+- `LogsResultsTable.tsx` — LogsResultsTable — renders table (~744 tok)
+  - fn `LogsResultsTable` L17-70 (~551 tok)
+- `QueryFiltersForm.tsx` — QueryFiltersForm (~1046 tok)
+  - fn `QueryFiltersForm` L13-113 (~882 tok)
+- `QueryPanel.tsx` — QueryPanel (~815 tok)
+  - fn `QueryPanel` L18-75 (~590 tok)
+
+## frontend/src/features/logs/constants/
+
+- `aggregate.constants.ts` — Exports BUCKET_SIZE_OPTIONS, GROUP_BY_OPTIONS, DEFAULT_AGGREGATION_RANGE_MS (~168 tok)
+- `chart-palette.constants.ts` — Validated categorical palette (light mode) — fixed slot order is the CVD-safety (~136 tok)
+- `ingest.constants.ts` — Exports ATTRIBUTE_VALUE_TYPES, MAX_DRAFT_ENTRIES (~58 tok)
+- `log-levels.constants.ts` — Exports LOG_LEVEL_OPTIONS, LOG_LEVEL_STATUS_COLORS (~130 tok)
+- `query.constants.ts` — Exports DEFAULT_QUERY_LIMIT, MIN_QUERY_LIMIT, MAX_QUERY_LIMIT (~31 tok)
+
+## frontend/src/features/logs/hooks/
+
+- `useAggregateLogs.ts` — Exports useAggregateLogs (~338 tok)
+- `useIngestLogs.ts` — Exports useIngestLogs (~330 tok)
+- `useQueryLogs.ts` — Exports useQueryLogs (~572 tok)
+  - fn `useQueryLogs` L9-62 (~466 tok)
+
+## frontend/src/features/logs/schemas/
+
+- `aggregate-logs.schema.ts` — Zod schemas: aggregateBucketSchema, aggregateLogsResponseSchema (~72 tok)
+- `log-entry.schema.ts` — Zod schemas: logLevelSchema, attributeValueSchema, draftLogEntrySchema, rejectedLogSchema + 1 more (~210 tok)
+- `query-logs.schema.ts` — Zod schemas: logResponseSchema, queryLogsResponseSchema (~128 tok)
+
+## frontend/src/features/logs/types/
+
+- `aggregate.types.ts` — Exports AggregationBucketSize, AggregationGroupBy, AggregateFiltersState, AggregateBucketPoint + 3 more (~264 tok)
+- `filter.types.ts` — Exports AttributeFilterRow, LogRequestParams (~42 tok)
+- `ingest.types.ts` — Exports DraftAttributeValueType, DraftAttributeRow, DraftLogEntry, IngestLogEntryPayload + 5 more (~314 tok)
+- `log.types.ts` — Exports LogLevel, LogAttributeValue, LogEntry (~82 tok)
+- `logs-components.types.ts` — Exports LevelChipProps, AttributeFilterRowsEditorProps, IngestEntryCardProps, IngestResultSummaryProps + 8 more (~504 tok)
+  - section `LevelChipProps` L12-16 (~24 tok)
+  - section `AttributeFilterRowsEditorProps` L17-22 (~43 tok)
+  - section `IngestEntryCardProps` L23-32 (~66 tok)
+  - section `IngestResultSummaryProps` L33-36 (~21 tok)
+  - section `QueryFiltersFormProps` L37-43 (~49 tok)
+  - section `LogsResultsTableProps` L44-48 (~24 tok)
+  - section `AggregateFiltersFormProps` L49-55 (~53 tok)
+  - section `AggregateBarChartProps` L56-61 (~42 tok)
+  - section `AggregateResultsTableProps` L62-65 (~24 tok)
+  - section `IngestPanelProps` L66-69 (~16 tok)
+  - section `QueryPanelProps` L70-73 (~16 tok)
+  - section `AggregatePanelProps` L74-77 (~17 tok)
+- `query.types.ts` — Exports QueryFiltersState, QueryLogsResponse, QueryStatus, UseQueryLogsResult (~209 tok)
+
+## frontend/src/features/logs/utils/
+
+- `attribute-rows.utils.ts` — Exports draftAttributesToRecord, draftEntryToPayload, filterRowsToParams (~418 tok)
+- `chart.utils.ts` — Exports ChartSeries, ChartColumnValue, ChartColumn, ChartData + 2 more (~855 tok)
+  - section `ChartSeries` L4-9 (~23 tok)
+  - section `ChartColumnValue` L10-14 (~22 tok)
+  - section `ChartColumn` L15-19 (~23 tok)
+  - section `ChartData` L20-28 (~50 tok)
+  - fn `buildChartData` L29-60 (~351 tok)
+  - fn `buildGroupedSeries` L61-85 (~223 tok)
+  - fn `niceMax` L86-99 (~107 tok)
+- `datetime.utils.ts` — Exports toDateTimeLocalInputValue, fromDateTimeLocalInputValue, nowAsDateTimeLocalInputValue, defaultAggregationRange, formatBucketLabel (~416 tok)
+- `draft-entry.utils.ts` — Exports createDraftAttributeRow, createDraftLogEntry, createFilterRow (~184 tok)
+- `id.utils.ts` — Exports createLocalId (~21 tok)
+- `initial-filters.utils.ts` — Exports createInitialQueryFilters, createInitialAggregateFilters (~240 tok)
+- `query-params.utils.ts` — Exports buildQueryParams, buildAggregateParams (~426 tok)
+- `sample-batch.utils.ts` — Exports createSampleBatch, createSampleRawBatchJson (~480 tok)
 
 ## frontend/src/router/
 
