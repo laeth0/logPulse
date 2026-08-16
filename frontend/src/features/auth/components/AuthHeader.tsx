@@ -1,7 +1,5 @@
 import DataObjectRounded from '@mui/icons-material/DataObjectRounded'
-import ShieldRounded from '@mui/icons-material/ShieldRounded'
 import Box from '@mui/material/Box'
-import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
@@ -39,19 +37,6 @@ export function AuthHeader() {
           log<span style={{ color: '#75e3e3' }}>Pulse</span>
         </Typography>
       </Stack>
-
-      <Chip
-        size="small"
-        label="EU · encrypted"
-        icon={<ShieldRounded />}
-        sx={{
-          display: { xs: 'none', sm: 'inline-flex' },
-          color: '#b8d2d4',
-          bgcolor: 'rgba(255,255,255,0.045)',
-          border: '1px solid rgba(184, 210, 212, 0.14)',
-          '& .MuiChip-icon': { color: '#75e3e3' },
-        }}
-      />
     </Stack>
   )
 }

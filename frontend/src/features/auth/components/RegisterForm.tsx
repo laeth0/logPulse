@@ -26,14 +26,11 @@ export function RegisterForm({
   return (
     <>
       <Box sx={{ mb: 3.25 }}>
-        <Typography variant="overline" color="primary.dark">
-          Create your workspace
-        </Typography>
         <Typography
           id="register-title"
           component="h1"
           variant="h1"
-          sx={{ mt: 0.75, fontSize: { xs: '2rem', sm: '2.45rem' } }}
+          sx={{ fontSize: { xs: '2rem', sm: '2.45rem' } }}
         >
           See every signal.
           <br />
@@ -113,14 +110,6 @@ export function RegisterForm({
           </Button>
         </Stack>
       </Box>
-
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        sx={{ mt: 2.5, textAlign: 'center', lineHeight: 1.6 }}
-      >
-        By creating an account, you agree to keep your workspace credentials secure.
-      </Typography>
     </>
   )
 }

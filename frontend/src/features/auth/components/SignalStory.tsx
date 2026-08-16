@@ -1,5 +1,3 @@
-import ShieldRounded from '@mui/icons-material/ShieldRounded'
-import SpeedRounded from '@mui/icons-material/SpeedRounded'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -20,21 +18,6 @@ export function SignalStory() {
       spacing={{ xs: 3, md: 4 }}
     >
       <Box>
-        <Stack direction="row" spacing={1} sx={{ alignItems: 'center', mb: 2 }}>
-          <Box
-            aria-hidden="true"
-            sx={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              bgcolor: '#75e3e3',
-              boxShadow: '0 0 1rem #75e3e3',
-            }}
-          />
-          <Typography variant="overline" sx={{ color: '#91b9bb' }}>
-            Live observability layer
-          </Typography>
-        </Stack>
         <Typography
           component="h2"
           variant="h2"
@@ -59,23 +42,7 @@ export function SignalStory() {
             />
           ))}
         </div>
-        <span className="signal-cursor">15,000 events/s · nominal</span>
       </Box>
-
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1.5, sm: 3 }}>
-        <Stack direction="row" spacing={1.25} sx={{ alignItems: 'center', flex: 1 }}>
-          <SpeedRounded sx={{ color: '#75e3e3' }} />
-          <Typography variant="body2" sx={{ color: '#b9d0d2' }}>
-            Built for high-throughput ingestion
-          </Typography>
-        </Stack>
-        <Stack direction="row" spacing={1.25} sx={{ alignItems: 'center', flex: 1 }}>
-          <ShieldRounded sx={{ color: '#ff9a88' }} />
-          <Typography variant="body2" sx={{ color: '#b9d0d2' }}>
-            Tenant-isolated by design
-          </Typography>
-        </Stack>
-      </Stack>
     </Stack>
   )
 }
