@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
 
-import type { PasswordFieldProps } from '../types/auth.types'
+import type { PasswordFieldProps } from '../types/auth-components.types'
 
 export function PasswordField({
   autoFocus,

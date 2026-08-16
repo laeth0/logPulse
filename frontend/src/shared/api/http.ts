@@ -24,5 +24,5 @@ export function getApiErrorMessage(error: unknown): string {
     return 'The LogPulse API is unavailable. Check that the backend is running and try again.'
   }
 
-  return error.response.data?.error ?? 'We could not create your account. Please try again.'
+  return error.response.data?.error ?? 'The request could not be completed. Please try again.'
 }

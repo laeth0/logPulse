@@ -384,6 +384,18 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-035",
+      "timestamp": "2026-08-16T12:35:00+03:00",
+      "error_message": "eslint . --fix: Fast refresh only works when a file only exports components. Move your component(s) to a separate file. (react-refresh/only-export-components) at frontend/src/router/index.tsx:10:10",
+      "file": "frontend/src/router/index.tsx",
+      "root_cause": "router/index.tsx defined a local React component (RootRedirect) in the same module as the non-component `router` export (a RemixRouter object), which violates the react-refresh/only-export-components rule even though RootRedirect itself was not exported.",
+      "fix": "Extracted RootRedirect into its own file, frontend/src/router/RootRedirect.tsx, mirroring the existing ProtectedRoute.tsx pattern; router/index.tsx now only imports it and exports the router object.",
+      "tags": ["frontend", "eslint", "react-refresh", "router", "vite"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16"
     }
   ]
 }

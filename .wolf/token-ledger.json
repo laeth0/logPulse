@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 1749674,
-    "total_reads": 2597,
+    "total_tokens_estimated": 1823606,
+    "total_reads": 2775,
     "total_writes": 0,
     "total_sessions": 28,
-    "anatomy_hits": 1833,
+    "anatomy_hits": 2001,
     "anatomy_misses": 726,
-    "repeated_reads_blocked": 1199,
-    "estimated_savings_vs_bare_cli": 1677175,
-    "real_input_tokens": 703931,
-    "real_output_tokens": 67124415,
-    "real_cache_read_tokens": 29784991922,
-    "real_cache_creation_tokens": 322810521,
-    "real_api_calls": 62564
+    "repeated_reads_blocked": 1207,
+    "estimated_savings_vs_bare_cli": 1714836,
+    "real_input_tokens": 712791,
+    "real_output_tokens": 67421807,
+    "real_cache_read_tokens": 29829949063,
+    "real_cache_creation_tokens": 323646230,
+    "real_api_calls": 62866
   },
   "sessions": [
     {
@@ -17445,6 +17445,1194 @@
         "cache_read_input_tokens": 428537,
         "cache_creation_input_tokens": 81874,
         "api_calls": 8
+      }
+    },
+    {
+      "id": "session-2026-08-16-1039",
+      "agent": "claude",
+      "started": "2026-08-16T07:39:51.449Z",
+      "ended": "2026-08-16T07:50:20.498Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/tenant-auth.controller.ts",
+          "tokens_estimated": 819,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/requests/login-tenant.dto.ts",
+          "tokens_estimated": 69,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/auth-tokens.dto.ts",
+          "tokens_estimated": 110,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/services/tenant-auth.service.ts",
+          "tokens_estimated": 1239,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/tenant-auth.schema.ts",
+          "tokens_estimated": 249,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/api-keys.controller.ts",
+          "tokens_estimated": 982,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.tsx",
+          "tokens_estimated": 1222,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.css",
+          "tokens_estimated": 695,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/AuthHeader.tsx",
+          "tokens_estimated": 477,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/PasswordField.tsx",
+          "tokens_estimated": 507,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/RegisterForm.tsx",
+          "tokens_estimated": 1157,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SignalStory.tsx",
+          "tokens_estimated": 825,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SuccessState.tsx",
+          "tokens_estimated": 563,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/constants/register.constants.ts",
+          "tokens_estimated": 89,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useRegister.ts",
+          "tokens_estimated": 371,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/api/auth.api.ts",
+          "tokens_estimated": 106,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/schemas/register.schema.ts",
+          "tokens_estimated": 164,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/types/auth.types.ts",
+          "tokens_estimated": 313,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/index.ts",
+          "tokens_estimated": 15,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/api/http.ts",
+          "tokens_estimated": 253,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/App.tsx",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/index.tsx",
+          "tokens_estimated": 117,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/routes.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/types/api.types.ts",
+          "tokens_estimated": 16,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/constants/api.constants.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/vite-env.d.ts",
+          "tokens_estimated": 46,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/main.tsx",
+          "tokens_estimated": 132,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/filters/global-exception.filter.ts",
+          "tokens_estimated": 1048,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docs/frontend-folder-structure.md",
+          "tokens_estimated": 1690,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/tenancy/tenancy.login.rest",
+          "tokens_estimated": 205,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key.dto.ts",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key-list.dto.ts",
+          "tokens_estimated": 60,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/enums/api-key-status.enum.ts",
+          "tokens_estimated": 21,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/api-key.schema.ts",
+          "tokens_estimated": 84,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/styles/theme.ts",
+          "tokens_estimated": 461,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 14369,
+        "output_tokens_estimated": 0,
+        "reads_count": 35,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 33
+      },
+      "real_usage": {
+        "input_tokens": 1396,
+        "output_tokens": 46810,
+        "cache_read_input_tokens": 5270700,
+        "cache_creation_input_tokens": 143226,
+        "api_calls": 41
+      }
+    },
+    {
+      "id": "session-2026-08-16-1039",
+      "agent": "claude",
+      "started": "2026-08-16T07:39:51.449Z",
+      "ended": "2026-08-16T07:51:26.197Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/tenant-auth.controller.ts",
+          "tokens_estimated": 819,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/requests/login-tenant.dto.ts",
+          "tokens_estimated": 69,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/auth-tokens.dto.ts",
+          "tokens_estimated": 110,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/services/tenant-auth.service.ts",
+          "tokens_estimated": 1239,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/tenant-auth.schema.ts",
+          "tokens_estimated": 249,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/api-keys.controller.ts",
+          "tokens_estimated": 982,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.tsx",
+          "tokens_estimated": 1222,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.css",
+          "tokens_estimated": 695,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/AuthHeader.tsx",
+          "tokens_estimated": 477,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/PasswordField.tsx",
+          "tokens_estimated": 507,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/RegisterForm.tsx",
+          "tokens_estimated": 1157,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SignalStory.tsx",
+          "tokens_estimated": 825,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SuccessState.tsx",
+          "tokens_estimated": 563,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/constants/register.constants.ts",
+          "tokens_estimated": 89,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useRegister.ts",
+          "tokens_estimated": 371,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/api/auth.api.ts",
+          "tokens_estimated": 106,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/schemas/register.schema.ts",
+          "tokens_estimated": 164,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/types/auth.types.ts",
+          "tokens_estimated": 313,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/index.ts",
+          "tokens_estimated": 15,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/api/http.ts",
+          "tokens_estimated": 253,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/App.tsx",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/index.tsx",
+          "tokens_estimated": 117,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/routes.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/types/api.types.ts",
+          "tokens_estimated": 16,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/constants/api.constants.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/vite-env.d.ts",
+          "tokens_estimated": 46,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/main.tsx",
+          "tokens_estimated": 132,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/filters/global-exception.filter.ts",
+          "tokens_estimated": 1048,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docs/frontend-folder-structure.md",
+          "tokens_estimated": 1690,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/tenancy/tenancy.login.rest",
+          "tokens_estimated": 205,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key.dto.ts",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key-list.dto.ts",
+          "tokens_estimated": 60,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/enums/api-key-status.enum.ts",
+          "tokens_estimated": 21,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/api-key.schema.ts",
+          "tokens_estimated": 84,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/styles/theme.ts",
+          "tokens_estimated": 461,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 14369,
+        "output_tokens_estimated": 0,
+        "reads_count": 35,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 33
+      },
+      "real_usage": {
+        "input_tokens": 1412,
+        "output_tokens": 51837,
+        "cache_read_input_tokens": 6698875,
+        "cache_creation_input_tokens": 155715,
+        "api_calls": 49
+      }
+    },
+    {
+      "id": "session-2026-08-16-1039",
+      "agent": "claude",
+      "started": "2026-08-16T07:39:51.449Z",
+      "ended": "2026-08-16T07:53:09.598Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/tenant-auth.controller.ts",
+          "tokens_estimated": 819,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/requests/login-tenant.dto.ts",
+          "tokens_estimated": 69,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/auth-tokens.dto.ts",
+          "tokens_estimated": 110,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/services/tenant-auth.service.ts",
+          "tokens_estimated": 1239,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/tenant-auth.schema.ts",
+          "tokens_estimated": 249,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/api-keys.controller.ts",
+          "tokens_estimated": 982,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.tsx",
+          "tokens_estimated": 1222,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.css",
+          "tokens_estimated": 695,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/AuthHeader.tsx",
+          "tokens_estimated": 477,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/PasswordField.tsx",
+          "tokens_estimated": 507,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/RegisterForm.tsx",
+          "tokens_estimated": 1157,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SignalStory.tsx",
+          "tokens_estimated": 825,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SuccessState.tsx",
+          "tokens_estimated": 563,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/constants/register.constants.ts",
+          "tokens_estimated": 89,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useRegister.ts",
+          "tokens_estimated": 371,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/api/auth.api.ts",
+          "tokens_estimated": 106,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/schemas/register.schema.ts",
+          "tokens_estimated": 164,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/types/auth.types.ts",
+          "tokens_estimated": 528,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/index.ts",
+          "tokens_estimated": 15,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/api/http.ts",
+          "tokens_estimated": 253,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/App.tsx",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/index.tsx",
+          "tokens_estimated": 117,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/routes.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/types/api.types.ts",
+          "tokens_estimated": 16,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/constants/api.constants.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/vite-env.d.ts",
+          "tokens_estimated": 46,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/main.tsx",
+          "tokens_estimated": 132,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/filters/global-exception.filter.ts",
+          "tokens_estimated": 1048,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docs/frontend-folder-structure.md",
+          "tokens_estimated": 1690,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/tenancy/tenancy.login.rest",
+          "tokens_estimated": 205,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key.dto.ts",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key-list.dto.ts",
+          "tokens_estimated": 60,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/enums/api-key-status.enum.ts",
+          "tokens_estimated": 21,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/api-key.schema.ts",
+          "tokens_estimated": 84,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/styles/theme.ts",
+          "tokens_estimated": 461,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useLogin.ts",
+          "tokens_estimated": 384,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 14968,
+        "output_tokens_estimated": 0,
+        "reads_count": 36,
+        "writes_count": 0,
+        "repeated_reads_blocked": 1,
+        "anatomy_lookups": 34
+      },
+      "real_usage": {
+        "input_tokens": 1994,
+        "output_tokens": 58222,
+        "cache_read_input_tokens": 8599649,
+        "cache_creation_input_tokens": 167196,
+        "api_calls": 59
+      }
+    },
+    {
+      "id": "session-2026-08-16-1039",
+      "agent": "claude",
+      "started": "2026-08-16T07:39:51.449Z",
+      "ended": "2026-08-16T07:55:06.870Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/tenant-auth.controller.ts",
+          "tokens_estimated": 819,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/requests/login-tenant.dto.ts",
+          "tokens_estimated": 69,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/auth-tokens.dto.ts",
+          "tokens_estimated": 110,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/services/tenant-auth.service.ts",
+          "tokens_estimated": 1239,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/tenant-auth.schema.ts",
+          "tokens_estimated": 249,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/api-keys.controller.ts",
+          "tokens_estimated": 982,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.tsx",
+          "tokens_estimated": 1222,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.css",
+          "tokens_estimated": 695,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/AuthHeader.tsx",
+          "tokens_estimated": 477,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/PasswordField.tsx",
+          "tokens_estimated": 507,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/RegisterForm.tsx",
+          "tokens_estimated": 1157,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SignalStory.tsx",
+          "tokens_estimated": 825,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SuccessState.tsx",
+          "tokens_estimated": 563,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/constants/register.constants.ts",
+          "tokens_estimated": 89,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useRegister.ts",
+          "tokens_estimated": 308,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/api/auth.api.ts",
+          "tokens_estimated": 106,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/schemas/register.schema.ts",
+          "tokens_estimated": 164,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/types/auth.types.ts",
+          "tokens_estimated": 664,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/index.ts",
+          "tokens_estimated": 15,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/api/http.ts",
+          "tokens_estimated": 253,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/App.tsx",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/index.tsx",
+          "tokens_estimated": 117,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/routes.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/types/api.types.ts",
+          "tokens_estimated": 16,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/constants/api.constants.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/vite-env.d.ts",
+          "tokens_estimated": 46,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/main.tsx",
+          "tokens_estimated": 132,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/filters/global-exception.filter.ts",
+          "tokens_estimated": 1048,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docs/frontend-folder-structure.md",
+          "tokens_estimated": 1690,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/tenancy/tenancy.login.rest",
+          "tokens_estimated": 205,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key.dto.ts",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key-list.dto.ts",
+          "tokens_estimated": 60,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/enums/api-key-status.enum.ts",
+          "tokens_estimated": 21,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/api-key.schema.ts",
+          "tokens_estimated": 84,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/styles/theme.ts",
+          "tokens_estimated": 461,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useLogin.ts",
+          "tokens_estimated": 384,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 15041,
+        "output_tokens_estimated": 0,
+        "reads_count": 36,
+        "writes_count": 0,
+        "repeated_reads_blocked": 3,
+        "anatomy_lookups": 34
+      },
+      "real_usage": {
+        "input_tokens": 2016,
+        "output_tokens": 67095,
+        "cache_read_input_tokens": 10815444,
+        "cache_creation_input_tokens": 179681,
+        "api_calls": 70
+      }
+    },
+    {
+      "id": "session-2026-08-16-1039",
+      "agent": "claude",
+      "started": "2026-08-16T07:39:51.449Z",
+      "ended": "2026-08-16T07:56:38.817Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/tenant-auth.controller.ts",
+          "tokens_estimated": 819,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/requests/login-tenant.dto.ts",
+          "tokens_estimated": 69,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/auth-tokens.dto.ts",
+          "tokens_estimated": 110,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/services/tenant-auth.service.ts",
+          "tokens_estimated": 1239,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/tenant-auth.schema.ts",
+          "tokens_estimated": 249,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/controllers/api-keys.controller.ts",
+          "tokens_estimated": 982,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.tsx",
+          "tokens_estimated": 1222,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/pages/RegisterPage.css",
+          "tokens_estimated": 695,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/AuthHeader.tsx",
+          "tokens_estimated": 477,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/PasswordField.tsx",
+          "tokens_estimated": 507,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/RegisterForm.tsx",
+          "tokens_estimated": 1157,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SignalStory.tsx",
+          "tokens_estimated": 825,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/components/SuccessState.tsx",
+          "tokens_estimated": 563,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/constants/register.constants.ts",
+          "tokens_estimated": 89,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useRegister.ts",
+          "tokens_estimated": 308,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/api/auth.api.ts",
+          "tokens_estimated": 106,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/schemas/register.schema.ts",
+          "tokens_estimated": 164,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/types/auth.types.ts",
+          "tokens_estimated": 664,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/index.ts",
+          "tokens_estimated": 15,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/api/http.ts",
+          "tokens_estimated": 253,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/App.tsx",
+          "tokens_estimated": 49,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/index.tsx",
+          "tokens_estimated": 261,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/routes.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/types/api.types.ts",
+          "tokens_estimated": 16,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/shared/constants/api.constants.ts",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/vite-env.d.ts",
+          "tokens_estimated": 46,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/main.tsx",
+          "tokens_estimated": 132,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/filters/global-exception.filter.ts",
+          "tokens_estimated": 1048,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docs/frontend-folder-structure.md",
+          "tokens_estimated": 1690,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/tenancy/tenancy.login.rest",
+          "tokens_estimated": 205,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key.dto.ts",
+          "tokens_estimated": 179,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/dto/responses/api-key-list.dto.ts",
+          "tokens_estimated": 60,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/enums/api-key-status.enum.ts",
+          "tokens_estimated": 21,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/validators/api-key.schema.ts",
+          "tokens_estimated": 84,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/styles/theme.ts",
+          "tokens_estimated": 461,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useLogin.ts",
+          "tokens_estimated": 384,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 15185,
+        "output_tokens_estimated": 0,
+        "reads_count": 36,
+        "writes_count": 0,
+        "repeated_reads_blocked": 4,
+        "anatomy_lookups": 34
+      },
+      "real_usage": {
+        "input_tokens": 2042,
+        "output_tokens": 73428,
+        "cache_read_input_tokens": 13572473,
+        "cache_creation_input_tokens": 189891,
+        "api_calls": 83
       }
     }
   ],

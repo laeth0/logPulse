@@ -2,17 +2,8 @@ import { useCallback, useState } from 'react'
 
 import { getApiErrorMessage } from '../../../shared/api/http'
 import { register as registerRequest } from '../api/auth.api'
+import type { RegisterStatus, UseRegisterResult } from '../types/auth-hooks.types'
 import type { RegisterPayload, Tenant } from '../types/auth.types'
-
-type RegisterStatus = 'idle' | 'submitting' | 'success' | 'error'
-
-interface UseRegisterResult {
-  status: RegisterStatus
-  tenant: Tenant | null
-  error: string | null
-  register: (payload: RegisterPayload) => Promise<Tenant | null>
-  reset: () => void
-}
 
 export function useRegister(): UseRegisterResult {
   const [status, setStatus] = useState<RegisterStatus>('idle')

@@ -11,35 +11,34 @@ import Typography from '@mui/material/Typography'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { ROUTES } from '../../../router/routes'
-import type { RegisterFormProps } from '../types/auth-form.types'
+import type { LoginFormProps } from '../types/auth-form.types'
 import { PasswordField } from './PasswordField'
 
-export function RegisterForm({
+export function LoginForm({
   form,
   fieldErrors,
   isSubmitting,
-  passwordsMatch,
   requestError,
   showPassword,
   onFieldChange,
   onSubmit,
   onTogglePassword,
-}: RegisterFormProps) {
+}: LoginFormProps) {
   return (
     <>
       <Box sx={{ mb: 3.25 }}>
         <Typography
-          id="register-title"
+          id="login-title"
           component="h1"
           variant="h1"
           sx={{ fontSize: { xs: '2rem', sm: '2.45rem' } }}
         >
-          See every signal.
+          Welcome back.
           <br />
-          Miss nothing.
+          Pick up the pulse.
         </Typography>
         <Typography color="text.secondary" sx={{ mt: 1.5, lineHeight: 1.65 }}>
-          Set up a focused home for your logs in under a minute.
+          Sign in to keep watching your logs in real time.
         </Typography>
       </Box>
 
@@ -78,26 +77,12 @@ export function RegisterForm({
             label="Password"
             value={form.password}
             hasError={Boolean(fieldErrors.password)}
-            helperText={fieldErrors.password ?? 'At least 8 characters'}
+            helperText={fieldErrors.password ?? ''}
             disabled={isSubmitting}
             showPassword={showPassword}
             showVisibilityToggle
             onChange={(value) => onFieldChange('password', value)}
             onToggleVisibility={onTogglePassword}
-          />
-
-          <PasswordField
-            label="Confirm password"
-            value={form.confirmPassword}
-            hasError={Boolean(fieldErrors.confirmPassword)}
-            helperText={
-              fieldErrors.confirmPassword ??
-              (passwordsMatch ? 'Passwords match' : 'Enter the same password again')
-            }
-            color={passwordsMatch ? 'success' : 'primary'}
-            disabled={isSubmitting}
-            showPassword={showPassword}
-            onChange={(value) => onFieldChange('confirmPassword', value)}
           />
 
           <Button
@@ -108,17 +93,17 @@ export function RegisterForm({
             endIcon={isSubmitting ? undefined : <ArrowForwardRounded />}
             sx={{ mt: 0.5 }}
           >
-            {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Create workspace'}
+            {isSubmitting ? <CircularProgress size={24} color="inherit" /> : 'Sign in'}
           </Button>
 
           <Typography sx={{ textAlign: 'center', color: 'text.secondary', fontSize: '0.9rem' }}>
-            Already have a workspace?{' '}
+            New to logPulse?{' '}
             <Typography
               component={RouterLink}
-              to={ROUTES.LOGIN}
+              to={ROUTES.REGISTER}
               sx={{ color: 'primary.main', fontWeight: 600, textDecoration: 'none' }}
             >
-              Sign in
+              Create a workspace
             </Typography>
           </Typography>
         </Stack>

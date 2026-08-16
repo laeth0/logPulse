@@ -2,28 +2,29 @@ import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { ROUTES } from '../../../router/routes'
 import { AuthHeader } from '../components/AuthHeader'
-import { RegisterForm } from '../components/RegisterForm'
+import { LoginForm } from '../components/LoginForm'
 import { SignalStory } from '../components/SignalStory'
-import { SuccessState } from '../components/SuccessState'
-import { INITIAL_REGISTER_FORM } from '../constants/register.constants'
-import { useRegister } from '../hooks/useRegister'
-import { registerSchema } from '../schemas/register.schema'
-import type { RegisterFormData } from '../schemas/register.schema'
-import type { RegisterFieldErrors } from '../types/auth-form.types'
+import { INITIAL_LOGIN_FORM } from '../constants/login.constants'
+import { useLogin } from '../hooks/useLogin'
+import { loginSchema } from '../schemas/login.schema'
+import type { LoginFormData } from '../schemas/login.schema'
+import type { LoginFieldErrors } from '../types/auth-form.types'
 import '../styles/auth.css'
 
-export function RegisterPage() {
-  const [form, setForm] = useState<RegisterFormData>(INITIAL_REGISTER_FORM)
-  const [fieldErrors, setFieldErrors] = useState<RegisterFieldErrors>({})
+export function LoginPage() {
+  const navigate = useNavigate()
+  const [form, setForm] = useState<LoginFormData>(INITIAL_LOGIN_FORM)
+  const [fieldErrors, setFieldErrors] = useState<LoginFieldErrors>({})
   const [showPassword, setShowPassword] = useState(false)
-  const { status, tenant, error, register, reset } = useRegister()
+  const { status, error, login } = useLogin()
 
   const isSubmitting = status === 'submitting'
-  const passwordsMatch = form.confirmPassword.length > 0 && form.password === form.confirmPassword
 
-  const updateField = (field: keyof RegisterFormData, value: string) => {
+  const updateField = (field: keyof LoginFormData, value: string) => {
     setForm((current) => ({ ...current, [field]: value }))
     setFieldErrors((current) => ({ ...current, [field]: undefined }))
   }
@@ -31,25 +32,20 @@ export function RegisterPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const result = registerSchema.safeParse(form)
+    const result = loginSchema.safeParse(form)
     if (!result.success) {
       const flattened = result.error.flatten().fieldErrors
       setFieldErrors({
         email: flattened.email?.[0],
         password: flattened.password?.[0],
-        confirmPassword: flattened.confirmPassword?.[0],
       })
       return
     }
 
-    await register({ email: result.data.email, password: result.data.password })
-  }
-
-  const handleCreateAnother = () => {
-    setForm(INITIAL_REGISTER_FORM)
-    setFieldErrors({})
-    setShowPassword(false)
-    reset()
+    const succeeded = await login(result.data)
+    if (succeeded) {
+      navigate(ROUTES.DASHBOARD, { replace: true })
+    }
   }
 
   return (
@@ -88,7 +84,7 @@ export function RegisterPage() {
           <Paper
             component="section"
             elevation={0}
-            aria-labelledby="register-title"
+            aria-labelledby="login-title"
             sx={{
               gridArea: 'form',
               width: '100%',
@@ -101,25 +97,16 @@ export function RegisterPage() {
               boxShadow: '0 2rem 6rem rgba(0, 0, 0, 0.32)',
             }}
           >
-            {status === 'success' && tenant ? (
-              <SuccessState
-                tenantId={tenant.id}
-                email={tenant.email}
-                onReset={handleCreateAnother}
-              />
-            ) : (
-              <RegisterForm
-                form={form}
-                fieldErrors={fieldErrors}
-                isSubmitting={isSubmitting}
-                passwordsMatch={passwordsMatch}
-                requestError={error}
-                showPassword={showPassword}
-                onFieldChange={updateField}
-                onSubmit={handleSubmit}
-                onTogglePassword={() => setShowPassword((visible) => !visible)}
-              />
-            )}
+            <LoginForm
+              form={form}
+              fieldErrors={fieldErrors}
+              isSubmitting={isSubmitting}
+              requestError={error}
+              showPassword={showPassword}
+              onFieldChange={updateField}
+              onSubmit={handleSubmit}
+              onTogglePassword={() => setShowPassword((visible) => !visible)}
+            />
           </Paper>
 
           <SignalStory />

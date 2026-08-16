@@ -73,8 +73,8 @@
       "first_read": "2026-08-16T07:42:36.293Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useRegister.ts": {
-      "count": 1,
-      "tokens": 371,
+      "count": 2,
+      "tokens": 308,
       "first_read": "2026-08-16T07:42:36.859Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/api/auth.api.ts": {
@@ -88,8 +88,8 @@
       "first_read": "2026-08-16T07:42:37.388Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/types/auth.types.ts": {
-      "count": 1,
-      "tokens": 313,
+      "count": 3,
+      "tokens": 664,
       "first_read": "2026-08-16T07:42:37.937Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/index.ts": {
@@ -108,8 +108,8 @@
       "first_read": "2026-08-16T07:42:43.355Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/index.tsx": {
-      "count": 1,
-      "tokens": 117,
+      "count": 2,
+      "tokens": 261,
       "first_read": "2026-08-16T07:42:46.378Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/router/routes.ts": {
@@ -171,13 +171,23 @@
       "count": 1,
       "tokens": 84,
       "first_read": "2026-08-16T07:44:00.829Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/styles/theme.ts": {
+      "count": 1,
+      "tokens": 461,
+      "first_read": "2026-08-16T07:45:54.135Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/frontend/src/features/auth/hooks/useLogin.ts": {
+      "count": 1,
+      "tokens": 384,
+      "first_read": "2026-08-16T07:52:37.932Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 32,
+  "anatomy_hits": 34,
   "anatomy_misses": 0,
-  "repeated_reads_warned": 0,
+  "repeated_reads_warned": 4,
   "cerebrum_warnings": 0,
-  "stop_count": 0
+  "stop_count": 5
 }

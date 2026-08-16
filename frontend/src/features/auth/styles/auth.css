@@ -1,4 +1,4 @@
-.register-page {
+.auth-page {
   position: relative;
   min-height: 100svh;
   overflow: hidden;
@@ -7,7 +7,7 @@
     radial-gradient(circle at 92% 80%, rgba(255, 122, 102, 0.1), transparent 26rem), #071518;
 }
 
-.register-page::before {
+.auth-page::before {
   position: absolute;
   inset: 0;
   pointer-events: none;

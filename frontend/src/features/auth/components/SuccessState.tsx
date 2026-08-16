@@ -3,8 +3,10 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import { Link as RouterLink } from 'react-router-dom'
 
-import type { SuccessStateProps } from '../types/auth.types'
+import { ROUTES } from '../../../router/routes'
+import type { SuccessStateProps } from '../types/auth-components.types'
 
 export function SuccessState({ tenantId, email, onReset }: SuccessStateProps) {
   return (
@@ -57,9 +59,14 @@ export function SuccessState({ tenantId, email, onReset }: SuccessStateProps) {
           {tenantId}
         </Typography>
       </Box>
-      <Button fullWidth variant="contained" onClick={onReset}>
-        Create another account
-      </Button>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ width: '100%' }}>
+        <Button fullWidth variant="contained" component={RouterLink} to={ROUTES.LOGIN}>
+          Sign in now
+        </Button>
+        <Button fullWidth variant="outlined" onClick={onReset}>
+          Create another account
+        </Button>
+      </Stack>
     </Stack>
   )
 }

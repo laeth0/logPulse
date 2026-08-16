@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T07:09:15.765Z
-> Files: 259 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T07:56:14.697Z
+> Files: 275 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -591,7 +591,7 @@
 - `tsconfig.app.json` (~188 tok)
 - `tsconfig.json` — TypeScript configuration (~34 tok)
 - `tsconfig.node.json` (~160 tok)
-- `vite.config.ts` — Vite build configuration (~113 tok)
+- `vite.config.ts` — Vite build configuration (~170 tok)
 
 ## frontend/src/
 
@@ -601,62 +601,101 @@
 
 ## frontend/src/features/auth/
 
-- `index.ts` (~15 tok)
+- `index.ts` (~28 tok)
 
 ## frontend/src/features/auth/api/
 
-- `auth.api.ts` — Exports register (~106 tok)
+- `auth.api.ts` — The login access token only authorizes tenant/API-key management, never (~426 tok)
 
 ## frontend/src/features/auth/components/
 
-- `AuthHeader.tsx` — AuthHeader (~477 tok)
-- `PasswordField.tsx` — PasswordField (~507 tok)
+- `AuthHeader.tsx` — AuthHeader (~344 tok)
+- `LoginForm.tsx` — LoginForm (~1021 tok)
+  - fn `LoginForm` L17-114 (~814 tok)
+- `PasswordField.tsx` — PasswordField (~510 tok)
   - fn `PasswordField` L10-61 (~382 tok)
-- `RegisterForm.tsx` — RegisterForm (~1157 tok)
-  - fn `RegisterForm` L15-127 (~980 tok)
-- `SignalStory.tsx` — SignalStory (~825 tok)
-  - fn `SignalStory` L9-82 (~736 tok)
-- `SuccessState.tsx` — SuccessState (~563 tok)
-  - fn `SuccessState` L9-66 (~476 tok)
+- `RegisterForm.tsx` — RegisterForm (~1197 tok)
+  - fn `RegisterForm` L17-129 (~989 tok)
+- `SignalStory.tsx` — SignalStory (~438 tok)
+- `SuccessState.tsx` — SuccessState (~663 tok)
+  - fn `SuccessState` L11-73 (~544 tok)
 
 ## frontend/src/features/auth/constants/
 
+- `login.constants.ts` — Exports INITIAL_LOGIN_FORM (~44 tok)
 - `register.constants.ts` — Exports INITIAL_REGISTER_FORM, SIGNAL_BARS (~89 tok)
 
 ## frontend/src/features/auth/hooks/
 
-- `useRegister.ts` — Exports useRegister (~371 tok)
+- `useLogin.ts` — Exports useLogin (~351 tok)
+- `useRegister.ts` — Exports useRegister (~322 tok)
 
 ## frontend/src/features/auth/pages/
 
-- `RegisterPage.css` — Styles: 12 rules, 2 media queries, 2 animations (~695 tok)
+- `LoginPage.tsx` — LoginPage — uses useNavigate, useState (~1058 tok)
+  - fn `LoginPage` L18-118 (~851 tok)
 - `RegisterPage.tsx` — RegisterPage — uses useState (~1222 tok)
-  - fn `RegisterPage` L17-131 (~1017 tok)
+  - fn `RegisterPage` L17-131 (~1016 tok)
 
 ## frontend/src/features/auth/schemas/
 
+- `login.schema.ts` — Zod schemas: loginSchema, authTokensSchema, apiKeySchema, apiKeyListSchema (~182 tok)
 - `register.schema.ts` — Zod schemas: tenantSchema (~164 tok)
+
+## frontend/src/features/auth/styles/
+
+- `auth.css` — Styles: 11 rules, 2 media queries, 2 animations (~631 tok)
 
 ## frontend/src/features/auth/types/
 
-- `auth.types.ts` — Exports RegisterPayload, Tenant, RegisterFieldErrors, RegisterFormProps + 2 more (~313 tok)
+- `auth-components.types.ts` — Exports SuccessStateProps, PasswordFieldProps (~118 tok)
+- `auth-form.types.ts` — Exports RegisterFieldErrors, LoginFieldErrors, RegisterFormProps, LoginFormProps (~287 tok)
+- `auth-hooks.types.ts` — Exports RegisterStatus, UseRegisterResult, LoginStatus, UseLoginResult (~158 tok)
+- `auth.types.ts` — Exports RegisterPayload, LoginPayload, Tenant, AuthTokens, ApiKey (~123 tok)
+
+## frontend/src/features/dashboard/
+
+- `index.ts` (~16 tok)
+
+## frontend/src/features/dashboard/constants/
+
+- `dashboard.constants.ts` — Exports MASK_VISIBLE_PREFIX, MASK_VISIBLE_SUFFIX (~22 tok)
+
+## frontend/src/features/dashboard/pages/
+
+- `DashboardPage.tsx` — DashboardPage — uses useNavigate, useState (~1280 tok)
+  - fn `DashboardPage` L19-122 (~1041 tok)
+
+## frontend/src/features/dashboard/utils/
+
+- `api-key.utils.ts` — Exports maskApiKey (~102 tok)
 
 ## frontend/src/router/
 
-- `index.tsx` — router (~117 tok)
-- `routes.ts` — Exports ROUTES (~18 tok)
+- `index.tsx` — router (~213 tok)
+- `ProtectedRoute.tsx` — ProtectedRoute (~85 tok)
+- `RootRedirect.tsx` — RootRedirect (~83 tok)
+- `routes.ts` — Exports ROUTES (~31 tok)
 
 ## frontend/src/shared/api/
 
-- `http.ts` — Exports http, getApiErrorMessage (~253 tok)
+- `http.ts` — Exports http, getApiErrorMessage (~254 tok)
 
 ## frontend/src/shared/constants/
 
 - `api.constants.ts` — Exports DEFAULT_API_BASE_URL (~18 tok)
 
+## frontend/src/shared/hooks/
+
+- `useAuth.ts` — Exports useAuth (~133 tok)
+
 ## frontend/src/shared/types/
 
 - `api.types.ts` — Exports ApiErrorResponse (~16 tok)
+
+## frontend/src/store/
+
+- `auth.store.ts` — Exports AuthSession, getAuthSession, setAuthSession, clearAuthSession, subscribeAuthSession (~301 tok)
 
 ## frontend/src/styles/
 
