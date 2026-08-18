@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 1894784,
-    "total_reads": 2872,
+    "total_tokens_estimated": 1908532,
+    "total_reads": 2883,
     "total_writes": 0,
-    "total_sessions": 41,
-    "anatomy_hits": 2087,
-    "anatomy_misses": 735,
-    "repeated_reads_blocked": 1231,
-    "estimated_savings_vs_bare_cli": 1821415,
-    "real_input_tokens": 735218,
-    "real_output_tokens": 67814375,
-    "real_cache_read_tokens": 29916845348,
-    "real_cache_creation_tokens": 324845489,
-    "real_api_calls": 63391
+    "total_sessions": 44,
+    "anatomy_hits": 2093,
+    "anatomy_misses": 740,
+    "repeated_reads_blocked": 1233,
+    "estimated_savings_vs_bare_cli": 1825808,
+    "real_input_tokens": 735554,
+    "real_output_tokens": 67924009,
+    "real_cache_read_tokens": 29952517777,
+    "real_cache_creation_tokens": 325405597,
+    "real_api_calls": 63559
   },
   "sessions": [
     {
@@ -19383,6 +19383,96 @@
         "cache_read_input_tokens": 22516842,
         "cache_creation_input_tokens": 268113,
         "api_calls": 123
+      }
+    },
+    {
+      "id": "session-2026-08-18-1402",
+      "agent": "claude",
+      "started": "2026-08-18T11:02:57.531Z",
+      "ended": "2026-08-18T11:11:18.521Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/app.module.ts",
+          "tokens_estimated": 479,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/logs.module.ts",
+          "tokens_estimated": 339,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts",
+          "tokens_estimated": 2714,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.test",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.test.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/README.md",
+          "tokens_estimated": 9032,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/config/database.config.ts",
+          "tokens_estimated": 350,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml",
+          "tokens_estimated": 834,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "C:/Users/LaethNueirat/.claude/projects/c--Users-LaethNueirat-Desktop-logPulse/memory/MEMORY.md",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 13748,
+        "output_tokens_estimated": 0,
+        "reads_count": 11,
+        "writes_count": 0,
+        "repeated_reads_blocked": 2,
+        "anatomy_lookups": 6
+      },
+      "real_usage": {
+        "input_tokens": 336,
+        "output_tokens": 109634,
+        "cache_read_input_tokens": 35672429,
+        "cache_creation_input_tokens": 560108,
+        "api_calls": 168
       }
     }
   ],

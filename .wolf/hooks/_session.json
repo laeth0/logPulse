@@ -1,68 +1,12 @@
 {
-  "session_id": "session-2026-08-18-1250",
-  "started": "2026-08-18T09:50:42.763Z",
-  "files_read": {
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/exceptions/backpressure.exception.ts": {
-      "count": 1,
-      "tokens": 203,
-      "first_read": "2026-08-18T09:54:01.437Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/.specify/feature.json": {
-      "count": 1,
-      "tokens": 18,
-      "first_read": "2026-08-18T09:54:05.074Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/README.md": {
-      "count": 3,
-      "tokens": 9287,
-      "first_read": "2026-08-18T09:54:18.391Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.oversized-413.rest": {
-      "count": 1,
-      "tokens": 491,
-      "first_read": "2026-08-18T09:55:31.229Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.backpressure-503.rest": {
-      "count": 1,
-      "tokens": 376,
-      "first_read": "2026-08-18T09:55:31.299Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts": {
-      "count": 11,
-      "tokens": 3694,
-      "first_read": "2026-08-18T09:57:24.792Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/services/log-ingestion.service.ts": {
-      "count": 1,
-      "tokens": 595,
-      "first_read": "2026-08-18T09:58:32.299Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/package.json": {
-      "count": 2,
-      "tokens": 1116,
-      "first_read": "2026-08-18T09:59:10.390Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/log-api.constants.ts": {
-      "count": 1,
-      "tokens": 246,
-      "first_read": "2026-08-18T10:19:19.118Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml": {
-      "count": 1,
-      "tokens": 872,
-      "first_read": "2026-08-18T10:21:08.841Z"
-    },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.example": {
-      "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-18T10:21:17.339Z"
-    }
-  },
+  "session_id": "session-2026-08-18-1422",
+  "started": "2026-08-18T11:22:23.709Z",
+  "files_read": {},
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 10,
-  "anatomy_misses": 1,
-  "repeated_reads_warned": 13,
+  "anatomy_hits": 0,
+  "anatomy_misses": 0,
+  "repeated_reads_warned": 0,
   "cerebrum_warnings": 0,
-  "stop_count": 2
+  "stop_count": 0
 }

@@ -1,15 +1,16 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T10:22:30.271Z
-> Files: 299 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T11:10:35.770Z
+> Files: 300 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitignore` — Git ignore rules (~165 tok)
+- `.load-generator.compose.override.yml` — Docker Compose: 0 services (~57 tok)
 - `AGENTS.md` — OpenWolf (~763 tok)
 - `CLAUDE.md` — OpenWolf (~763 tok)
-- `docker-compose.yml` — Docker Compose services (~834 tok)
-- `README.md` — Project documentation (~9032 tok)
+- `docker-compose.yml` — Docker Compose services (~820 tok)
+- `README.md` — Project documentation (~8987 tok)
 
 ## .agents/skills/speckit-agent-context-update/
 
@@ -219,7 +220,7 @@
 ## backend/src/
 
 - `app.controller.ts` — Exports AppController (~79 tok)
-- `app.module.ts` — Exports AppModule (~479 tok)
+- `app.module.ts` — Exports AppModule (~388 tok)
 - `app.service.ts` — Exports AppService (~41 tok)
 - `main.ts` — Declares bootstrap (~507 tok)
   - fn `bootstrap` L10-55 (~390 tok)
@@ -252,7 +253,7 @@
 ## backend/src/config/
 
 - `data-source.ts` — Exports AppDataSource (~104 tok)
-- `database.config.ts` — Exports createDatabaseOptions, createReadDatabaseOptions (~350 tok)
+- `database.config.ts` — Exports createDatabaseOptions (~240 tok)
 
 ## backend/src/health/
 
@@ -265,7 +266,7 @@
 
 - `logs.controller.ts` — Exports LogsController (~1130 tok)
   - class `LogsController` L37-100 (~768 tok)
-- `logs.module.ts` — Exports LogsModule (~339 tok)
+- `logs.module.ts` — Exports LogsModule (~337 tok)
 
 ## backend/src/logs/cursor/
 
@@ -322,9 +323,9 @@
 
 ## backend/src/logs/repositories/
 
-- `log.repository.ts` — One (bucket, tenant_id, service, level) group's row-count delta from one insertMany() call. (~2714 tok)
+- `log.repository.ts` — One (bucket, tenant_id, service, level) group's row-count delta from one insertMany() call. (~2667 tok)
   - section `RollupDelta` L35-43 (~38 tok)
-  - class `LogRepository` L44-289 (~2342 tok)
+  - class `LogRepository` L44-287 (~2295 tok)
 
 ## backend/src/logs/services/
 

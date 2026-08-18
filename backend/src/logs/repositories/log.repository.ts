@@ -43,15 +43,13 @@ interface RollupDelta {
 @Injectable()
 export class LogRepository implements LogRepositoryContract {
   constructor(
-    // Default connection: used only for the ingestion path below, so
-    // ingestion and reads never contend for the same connection pool.
+    // Single connection, shared by the ingestion path below and by
+    // findPage()/aggregate() — see src/config/database.config.ts.
     @InjectDataSource()
     private readonly dataSource: DataSource,
-    // Dedicated read-pool connection for findPage()/aggregate() — see
-    // createReadDatabaseOptions() in src/config/database.config.ts.
-    @InjectRepository(Log, 'read')
+    @InjectRepository(Log)
     private readonly readRepository: Repository<Log>,
-    @InjectRepository(LogRollup, 'read')
+    @InjectRepository(LogRollup)
     private readonly rollupReadRepository: Repository<LogRollup>,
   ) {}
 

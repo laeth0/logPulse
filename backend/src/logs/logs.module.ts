@@ -14,7 +14,7 @@ import { LogQueryValidator } from '@/logs/validators/log-query.validator';
 import { TenancyModule } from '@/tenancy/tenancy.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Log, LogRollup], 'read'), TenancyModule],
+  imports: [TypeOrmModule.forFeature([Log, LogRollup]), TenancyModule],
   controllers: [LogsController],
   providers: [
     CursorService,

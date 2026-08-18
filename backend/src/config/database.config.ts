@@ -1,6 +1,5 @@
 import * as path from 'node:path';
 
-import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import type { DataSourceOptions } from 'typeorm';
 
 export function createDatabaseOptions(
@@ -21,22 +20,8 @@ export function createDatabaseOptions(
     ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     logging: false,
     extra: {
-      application_name: 'logpulse-write',
+      application_name: 'logpulse',
       max: Number(process.env.DB_WRITE_POOL_MAX ?? 20),
-    },
-  };
-}
-
-export function createReadDatabaseOptions(
-  baseDirectory: string,
-): TypeOrmModuleOptions {
-  return {
-    ...createDatabaseOptions(baseDirectory),
-    name: 'read',
-    migrationsRun: false,
-    extra: {
-      application_name: 'logpulse-read',
-      max: Number(process.env.DB_READ_POOL_MAX ?? 5),
     },
   };
 }

@@ -77,8 +77,7 @@ All variables have defaults — none are required. `docker-compose.yml` supplies
 | `DB_PASS` | `postgres` | PostgreSQL password |
 | `DB_NAME` | `log_pulse` | PostgreSQL database name |
 | `DB_SSL` | `false` | Enable TLS to PostgreSQL |
-| `DB_READ_POOL_MAX` | `5` | Max connections in the dedicated pool for `GET /logs`/`GET /logs/aggregate`, kept separate so reads never queue behind `POST /logs` ingestion |
-| `DB_WRITE_POOL_MAX` | `20` | Max connections in the default pool used for ingestion, migrations, and retention maintenance |
+| `DB_WRITE_POOL_MAX` | `20` | Max connections in the single connection pool, shared by ingestion, migrations, retention maintenance, and `GET /logs`/`GET /logs/aggregate` reads |
 | `AUTH_ENABLED` | `false` | Master switch for authentication and multi-tenancy — see [Optional features](#optional-features) |
 | `LOADGEN_API_KEY` | *(unset)* | API key idempotently seeded at startup, scoped to one tenant, when `AUTH_ENABLED=true` |
 | `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for the load-generator tenant account (same account that owns `LOADGEN_API_KEY`) — lets you log in as it via `POST /tenants/login` to inspect/manage its seeded key by hand |
@@ -371,7 +370,7 @@ The Docker build itself was also a hidden risk: the original multi-stage `Docker
 - **Production-only Docker install instead of prune.** The final image stage now runs a fresh `npm ci --omit=dev` directly from the lockfile instead of installing everything and pruning it back down. A clean rebuild went from 170+ seconds (that one step alone) to **~30 seconds total**.
 - **Partitioned retention** (see above) keeps both index size and per-query working set bounded as the dataset grows toward and past 1M rows, rather than degrading linearly with total table size.
 - **Aggregation rollups.** `log_rollups` pre-aggregates `logs` at minute granularity, updated atomically alongside every `COPY` (same transaction, same connection) so it can never drift out of sync after a crash. `GET /logs/aggregate` reads it for the bulk of an unfiltered range instead of scanning raw rows, falling back to a raw scan only for partial-minute edges and any `q=`/`attr.<key>=`-filtered request. See [Rollup table](#rollup-table).
-- **Explicit write-pool sizing** (`DB_WRITE_POOL_MAX`) — the default/write connection pool no longer silently falls back to node-postgres's built-in size, mirroring the read pool's existing explicit `DB_READ_POOL_MAX`.
+- **Explicit connection-pool sizing** (`DB_WRITE_POOL_MAX`) — the single connection pool no longer silently falls back to node-postgres's built-in default size.
 - **`attributes_text` mirror column removed** in favor of a type-branched containment predicate evaluated at query time (see [Attribute storage strategy](#attribute-storage-strategy)) — one fewer JSONB column and one fewer GIN index maintained on every ingested row.
 
 ## Known limitations
