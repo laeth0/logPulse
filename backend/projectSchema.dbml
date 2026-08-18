@@ -18,7 +18,7 @@ Table logs {
   service text [not null]
   message text [not null]
   attributes jsonb [not null, default: '{}']
-  ingested_at timestamptz [not null, default: `CURRENT_TIMESTAMP`]
+
 
   indexes {
     (timestamp, id) [pk]

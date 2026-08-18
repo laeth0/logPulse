@@ -23,8 +23,6 @@ export class CreateLogsTable1785684350114 implements MigrationInterface {
         "service"         TEXT                 NOT NULL,
         "message"         TEXT                 NOT NULL,
         "attributes"      JSONB                NOT NULL DEFAULT '{}'::jsonb,
-        "ingested_at"     TIMESTAMPTZ          NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
         CONSTRAINT "pk_logs"
           PRIMARY KEY ("timestamp", "id"),
 

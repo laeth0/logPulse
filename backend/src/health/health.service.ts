@@ -8,15 +8,6 @@ import type {
   MigrationStatus,
 } from '@/health/health.types';
 
-/**
- * Performs deep health checks against each infrastructure dependency.
- *
- * The load generator polls GET /health before starting any load test.
- * Per the spec the endpoint must only return 200 once:
- *  1. The database connection has been established.
- *  2. Migrations have been applied.
- *  3. The service is ready to accept logs.
- */
 @Injectable()
 export class HealthService {
   private readonly logger = new Logger(HealthService.name);
@@ -43,8 +34,6 @@ export class HealthService {
     };
   }
 
-  // ── Private helpers ────────────────────────────────────────────────────────
-
   private async checkDatabase(): Promise<DatabaseStatus> {
     if (!this.dataSource.isInitialized) {
       return 'disconnected';
@@ -58,13 +47,6 @@ export class HealthService {
     }
   }
 
-  /**
-   * Uses dataSource.showMigrations() so we never hardcode the migrations table
-   * name (TypeORM default is "migrations", not "typeorm_migrations") and never
-   * compare migration names with unsafe casts.
-   *
-   * showMigrations() returns true when pending migrations exist.
-   */
   private async checkMigrations(): Promise<MigrationStatus> {
     if (this.dataSource.migrations.length === 0) {
       return 'unknown';

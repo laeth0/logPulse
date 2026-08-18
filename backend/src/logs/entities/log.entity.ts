@@ -1,7 +1,6 @@
 import {
   Check,
   Column,
-  CreateDateColumn,
   Entity,
   Index,
   PrimaryColumn,
@@ -39,10 +38,6 @@ export class Log {
   })
   id: string;
 
-  // No FK to tenants.id — see specs/001-multi-tenancy/research.md Decision 6:
-  // tenant existence is guaranteed by construction (resolved credential or
-  // DEFAULT_TENANT_ID), and an FK check would tax the hot COPY ingestion path
-  // for no correctness benefit.
   @Column({ type: 'uuid' })
   tenant_id: string;
 
@@ -61,10 +56,4 @@ export class Log {
 
   @Column({ type: 'jsonb', default: {} })
   attributes: Record<string, LogAttributeValue>;
-
-  @CreateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  ingested_at: Date;
 }
