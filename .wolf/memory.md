@@ -193,3 +193,9 @@
 |------|--------|---------|---------|--------|
 | 19:35 | Diagnosed local load-test CLI 401s on all 10 correctness checks — root cause was the gitignored root `.env` (AUTH_ENABLED=true) being auto-loaded by plain `docker compose up`, not a backend bug (bug-038) | .env→.env.local, .gitignore, .wolf/STATUS.md, .wolf/buglog.json | Renamed override to `.env.local` (opt-in via `--env-file`); plain `docker compose up` now always gets AUTH_ENABLED=false | ~2k |
 | 19:42 | User requested removing the local auth-override file entirely (not needed) and its `.gitignore` entries | .env.local (deleted), .gitignore, .wolf/STATUS.md, .wolf/cerebrum.md | `.env.local` deleted; `.gitignore` lines 50-57 removed; `docker compose up` runs with committed `AUTH_ENABLED=false` default only | ~1k |
+
+## Session: 2026-08-18 12:50
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 13:03 | Removed the entire optional backpressure/admission-control feature at the user's explicit request, using `docs/Final_Project.md` as source of truth | Deleted: `src/logs/config/backpressure.config.ts`, `src/logs/errors/ingestion-capacity.errors.ts`, `src/logs/exceptions/backpressure.exception.ts`, `requests/logs/logs.ingest.{oversized-413,backpressure-503}.rest`, `specs/003-ingestion-backpressure/`. Edited: `log.repository.ts`, `log-ingestion.service.ts`, `log-api.constants.ts`, `docker-compose.yml`, `.env.example`, `package.json`/`package-lock.json` (dropped `bytes`/`@types/bytes`), `README.md`, both integration spec files, `.specify/feature.json` | `npm run build` passes (exit 0); repo-wide grep for "backpressure" confirms zero remaining references outside historical `.wolf/` logs and docs/Final_Project.md's generic stretch-goal mention; `openwolf scan` re-indexed 300 files | ~40k |

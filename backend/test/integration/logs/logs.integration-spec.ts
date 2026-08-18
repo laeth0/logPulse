@@ -18,13 +18,10 @@ describe('Logs API', () => {
   let dataSource: DataSource;
   let httpServer: App;
   let originalAuthEnabled: string | undefined;
-  let originalBackpressureEnabled: string | undefined;
 
   beforeAll(async () => {
     originalAuthEnabled = process.env.AUTH_ENABLED;
-    originalBackpressureEnabled = process.env.BACKPRESSURE_ENABLED;
     process.env.AUTH_ENABLED = 'false';
-    process.env.BACKPRESSURE_ENABLED = 'false';
 
     app = await createIntegrationApp();
     dataSource = app.get<DataSource>(getDataSourceToken());
@@ -41,10 +38,6 @@ describe('Logs API', () => {
     }
 
     restoreEnvironmentVariable('AUTH_ENABLED', originalAuthEnabled);
-    restoreEnvironmentVariable(
-      'BACKPRESSURE_ENABLED',
-      originalBackpressureEnabled,
-    );
   });
 
   it('accepts valid entries from a mixed batch and never persists rejected entries', async () => {

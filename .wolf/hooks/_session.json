@@ -1,28 +1,53 @@
 {
-  "session_id": "session-2026-08-17-1924",
-  "started": "2026-08-17T16:24:34.583Z",
+  "session_id": "session-2026-08-18-1250",
+  "started": "2026-08-18T09:50:42.763Z",
   "files_read": {
-    "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml": {
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/exceptions/backpressure.exception.ts": {
       "count": 1,
-      "tokens": 956,
-      "first_read": "2026-08-17T16:41:12.055Z"
+      "tokens": 203,
+      "first_read": "2026-08-18T09:54:01.437Z"
     },
-    "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env": {
+    "c:/Users/LaethNueirat/Desktop/logPulse/.specify/feature.json": {
       "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-17T16:42:07.775Z"
+      "tokens": 18,
+      "first_read": "2026-08-18T09:54:05.074Z"
     },
-    "c:/Users/LaethNueirat/Desktop/logPulse/.env.local": {
+    "c:/Users/LaethNueirat/Desktop/logPulse/README.md": {
+      "count": 2,
+      "tokens": 10060,
+      "first_read": "2026-08-18T09:54:18.391Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.oversized-413.rest": {
       "count": 1,
-      "tokens": 0,
-      "first_read": "2026-08-17T16:43:11.434Z"
+      "tokens": 491,
+      "first_read": "2026-08-18T09:55:31.229Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.backpressure-503.rest": {
+      "count": 1,
+      "tokens": 376,
+      "first_read": "2026-08-18T09:55:31.299Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts": {
+      "count": 5,
+      "tokens": 3694,
+      "first_read": "2026-08-18T09:57:24.792Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/services/log-ingestion.service.ts": {
+      "count": 1,
+      "tokens": 595,
+      "first_read": "2026-08-18T09:58:32.299Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/package.json": {
+      "count": 2,
+      "tokens": 1116,
+      "first_read": "2026-08-18T09:59:10.390Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 1,
-  "anatomy_misses": 2,
-  "repeated_reads_warned": 0,
+  "anatomy_hits": 8,
+  "anatomy_misses": 0,
+  "repeated_reads_warned": 6,
   "cerebrum_warnings": 0,
-  "stop_count": 2
+  "stop_count": 1
 }

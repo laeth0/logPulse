@@ -2,7 +2,7 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-17
+> Last updated: 2026-08-18
 
 ---
 
@@ -48,6 +48,7 @@
 - `003-ingestion-backpressure`: **spec → clarify → plan → tasks → analyze/review → remediation complete.** Spec has 18 FRs/8 SCs/3 user stories; clarified capacity signal (admitted-but-not-completed rows *and* estimated bytes, tracked globally, no CPU/event-loop/DB-utilization signals), validation-accepted-only counting, and the 413-vs-503 split. `tasks.md` (27 tasks, T001-T027) has domain-error throwing in `LogRepository` (HTTP-agnostic), translated to HTTP exceptions in `LogIngestionService`, config centralized via `createBackpressureConfig()`. Two review passes (`/speckit-analyze` + a fresh code-level re-read) found 8 real issues, all now resolved in the planning docs (no production code exists yet to fix): byte estimation switched from `JSON.stringify`/`Buffer.byteLength` to a cheap field-length sum (was real avoidable CPU cost on the 0.5-CPU ingestion path); `GlobalExceptionFilter`'s `Retry-After` check scoped to `instanceof HttpException` only (was an unconditional duck-type that could've fired on the domain error by accident); `plan.md`/`research.md`/`data-model.md` now consistently describe the domain-error→service→HTTP-exception layering (previously only `tasks.md` had it right); `T024` no longer depends on the optional `T023`; `T012`'s spurious dependency on `T011` removed (both now `[P]`); added a two-tenant global-capacity check to `quickstart.md`/`T017` (FR-008 had zero test coverage before); `T026` now measures capacity-counter headroom under load, not just throughput; `quickstart.md`'s recovery check now measures actual elapsed time (SC-005). Full docs: `specs/003-ingestion-backpressure/{spec,plan,research,data-model,quickstart,tasks}.md` + `contracts/post-logs-backpressure.md`.
 
 - **Restored real `COPY FROM STDIN` ingestion (bug-037).** `README.md`/entity comments already claimed `LogRepository.insertLogsIn()` streamed batches via PostgreSQL `COPY ... FROM STDIN` (CSV, `pg-copy-streams`), but the actual code called `manager.getRepository(Log).insert()` — a plain multi-row `INSERT` — and `pg-copy-streams` wasn't even installed. Added `pg-copy-streams`/`@types/pg-copy-streams` and rewrote `insertLogsIn()` to run `COPY logs (timestamp, tenant_id, level, service, message, attributes) FROM STDIN WITH (FORMAT csv)` through the raw `pg` client obtained via `manager.queryRunner!.connect()` — the same already-open connection/transaction `flushBatch()` uses for the atomic rollup upsert, so a rollback still undoes both. New private `buildLogsCsv()`/`escapeCsvField()` helpers do RFC 4180 CSV escaping. `npm run build` passes; live-verified against a rebuilt Docker stack — commas/quotes/newlines/unicode in `service`/`message`/`attributes` round-trip exactly, a 500-row batch lands with correct per-service grouping, no app-log errors. No schema change (no `projectSchema.dbml` edit needed) and no new endpoint (no new `.rest` file needed) — this only changes how an existing endpoint's already-documented behavior is implemented.
+- **Removed the entire optional backpressure/admission-control feature (`003-ingestion-backpressure`)** at the user's explicit request, using `docs/Final_Project.md` as the source of truth. Deleted `src/logs/config/backpressure.config.ts`, `src/logs/errors/ingestion-capacity.errors.ts`, `src/logs/exceptions/backpressure.exception.ts`, the two `requests/logs/logs.ingest.*-{413,503}.rest` examples, and the whole `specs/003-ingestion-backpressure/` planning directory (`.specify/feature.json` repointed to `002-performance-optimization`). Stripped the now-dead admission-control fields/methods (`backpressureConfig`, `pendingRowCount`/`pendingByteCount`, `PendingInsert.byteSize`, `estimateByteSize()`, `checkAdmission()`, `releaseCapacity()`) out of `log.repository.ts` while leaving the separate, unrelated write-coalescing queue untouched. Simplified `log-ingestion.service.ts`'s `ingest()` back to a direct `await insertMany()` with no try/catch translation layer (`global-exception.filter.ts`'s `Retry-After` pass-through is generic and needed no change). Removed the 3 `DEFAULT_BACKPRESSURE_*` constants and `ESTIMATED_BYTES_OVERHEAD_PER_LOG_ENTRY` from `log-api.constants.ts`; dropped the 4 `BACKPRESSURE_*` env vars from `docker-compose.yml`/`.env.example`/README's Configuration table, and removed README's whole `### Backpressure` Optional-features subsection. Removed the now-unused `bytes`/`@types/bytes` dependencies (`npm install` resynced `package-lock.json`). Removed the dead `originalBackpressureEnabled` env-restore plumbing from both integration spec files. `npm run build` passes cleanly (exit 0); `openwolf scan` re-indexed 300 files (down from 312).
 
 ---
 
@@ -55,33 +56,7 @@
 
 **Integration-testing continuation:** `AppController`, `src/health`, `src/logs`, and `src/tenancy` are complete. Continue one business capability at a time only when requested; the next module has not yet been selected. Keep the dedicated `log_pulse_testing` database and the small, contract-focused scenario style.
 
-**Goal:** `003-ingestion-backpressure` is done except **T027, the mandatory external-portal gate — this requires the user** (push + submit to the load-testing portal, same as `002`'s T037 precedent). Everything else (T001-T026) is complete and live-validated:
-- All 3 user stories (survive overload / actionable 503+413 signal with `Retry-After` and empirically-confirmed two-tenant global capacity / zero-config regression + zero-cost-when-disabled + auth-before-capacity) verified against real `docker compose` runs — see `tasks.md`'s inline notes on T013/T017/T018-T020 for exact evidence.
-- README documents the feature (`## Optional features` → `### Backpressure`, `## Configuration` table); 2 new `.rest` examples under `requests/logs/`.
-- `npm run build`/`format`/`lint` all clean — lint caught and fixed a real unused-import bug (bug-007, `DEFAULT_BACKPRESSURE_ENABLED`).
-- T026's local diagnostic (peak `pendingRowCount=7000/20000`, `pendingByteCount≈1.26MB/25MB` during a 10,000-entry burst) gives real headroom evidence, honestly caveated: it is **not** a re-measurement of `002`'s ~20k logs/sec baseline, since that methodology's external load-generation tool isn't available in this sandbox.
-
-**Next**: hand off to the user for T027 — push this branch and submit to the load-testing portal (both `BACKPRESSURE_ENABLED=false` default and `=true` at generous defaults), confirm no regression vs. the `002` baseline and that the ≥15k logs/sec target still clears with backpressure enabled-but-under-threshold, **never counting `503`/`413` responses as throughput**. Once T027 passes, this feature is fully done — mark it `[X]` in `tasks.md`.
-
-### Acceptance criteria
-1. Implement `tasks.md` phase by phase (Setup → Foundational → US1 → US2 → US3 → Polish), checking off `[X]` as each completes.
-2. Touches only: `.env.example`, `docker-compose.yml`, `log-api.constants.ts`, `package.json` (promote `bytes`), new `src/logs/config/backpressure.config.ts`, new `src/logs/errors/ingestion-capacity.errors.ts`, `log.repository.ts`, `log-ingestion.service.ts` (translation try/catch — a deliberate refinement over plan.md, see tasks.md's "Layering refinement" note), new `src/logs/exceptions/backpressure.exception.ts`, `global-exception.filter.ts`, `README.md`. Nothing in `logs.controller.ts`, validators, retention, or tenancy should need to change.
-3. No `.test.`/`.spec.` files — verification is `quickstart.md`'s manual scenarios (deterministic via tiny configured thresholds, not real load) plus, per this project's established gate, eventual external-portal confirmation (T027) that both the disabled default AND `BACKPRESSURE_ENABLED=true` at generous thresholds show no throughput regression (SC-007) — **never count `503`/`413` responses as throughput** when reading portal results.
-4. `002-performance-optimization`'s T037 is still outstanding and independent of this feature — mention it to the user if a natural opportunity arises, but it's not blocking `003`'s work.
-
-### Files to create / edit
-| Type | File | Content |
-|---|---|---|
-| CHANGED | `.env.example`, `docker-compose.yml` | 4 new optional env vars, safe defaults |
-| CHANGED | `src/common/constants/log-api.constants.ts` | 4 new `DEFAULT_BACKPRESSURE_*` constants |
-| CHANGED | `package.json` | `bytes` → direct dependency |
-| NEW | `src/logs/config/backpressure.config.ts` | centralized, validated config factory |
-| NEW | `src/logs/errors/ingestion-capacity.errors.ts` | HTTP-agnostic domain errors |
-| CHANGED | `src/logs/repositories/log.repository.ts` | 2 counters, `estimateByteSize()`, `checkAdmission()`, wired into `insertMany()`/`flushBatch()` |
-| CHANGED | `src/logs/services/log-ingestion.service.ts` | try/catch translating domain errors → HTTP exceptions |
-| NEW | `src/logs/exceptions/backpressure.exception.ts` | `BackpressureException extends ServiceUnavailableException` |
-| CHANGED | `src/common/filters/global-exception.filter.ts` | generic duck-typed `Retry-After` header pass-through |
-| CHANGED | `README.md` | Optional features + Configuration sections |
+No other quest is currently queued. `003-ingestion-backpressure` was fully removed (see ✅ Done above) rather than completed — there is no pending T027 external-portal gate for it anymore, and the feature no longer exists in code, config, README, or specs. `002-performance-optimization`'s T037 (mandatory external benchmark gate) is still outstanding and independent of this — mention it to the user if a natural opportunity arises.
 
 ### Closed decisions
 - OpenWolf supports only Claude and Codex because those are the user's active agents.
@@ -89,11 +64,7 @@
 - Rollup-first aggregation merges rollup + raw-scan-edge result sets in application code (JS `Map` keyed by `(bucket,group)`), not a SQL `UNION ALL` — the installed TypeORM version's `SelectQueryBuilder` has no union support, and the app-level merge is simple enough to audit directly.
 - Attribute-equality predicate emits the numeric/boolean OR-branch SQL text only when the filter value actually parses as that type — always including the branch and gating it with a boolean flag would still error at bind time, since `::numeric`/`::boolean` casts apply to the parameter value itself regardless of surrounding AND/OR logic.
 - `queryRunner.query()` has no generic overload (returns `Promise<any>`); use `this.dataSource.query<T>(sql, params, queryRunner)` instead when a typed result is needed within an existing queryRunner's connection/transaction — already the established pattern in `partition.service.ts`.
-- `003-ingestion-backpressure`'s admission control lives entirely as private state/methods on the existing `LogRepository`, not a new `AdmissionControlService` — user's explicit instruction, and the check-then-push sequence needs no lock/mutex since it runs synchronously with no `await` on Node's single thread (same property the existing coalescing code already relies on).
-- A batch that can never fit under the configured capacity gets `413` (non-retryable), not `503` — decided by inspecting this project's own existing `JSON_BODY_LIMIT`/`GlobalExceptionFilter` precedent for exactly this distinction, per explicit instruction to check existing conventions before choosing.
-
-### Open decisions
-- Exact production-tuned values for `BACKPRESSURE_MAX_PENDING_ROWS`/`_BYTES` are starting defaults (20,000 rows / 25 MB) pending external-portal measurement, same as every other tunable in this project (coalescing window/row-cap, write-pool size).
+- Backpressure/admission control was deliberately removed rather than kept disabled-but-present — the user wanted it and its whole surface area (config, domain errors, HTTP exception, env vars, README section, `.rest` examples, spec-kit planning docs) gone, not merely defaulted off. If a similar shed-load feature is ever requested again, treat it as a fresh design, not a resurrection of `specs/003-ingestion-backpressure/` (deleted; recoverable from git history only).
 
 ---
 

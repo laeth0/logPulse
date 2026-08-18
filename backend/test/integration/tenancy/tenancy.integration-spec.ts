@@ -32,13 +32,10 @@ describe('Tenancy API', () => {
   let dataSource: DataSource;
   let httpServer: App;
   let originalAuthEnabled: string | undefined;
-  let originalBackpressureEnabled: string | undefined;
 
   beforeAll(async () => {
     originalAuthEnabled = process.env.AUTH_ENABLED;
-    originalBackpressureEnabled = process.env.BACKPRESSURE_ENABLED;
     process.env.AUTH_ENABLED = 'true';
-    process.env.BACKPRESSURE_ENABLED = 'false';
 
     app = await createIntegrationApp();
     dataSource = app.get<DataSource>(getDataSourceToken());
@@ -58,10 +55,6 @@ describe('Tenancy API', () => {
     }
 
     restoreEnvironmentVariable('AUTH_ENABLED', originalAuthEnabled);
-    restoreEnvironmentVariable(
-      'BACKPRESSURE_ENABLED',
-      originalBackpressureEnabled,
-    );
   });
 
   it('supports account registration and login while rotating refresh tokens exactly once', async () => {

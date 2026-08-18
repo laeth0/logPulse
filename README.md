@@ -81,10 +81,6 @@ All variables have defaults — none are required. `docker-compose.yml` supplies
 | `DB_WRITE_POOL_MAX` | `20` | Max connections in the default pool used for ingestion, migrations, and retention maintenance |
 | `INGEST_COALESCE_WINDOW_MS` | `5` | Debounce window that merges concurrent `POST /logs` writes into fewer, larger `COPY` calls (see [Optimizations applied](#optimizations-applied)) |
 | `INGEST_COALESCE_MAX_ROWS` | `2000` | Row cap per coalesced flush — a single caller's own batch is never split across two flushes even if it alone exceeds this |
-| `BACKPRESSURE_ENABLED` | `false` | Master switch for optional admission control on `POST /logs` — see [Optional features](#optional-features) |
-| `BACKPRESSURE_MAX_PENDING_ROWS` | `20000` | Max total admitted-but-not-completed log entries (queued + in-flight) before excess batches are shed |
-| `BACKPRESSURE_MAX_PENDING_BYTES` | `25mb` | Max total admitted-but-not-completed estimated byte size before excess batches are shed — enforced independently of the row limit |
-| `BACKPRESSURE_RETRY_AFTER_SECONDS` | `1` | Fixed value sent in the `Retry-After` header on a `503` |
 | `AUTH_ENABLED` | `false` | Master switch for authentication and multi-tenancy — see [Optional features](#optional-features) |
 | `LOADGEN_API_KEY` | *(unset)* | API key idempotently seeded at startup, scoped to one tenant, when `AUTH_ENABLED=true` |
 | `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for the load-generator tenant account (same account that owns `LOADGEN_API_KEY`) — lets you log in as it via `POST /tenants/login` to inspect/manage its seeded key by hand |
@@ -342,26 +338,6 @@ Runnable examples for every one of these live in [`requests/tenancy/`](requests/
 - Passwords (and refresh tokens) are hashed with `bcryptjs` — a pure-JS bcrypt implementation, chosen over native `bcrypt`/`argon2` specifically to avoid a native-binding dependency that would break the multi-stage Alpine Docker build (neither build stage installs a C/C++ toolchain). The input is SHA-256-prehashed first since bcrypt only uses the first 72 bytes of its input, and refresh tokens (~200+ character JWTs) would otherwise lose most of their entropy to silent truncation.
 - API keys store their **full value in cleartext**, not hashed — a deliberate consequence of requiring keys to be retrievable again later via the list endpoint, not the industry-default "show once" pattern. Refresh tokens, which are never redisplayed, are hashed as usual.
 - Guards are applied directly per-controller (`@UseGuards(...)`), not via a single global default-deny guard — this project previously shipped a bug from exactly that pattern (a controller meant to bypass a global guard forgot the opt-out decorator); per-controller guards make that entire bug class structurally impossible.
-
-### Backpressure
-
-Implemented, **off by default**. With `BACKPRESSURE_ENABLED` unset or `false`, `POST /logs` behaves exactly as it does with the feature absent entirely — including the underlying write-coalescing queue's unbounded growth under sustained overload. `docker compose up` with no environment file still produces the plain, unauthenticated, backpressure-disabled core service on all four required endpoints.
-
-| Variable | Default | Meaning |
-| --- | --- | --- |
-| `BACKPRESSURE_ENABLED` | `false` | Master switch. `false`/unset → admission control never runs; `insertMany()` is byte-for-byte identical to the feature not existing. |
-| `BACKPRESSURE_MAX_PENDING_ROWS` | `20000` | Max total admitted-but-not-completed log entries (queued in the coalescing buffer, or already in-flight in an uncommitted flush) before new batches are shed. Starting default, pending measurement — see `specs/003-ingestion-backpressure/research.md` Decision 6. |
-| `BACKPRESSURE_MAX_PENDING_BYTES` | `25mb` | Same idea, tracked independently by estimated total byte size (a cheap field-length sum, not `JSON.stringify`) — a few large entries can exhaust this before row count matters, or vice versa. |
-| `BACKPRESSURE_RETRY_AFTER_SECONDS` | `1` | Fixed value (not a computed drain estimate) sent in the `Retry-After` header on every `503`. |
-
-When enabled, `POST /logs` gains two additive response outcomes on top of the existing `200`/`400`/`401`/`403` contract — full details in `specs/003-ingestion-backpressure/contracts/post-logs-backpressure.md`:
-
-| Status | When | Retryable? |
-| --- | --- | --- |
-| `503` | The batch's valid entries would fit within the configured capacity on their own, but other admitted-but-not-completed work is temporarily occupying it | Yes, after `Retry-After` seconds — capacity is shared globally across all tenants/API keys, not per-tenant |
-| `413` | The batch's valid entries alone exceed the configured row or byte limit, regardless of any other pending work | No — the identical batch can never succeed; send fewer/smaller entries instead |
-
-Neither outcome ever partially admits a batch — a caller's valid entries are either all queued for durable write, or none are, and a rejected batch never writes a row or rollup delta. Admission is evaluated only after existing per-entry validation and authentication/tenant resolution, so the existing `accepted`/`rejected` contract and `401`/`403` behavior are completely unaffected by whether this feature is enabled.
 
 ## Performance
 

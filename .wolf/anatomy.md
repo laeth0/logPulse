@@ -1,15 +1,16 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-17T07:09:38.613Z
-> Files: 312 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T10:01:34.541Z
+> Files: 300 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
-- `.gitignore` — Git ignore rules (~192 tok)
+- `.gitignore` — Git ignore rules (~165 tok)
+- `.load-generator.compose.override.yml` — Docker Compose: 0 services (~57 tok)
 - `AGENTS.md` — OpenWolf (~763 tok)
 - `CLAUDE.md` — OpenWolf (~763 tok)
-- `docker-compose.yml` — Docker Compose services (~956 tok)
-- `README.md` — Project documentation (~10060 tok)
+- `docker-compose.yml` — Docker Compose services (~872 tok)
+- `README.md` — Project documentation (~9287 tok)
 
 ## .agents/skills/speckit-agent-context-update/
 
@@ -121,12 +122,12 @@
 
 ## .github/workflows/
 
-- `ci.yml` — CI: CI (~2713 tok)
+- `ci.yml` — CI: CI (~420 tok)
 
 ## .specify/
 
 - `extensions.yml` (~180 tok)
-- `feature.json` (~18 tok)
+- `feature.json` (~19 tok)
 - `init-options.json` (~51 tok)
 - `integration.json` (~110 tok)
 
@@ -194,9 +195,9 @@
 - `Dockerfile` — Docker container definition (~304 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~250 tok)
 - `nest-cli.json` (~49 tok)
-- `package-lock.json` — npm lock file (~115789 tok)
-- `package.json` — Node.js package manifest (~1116 tok)
-- `projectSchema.dbml` (~1467 tok)
+- `package-lock.json` — npm lock file (~115681 tok)
+- `package.json` — Node.js package manifest (~1100 tok)
+- `projectSchema.dbml` (~1449 tok)
 - `tsconfig.build.json` — TypeScript build configuration (~28 tok)
 - `tsconfig.json` — TypeScript configuration (~207 tok)
 
@@ -206,11 +207,6 @@
 - `logs.aggregate.rest` — Aggregates filtered logs into supported time buckets with optional grouping. (~119 tok)
 - `logs.ingest.rest` — Ingests a batch while preserving valid entries when another entry is rejected. (~241 tok)
 - `logs.list.rest` — Queries logs with freely combinable filters and opaque cursor pagination. (~133 tok)
-
-## backend/requests/logs/
-
-- `logs.ingest.backpressure-503.rest` — Demonstrates the optional backpressure feature's 503 response (specs/003-ingestion-backpressure). (~376 tok)
-- `logs.ingest.oversized-413.rest` — Demonstrates the optional backpressure feature's 413 response (specs/003-ingestion-backpressure) (~491 tok)
 
 ## backend/requests/tenancy/
 
@@ -226,13 +222,13 @@
 - `app.controller.ts` — Exports AppController (~79 tok)
 - `app.module.ts` — Exports AppModule (~479 tok)
 - `app.service.ts` — Exports AppService (~41 tok)
-- `main.ts` — Declares bootstrap (~651 tok)
-  - fn `bootstrap` L10-62 (~534 tok)
+- `main.ts` — Declares bootstrap (~507 tok)
+  - fn `bootstrap` L10-55 (~390 tok)
 
 ## backend/src/common/constants/
 
 - `http.constants.ts` — Exports DEFAULT_JSON_BODY_LIMIT (~14 tok)
-- `log-api.constants.ts` — Exports DEFAULT_LOG_QUERY_LIMIT, MAX_LOG_QUERY_LIMIT, MAX_FUTURE_TIMESTAMP_OFFSET_MS, ATTRIBUTE_QUERY_PREFIX + 12 more (~693 tok)
+- `log-api.constants.ts` — Exports DEFAULT_LOG_QUERY_LIMIT, MAX_LOG_QUERY_LIMIT, MAX_FUTURE_TIMESTAMP_OFFSET_MS, ATTRIBUTE_QUERY_PREFIX + 8 more (~246 tok)
 - `log-query.constants.ts` — Exports LOG_AGGREGATION_ORIGIN, LOG_AGGREGATION_BUCKET_INTERVALS, LOG_AGGREGATION_GROUP_COLUMNS (~91 tok)
 - `postgres.constants.ts` — PostgreSQL SQLSTATE error codes (stable, part of the Postgres error-code (~59 tok)
 - `retention.constants.ts` — Exports DEFAULT_LOG_RETENTION_DAYS, MAX_LOG_RETENTION_DAYS, DEFAULT_LOG_PARTITION_DAYS_AHEAD, MAX_LOG_PARTITION_DAYS_AHEAD + 5 more (~261 tok)
@@ -240,15 +236,15 @@
 
 ## backend/src/common/filters/
 
-- `global-exception.filter.ts` — Global exception filter that normalizes all thrown exceptions into the (~1048 tok)
-  - class `GlobalExceptionFilter` L25-82 (~649 tok)
-  - section `ExternalClientError` L83-87 (~21 tok)
-  - fn `getExternalClientError` L88-100 (~114 tok)
-  - fn `getRetryAfterSeconds` L101-108 (~73 tok)
+- `global-exception.filter.ts` — Exports GlobalExceptionFilter (~712 tok)
+  - class `GlobalExceptionFilter` L12-60 (~452 tok)
+  - section `ExternalClientError` L61-65 (~21 tok)
+  - fn `getExternalClientError` L66-78 (~114 tok)
+  - fn `getRetryAfterSeconds` L79-86 (~73 tok)
 
 ## backend/src/common/utils/
 
-- `rollup-bucket.utils.ts` — Rounds a Date up to the next rollup-bucket (minute) boundary, unchanged if (~310 tok)
+- `rollup-bucket.utils.ts` — Rounds a Date up to the next rollup-bucket (minute) boundary, unchanged if (~290 tok)
 
 ## backend/src/common/validators/
 
@@ -256,17 +252,14 @@
 
 ## backend/src/config/
 
-- `data-source.ts` — Exports AppDataSource (~148 tok)
-- `database.config.ts` — Builds a TypeORM {@link DataSourceOptions} object from environment variables. (~590 tok)
-  - fn `createDatabaseOptions` L16-47 (~332 tok)
-  - fn `createReadDatabaseOptions` L48-61 (~91 tok)
+- `data-source.ts` — Exports AppDataSource (~104 tok)
+- `database.config.ts` — Exports createDatabaseOptions, createReadDatabaseOptions (~350 tok)
 
 ## backend/src/health/
 
-- `health.controller.ts` — Exposes the GET /health endpoint required by the project specification. (~386 tok)
-- `health.module.ts` — HealthModule — no TypeOrmModule.forFeature() needed here. (~158 tok)
-- `health.service.ts` — Performs deep health checks against each infrastructure dependency. (~682 tok)
-  - class `HealthService` L21-83 (~510 tok)
+- `health.controller.ts` — Exports HealthController (~301 tok)
+- `health.module.ts` — Exports HealthModule (~78 tok)
+- `health.service.ts` — Exports HealthService (~478 tok)
 - `health.types.ts` — Exports DatabaseStatus, MigrationStatus, HealthStatus (~82 tok)
 
 ## backend/src/logs/
@@ -274,14 +267,6 @@
 - `logs.controller.ts` — Exports LogsController (~1130 tok)
   - class `LogsController` L37-100 (~768 tok)
 - `logs.module.ts` — Exports LogsModule (~339 tok)
-
-## backend/src/logs/config/
-
-- `backpressure.config.ts` — Reads and validates the optional backpressure configuration from environment (~688 tok)
-  - section `BackpressureConfig` L9-22 (~165 tok)
-  - fn `createBackpressureConfig` L23-49 (~227 tok)
-  - fn `parsePositiveInteger` L50-70 (~123 tok)
-  - fn `parseByteSize` L71-87 (~112 tok)
 
 ## backend/src/logs/cursor/
 
@@ -302,23 +287,14 @@
 
 ## backend/src/logs/entities/
 
-- `log-rollup.entity.ts` — A derived, tenant-scoped, minute-granularity count — never a second (~467 tok)
-- `log.entity.ts` — Exports Log (~504 tok)
-  - class `Log` L31-71 (~284 tok)
+- `log-rollup.entity.ts` — Exports LogRollup (~199 tok)
+- `log.entity.ts` — Exports Log (~389 tok)
 
 ## backend/src/logs/enums/
 
 - `aggregation-bucket.enum.ts` — Exports AggregationBucket (~33 tok)
 - `aggregation-group.enum.ts` — Exports AggregationGroup (~22 tok)
 - `log-level.enum.ts` — Exports LogLevel (~28 tok)
-
-## backend/src/logs/errors/
-
-- `ingestion-capacity.errors.ts` — Thrown by `LogRepository.checkAdmission()` when a batch's valid entries alone (~313 tok)
-
-## backend/src/logs/exceptions/
-
-- `backpressure.exception.ts` — HTTP-layer counterpart of `IngestionCapacityExceededError` — constructed (~203 tok)
 
 ## backend/src/logs/interfaces/
 
@@ -347,16 +323,15 @@
 
 ## backend/src/logs/repositories/
 
-- `log.repository.ts` — One caller's still-pending insertMany() call: its rows plus the settlers (~4900 tok)
-  - section `PendingInsert` L49-57 (~96 tok)
-  - section `RollupDelta` L58-66 (~38 tok)
-  - class `LogRepository` L67-506 (~4284 tok)
+- `log.repository.ts` — One (bucket, tenant_id, service, level) group's row-count delta from a single flush. (~3694 tok)
+  - section `PendingInsert` L38-44 (~59 tok)
+  - section `RollupDelta` L45-53 (~38 tok)
+  - class `LogRepository` L54-402 (~3254 tok)
 
 ## backend/src/logs/services/
 
 - `log-aggregation.service.ts` — Exports LogAggregationService (~310 tok)
-- `log-ingestion.service.ts` — Exports LogIngestionService (~595 tok)
-  - class `LogIngestionService` L18-67 (~401 tok)
+- `log-ingestion.service.ts` — Exports LogIngestionService (~374 tok)
 - `log-query.service.ts` — Exports LogQueryService (~482 tok)
 
 ## backend/src/logs/validators/
@@ -378,8 +353,8 @@
 
 - `1785684350112-CreatePgTrgmExtension.ts` — Installs the pg_trgm extension required for trigram-based (~253 tok)
 - `1785684350113-CreateLogLevelEnum.ts` — Creates the log_level PostgreSQL enum type. (~221 tok)
-- `1785684350114-CreateLogsTable.ts` — Creates the partitioned logs table with all column definitions, (~680 tok)
-  - class `CreateLogsTable1785684350114` L12-58 (~552 tok)
+- `1785684350114-CreateLogsTable.ts` — Creates the partitioned logs table with all column definitions, (~656 tok)
+  - class `CreateLogsTable1785684350114` L12-56 (~528 tok)
 - `1785684350115-CreateLogsTableBtreeIndexes.ts` — Creates B-tree indexes for equality + range filtering and deterministic (~771 tok)
   - class `CreateLogsTableBtreeIndexes1785684350115` L25-64 (~439 tok)
 - `1785684350116-CreateLogsTableGinIndexes.ts` — Creates GIN indexes for unstructured search on the logs table. (~432 tok)
@@ -499,7 +474,7 @@
 
 ## backend/test/integration/logs/
 
-- `logs.integration-spec.ts` — API routes: POST, GET (9 endpoints) (~2341 tok)
+- `logs.integration-spec.ts` — API routes: POST, GET (9 endpoints) (~2263 tok)
 
 ## backend/test/integration/setup/
 
@@ -518,7 +493,7 @@
 
 ## backend/test/integration/tenancy/
 
-- `tenancy.integration-spec.ts` — API routes: POST, GET, DELETE (19 endpoints) (~2529 tok)
+- `tenancy.integration-spec.ts` — API routes: POST, GET, DELETE (19 endpoints) (~2450 tok)
 
 ## docs/
 
@@ -775,20 +750,3 @@
 ## specs/002-performance-optimization/checklists/
 
 - `requirements.md` — Specification Quality Checklist: Performance Optimization (~468 tok)
-
-## specs/003-ingestion-backpressure/
-
-- `data-model.md` — Data Model: Optional Backpressure Support (~1800 tok)
-- `plan.md` — Implementation Plan: Optional Backpressure Support (~3550 tok)
-- `quickstart.md` — Quickstart: Validating Optional Backpressure Support (~2257 tok)
-- `research.md` — Research: Optional Backpressure Support (~4920 tok)
-- `spec.md` — Feature Specification: Optional Backpressure Support (~4654 tok)
-- `tasks.md` — Tasks: Optional Backpressure Support (~8401 tok)
-
-## specs/003-ingestion-backpressure/checklists/
-
-- `requirements.md` — Specification Quality Checklist: Optional Backpressure Support (~578 tok)
-
-## specs/003-ingestion-backpressure/contracts/
-
-- `post-logs-backpressure.md` — Contract: Additive Backpressure Responses on `POST /logs` (~958 tok)

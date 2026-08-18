@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 1861333,
-    "total_reads": 2853,
+    "total_tokens_estimated": 1877886,
+    "total_reads": 2861,
     "total_writes": 0,
-    "total_sessions": 40,
-    "anatomy_hits": 2069,
+    "total_sessions": 41,
+    "anatomy_hits": 2077,
     "anatomy_misses": 734,
-    "repeated_reads_blocked": 1212,
-    "estimated_savings_vs_bare_cli": 1735233,
-    "real_input_tokens": 734824,
-    "real_output_tokens": 67688418,
-    "real_cache_read_tokens": 29883777492,
-    "real_cache_creation_tokens": 324368407,
-    "real_api_calls": 63194
+    "repeated_reads_blocked": 1218,
+    "estimated_savings_vs_bare_cli": 1762785,
+    "real_input_tokens": 734972,
+    "real_output_tokens": 67736269,
+    "real_cache_read_tokens": 29894328506,
+    "real_cache_creation_tokens": 324577376,
+    "real_api_calls": 63268
   },
   "sessions": [
     {
@@ -19221,6 +19221,78 @@
         "cache_read_input_tokens": 2662073,
         "cache_creation_input_tokens": 81455,
         "api_calls": 28
+      }
+    },
+    {
+      "id": "session-2026-08-18-1250",
+      "agent": "claude",
+      "started": "2026-08-18T09:50:42.763Z",
+      "ended": "2026-08-18T10:04:33.973Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/exceptions/backpressure.exception.ts",
+          "tokens_estimated": 203,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/.specify/feature.json",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/README.md",
+          "tokens_estimated": 10060,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.oversized-413.rest",
+          "tokens_estimated": 491,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.backpressure-503.rest",
+          "tokens_estimated": 376,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts",
+          "tokens_estimated": 3694,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/services/log-ingestion.service.ts",
+          "tokens_estimated": 595,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/package.json",
+          "tokens_estimated": 1116,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 16553,
+        "output_tokens_estimated": 0,
+        "reads_count": 8,
+        "writes_count": 0,
+        "repeated_reads_blocked": 6,
+        "anatomy_lookups": 8
+      },
+      "real_usage": {
+        "input_tokens": 148,
+        "output_tokens": 47851,
+        "cache_read_input_tokens": 10551014,
+        "cache_creation_input_tokens": 208969,
+        "api_calls": 74
       }
     }
   ],
