@@ -23,11 +23,6 @@ import {
   registerTenantSchema,
 } from '@/tenancy/validators/tenant-auth.schema';
 
-/**
- * No guards on any of these three — self-service Tenant account creation
- * and authentication are reachable regardless of AUTH_ENABLED (spec
- * Assumptions; research.md Decision 7).
- */
 @ApiTags('tenancy')
 @Controller('tenants')
 export class TenantAuthController {

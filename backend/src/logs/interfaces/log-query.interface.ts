@@ -19,7 +19,6 @@ export interface FindLogsQuery extends LogFilters {
   cursor?: CursorPayload;
 }
 
-/** Raw `getRawMany()` row shape for a page of `logs` — see log-query.builder.ts's explicit column aliases. */
 export interface RawLogRow {
   id: string;
   timestamp: Date;

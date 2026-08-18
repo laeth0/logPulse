@@ -11,12 +11,6 @@ import { ApiKey } from '@/tenancy/entities/api-key.entity';
 import { Tenant } from '@/tenancy/entities/tenant.entity';
 import * as passwordHasher from '@/tenancy/utils/password-hasher.util';
 
-/**
- * Idempotently seeds LOADGEN_API_KEY at startup (spec FR-006/FR-007/FR-008;
- * research.md Decision 9). Runs as an OnApplicationBootstrap hook, which
- * completes before app.listen() opens the port — so this always finishes
- * before GET /health is reachable, with no change needed to HealthService.
- */
 @Injectable()
 export class LoadgenKeySeeder implements OnApplicationBootstrap {
   private readonly logger = new Logger(LoadgenKeySeeder.name);
@@ -35,11 +29,6 @@ export class LoadgenKeySeeder implements OnApplicationBootstrap {
       return;
     }
 
-    // Lets an operator log in as the load-generator tenant via the normal
-    // self-service flow (e.g. to inspect/manage its seeded key by hand) —
-    // LOADGEN_TENANT_PASSWORD defaults to an insecure placeholder, matching
-    // JWT_SECRET/DB_PASS's existing convention; override it for anything
-    // beyond local development or grading.
     const passwordHash = await passwordHasher.hash(LOADGEN_TENANT_PASSWORD);
 
     await this.tenantRepository

@@ -85,7 +85,6 @@ export class PartitionService {
     await queryRunner.startTransaction();
 
     try {
-      // Serializes the brief default-row handoff with inserts into the parent.
       await queryRunner.query(`LOCK TABLE "logs" IN ACCESS EXCLUSIVE MODE`);
 
       if (await this.partitionExists(queryRunner, partitionName)) {

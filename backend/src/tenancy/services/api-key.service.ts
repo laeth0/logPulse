@@ -13,11 +13,6 @@ export class ApiKeyService {
     private readonly apiKeyRepository: Repository<ApiKey>,
   ) {}
 
-  /**
-   * Single indexed point lookup (idx_api_keys_tenant_id's unique key_value
-   * constraint) — no caching, since a revoked key must be rejected on the
-   * very next request (spec SC-005).
-   */
   async resolveActiveKey(value: string): Promise<string | undefined> {
     const apiKey = await this.apiKeyRepository.findOne({
       where: { key_value: value, status: ApiKeyStatus.ACTIVE },
@@ -43,13 +38,6 @@ export class ApiKeyService {
     });
   }
 
-  /**
-   * 404s (rather than 403) if the key exists but belongs to another tenant
-   * — deliberately identical to "doesn't exist at all" so ownership is
-   * never disclosed (spec FR-023, mirroring the login endpoint's
-   * non-disclosure pattern). Revoking an already-revoked key is an
-   * idempotent no-op, not an error.
-   */
   async revoke(tenantId: string, keyId: string): Promise<ApiKey> {
     const apiKey = await this.apiKeyRepository.findOne({
       where: { id: keyId, tenant_id: tenantId },

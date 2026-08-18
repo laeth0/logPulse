@@ -1,21 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-/**
- * Creates the multi-tenancy tables: `tenants` (self-service customer
- * accounts), `api_keys` (machine credentials for the log data-plane
- * endpoints), and `tenant_refresh_tokens` (hashed session state for Tenant
- * access-token rotation). See specs/001-multi-tenancy/data-model.md.
- *
- * None of these tables have a foreign key to another — every relationship
- * (tenant_id on api_keys/tenant_refresh_tokens/logs) is enforced at the
- * application layer, consistent with the pre-existing logs table's own
- * lack of foreign keys (specs/001-multi-tenancy/research.md Decision 6).
- */
 export class CreateTenancyTables1785684350118 implements MigrationInterface {
   name = 'CreateTenancyTables1785684350118';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // ── tenants ──────────────────────────────────────────────────────────────
     await queryRunner.query(`
       CREATE TABLE "tenants" (
         "id"            UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -33,7 +21,6 @@ export class CreateTenancyTables1785684350118 implements MigrationInterface {
       )
     `);
 
-    // ── api_keys ─────────────────────────────────────────────────────────────
     await queryRunner.query(`
       CREATE TABLE "api_keys" (
         "id"         UUID        NOT NULL DEFAULT gen_random_uuid(),
@@ -54,13 +41,11 @@ export class CreateTenancyTables1785684350118 implements MigrationInterface {
       )
     `);
 
-    // Supports: WHERE tenant_id = $1 (list/ownership checks for a Tenant's own keys)
     await queryRunner.query(`
       CREATE INDEX "idx_api_keys_tenant_id"
         ON "api_keys" ("tenant_id")
     `);
 
-    // ── tenant_refresh_tokens ────────────────────────────────────────────────
     await queryRunner.query(`
       CREATE TABLE "tenant_refresh_tokens" (
         "id"         UUID        NOT NULL DEFAULT gen_random_uuid(),
@@ -78,7 +63,6 @@ export class CreateTenancyTables1785684350118 implements MigrationInterface {
       )
     `);
 
-    // Supports future session-listing/bulk-revocation lookups by tenant.
     await queryRunner.query(`
       CREATE INDEX "idx_tenant_refresh_tokens_tenant_id"
         ON "tenant_refresh_tokens" ("tenant_id")

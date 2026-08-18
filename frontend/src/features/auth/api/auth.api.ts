@@ -15,11 +15,6 @@ export async function login(payload: LoginPayload): Promise<AuthTokens> {
   return authTokensSchema.parse(response.data)
 }
 
-/**
- * The login access token only authorizes tenant/API-key management, never
- * the log endpoints — those require an API key. Reuse an existing active
- * key if the tenant already has one, otherwise mint a new one.
- */
 export async function ensureApiKey(accessToken: string): Promise<string> {
   const authHeader = { Authorization: `Bearer ${accessToken}` }
 

@@ -9,11 +9,6 @@ import {
 } from '@/common/constants/tenancy.constants';
 import type { TenantJwtPayload } from '@/tenancy/interfaces/jwt-payload.interface';
 
-/**
- * Signs/verifies Tenant access and refresh tokens (research.md Decisions 2,
- * 3). Both token kinds carry a `type` claim so a refresh token can never be
- * accepted where an access token is expected, or vice versa.
- */
 @Injectable()
 export class TokenService {
   readonly accessTokenTtlSeconds = ACCESS_TOKEN_TTL_SECONDS;

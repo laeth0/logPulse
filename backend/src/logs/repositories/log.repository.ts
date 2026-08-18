@@ -31,7 +31,6 @@ import {
 } from '@/logs/query-builders/aggregation-query.builder';
 import { buildLogPageQuery } from '@/logs/query-builders/log-query.builder';
 
-/** One (bucket, tenant_id, service, level) group's row-count delta from one insertMany() call. */
 interface RollupDelta {
   bucket: Date;
   tenant_id: string;
@@ -43,8 +42,6 @@ interface RollupDelta {
 @Injectable()
 export class LogRepository implements LogRepositoryContract {
   constructor(
-    // Single connection, shared by the ingestion path below and by
-    // findPage()/aggregate() — see src/config/database.config.ts.
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @InjectRepository(Log)
@@ -53,12 +50,6 @@ export class LogRepository implements LogRepositoryContract {
     private readonly rollupReadRepository: Repository<LogRollup>,
   ) {}
 
-  /**
-   * Inserts and rolls up one caller's batch inside a single transaction —
-   * `dataSource.transaction()` checks out a connection, begins, commits once
-   * the callback resolves, and rolls back (then re-throws) if it rejects, so
-   * the two tables can never drift out of sync after a crash.
-   */
   async insertMany(logs: readonly NewLog[]): Promise<void> {
     if (logs.length === 0) {
       return;
@@ -70,23 +61,6 @@ export class LogRepository implements LogRepositoryContract {
     });
   }
 
-  /**
-   * Groups the batch just written by (tenant_id, service, level,
-   * minute-bucket) in application code — no extra query, the rows are
-   * already in memory — and issues one multi-row upsert covering every
-   * distinct group the batch touched.
-   *
-   * Goes through `manager.query()` rather than `manager.getRepository(LogRollup)`'s
-   * QueryBuilder `.orUpdate()` because this TypeORM version's `.orUpdate()`
-   * can only generate `SET col = EXCLUDED.col` (a plain overwrite) for a
-   * list of columns — it has no way to express the relative-delta
-   * `count = log_rollups.count + EXCLUDED.count` this upsert needs. A
-   * snapshot-read-then-write overwrite would reintroduce exactly the race
-   * under concurrent `insertMany()` calls that the relative delta exists to
-   * avoid, so this one statement stays raw SQL — still issued through the
-   * ORM's transactional `manager`, on the same connection/transaction as
-   * `insertLogsIn()` in `insertMany()`, not a separate raw `pg` connection.
-   */
   private async upsertRollups(
     manager: EntityManager,
     logs: readonly NewLog[],
@@ -153,13 +127,6 @@ export class LogRepository implements LogRepositoryContract {
     };
   }
 
-  /**
-   * A request with a `q`/`attr.*` filter is served by a full raw scan,
-   * unchanged (FR-006). Otherwise, reads `log_rollups` for the minute-
-   * aligned bulk of `[since, until)` and raw-scans `logs` only for the (at
-   * most two) partial-minute edges, then sums the two result sets — output
-   * numerically identical to a full raw scan (research.md Decision 7).
-   */
   async aggregate(query: AggregateLogsQuery): Promise<LogAggregation[]> {
     if (!isRollupEligible(query)) {
       return this.mergeAggregationRows(
@@ -228,17 +195,6 @@ export class LogRepository implements LogRepositoryContract {
     );
   }
 
-  /**
-   * Streams the batch into `logs` via PostgreSQL's `COPY ... FROM STDIN`
-   * (CSV format, through `pg-copy-streams`) instead of a parameterized
-   * multi-row `INSERT` — materially cheaper for the row counts this hot
-   * path pushes through under the project's 0.5-CPU/256MB app container
-   * limit. `manager.queryRunner.connect()` returns the raw `pg` client
-   * already checked out for this transactional `EntityManager` (not a
-   * fresh one from the pool), so the COPY runs on the exact same
-   * connection/transaction as `upsertRollups()` in `insertMany()` — a
-   * rollback still undoes both.
-   */
   private async insertLogsIn(
     manager: EntityManager,
     logs: readonly NewLog[],
@@ -261,7 +217,6 @@ export class LogRepository implements LogRepositoryContract {
     await pipeline(Readable.from([this.buildLogsCsv(logs)]), copyStream);
   }
 
-  /** Builds one CSV row per log, in the exact column order `insertLogsIn()`'s COPY declares. */
   private buildLogsCsv(logs: readonly NewLog[]): string {
     const rows = logs.map((log) =>
       [
@@ -279,7 +234,6 @@ export class LogRepository implements LogRepositoryContract {
     return rows.join('\n') + '\n';
   }
 
-  /** Quotes a CSV field and doubles embedded quotes only when RFC 4180 requires it. */
   private escapeCsvField(value: string): string {
     return /[",\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
   }

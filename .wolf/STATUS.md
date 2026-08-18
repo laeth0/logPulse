@@ -10,6 +10,8 @@
 
 <!-- Move items here from "🚀 Next phase" when finished. Group by area. -->
 
+- Stripped all single-line (`//`), multi-line (`/* */`), and JSDoc (`/** */`) comments from all TypeScript, TSX, CSS, HTML, and configuration code files across both `backend/` (33 files cleaned) and `frontend/` (6 files cleaned). Zero comments remain in code files across the repository. TypeScript check (`npx tsc --noEmit` / `tsc -b`) and production builds (`npm run build` for backend and frontend) pass cleanly.
+
 - Fixed the frontend Axios startup crash when `VITE_API_BASE_URL` is missing from the active Vite environment: the environment contract is now optional, API URL resolution trims a configured value when present and otherwise uses the shared `http://localhost:8080` fallback, and the frontend production build passes. Lint and format were intentionally not run.
 - Refactored the frontend auth registration feature for separation of concerns and DRY: `RegisterPage.tsx` now owns only state/validation/API orchestration and page composition; presentational units live under `features/auth/components`, constants under `features/auth/constants`, and component contracts/form error types under `features/auth/types`. Extracted `AuthHeader`, `RegisterForm`, reusable `PasswordField`, `SuccessState`, and `SignalStory`. Frontend build passes; lint and format were intentionally not run.
 - Changed the NestJS CORS policy to explicitly allow all origins (`origin: '*'`) for testing. Credentialed cross-origin requests remain disabled. Backend build passes; lint and format were not run.

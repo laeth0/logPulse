@@ -2,18 +2,15 @@ import { defineConfig } from 'vite'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
   ],
   server: {
-    host: '0.0.0.0', // required so Docker can expose the port to the host
+    host: '0.0.0.0',
     port: 5173,
     watch: {
-      // Polling is required on Windows Docker (WSL2/Hyper-V don't forward
-      // inotify events from the host into the container).
       usePolling: true,
       interval: 300,
     },

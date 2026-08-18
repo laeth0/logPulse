@@ -28,11 +28,6 @@ import { TokenService } from '@/tenancy/services/token.service';
     TenantAuthService,
     TenantJwtAuthGuard,
   ],
-  // ApiKeyService must be exported alongside ApiKeyAuthGuard, not just the
-  // guard itself: when @UseGuards(ApiKeyAuthGuard) is used from LogsModule,
-  // Nest resolves the guard's own constructor dependencies (ApiKeyService)
-  // against the consuming module's visibility, not TenancyModule's internal
-  // scope — confirmed by a live UnknownDependenciesException without this.
   exports: [ApiKeyService, ApiKeyAuthGuard],
 })
 export class TenancyModule {}

@@ -38,13 +38,6 @@ export function buildAggregationQuery(
   return queryBuilder;
 }
 
-/**
- * True when the request can be answered (wholly or in part) from
- * `log_rollups` — a `q`/`attr.*` filter needs per-message or per-attribute
- * detail no rollup carries, so those requests must bypass this path
- * entirely and be served by a full raw scan, unchanged (research.md
- * Decision 7; FR-006).
- */
 export function isRollupEligible(query: AggregateLogsQuery): boolean {
   return (
     query.q === undefined &&
@@ -53,12 +46,6 @@ export function isRollupEligible(query: AggregateLogsQuery): boolean {
   );
 }
 
-/**
- * Reads `log_rollups` for `[rollupSince, rollupUntil)` — the caller is
- * responsible for aligning both to whole rollup-bucket (minute) boundaries
- * first (see `alignUpToRollupBucket`/`alignDownToRollupBucket`), so every
- * row this query sums represents a fully in-range minute.
- */
 export function buildRollupAggregationQuery(
   repository: Repository<LogRollup>,
   query: AggregateLogsQuery,
@@ -69,9 +56,6 @@ export function buildRollupAggregationQuery(
   const groupExpression = createGroupExpression(query.groupBy, 'rollup');
   const queryBuilder = repository
     .createQueryBuilder('rollup')
-    // Unconditional, same discipline as applyLogFilters()'s first predicate
-    // against `logs` — a correct rollup PK alone doesn't stop a query from
-    // summing another tenant's rows (research.md Decision 7, "H3" fix).
     .where('rollup.tenant_id = :tenantId', { tenantId: query.tenantId })
     .andWhere('rollup.bucket >= :rollupSince', { rollupSince })
     .andWhere('rollup.bucket < :rollupUntil', { rollupUntil })

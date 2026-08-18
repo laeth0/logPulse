@@ -1,12 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-/**
- * Creates the log_level PostgreSQL enum type.
- *
- * Separated from table creation because enum types are database-level
- * type definitions that may be reused, and their lifecycle (creation,
- * renaming, dropping) is independent of any specific table.
- */
 export class CreateLogLevelEnum1785684350113 implements MigrationInterface {
   name = 'CreateLogLevelEnum1785684350113';
 

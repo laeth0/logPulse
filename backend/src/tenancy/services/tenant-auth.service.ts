@@ -56,8 +56,6 @@ export class TenantAuthService {
       where: { email: normalizeEmail(email) },
     });
 
-    // Deliberately the same error for "unknown email" and "wrong password" —
-    // never reveal whether an email is registered (spec Edge Cases).
     if (
       !tenant ||
       !(await passwordHasher.verify(password, tenant.password_hash))

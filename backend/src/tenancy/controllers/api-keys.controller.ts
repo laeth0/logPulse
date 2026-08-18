@@ -27,11 +27,6 @@ import { TenantJwtAuthGuard } from '@/tenancy/guards/tenant-jwt-auth.guard';
 import { ApiKeyService } from '@/tenancy/services/api-key.service';
 import { createApiKeySchema } from '@/tenancy/validators/api-key.schema';
 
-/**
- * Guarded by TenantJwtAuthGuard — always authenticated, regardless of
- * AUTH_ENABLED (research.md Decision 7's "Hard rule"; F2: kept as a
- * separate controller from TenantAuthController on purpose, do not merge).
- */
 @ApiTags('tenancy')
 @Controller('tenants/api-keys')
 @UseGuards(TenantJwtAuthGuard)

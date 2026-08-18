@@ -207,7 +207,10 @@
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
 
-## Session: 2026-08-18 14:22
+## Session: 2026-08-18 15:50
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+| 15:52 | Removed all comments (single-line, block, and JSDoc) from all code files across backend/ | 33 backend source/migration/config files | AST scan confirms 0 remaining comments; TypeScript compilation and Nest build pass cleanly | ~10k |
+| 15:55 | Removed all comments (single-line, block, and JSDoc) from all code files across frontend/ | 6 frontend source/config files | AST scan confirms 0 remaining comments; TypeScript compilation (tsc -b) and Vite build pass cleanly | ~5k |
+

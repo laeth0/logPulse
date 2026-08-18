@@ -55,9 +55,6 @@ export class RetentionService {
       const cutoff = new Date(
         now.getTime() - this.retentionDays * MILLISECONDS_PER_DAY,
       );
-      // Rows strictly before this bucket are covered by the bulk log_rollups
-      // delete below; the one bucket straddling `cutoff` gets a precise
-      // delta adjustment instead (research.md Decision 9).
       const cutoffBucket = alignDownToRollupBucket(cutoff);
 
       const droppedPartitions =
@@ -125,13 +122,6 @@ export class RetentionService {
     ]);
   }
 
-  /**
-   * Bulk-deletes rows strictly before `cutoffBucket` — every log_rollups
-   * row for a bucket in this range is wiped wholesale by
-   * pruneExpiredRollupBuckets() below, so no per-row delta is needed here.
-   * The one bucket straddling the real retention `cutoff` is handled
-   * separately by pruneBoundaryRollupBucket() (research.md Decision 9).
-   */
   private async deleteExpiredRows(
     queryRunner: QueryRunner,
     cutoffBucket: Date,
@@ -143,16 +133,6 @@ export class RetentionService {
     return result.affected ?? 0;
   }
 
-  /**
-   * Deletes the boundary bucket's straggler `logs` rows — those in
-   * `[cutoffBucket, cutoff)`, the partial bucket deleteExpiredRows() above
-   * intentionally left untouched — and decrements `log_rollups` by exactly
-   * the number of rows this same statement deletes, computed as a single
-   * atomic CTE rather than a separate `SELECT COUNT(*)` followed by a
-   * replace. A relative delta commutes correctly with a concurrent live
-   * upsert regardless of commit order; a snapshot-and-replace would not
-   * (research.md Decision 9, "M2" fix).
-   */
   private async pruneBoundaryRollupBucket(
     queryRunner: QueryRunner,
     cutoffBucket: Date,
@@ -192,7 +172,6 @@ export class RetentionService {
     return Number(rows[0]?.deletedCount ?? 0);
   }
 
-  /** Fully-expired buckets are unconditionally, wholesale bulk-deleted (research.md Decision 9). */
   private async pruneExpiredRollupBuckets(
     queryRunner: QueryRunner,
     cutoffBucket: Date,
