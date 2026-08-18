@@ -1,0 +1,12 @@
+services:
+  "app":
+    restart: "no"
+    cpus: "0.5"
+    mem_limit: "256m"
+  "database":
+    restart: "no"
+    cpus: "1"
+    mem_limit: "1024m"
+  "frontend":
+    restart: "no"
+    ports: !reset []
