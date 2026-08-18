@@ -6,8 +6,7 @@ import { MILLISECONDS_PER_ROLLUP_BUCKET } from '@/common/constants/retention.con
  * aggregation read path (splitting a query range into a rollup-eligible
  * bulk plus raw-scan edges), and retention pruning (the one boundary bucket
  * needing a delta adjustment instead of a bulk delete) so all three can
- * never disagree on where a bucket starts (specs/002-performance-optimization
- * research.md Decisions 6, 7, 9).
+ * never disagree on where a bucket starts.
  */
 export function alignUpToRollupBucket(date: Date): Date {
   const remainderMs = date.getTime() % MILLISECONDS_PER_ROLLUP_BUCKET;

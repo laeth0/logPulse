@@ -18,39 +18,31 @@ async function bootstrap() {
     limit: process.env.JSON_BODY_LIMIT ?? DEFAULT_JSON_BODY_LIMIT,
   });
 
-  // ── Global exception filter ──────────────────────────────────────────────
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  // ── Swagger / OpenAPI ────────────────────────────────────────────────────
-  // Only expose the docs UI outside of production to avoid leaking the spec.
-  if (process.env.NODE_ENV !== 'production') {
-    const config = new DocumentBuilder()
-      .setTitle('logPulse')
-      .setDescription(
-        'A high-throughput log ingestion and query service. ' +
-          'Ingests structured log entries, stores them in a time-partitioned ' +
-          'PostgreSQL table, and exposes filtering, cursor pagination, and ' +
-          'time-bucket aggregation endpoints.',
-      )
-      .setVersion('1.0')
-      .addTag('logs', 'Log ingestion, querying, and aggregation')
-      .addTag('health', 'Service health checks')
-      .addTag(
-        'tenancy',
-        'Tenant self-service: registration, login, and API-key management',
-      )
-      .build();
+  const config = new DocumentBuilder()
+    .setTitle('logPulse')
+    .setDescription(
+      'A high-throughput log ingestion and query service. ' +
+        'Ingests structured log entries, stores them in a time-partitioned ' +
+        'PostgreSQL table, and exposes filtering, cursor pagination, and ' +
+        'time-bucket aggregation endpoints.',
+    )
+    .setVersion('1.0')
+    .addTag('logs', 'Log ingestion, querying, and aggregation')
+    .addTag('health', 'Service health checks')
+    .addTag(
+      'tenancy',
+      'Tenant self-service: registration, login, and API-key management',
+    )
+    .build();
 
-    const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config);
 
-    // UI  → http://localhost:<PORT>/api/docs
-    // JSON → http://localhost:<PORT>/api/docs-json
-    SwaggerModule.setup('api/docs', app, document);
-  }
+  SwaggerModule.setup('api/docs', app, document);
 
   const port = Number(process.env.PORT ?? 8080);
   await app.listen(port, '0.0.0.0');
-  // 0.0.0.0 ensures the application is reachable from outside its Docker container.
 
   const divider = '─'.repeat(52);
   console.log(`\n${divider}`);
@@ -58,4 +50,5 @@ async function bootstrap() {
   console.log(`📖  Swagger  → http://localhost:${port}/api/docs`);
   console.log(`${divider}\n`);
 }
+
 void bootstrap();

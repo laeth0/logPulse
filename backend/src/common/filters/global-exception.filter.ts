@@ -8,19 +8,6 @@ import {
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
 
-/**
- * Global exception filter that normalizes all thrown exceptions into the
- * API error envelope required by the project specification:
- *
- *   { "error": "<description>" }
- *
- * Behavior:
- *  - HttpException  → preserves the HTTP status code; extracts the message.
- *  - External 4xx   → preserves client errors raised before a controller runs.
- *  - Any other Error → responds with HTTP 500 and a generic message.
- *
- * Registered globally in main.ts via app.useGlobalFilters().
- */
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(GlobalExceptionFilter.name);
@@ -37,7 +24,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       status = exception.getStatus();
 
-      // getResponse() may return a string or a NestJS validation-error object.
       const body = exception.getResponse();
       if (typeof body === 'string') {
         message = body;
@@ -46,19 +32,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         body !== null &&
         'message' in body
       ) {
-        // ValidationPipe produces { message: string[] | string, ... }
         const raw = Reflect.get(body, 'message');
         message = Array.isArray(raw) ? raw.join('; ') : String(raw);
       } else {
         message = exception.message;
       }
 
-      // Generic, duck-typed: any HttpException carrying a numeric
-      // retryAfterSeconds sets the header — not specific to BackpressureException,
-      // so any future exception wanting a Retry-After gets it for free. Scoped to
-      // this HttpException branch specifically (not the plain-Error/unhandled
-      // branches below) so a domain error exposing the same property name can
-      // never trigger this header on what should be a generic 500.
       const retryAfterSeconds = getRetryAfterSeconds(exception);
       if (retryAfterSeconds !== undefined) {
         response.set('Retry-After', String(retryAfterSeconds));
@@ -67,7 +46,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       status = externalClientError.status;
       message = externalClientError.message;
     } else {
-      // Unexpected / unhandled error — log the full stack, hide from client.
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       message = 'Internal server error';
       this.logger.error(

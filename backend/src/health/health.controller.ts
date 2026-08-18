@@ -9,14 +9,6 @@ import {
 import { HealthService } from '@/health/health.service';
 import type { HealthStatus } from '@/health/health.types';
 
-/**
- * Exposes the GET /health endpoint required by the project specification.
- *
- * The load generator polls this endpoint before starting any load test.
- * Returns:
- *  - HTTP 200 when the database is connected and all migrations are applied.
- *  - HTTP 503 when any dependency check fails.
- */
 @ApiTags('health')
 @Controller('health')
 export class HealthController {
