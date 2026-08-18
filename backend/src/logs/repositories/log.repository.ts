@@ -7,10 +7,6 @@ import { from as copyFromStdin } from 'pg-copy-streams';
 import type { DataSource, EntityManager, Repository } from 'typeorm';
 
 import {
-  DEFAULT_INGEST_COALESCE_MAX_ROWS,
-  DEFAULT_INGEST_COALESCE_WINDOW_MS,
-} from '@/common/constants/log-api.constants';
-import {
   alignDownToRollupBucket,
   alignUpToRollupBucket,
 } from '@/common/utils/rollup-bucket.utils';
@@ -35,13 +31,7 @@ import {
 } from '@/logs/query-builders/aggregation-query.builder';
 import { buildLogPageQuery } from '@/logs/query-builders/log-query.builder';
 
-interface PendingInsert {
-  logs: readonly NewLog[];
-  resolve: () => void;
-  reject: (error: unknown) => void;
-}
-
-/** One (bucket, tenant_id, service, level) group's row-count delta from a single flush. */
+/** One (bucket, tenant_id, service, level) group's row-count delta from one insertMany() call. */
 interface RollupDelta {
   bucket: Date;
   tenant_id: string;
@@ -52,18 +42,6 @@ interface RollupDelta {
 
 @Injectable()
 export class LogRepository implements LogRepositoryContract {
-  private readonly coalesceWindowMs = process.env.INGEST_COALESCE_WINDOW_MS
-    ? Number(process.env.INGEST_COALESCE_WINDOW_MS)
-    : DEFAULT_INGEST_COALESCE_WINDOW_MS;
-
-  private readonly coalesceMaxRows = process.env.INGEST_COALESCE_MAX_ROWS
-    ? Number(process.env.INGEST_COALESCE_MAX_ROWS)
-    : DEFAULT_INGEST_COALESCE_MAX_ROWS;
-
-  private readonly pendingInserts: PendingInsert[] = [];
-  private flushTimer: NodeJS.Timeout | null = null;
-  private isFlushing = false;
-
   constructor(
     // Default connection: used only for the ingestion path below, so
     // ingestion and reads never contend for the same connection pool.
@@ -77,118 +55,28 @@ export class LogRepository implements LogRepositoryContract {
     private readonly rollupReadRepository: Repository<LogRollup>,
   ) {}
 
-  insertMany(logs: readonly NewLog[]): Promise<void> {
+  /**
+   * Inserts and rolls up one caller's batch inside a single transaction —
+   * `dataSource.transaction()` checks out a connection, begins, commits once
+   * the callback resolves, and rolls back (then re-throws) if it rejects, so
+   * the two tables can never drift out of sync after a crash.
+   */
+  async insertMany(logs: readonly NewLog[]): Promise<void> {
     if (logs.length === 0) {
-      return Promise.resolve();
+      return;
     }
 
-    return new Promise<void>((resolve, reject) => {
-      this.pendingInserts.push({ logs, resolve, reject });
-      this.scheduleFlush();
+    await this.dataSource.transaction(async (manager) => {
+      await this.insertLogsIn(manager, logs);
+      await this.upsertRollups(manager, logs);
     });
-  }
-
-  private scheduleFlush(): void {
-    if (this.isFlushing || this.flushTimer !== null) {
-      return;
-    }
-
-    this.flushTimer = setTimeout(() => {
-      this.flushTimer = null;
-      void this.runFlushLoop();
-    }, this.coalesceWindowMs);
-  }
-
-  /**
-   * Drains the pending queue batch by batch until empty. Runs as a loop
-   * rather than one capped flush so that arrivals which outpace a single
-   * flush's capacity are absorbed immediately, without waiting for another
-   * debounce window (research.md Decision 1, "H1" fix). The isFlushing
-   * guard makes a timer firing mid-loop a no-op: the running loop will pick
-   * up anything queued since it started.
-   */
-  private async runFlushLoop(): Promise<void> {
-    if (this.isFlushing) {
-      return;
-    }
-
-    this.isFlushing = true;
-
-    try {
-      while (this.pendingInserts.length > 0) {
-        const batch = this.takeBatch();
-        await this.flushBatch(batch);
-      }
-    } finally {
-      this.isFlushing = false;
-    }
-  }
-
-  /**
-   * Builds one batch from the front of the queue, adding whole callers
-   * until the next caller would push the running total past the row cap.
-   * The first caller taken is always included whole even if its own batch
-   * alone exceeds the cap — a caller's rows are never split across two
-   * flushes to stay under it ("F1" fix, research.md Decision 1).
-   */
-  private takeBatch(): PendingInsert[] {
-    const batch: PendingInsert[] = [];
-    let rowCount = 0;
-
-    while (this.pendingInserts.length > 0) {
-      const next = this.pendingInserts[0];
-
-      if (
-        batch.length > 0 &&
-        rowCount + next.logs.length > this.coalesceMaxRows
-      ) {
-        break;
-      }
-
-      batch.push(next);
-      rowCount += next.logs.length;
-      this.pendingInserts.shift();
-    }
-
-    return batch;
-  }
-
-  /**
-   * Settles every caller in this batch only after their combined rows have
-   * actually finished a single INSERT — resolved together on success,
-   * rejected together (with the underlying error) on failure. No caller's
-   * promise can resolve before its own rows are durably committed (FR-002).
-   *
-   * The batch INSERT and the rollup upsert run inside one explicit
-   * transaction on the same connection — `dataSource.transaction()` checks
-   * out a connection, begins, commits once the callback resolves, and rolls
-   * back (then re-throws) if it rejects — so the two tables can never drift
-   * out of sync after a crash (research.md Decision 6, "C1" fix).
-   */
-  private async flushBatch(batch: PendingInsert[]): Promise<void> {
-    const logs = batch.flatMap((entry) => entry.logs);
-
-    try {
-      await this.dataSource.transaction(async (manager) => {
-        await this.insertLogsIn(manager, logs);
-        await this.upsertRollups(manager, logs);
-      });
-
-      for (const entry of batch) {
-        entry.resolve();
-      }
-    } catch (error) {
-      for (const entry of batch) {
-        entry.reject(error);
-      }
-    }
   }
 
   /**
    * Groups the batch just written by (tenant_id, service, level,
    * minute-bucket) in application code — no extra query, the rows are
    * already in memory — and issues one multi-row upsert covering every
-   * distinct group the flush touched (research.md Decision 6).
+   * distinct group the batch touched.
    *
    * Goes through `manager.query()` rather than `manager.getRepository(LogRollup)`'s
    * QueryBuilder `.orUpdate()` because this TypeORM version's `.orUpdate()`
@@ -196,11 +84,10 @@ export class LogRepository implements LogRepositoryContract {
    * list of columns — it has no way to express the relative-delta
    * `count = log_rollups.count + EXCLUDED.count` this upsert needs. A
    * snapshot-read-then-write overwrite would reintroduce exactly the race
-   * under concurrent flushes that the relative delta exists to avoid
-   * (research.md Decision 9's "M2" fix), so this one statement stays raw
-   * SQL — still issued through the ORM's transactional `manager`, on the
-   * same connection/transaction as everything else in this flush, not a
-   * separate raw `pg` connection.
+   * under concurrent `insertMany()` calls that the relative delta exists to
+   * avoid, so this one statement stays raw SQL — still issued through the
+   * ORM's transactional `manager`, on the same connection/transaction as
+   * `insertLogsIn()` in `insertMany()`, not a separate raw `pg` connection.
    */
   private async upsertRollups(
     manager: EntityManager,
@@ -351,7 +238,7 @@ export class LogRepository implements LogRepositoryContract {
    * limit. `manager.queryRunner.connect()` returns the raw `pg` client
    * already checked out for this transactional `EntityManager` (not a
    * fresh one from the pool), so the COPY runs on the exact same
-   * connection/transaction as `upsertRollups()` in `flushBatch()` — a
+   * connection/transaction as `upsertRollups()` in `insertMany()` — a
    * rollback still undoes both.
    */
   private async insertLogsIn(

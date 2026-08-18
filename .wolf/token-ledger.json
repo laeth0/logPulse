@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 1877886,
-    "total_reads": 2861,
+    "total_tokens_estimated": 1894784,
+    "total_reads": 2872,
     "total_writes": 0,
     "total_sessions": 41,
-    "anatomy_hits": 2077,
-    "anatomy_misses": 734,
-    "repeated_reads_blocked": 1218,
-    "estimated_savings_vs_bare_cli": 1762785,
-    "real_input_tokens": 734972,
-    "real_output_tokens": 67736269,
-    "real_cache_read_tokens": 29894328506,
-    "real_cache_creation_tokens": 324577376,
-    "real_api_calls": 63268
+    "anatomy_hits": 2087,
+    "anatomy_misses": 735,
+    "repeated_reads_blocked": 1231,
+    "estimated_savings_vs_bare_cli": 1821415,
+    "real_input_tokens": 735218,
+    "real_output_tokens": 67814375,
+    "real_cache_read_tokens": 29916845348,
+    "real_cache_creation_tokens": 324845489,
+    "real_api_calls": 63391
   },
   "sessions": [
     {
@@ -19293,6 +19293,96 @@
         "cache_read_input_tokens": 10551014,
         "cache_creation_input_tokens": 208969,
         "api_calls": 74
+      }
+    },
+    {
+      "id": "session-2026-08-18-1250",
+      "agent": "claude",
+      "started": "2026-08-18T09:50:42.763Z",
+      "ended": "2026-08-18T10:25:00.438Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/exceptions/backpressure.exception.ts",
+          "tokens_estimated": 203,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/.specify/feature.json",
+          "tokens_estimated": 18,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/README.md",
+          "tokens_estimated": 9287,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.oversized-413.rest",
+          "tokens_estimated": 491,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs/logs.ingest.backpressure-503.rest",
+          "tokens_estimated": 376,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts",
+          "tokens_estimated": 3694,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/services/log-ingestion.service.ts",
+          "tokens_estimated": 595,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/package.json",
+          "tokens_estimated": 1116,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/log-api.constants.ts",
+          "tokens_estimated": 246,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml",
+          "tokens_estimated": 872,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.example",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 16898,
+        "output_tokens_estimated": 0,
+        "reads_count": 11,
+        "writes_count": 0,
+        "repeated_reads_blocked": 13,
+        "anatomy_lookups": 10
+      },
+      "real_usage": {
+        "input_tokens": 246,
+        "output_tokens": 78106,
+        "cache_read_input_tokens": 22516842,
+        "cache_creation_input_tokens": 268113,
+        "api_calls": 123
       }
     }
   ],

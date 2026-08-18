@@ -1,16 +1,15 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T10:01:34.541Z
-> Files: 300 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T10:22:30.271Z
+> Files: 299 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitignore` — Git ignore rules (~165 tok)
-- `.load-generator.compose.override.yml` — Docker Compose: 0 services (~57 tok)
 - `AGENTS.md` — OpenWolf (~763 tok)
 - `CLAUDE.md` — OpenWolf (~763 tok)
-- `docker-compose.yml` — Docker Compose services (~872 tok)
-- `README.md` — Project documentation (~9287 tok)
+- `docker-compose.yml` — Docker Compose services (~834 tok)
+- `README.md` — Project documentation (~9032 tok)
 
 ## .agents/skills/speckit-agent-context-update/
 
@@ -228,7 +227,7 @@
 ## backend/src/common/constants/
 
 - `http.constants.ts` — Exports DEFAULT_JSON_BODY_LIMIT (~14 tok)
-- `log-api.constants.ts` — Exports DEFAULT_LOG_QUERY_LIMIT, MAX_LOG_QUERY_LIMIT, MAX_FUTURE_TIMESTAMP_OFFSET_MS, ATTRIBUTE_QUERY_PREFIX + 8 more (~246 tok)
+- `log-api.constants.ts` — Exports DEFAULT_LOG_QUERY_LIMIT, MAX_LOG_QUERY_LIMIT, MAX_FUTURE_TIMESTAMP_OFFSET_MS, ATTRIBUTE_QUERY_PREFIX + 6 more (~215 tok)
 - `log-query.constants.ts` — Exports LOG_AGGREGATION_ORIGIN, LOG_AGGREGATION_BUCKET_INTERVALS, LOG_AGGREGATION_GROUP_COLUMNS (~91 tok)
 - `postgres.constants.ts` — PostgreSQL SQLSTATE error codes (stable, part of the Postgres error-code (~59 tok)
 - `retention.constants.ts` — Exports DEFAULT_LOG_RETENTION_DAYS, MAX_LOG_RETENTION_DAYS, DEFAULT_LOG_PARTITION_DAYS_AHEAD, MAX_LOG_PARTITION_DAYS_AHEAD + 5 more (~261 tok)
@@ -323,10 +322,9 @@
 
 ## backend/src/logs/repositories/
 
-- `log.repository.ts` — One (bucket, tenant_id, service, level) group's row-count delta from a single flush. (~3694 tok)
-  - section `PendingInsert` L38-44 (~59 tok)
-  - section `RollupDelta` L45-53 (~38 tok)
-  - class `LogRepository` L54-402 (~3254 tok)
+- `log.repository.ts` — One (bucket, tenant_id, service, level) group's row-count delta from one insertMany() call. (~2714 tok)
+  - section `RollupDelta` L35-43 (~38 tok)
+  - class `LogRepository` L44-289 (~2342 tok)
 
 ## backend/src/logs/services/
 
