@@ -7,34 +7,42 @@ import { cursorPayloadSchema } from '@/logs/validators/cursor-payload.schema';
 @Injectable()
 export class CursorService {
   encode(payload: CursorPayload): string {
-    const serializedPayload = JSON.stringify(payload);
-    return Buffer.from(serializedPayload, 'utf8').toString('base64url');
+    const jsonPayload = JSON.stringify(payload);
+    const payloadBuffer = Buffer.from(jsonPayload, 'utf8');
+
+    return payloadBuffer.toString('base64url');
   }
 
   decode(cursor: string): CursorPayload {
-    const result = cursorPayloadSchema.safeParse(this.parseCursor(cursor));
+    const validationResult = cursorPayloadSchema.safeParse(
+      this.parseCursor(cursor),
+    );
 
-    if (!result.success) {
+    if (!validationResult.success) {
       throw new BadRequestException('Invalid or malformed cursor');
     }
 
-    return result.data;
+    return validationResult.data;
   }
 
   private parseCursor(cursor: string): unknown {
     try {
-      const bytes = Buffer.from(cursor, 'base64url');
+      const cursorBuffer = Buffer.from(cursor, 'base64url');
 
-      if (bytes.length === 0 || bytes.toString('base64url') !== cursor) {
+      if (
+        cursorBuffer.length === 0 ||
+        cursorBuffer.toString('base64url') !== cursor
+      ) {
         return undefined;
       }
 
-      const serializedPayload = new TextDecoder('utf-8', {
+      const jsonString = new TextDecoder('utf-8', {
         fatal: true,
-      }).decode(bytes);
-      const payload: unknown = JSON.parse(serializedPayload);
+      }).decode(cursorBuffer);
 
-      return payload;
+      const parsedPayload: unknown = JSON.parse(jsonString);
+
+      return parsedPayload;
     } catch {
       return undefined;
     }

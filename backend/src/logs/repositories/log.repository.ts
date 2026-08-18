@@ -45,9 +45,9 @@ export class LogRepository implements LogRepositoryContract {
     @InjectDataSource()
     private readonly dataSource: DataSource,
     @InjectRepository(Log)
-    private readonly readRepository: Repository<Log>,
+    private readonly logRepository: Repository<Log>,
     @InjectRepository(LogRollup)
-    private readonly rollupReadRepository: Repository<LogRollup>,
+    private readonly logRollupRepository: Repository<LogRollup>,
   ) {}
 
   async insertMany(logs: readonly NewLog[]): Promise<void> {
@@ -67,8 +67,8 @@ export class LogRepository implements LogRepositoryContract {
   ): Promise<void> {
     const deltas = this.groupIntoRollupDeltas(logs);
     const values: unknown[] = [];
-    const rows = deltas.map((delta, index) => {
-      const offset = index * 5;
+    const placeholderRows = deltas.map((delta, index) => {
+      const paramOffset = index * 5;
       values.push(
         delta.bucket,
         delta.tenant_id,
@@ -76,13 +76,13 @@ export class LogRepository implements LogRepositoryContract {
         delta.level,
         delta.count,
       );
-      return `($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4}, $${offset + 5})`;
+      return `($${paramOffset + 1}, $${paramOffset + 2}, $${paramOffset + 3}, $${paramOffset + 4}, $${paramOffset + 5})`;
     });
 
     await manager.query(
       `
         INSERT INTO log_rollups (bucket, tenant_id, service, level, count)
-        VALUES ${rows.join(', ')}
+        VALUES ${placeholderRows.join(', ')}
         ON CONFLICT (bucket, tenant_id, service, level)
         DO UPDATE SET count = log_rollups.count + EXCLUDED.count
       `,
@@ -116,7 +116,7 @@ export class LogRepository implements LogRepositoryContract {
 
   async findPage(query: FindLogsQuery): Promise<LogPage> {
     const logs = await buildLogPageQuery(
-      this.readRepository,
+      this.logRepository,
       query,
     ).getRawMany<RawLogRow>();
     const hasMore = logs.length > query.limit;
@@ -136,31 +136,31 @@ export class LogRepository implements LogRepositoryContract {
 
     const rollupSince = alignUpToRollupBucket(query.since);
     const rollupUntil = alignDownToRollupBucket(query.until);
-    const rows: RawLogAggregation[] = [];
+    const aggregationRows: RawLogAggregation[] = [];
 
     if (rollupSince < rollupUntil) {
-      const rollupRows = await buildRollupAggregationQuery(
-        this.rollupReadRepository,
+      const rollupAggregationRows = await buildRollupAggregationQuery(
+        this.logRollupRepository,
         query,
         rollupSince,
         rollupUntil,
       ).getRawMany<RawLogAggregation>();
-      rows.push(...rollupRows);
+      aggregationRows.push(...rollupAggregationRows);
     }
 
     if (query.since < rollupSince) {
-      rows.push(
+      aggregationRows.push(
         ...(await this.aggregateRawScan(query, query.since, rollupSince)),
       );
     }
 
     if (rollupUntil < query.until) {
-      rows.push(
+      aggregationRows.push(
         ...(await this.aggregateRawScan(query, rollupUntil, query.until)),
       );
     }
 
-    return this.mergeAggregationRows(rows);
+    return this.mergeAggregationRows(aggregationRows);
   }
 
   private async aggregateRawScan(
@@ -168,7 +168,7 @@ export class LogRepository implements LogRepositoryContract {
     since: Date,
     until: Date,
   ): Promise<RawLogAggregation[]> {
-    return buildAggregationQuery(this.readRepository, {
+    return buildAggregationQuery(this.logRepository, {
       ...query,
       since,
       until,
@@ -218,7 +218,7 @@ export class LogRepository implements LogRepositoryContract {
   }
 
   private buildLogsCsv(logs: readonly NewLog[]): string {
-    const rows = logs.map((log) =>
+    const csvRows = logs.map((log) =>
       [
         log.timestamp.toISOString(),
         log.tenant_id,
@@ -231,7 +231,7 @@ export class LogRepository implements LogRepositoryContract {
         .join(','),
     );
 
-    return rows.join('\n') + '\n';
+    return csvRows.join('\n') + '\n';
   }
 
   private escapeCsvField(value: string): string {

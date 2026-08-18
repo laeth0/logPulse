@@ -18,17 +18,18 @@ export class HealthService {
   ) {}
 
   async check(): Promise<HealthStatus> {
-    const database = await this.checkDatabase();
+    const databaseStatus = await this.checkDatabase();
 
-    const migrations =
-      database === 'connected' ? await this.checkMigrations() : 'unknown';
+    const migrationStatus =
+      databaseStatus === 'connected' ? await this.checkMigrations() : 'unknown';
 
-    const isReady = database === 'connected' && migrations === 'applied';
+    const isReady =
+      databaseStatus === 'connected' && migrationStatus === 'applied';
 
     return {
       status: isReady ? 'ok' : 'error',
-      database,
-      migrations,
+      database: databaseStatus,
+      migrations: migrationStatus,
       uptime: Math.floor(process.uptime()),
       timestamp: new Date().toISOString(),
     };
