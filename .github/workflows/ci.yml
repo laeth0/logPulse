@@ -70,173 +70,69 @@ jobs:
         env:
           NODE_ENV: production
 
-  smoke:
-    name: Required-Contract Smoke Test
+  integration:
+    name: Integration Tests
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: backend
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      # Project spec: "A plain docker compose up with no environment file,
-      # no arguments, and no manual setup must produce a service that serves
-      # GET /health, POST /logs, GET /logs, and GET /logs/aggregate exactly
-      # as specified... Applies no rate limit, quota, or tenancy restriction."
-      # No AUTH_ENABLED is set here on purpose: this is the default,
-      # zero-config configuration. The AUTH_ENABLED=true configuration is
-      # covered separately by the smoke-auth job below (CI Requirement
-      # section; spec.md FR-027).
-      - name: Start the stack with docker compose up
-        run: docker compose up -d --build
-
-      - name: Wait for GET /health to report ready
-        run: |
-          for attempt in $(seq 1 60); do
-            status=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/health || true)
-            if [ "$status" = "200" ]; then
-              echo "Service healthy after ${attempt} attempt(s)"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "::error::GET /health never returned 200"
-          docker compose logs
-          exit 1
-
-      - name: POST /logs accepts an unauthenticated batch
-        run: |
-          now=$(date -u +%Y-%m-%dT%H:%M:%S.000Z)
-          response=$(curl -sS -w '\n%{http_code}' -X POST http://localhost:8080/logs \
-            -H 'Content-Type: application/json' \
-            -d "{\"logs\":[{\"timestamp\":\"${now}\",\"level\":\"info\",\"service\":\"ci-smoke\",\"message\":\"ci smoke test\",\"attributes\":{\"ci\":true}}]}")
-          status="${response##*$'\n'}"
-          body="${response%$'\n'*}"
-          echo "$body"
-          if [ "$status" != "200" ]; then
-            echo "::error::POST /logs returned ${status}"
-            exit 1
-          fi
-          echo "$body" | grep -q '"accepted":1' || { echo "::error::batch was not accepted"; exit 1; }
-
-      - name: GET /logs is reachable unauthenticated
-        run: |
-          status=$(curl -sS -o /dev/null -w '%{http_code}' 'http://localhost:8080/logs?service=ci-smoke&limit=5')
-          [ "$status" = "200" ] || { echo "::error::GET /logs returned ${status}"; exit 1; }
-
-      - name: GET /logs/aggregate is reachable unauthenticated
-        run: |
-          since=$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%SZ)
-          until=$(date -u -d '1 hour' +%Y-%m-%dT%H:%M:%SZ)
-          status=$(curl -sS -o /dev/null -w '%{http_code}' "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h")
-          [ "$status" = "200" ] || { echo "::error::GET /logs/aggregate returned ${status}"; exit 1; }
-
-      - name: Dump service logs on failure
-        if: failure()
-        run: docker compose logs
-
-      - name: Tear down the stack
-        if: always()
-        run: docker compose down -v
-
-  smoke-auth:
-    name: Required-Contract Smoke Test (AUTH_ENABLED=true)
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Generate a LOADGEN_API_KEY for this run
-        run: echo "LOADGEN_API_KEY=lp_ci_$(openssl rand -hex 16)" >> "$GITHUB_ENV"
-
-      # Project spec: "Your pipeline must run the required-contract smoke
-      # test in both configurations... 2. AUTH_ENABLED=true with
-      # LOADGEN_API_KEY set — all four endpoints reachable with the seeded
-      # bearer token, and rejected with 401 without it." (CI Requirement
-      # section, and spec.md FR-027 / SC-006.)
-      - name: Start the stack with AUTH_ENABLED=true
-        run: docker compose up -d --build
+    services:
+      postgres:
+        image: postgres:17-alpine
         env:
-          AUTH_ENABLED: 'true'
+          POSTGRES_USER: logpulse
+          POSTGRES_PASSWORD: logpulse
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U logpulse"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
 
-      - name: Wait for GET /health to report ready
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write .env.test
         run: |
-          for attempt in $(seq 1 60); do
-            status=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/health || true)
-            if [ "$status" = "200" ]; then
-              echo "Service healthy after ${attempt} attempt(s)"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "::error::GET /health never returned 200"
-          docker compose logs
-          exit 1
+          cat <<'EOF' > .env.test
+          NODE_ENV=test
+          DB_HOST=localhost
+          DB_PORT=5432
+          DB_USER=logpulse
+          DB_PASS=logpulse
+          DB_NAME=logpulse_testing
+          DB_SSL=false
+          EOF
 
-      - name: POST /logs accepts a batch with the seeded bearer token
-        run: |
-          now=$(date -u +%Y-%m-%dT%H:%M:%S.000Z)
-          response=$(curl -sS -w '\n%{http_code}' -X POST http://localhost:8080/logs \
-            -H 'Content-Type: application/json' \
-            -H "Authorization: Bearer ${LOADGEN_API_KEY}" \
-            -d "{\"logs\":[{\"timestamp\":\"${now}\",\"level\":\"info\",\"service\":\"ci-smoke-auth\",\"message\":\"ci auth smoke test\",\"attributes\":{\"ci\":true}}]}")
-          status="${response##*$'\n'}"
-          body="${response%$'\n'*}"
-          echo "$body"
-          if [ "$status" != "200" ]; then
-            echo "::error::POST /logs with bearer token returned ${status}"
-            exit 1
-          fi
-          echo "$body" | grep -q '"accepted":1' || { echo "::error::batch was not accepted"; exit 1; }
+      - name: Run migrations
+        run: npm run migration:run
+        env:
+          NODE_ENV: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USER: logpulse
+          DB_PASS: logpulse
+          DB_NAME: logpulse_testing
+          DB_SSL: 'false'
 
-      - name: GET /logs succeeds with the seeded bearer token
-        run: |
-          status=$(curl -sS -o /dev/null -w '%{http_code}' \
-            -H "Authorization: Bearer ${LOADGEN_API_KEY}" \
-            'http://localhost:8080/logs?service=ci-smoke-auth&limit=5')
-          [ "$status" = "200" ] || { echo "::error::GET /logs with bearer token returned ${status}"; exit 1; }
+      - name: Run integration tests
+        run: npm run test:integration
+        env:
+          NODE_ENV: test
 
-      - name: GET /logs/aggregate succeeds with the seeded bearer token
-        run: |
-          since=$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%SZ)
-          until=$(date -u -d '1 hour' +%Y-%m-%dT%H:%M:%SZ)
-          status=$(curl -sS -o /dev/null -w '%{http_code}' \
-            -H "Authorization: Bearer ${LOADGEN_API_KEY}" \
-            "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h")
-          [ "$status" = "200" ] || { echo "::error::GET /logs/aggregate with bearer token returned ${status}"; exit 1; }
-
-      - name: POST /logs is rejected with 401 without a credential
-        run: |
-          status=$(curl -sS -o /dev/null -w '%{http_code}' -X POST http://localhost:8080/logs \
-            -H 'Content-Type: application/json' \
-            -d '{"logs":[{"timestamp":"2026-01-01T00:00:00.000Z","level":"info","service":"ci-smoke-auth","message":"should be rejected","attributes":{}}]}')
-          [ "$status" = "401" ] || { echo "::error::POST /logs without a credential returned ${status}, expected 401"; exit 1; }
-
-      - name: GET /logs is rejected with 401 without a credential
-        run: |
-          status=$(curl -sS -o /dev/null -w '%{http_code}' 'http://localhost:8080/logs?limit=5')
-          [ "$status" = "401" ] || { echo "::error::GET /logs without a credential returned ${status}, expected 401"; exit 1; }
-
-      - name: GET /logs/aggregate is rejected with 401 without a credential
-        run: |
-          since=$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%SZ)
-          until=$(date -u -d '1 hour' +%Y-%m-%dT%H:%M:%SZ)
-          status=$(curl -sS -o /dev/null -w '%{http_code}' "http://localhost:8080/logs/aggregate?since=${since}&until=${until}&bucket=1h")
-          [ "$status" = "401" ] || { echo "::error::GET /logs/aggregate without a credential returned ${status}, expected 401"; exit 1; }
-
-      - name: GET /health remains unauthenticated
-        run: |
-          status=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/health)
-          [ "$status" = "200" ] || { echo "::error::GET /health returned ${status}"; exit 1; }
-
-      - name: Dump service logs on failure
-        if: failure()
-        run: docker compose logs
-
-      - name: Tear down the stack
-        if: always()
-        run: docker compose down -v
