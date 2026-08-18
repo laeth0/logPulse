@@ -145,3 +145,51 @@
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 21:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 21:22
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 21:45
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-17 10:00
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:15 | Installed pg-copy-streams; rewrote insertLogsIn() to use COPY logs (...) FROM STDIN WITH (FORMAT csv) inside the existing flushBatch() transaction, restoring the ingestion path README.md/comments already claimed but the code didn't implement (bug-037) | backend/src/logs/repositories/log.repository.ts, backend/package.json | build passes; live-verified via Docker (CSV-escaped special chars, 500-row batch, rollup grouping all correct) | ~2400 |
+
+## Session: 2026-08-17 12:29
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-17 13:03
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-17 13:07
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-17 15:59
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-17 19:24
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 19:35 | Diagnosed local load-test CLI 401s on all 10 correctness checks — root cause was the gitignored root `.env` (AUTH_ENABLED=true) being auto-loaded by plain `docker compose up`, not a backend bug (bug-038) | .env→.env.local, .gitignore, .wolf/STATUS.md, .wolf/buglog.json | Renamed override to `.env.local` (opt-in via `--env-file`); plain `docker compose up` now always gets AUTH_ENABLED=false | ~2k |
+| 19:42 | User requested removing the local auth-override file entirely (not needed) and its `.gitignore` entries | .env.local (deleted), .gitignore, .wolf/STATUS.md, .wolf/cerebrum.md | `.env.local` deleted; `.gitignore` lines 50-57 removed; `docker compose up` runs with committed `AUTH_ENABLED=false` default only | ~1k |

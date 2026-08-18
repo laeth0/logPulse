@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-16T08:31:37.074Z
-> Files: 314 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-17T07:09:38.613Z
+> Files: 312 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -194,15 +194,11 @@
 - `Dockerfile` — Docker container definition (~304 tok)
 - `eslint.config.mjs` — ESLint flat configuration (~250 tok)
 - `nest-cli.json` (~49 tok)
-- `package-lock.json` — npm lock file (~112418 tok)
-- `package.json` — Node.js package manifest (~1094 tok)
+- `package-lock.json` — npm lock file (~115789 tok)
+- `package.json` — Node.js package manifest (~1116 tok)
 - `projectSchema.dbml` (~1467 tok)
 - `tsconfig.build.json` — TypeScript build configuration (~28 tok)
 - `tsconfig.json` — TypeScript configuration (~207 tok)
-
-## backend/prompt/
-
-- `RLS.md` — Introduce PostgreSQL Row-Level Security for Multi-Tenancy (~3151 tok)
 
 ## backend/requests/
 
@@ -224,55 +220,6 @@
 - `tenancy.login.rest` — Authenticates a Tenant and issues an access token (account/API-key (~205 tok)
 - `tenancy.refresh.rest` — Exchanges a valid refresh token for a new access + refresh pair (rotation: (~177 tok)
 - `tenancy.register.rest` — Self-registers a new Tenant account (email + password). No auth required — (~187 tok)
-
-## backend/specs/001-multi-tenancy/
-
-- `data-model.md` — Phase 1 Data Model: Multi-Tenancy (~2295 tok)
-- `plan.md` — Implementation Plan: Multi-Tenancy (~3205 tok)
-- `quickstart.md` — Quickstart: Validating Multi-Tenancy (~1593 tok)
-- `research.md` — Phase 0 Research: Multi-Tenancy (~9027 tok)
-- `spec.md` — Feature Specification: Multi-Tenancy (~5485 tok)
-- `tasks.md` — Tasks: Multi-Tenancy (~10004 tok)
-
-## backend/specs/001-multi-tenancy/checklists/
-
-- `requirements.md` — Specification Quality Checklist: Multi-Tenancy (~615 tok)
-
-## backend/specs/001-multi-tenancy/contracts/
-
-- `api-keys-api.md` — Contract: Tenant API Key Management Endpoints (~1006 tok)
-- `logs-endpoints-auth.md` — Contract: Additive Auth Behavior on the 4 Required Endpoints (~784 tok)
-- `tenant-accounts-api.md` — Contract: Tenant Account Endpoints (~783 tok)
-
-## backend/specs/002-performance-optimization/
-
-- `data-model.md` — Phase 1 Data Model: Performance Optimization (~1579 tok)
-- `plan.md` — Implementation Plan: Performance Optimization (~3922 tok)
-- `quickstart.md` — Quickstart: Validating Performance Optimization (~3182 tok)
-- `research.md` — Phase 0 Research: Performance Optimization (~8685 tok)
-- `spec.md` — Feature Specification: Performance Optimization (~5215 tok)
-- `tasks.md` — Tasks: Performance Optimization (~6904 tok)
-
-## backend/specs/002-performance-optimization/checklists/
-
-- `requirements.md` — Specification Quality Checklist: Performance Optimization (~468 tok)
-
-## backend/specs/003-ingestion-backpressure/
-
-- `data-model.md` — Data Model: Optional Backpressure Support (~1800 tok)
-- `plan.md` — Implementation Plan: Optional Backpressure Support (~3550 tok)
-- `quickstart.md` — Quickstart: Validating Optional Backpressure Support (~2257 tok)
-- `research.md` — Research: Optional Backpressure Support (~4920 tok)
-- `spec.md` — Feature Specification: Optional Backpressure Support (~4654 tok)
-- `tasks.md` — Tasks: Optional Backpressure Support (~8401 tok)
-
-## backend/specs/003-ingestion-backpressure/checklists/
-
-- `requirements.md` — Specification Quality Checklist: Optional Backpressure Support (~578 tok)
-
-## backend/specs/003-ingestion-backpressure/contracts/
-
-- `post-logs-backpressure.md` — Contract: Additive Backpressure Responses on `POST /logs` (~958 tok)
 
 ## backend/src/
 
@@ -400,10 +347,10 @@
 
 ## backend/src/logs/repositories/
 
-- `log.repository.ts` — One caller's still-pending insertMany() call: its rows plus the settlers (~4430 tok)
-  - section `PendingInsert` L45-53 (~96 tok)
-  - section `RollupDelta` L54-62 (~38 tok)
-  - class `LogRepository` L63-463 (~3866 tok)
+- `log.repository.ts` — One caller's still-pending insertMany() call: its rows plus the settlers (~4900 tok)
+  - section `PendingInsert` L49-57 (~96 tok)
+  - section `RollupDelta` L58-66 (~38 tok)
+  - class `LogRepository` L67-506 (~4284 tok)
 
 ## backend/src/logs/services/
 
@@ -576,7 +523,6 @@
 ## docs/
 
 - `Final_Project.md` — Final Project: Log Ingestion and Query Service (~4615 tok)
-- `frontend-folder-structure.md` — LogPulse — Frontend Folder Structure (~1690 tok)
 
 ## frontend/
 
@@ -663,8 +609,8 @@
 
 ## frontend/src/features/dashboard/pages/
 
-- `DashboardPage.tsx` — DashboardPage — uses useNavigate, useState (~1589 tok)
-  - fn `DashboardPage` L24-136 (~1294 tok)
+- `DashboardPage.tsx` — DashboardPage — uses useNavigate, useState (~1675 tok)
+  - fn `DashboardPage` L24-157 (~1379 tok)
 
 ## frontend/src/features/dashboard/utils/
 
@@ -797,3 +743,52 @@
 
 - `index.css` — Styles: 1 rules (~175 tok)
 - `theme.ts` — Exports theme (~461 tok)
+
+## specs/001-multi-tenancy/
+
+- `data-model.md` — Phase 1 Data Model: Multi-Tenancy (~2295 tok)
+- `plan.md` — Implementation Plan: Multi-Tenancy (~3205 tok)
+- `quickstart.md` — Quickstart: Validating Multi-Tenancy (~1593 tok)
+- `research.md` — Phase 0 Research: Multi-Tenancy (~9027 tok)
+- `spec.md` — Feature Specification: Multi-Tenancy (~5485 tok)
+- `tasks.md` — Tasks: Multi-Tenancy (~10004 tok)
+
+## specs/001-multi-tenancy/checklists/
+
+- `requirements.md` — Specification Quality Checklist: Multi-Tenancy (~615 tok)
+
+## specs/001-multi-tenancy/contracts/
+
+- `api-keys-api.md` — Contract: Tenant API Key Management Endpoints (~1006 tok)
+- `logs-endpoints-auth.md` — Contract: Additive Auth Behavior on the 4 Required Endpoints (~784 tok)
+- `tenant-accounts-api.md` — Contract: Tenant Account Endpoints (~783 tok)
+
+## specs/002-performance-optimization/
+
+- `data-model.md` — Phase 1 Data Model: Performance Optimization (~1579 tok)
+- `plan.md` — Implementation Plan: Performance Optimization (~3922 tok)
+- `quickstart.md` — Quickstart: Validating Performance Optimization (~3182 tok)
+- `research.md` — Phase 0 Research: Performance Optimization (~8685 tok)
+- `spec.md` — Feature Specification: Performance Optimization (~5215 tok)
+- `tasks.md` — Tasks: Performance Optimization (~6904 tok)
+
+## specs/002-performance-optimization/checklists/
+
+- `requirements.md` — Specification Quality Checklist: Performance Optimization (~468 tok)
+
+## specs/003-ingestion-backpressure/
+
+- `data-model.md` — Data Model: Optional Backpressure Support (~1800 tok)
+- `plan.md` — Implementation Plan: Optional Backpressure Support (~3550 tok)
+- `quickstart.md` — Quickstart: Validating Optional Backpressure Support (~2257 tok)
+- `research.md` — Research: Optional Backpressure Support (~4920 tok)
+- `spec.md` — Feature Specification: Optional Backpressure Support (~4654 tok)
+- `tasks.md` — Tasks: Optional Backpressure Support (~8401 tok)
+
+## specs/003-ingestion-backpressure/checklists/
+
+- `requirements.md` — Specification Quality Checklist: Optional Backpressure Support (~578 tok)
+
+## specs/003-ingestion-backpressure/contracts/
+
+- `post-logs-backpressure.md` — Contract: Additive Backpressure Responses on `POST /logs` (~958 tok)

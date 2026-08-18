@@ -8,7 +8,11 @@
       "file": "docs/suggestions_to_increase_the_performance.md",
       "root_cause": "Removing subsection 1a left the remaining sibling headings numbered 1b and 1c.",
       "fix": "Renumbered the remaining subsections from 1b/1c to 1a/1b.",
-      "tags": ["documentation", "numbering", "markdown"],
+      "tags": [
+        "documentation",
+        "numbering",
+        "markdown"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-13"
@@ -20,7 +24,11 @@
       "file": "src/migrations/1785684350115-CreateLogsTableBtreeIndexes.ts",
       "root_cause": "The immediately preceding performance-index implementation was explicitly withdrawn by the user.",
       "fix": "Reverted only the preceding assistant-authored implementation and documentation delta while preserving earlier and unrelated worktree changes.",
-      "tags": ["revert", "performance", "index"],
+      "tags": [
+        "revert",
+        "performance",
+        "index"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-13"
@@ -32,8 +40,14 @@
       "file": "specs/001-multi-tenancy/data-model.md",
       "root_cause": "A delayed repository hook staged the current worktree version after the first targeted index restoration.",
       "fix": "Allowed the hook queue to settle, then restored and atomically verified all affected Spec Kit index blobs again.",
-      "tags": ["git-index", "hook", "revert"],
-      "related_bugs": ["bug-003"],
+      "tags": [
+        "git-index",
+        "hook",
+        "revert"
+      ],
+      "related_bugs": [
+        "bug-003"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-13"
     },
@@ -44,7 +58,14 @@
       "file": "requests/health.check.rest",
       "root_cause": "The app container was created from an outdated Docker image (built 2026-08-12) containing obsolete compiled tenancy migrations 1785684350118 through 1785684350122. The current database already records CreateTenancyTables1785684350118, so the obsolete CreateTenantsTable1785684350119 repeatedly fails with PostgreSQL 42P07 (relation tenants already exists) and the container restarts before it can serve HTTP.",
       "fix": "Diagnosed without changing runtime state. Rebuild and recreate the app container from the current source with docker compose up -d --build app; preserve the existing database volume.",
-      "tags": ["health-check", "docker", "stale-image", "typeorm", "migration", "socket-hang-up"],
+      "tags": [
+        "health-check",
+        "docker",
+        "stale-image",
+        "typeorm",
+        "migration",
+        "socket-hang-up"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-13"
@@ -56,7 +77,11 @@
       "file": ".wolf/anatomy.md",
       "root_cause": "A diagnostic rg pattern containing a Markdown backtick was placed inside a double-quoted shell command.",
       "fix": "Removed the unnecessary backtick from the search pattern and reran the read-only diagnostic successfully.",
-      "tags": ["shell", "quoting", "diagnostics"],
+      "tags": [
+        "shell",
+        "quoting",
+        "diagnostics"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-13"
@@ -68,7 +93,12 @@
       "file": "src/logs/config/backpressure.config.ts",
       "root_cause": "T005 (specs/003-ingestion-backpressure) imported DEFAULT_BACKPRESSURE_ENABLED from log-api.constants.ts for symmetry with the other 3 backpressure defaults, but createBackpressureConfig() actually derives `enabled` directly from `process.env.BACKPRESSURE_ENABLED === 'true'`, which is already `false` for both unset and any non-'true' value — the constant was never referenced. `npx tsc --noEmit` doesn't catch unused imports at this project's tsconfig strictness; only `npm run lint` (deferred to just before PR per CLAUDE.md's workflow rule) surfaced it.",
       "fix": "Removed the unused import and the now-dead DEFAULT_BACKPRESSURE_ENABLED constant itself from log-api.constants.ts, with a comment explaining why a boolean flag's default needs no dedicated constant (the === 'true' comparison already encodes it). Re-ran tsc/build/lint clean afterward.",
-      "tags": ["eslint", "unused-vars", "typescript", "backpressure"],
+      "tags": [
+        "eslint",
+        "unused-vars",
+        "typescript",
+        "backpressure"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-14"
@@ -80,7 +110,12 @@
       "file": "test/jest-integration.json",
       "root_cause": "The shared node_modules installation was missing Jest 30's platform-specific @unrs/resolver-binding-linux-x64-gnu optional dependency, although package-lock.json already contained it; Jest swallowed that native-binding error and reported every transformer path as not found.",
       "fix": "Installed the lockfile-pinned Linux resolver binding without changing package.json, retained the repository-root Jest config, and restored the conventional bare ts-jest transformer name.",
-      "tags": ["jest", "ts-jest", "integration-tests", "configuration"],
+      "tags": [
+        "jest",
+        "ts-jest",
+        "integration-tests",
+        "configuration"
+      ],
       "related_bugs": [],
       "occurrences": 5,
       "last_seen": "2026-08-15"
@@ -92,7 +127,13 @@
       "file": "test/integration/health/health.integration-spec.ts",
       "root_cause": "A fresh AppModule integration startup runs real migrations and retention partition maintenance, which exceeds Jest's unit-oriented 5-second hook default; the timed-out setup left app unassigned for teardown.",
       "fix": "Gave the one-time integration startup hook a 120-second timeout and guarded teardown when initialization is incomplete.",
-      "tags": ["jest", "integration-tests", "timeout", "nestjs", "postgresql"],
+      "tags": [
+        "jest",
+        "integration-tests",
+        "timeout",
+        "nestjs",
+        "postgresql"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -104,7 +145,13 @@
       "file": "src/config/database.config.ts",
       "root_cause": "The read DataSource was registered under the outer Nest module name `read`, but createReadDatabaseOptions() returned options without name: `read`; TypeOrmCoreModule's shutdown hook derives its lookup token from those returned options and therefore searched for the default DataSource inside the read module.",
       "fix": "Return TypeOrmModuleOptions for the read configuration and include name: `read`, keeping registration, injection, and shutdown lookup on the same token.",
-      "tags": ["nestjs", "typeorm", "datasource", "shutdown", "integration-tests"],
+      "tags": [
+        "nestjs",
+        "typeorm",
+        "datasource",
+        "shutdown",
+        "integration-tests"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -116,7 +163,13 @@
       "file": "test/integration/health/health.integration-spec.ts",
       "root_cause": "The previous Prettier script excluded test/, so integration formatting drift was invisible; Nest's getHttpServer() returns any, which was passed directly into Supertest under type-aware linting.",
       "fix": "Formatted all src/test TypeScript and JSON files, then stored the HTTP server once as Supertest's App type before making requests.",
-      "tags": ["prettier", "eslint", "integration-tests", "typescript", "supertest"],
+      "tags": [
+        "prettier",
+        "eslint",
+        "integration-tests",
+        "typescript",
+        "supertest"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -128,7 +181,13 @@
       "file": "docs/Incremental Pre-Aggregation with Time-Based Rollup Tables.md",
       "root_cause": "The repository's delayed automatic staging/commit hook captured unrelated documentation deletions alongside the requested test cleanup.",
       "fix": "Recovered both documents from the commit's parent, preserving the intentional no-E2E wording in unit_testing_implementation_plan.md.",
-      "tags": ["git", "hooks", "documentation", "recovery", "unrelated-changes"],
+      "tags": [
+        "git",
+        "hooks",
+        "documentation",
+        "recovery",
+        "unrelated-changes"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -140,7 +199,12 @@
       "file": "src/logs/query-builders/log-filter.builder.ts",
       "root_cause": "The logs query builders live under src/logs/query-builders, but the inspection command incorrectly assumed they were under repositories.",
       "fix": "Listed src/logs with rg --files and read the builders from their actual query-builders directory.",
-      "tags": ["inspection", "path", "integration-tests", "logs"],
+      "tags": [
+        "inspection",
+        "path",
+        "integration-tests",
+        "logs"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -152,7 +216,11 @@
       "file": ".wolf/buglog.json",
       "root_cause": "The OpenWolf bug log was mistakenly addressed as Markdown instead of the JSON filename documented by OPENWOLF.md.",
       "fix": "Located the OpenWolf files and read .wolf/buglog.json before recording the failures.",
-      "tags": ["openwolf", "path", "tooling"],
+      "tags": [
+        "openwolf",
+        "path",
+        "tooling"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -164,7 +232,12 @@
       "file": "src/logs/repositories/log.repository.ts",
       "root_cause": "The file was printed with `sed -n '1,260p'` followed by `sed -n '260,560p'`; inclusive sed ranges printed boundary line 260 twice. The source has only one call and capacity accounting is unchanged.",
       "fix": "Verified the numbered source directly, retracted the false production-bug report, and made no production change.",
-      "tags": ["logs", "inspection", "sed", "false-positive"],
+      "tags": [
+        "logs",
+        "inspection",
+        "sed",
+        "false-positive"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -176,7 +249,12 @@
       "file": ".agents/skills/speckit-agent-context-update/SKILL.md",
       "root_cause": "Numerous unrelated modified files use CRLF line endings, which git diff --check reports as trailing whitespace on every changed line; the new logs test itself had already passed Prettier and ESLint.",
       "fix": "Left unrelated user-owned files untouched and relied on the requested src/test Prettier and ESLint checks, both of which passed.",
-      "tags": ["git", "crlf", "whitespace", "unrelated-changes"],
+      "tags": [
+        "git",
+        "crlf",
+        "whitespace",
+        "unrelated-changes"
+      ],
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-08-15"
@@ -188,8 +266,14 @@
       "file": ".wolf/buglog.json",
       "root_cause": "A multi-file patch included an extra hunk marker before the next Update File section, making the patch grammar invalid.",
       "fix": "Split the correction into two valid apply_patch calls and applied both successfully.",
-      "tags": ["apply-patch", "tooling", "openwolf"],
-      "related_bugs": ["bug-015"],
+      "tags": [
+        "apply-patch",
+        "tooling",
+        "openwolf"
+      ],
+      "related_bugs": [
+        "bug-015"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-15"
     },
@@ -200,7 +284,13 @@
       "file": "src/tenancy/services/token.service.ts",
       "root_cause": "Refresh JWTs contained only tenant id, token type, and second-resolution issued/expiry timestamps. Tokens issued for the same tenant within one second therefore had identical payloads and signatures; the newly stored active hash also accepted the supposedly revoked token string.",
       "fix": "Added a cryptographically unique JWT ID to every refresh token via the standard jwtid signing option, making each rotated token distinct even within the same second.",
-      "tags": ["tenancy", "refresh-token", "rotation", "jwt", "integration-tests"],
+      "tags": [
+        "tenancy",
+        "refresh-token",
+        "rotation",
+        "jwt",
+        "integration-tests"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -212,8 +302,16 @@
       "file": "test/integration/tenancy/tenancy.integration-spec.ts",
       "root_cause": "Jest's expect.any asymmetric matcher is typed as any when embedded as property values in toMatchObject, conflicting with the project's type-aware no-unsafe-assignment lint rule.",
       "fix": "Replaced the asymmetric matcher object with direct string/number, non-empty, token-type, and positive-TTL assertions.",
-      "tags": ["eslint", "typescript", "jest", "integration-tests", "tenancy"],
-      "related_bugs": ["bug-011"],
+      "tags": [
+        "eslint",
+        "typescript",
+        "jest",
+        "integration-tests",
+        "tenancy"
+      ],
+      "related_bugs": [
+        "bug-011"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-15"
     },
@@ -224,7 +322,12 @@
       "file": ".env.test",
       "root_cause": "The PostgreSQL instance reachable through the current test environment does not accept the DB_USER/DB_PASS credentials configured in .env.test. The failure occurred before Jest loaded any integration test suite.",
       "fix": "No credential or database state was changed automatically. Verified the refactored test code with npx tsc --noEmit and verified production compilation with npm run build; rerun integration tests after aligning the test database credentials.",
-      "tags": ["postgresql", "integration-tests", "environment", "authentication"],
+      "tags": [
+        "postgresql",
+        "integration-tests",
+        "environment",
+        "authentication"
+      ],
       "related_bugs": [],
       "occurrences": 2,
       "last_seen": "2026-08-15"
@@ -236,8 +339,15 @@
       "file": ".wolf/buglog.json",
       "root_cause": "The patch hunk matched a repeated occurrences field without including the intended bug ID as sufficiently specific context.",
       "fix": "Restored bug-009 to one occurrence, updated bug-021 to two occurrences, and used bug-ID-specific patch context.",
-      "tags": ["openwolf", "buglog", "apply-patch", "verification"],
-      "related_bugs": ["bug-021"],
+      "tags": [
+        "openwolf",
+        "buglog",
+        "apply-patch",
+        "verification"
+      ],
+      "related_bugs": [
+        "bug-021"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-15"
     },
@@ -248,8 +358,15 @@
       "file": ".wolf/cerebrum.md",
       "root_cause": "The patch anchor paraphrased the existing tenancy decision as account registration/login/refresh rotation, but the file uses account/session lifecycle.",
       "fix": "Located the exact existing lines with rg, then reapplied the updates using exact and section-level anchors.",
-      "tags": ["openwolf", "apply-patch", "context-mismatch"],
-      "related_bugs": ["bug-018", "bug-022"],
+      "tags": [
+        "openwolf",
+        "apply-patch",
+        "context-mismatch"
+      ],
+      "related_bugs": [
+        "bug-018",
+        "bug-022"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-15"
     },
@@ -260,7 +377,11 @@
       "file": ".wolf/buglog.json",
       "root_cause": "The final verification assumed jq was installed in the environment, but this workspace does not provide it.",
       "fix": "Validated the JSON with Node.js JSON.parse instead and continued the remaining checks.",
-      "tags": ["tooling", "json", "verification"],
+      "tags": [
+        "tooling",
+        "json",
+        "verification"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-15"
@@ -272,8 +393,14 @@
       "file": "frontend/index.html",
       "root_cause": "The UI patch assumed the starter title was 'Vite + React + TS', but this repository had already renamed it to 'logpulse'.",
       "fix": "Read the current HTML markup and split the UI implementation into smaller patches using exact file context.",
-      "tags": ["frontend", "apply-patch", "context-mismatch"],
-      "related_bugs": ["bug-023"],
+      "tags": [
+        "frontend",
+        "apply-patch",
+        "context-mismatch"
+      ],
+      "related_bugs": [
+        "bug-023"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-16"
     },
@@ -284,7 +411,12 @@
       "file": "frontend/src/features/auth/pages/RegisterPage.tsx",
       "root_cause": "The registration page used legacy system-prop shorthand on Stack; the installed Material UI v9 Stack typing exposes those flexbox properties through sx instead.",
       "fix": "Moved Stack alignment and justification values into each component's sx object, preserving the rendered layout.",
-      "tags": ["frontend", "typescript", "mui-v9", "build"],
+      "tags": [
+        "frontend",
+        "typescript",
+        "mui-v9",
+        "build"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
@@ -296,8 +428,16 @@
       "file": "frontend/node_modules/rolldown/dist/shared/binding-Zhafd14U.mjs",
       "root_cause": "The cross-platform/shared frontend node_modules installation omitted Rolldown 1.2.4's Linux optional native binding even though package-lock.json already records it.",
       "fix": "Install the lockfile-pinned @rolldown/binding-linux-x64-gnu@1.2.4 package without changing project dependencies, then rerun the frontend build.",
-      "tags": ["frontend", "vite", "rolldown", "optional-dependency", "wsl"],
-      "related_bugs": ["bug-008"],
+      "tags": [
+        "frontend",
+        "vite",
+        "rolldown",
+        "optional-dependency",
+        "wsl"
+      ],
+      "related_bugs": [
+        "bug-008"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-16"
     },
@@ -308,7 +448,12 @@
       "file": ".wolf/OPENWOLF.md",
       "root_cause": "The repository guidance documents an OpenWolf designqc command that is not available in the installed OpenWolf CLI version.",
       "fix": "Use the available Playwright browser tooling for visual responsive verification instead of the missing OpenWolf command.",
-      "tags": ["openwolf", "designqc", "frontend", "tooling"],
+      "tags": [
+        "openwolf",
+        "designqc",
+        "frontend",
+        "tooling"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
@@ -320,8 +465,15 @@
       "file": "output/playwright",
       "root_cause": "The Playwright CLI is installed through npx, but its required Chrome browser binary has not been installed in this environment.",
       "fix": "Install Chrome through playwright-cli install-browser and repeat the read-only responsive browser inspection.",
-      "tags": ["playwright", "chrome", "frontend", "visual-testing"],
-      "related_bugs": ["bug-028"],
+      "tags": [
+        "playwright",
+        "chrome",
+        "frontend",
+        "visual-testing"
+      ],
+      "related_bugs": [
+        "bug-028"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-16"
     },
@@ -332,8 +484,16 @@
       "file": "output/playwright",
       "root_cause": "The downloaded Chromium binary requires system browser libraries that are absent from WSL; Playwright's dependency installer needs sudo, which is unavailable non-interactively.",
       "fix": "Stopped browser-based visual verification and retained build/type verification; install Playwright system dependencies with sudo before a later screenshot pass.",
-      "tags": ["playwright", "chromium", "wsl", "system-dependency", "visual-testing"],
-      "related_bugs": ["bug-029"],
+      "tags": [
+        "playwright",
+        "chromium",
+        "wsl",
+        "system-dependency",
+        "visual-testing"
+      ],
+      "related_bugs": [
+        "bug-029"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-16"
     },
@@ -344,8 +504,15 @@
       "file": ".wolf/cerebrum.md",
       "root_cause": "The patch expected a shortened Decision Log comment, while the file includes the phrase 'with rationale'.",
       "fix": "Read the exact section text and reapplied the metadata update with precise context.",
-      "tags": ["openwolf", "apply-patch", "context-mismatch"],
-      "related_bugs": ["bug-023", "bug-025"],
+      "tags": [
+        "openwolf",
+        "apply-patch",
+        "context-mismatch"
+      ],
+      "related_bugs": [
+        "bug-023",
+        "bug-025"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-16"
     },
@@ -356,8 +523,14 @@
       "file": "frontend/src/features/auth/pages/RegisterPage.tsx",
       "root_cause": "The patch attempted to replace one file using both Delete File and Add File directives in the same operation, which this apply_patch implementation does not support.",
       "fix": "Split the replacement into one delete patch followed by one add patch.",
-      "tags": ["frontend", "apply-patch", "refactor"],
-      "related_bugs": ["bug-018"],
+      "tags": [
+        "frontend",
+        "apply-patch",
+        "refactor"
+      ],
+      "related_bugs": [
+        "bug-018"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-16"
     },
@@ -368,7 +541,13 @@
       "file": "frontend/src/shared/api/http.ts",
       "root_cause": "VITE_API_BASE_URL was absent from the active Vite runtime environment, but the Axios client treated it as required and called replace() on it directly.",
       "fix": "Resolve the optional environment value safely and fall back to the local backend URL from shared constants before removing trailing slashes.",
-      "tags": ["frontend", "axios", "vite", "environment", "runtime"],
+      "tags": [
+        "frontend",
+        "axios",
+        "vite",
+        "environment",
+        "runtime"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
@@ -380,7 +559,13 @@
       "file": ".wolf/buglog.json",
       "root_cause": "The generated OpenWolf metadata uses CRLF line endings, which git diff --check in the WSL environment reports as trailing carriage-return whitespace across unchanged lines.",
       "fix": "Treat generated OpenWolf metadata separately and run the whitespace check only against the changed frontend source files.",
-      "tags": ["openwolf", "git", "crlf", "wsl", "tooling"],
+      "tags": [
+        "openwolf",
+        "git",
+        "crlf",
+        "wsl",
+        "tooling"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
@@ -392,7 +577,13 @@
       "file": "frontend/src/router/index.tsx",
       "root_cause": "router/index.tsx defined a local React component (RootRedirect) in the same module as the non-component `router` export (a RemixRouter object), which violates the react-refresh/only-export-components rule even though RootRedirect itself was not exported.",
       "fix": "Extracted RootRedirect into its own file, frontend/src/router/RootRedirect.tsx, mirroring the existing ProtectedRoute.tsx pattern; router/index.tsx now only imports it and exports the router object.",
-      "tags": ["frontend", "eslint", "react-refresh", "router", "vite"],
+      "tags": [
+        "frontend",
+        "eslint",
+        "react-refresh",
+        "router",
+        "vite"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
@@ -404,10 +595,54 @@
       "file": "backend/src/main.ts",
       "root_cause": "The running app container (docker compose up -d --force-recreate, no --build) was serving a stale compiled image predating a change that made app.enableCors({ origin: '*' }) effective, so CORS headers were never attached and preflight OPTIONS requests fell through to Nest's 404 handler. Same class of bug as the stale-image issue already logged in cerebrum.md Key Learnings (obsolete compiled dist/migrations). Never caught earlier because all prior API verification used curl (which does not enforce or require CORS) and Playwright browser testing is blocked in this sandbox, so no real cross-origin browser request had ever actually been exercised against this container.",
       "fix": "docker compose up -d --build app (full image rebuild, not just --force-recreate) restored correct CORS behavior: Access-Control-Allow-Origin on every response, and OPTIONS preflight now returns 204 with Access-Control-Allow-Headers reflecting the requested headers.",
-      "tags": ["docker", "stale-image", "cors", "backend", "frontend-integration"],
+      "tags": [
+        "docker",
+        "stale-image",
+        "cors",
+        "backend",
+        "frontend-integration"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-16"
+    },
+    {
+      "id": "bug-037",
+      "timestamp": "2026-08-17T07:09:54.388Z",
+      "error_message": "README.md and entity/migration comments documented COPY FROM STDIN ingestion via pg-copy-streams (with a measured ~20k logs/sec figure), but log.repository.ts.insertLogsIn() actually called manager.getRepository(Log).insert() (a plain multi-row parameterized INSERT), and pg-copy-streams was not even in package.json dependencies.",
+      "file": "backend/src/logs/repositories/log.repository.ts",
+      "root_cause": "The documented/measured COPY-based ingestion path from the 002-performance-optimization feature was not present in the actual code — likely lost in an earlier revert or refactor without the docs being checked against the code.",
+      "fix": "Installed pg-copy-streams (+ @types/pg-copy-streams) and rewrote insertLogsIn() to stream the batch into logs via COPY logs (...) FROM STDIN WITH (FORMAT csv), obtaining the raw pg client from the open transaction via manager.queryRunner.connect() so the COPY still runs on the same connection/transaction as upsertRollups(). Added buildLogsCsv()/escapeCsvField() (RFC 4180 quoting) as private helpers. Live-verified against a rebuilt Docker stack: special characters (commas, quotes, newlines, unicode) round-trip exactly, a 500-row batch lands correctly grouped, and npm run build passes.",
+      "tags": [
+        "ingestion",
+        "postgresql",
+        "copy",
+        "pg-copy-streams",
+        "documentation-drift",
+        "performance"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-17"
+    },
+    {
+      "id": "bug-038",
+      "timestamp": "2026-08-17T00:00:00.000Z",
+      "error_message": "Local load-test CLI run: all 10 correctness checks failed with HTTP 401 (ingestion.*, query.*, pagination.*, aggregate.*); Performance 9/50 with 100% errors and 0/s throughput.",
+      "file": "docker-compose.yml",
+      "root_cause": "Not a backend bug: the guards behaved correctly. The repo root had a gitignored local-dev override file named .env (AUTH_ENABLED=true, added to let the frontend demo real tenant-scoped API keys). `docker compose up` auto-loads ./.env for variable substitution, so it silently overrode docker-compose.yml's committed AUTH_ENABLED=false default. The load-test CLI ran a plain `docker compose up --build` in this directory and inherited AUTH_ENABLED=true; the load generator (testing the zero-config contract) never sends a matching bearer key, so every ingestion/query/aggregate request got 401. The grading portal itself is unaffected (.env is gitignored, never pushed) but local diagnostic runs were unrepresentative.",
+      "fix": "Renamed the override file from .env to .env.local so plain `docker compose up` never auto-loads it; updated .gitignore (/.env.local) and the file's own header comment to require explicit opt-in via `docker compose --env-file .env.local up --build` for local frontend auth-on dev. Plain `docker compose up` (grading portal and local load-testing tools) now always gets the committed AUTH_ENABLED=false default.",
+      "tags": [
+        "auth",
+        "docker-compose",
+        "env-file",
+        "load-testing",
+        "false-positive",
+        "zero-config"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-17"
     }
   ]
 }

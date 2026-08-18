@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 1846847,
-    "total_reads": 2836,
+    "total_tokens_estimated": 1861333,
+    "total_reads": 2853,
     "total_writes": 0,
-    "total_sessions": 31,
-    "anatomy_hits": 2056,
-    "anatomy_misses": 730,
-    "repeated_reads_blocked": 1211,
-    "estimated_savings_vs_bare_cli": 1727733,
-    "real_input_tokens": 714970,
-    "real_output_tokens": 67599668,
-    "real_cache_read_tokens": 29864651401,
-    "real_cache_creation_tokens": 323985678,
-    "real_api_calls": 63018
+    "total_sessions": 40,
+    "anatomy_hits": 2069,
+    "anatomy_misses": 734,
+    "repeated_reads_blocked": 1212,
+    "estimated_savings_vs_bare_cli": 1735233,
+    "real_input_tokens": 734824,
+    "real_output_tokens": 67688418,
+    "real_cache_read_tokens": 29883777492,
+    "real_cache_creation_tokens": 324368407,
+    "real_api_calls": 63194
   },
   "sessions": [
     {
@@ -19023,6 +19023,204 @@
         "cache_read_input_tokens": 34702338,
         "cache_creation_input_tokens": 339448,
         "api_calls": 152
+      }
+    },
+    {
+      "id": "session-2026-08-17-1000",
+      "agent": "claude",
+      "started": "2026-08-17T07:00:33.210Z",
+      "ended": "2026-08-17T07:10:40.682Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/specs/002-performance-optimization/research.md",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/config/database.config.ts",
+          "tokens_estimated": 590,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/entities/log.entity.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/interfaces/log-repository.interface.ts",
+          "tokens_estimated": 184,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts",
+          "tokens_estimated": 4430,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 5708,
+        "output_tokens_estimated": 0,
+        "reads_count": 5,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 5
+      },
+      "real_usage": {
+        "input_tokens": 1447,
+        "output_tokens": 25061,
+        "cache_read_input_tokens": 6232941,
+        "cache_creation_input_tokens": 102404,
+        "api_calls": 56
+      }
+    },
+    {
+      "id": "session-2026-08-17-1000",
+      "agent": "claude",
+      "started": "2026-08-17T07:00:33.210Z",
+      "ended": "2026-08-17T07:19:47.273Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/specs/002-performance-optimization/research.md",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/config/database.config.ts",
+          "tokens_estimated": 590,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/entities/log.entity.ts",
+          "tokens_estimated": 504,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/interfaces/log-repository.interface.ts",
+          "tokens_estimated": 184,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts",
+          "tokens_estimated": 4900,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/config/backpressure.config.ts",
+          "tokens_estimated": 688,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 6866,
+        "output_tokens_estimated": 0,
+        "reads_count": 6,
+        "writes_count": 0,
+        "repeated_reads_blocked": 1,
+        "anatomy_lookups": 6
+      },
+      "real_usage": {
+        "input_tokens": 1473,
+        "output_tokens": 34149,
+        "cache_read_input_tokens": 8101159,
+        "cache_creation_input_tokens": 121942,
+        "api_calls": 69
+      }
+    },
+    {
+      "id": "session-2026-08-17-1924",
+      "agent": "claude",
+      "started": "2026-08-17T16:24:34.583Z",
+      "ended": "2026-08-17T16:44:15.118Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml",
+          "tokens_estimated": 956,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/.env.local",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 956,
+        "output_tokens_estimated": 0,
+        "reads_count": 3,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 8462,
+        "output_tokens": 13256,
+        "cache_read_input_tokens": 2129918,
+        "cache_creation_input_tokens": 76928,
+        "api_calls": 23
+      }
+    },
+    {
+      "id": "session-2026-08-17-1924",
+      "agent": "claude",
+      "started": "2026-08-17T16:24:34.583Z",
+      "ended": "2026-08-17T16:44:53.843Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml",
+          "tokens_estimated": 956,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/.env.local",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 956,
+        "output_tokens_estimated": 0,
+        "reads_count": 3,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 8472,
+        "output_tokens": 16284,
+        "cache_read_input_tokens": 2662073,
+        "cache_creation_input_tokens": 81455,
+        "api_calls": 28
       }
     }
   ],

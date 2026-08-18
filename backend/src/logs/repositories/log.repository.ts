@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
+import type { Client } from 'pg';
+import { from as copyFromStdin } from 'pg-copy-streams';
 import type { DataSource, EntityManager, Repository } from 'typeorm';
 
 import {
@@ -443,20 +447,59 @@ export class LogRepository implements LogRepositoryContract {
     );
   }
 
-  /** A single multi-row `INSERT ... VALUES (...), (...), ...` via the entity's own repository. */
+  /**
+   * Streams the batch into `logs` via PostgreSQL's `COPY ... FROM STDIN`
+   * (CSV format, through `pg-copy-streams`) instead of a parameterized
+   * multi-row `INSERT` — materially cheaper for the row counts this hot
+   * path pushes through under the project's 0.5-CPU/256MB app container
+   * limit. `manager.queryRunner.connect()` returns the raw `pg` client
+   * already checked out for this transactional `EntityManager` (not a
+   * fresh one from the pool), so the COPY runs on the exact same
+   * connection/transaction as `upsertRollups()` in `flushBatch()` — a
+   * rollback still undoes both.
+   */
   private async insertLogsIn(
     manager: EntityManager,
     logs: readonly NewLog[],
   ): Promise<void> {
-    await manager.getRepository(Log).insert(
-      logs.map((log) => ({
-        timestamp: log.timestamp,
-        tenant_id: log.tenant_id,
-        level: log.level,
-        service: log.service,
-        message: log.message,
-        attributes: log.attributes,
-      })),
+    const queryRunner = manager.queryRunner;
+
+    if (!queryRunner) {
+      throw new Error(
+        'insertLogsIn requires a transactional EntityManager with an active QueryRunner',
+      );
+    }
+
+    const client = (await queryRunner.connect()) as Client;
+    const copyStream = client.query(
+      copyFromStdin(
+        'COPY logs (timestamp, tenant_id, level, service, message, attributes) FROM STDIN WITH (FORMAT csv)',
+      ),
     );
+
+    await pipeline(Readable.from([this.buildLogsCsv(logs)]), copyStream);
+  }
+
+  /** Builds one CSV row per log, in the exact column order `insertLogsIn()`'s COPY declares. */
+  private buildLogsCsv(logs: readonly NewLog[]): string {
+    const rows = logs.map((log) =>
+      [
+        log.timestamp.toISOString(),
+        log.tenant_id,
+        log.level,
+        log.service,
+        log.message,
+        JSON.stringify(log.attributes),
+      ]
+        .map((field) => this.escapeCsvField(field))
+        .join(','),
+    );
+
+    return rows.join('\n') + '\n';
+  }
+
+  /** Quotes a CSV field and doubles embedded quotes only when RFC 4180 requires it. */
+  private escapeCsvField(value: string): string {
+    return /[",\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
   }
 }
