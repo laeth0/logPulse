@@ -2,7 +2,6 @@ import type { AggregationBucket } from '@/logs/enums/aggregation-bucket.enum';
 import type { AggregationGroup } from '@/logs/enums/aggregation-group.enum';
 import type { LogLevel } from '@/logs/enums/log-level.enum';
 import type { CursorPayload } from '@/logs/interfaces/cursor-payload.interface';
-import type { LogAttributeValue } from '@/logs/interfaces/log-repository.interface';
 
 export interface LogFilters {
   tenantId: string;
@@ -19,35 +18,9 @@ export interface FindLogsQuery extends LogFilters {
   cursor?: CursorPayload;
 }
 
-export interface RawLogRow {
-  id: string;
-  timestamp: Date;
-  level: LogLevel;
-  service: string;
-  message: string;
-  attributes: Record<string, LogAttributeValue>;
-}
-
-export interface LogPage {
-  logs: RawLogRow[];
-  hasMore: boolean;
-}
-
 export interface AggregateLogsQuery extends LogFilters {
   since: Date;
   until: Date;
   bucket: AggregationBucket;
   groupBy?: AggregationGroup;
-}
-
-export interface LogAggregation {
-  start: Date;
-  group: string | null;
-  count: number;
-}
-
-export interface RawLogAggregation {
-  start: Date;
-  group: string | null;
-  count: string;
 }

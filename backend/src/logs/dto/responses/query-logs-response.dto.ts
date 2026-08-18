@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { LogLevel } from '@/logs/enums/log-level.enum';
-import type { LogAttributeValue } from '@/logs/interfaces/log-repository.interface';
+import type { LogAttributeValue } from '@/logs/interfaces/log-attribute-value.type';
 
 export class LogResponseDto {
   @ApiProperty({ example: '12345' })

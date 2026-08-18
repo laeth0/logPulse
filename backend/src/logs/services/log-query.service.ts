@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { CursorService } from '@/logs/cursor/cursor.service';
 import type { QueryLogsResponseDto } from '@/logs/dto/responses/query-logs-response.dto';
-import type { RawLogRow } from '@/logs/interfaces/log-query.interface';
+import type { RawLogRow } from '@/logs/interfaces/log-result.interface';
 import { mapLogToResponse } from '@/logs/mappers/log.mapper';
 import { LogRepository } from '@/logs/repositories/log.repository';
 import { LogQueryValidator } from '@/logs/validators/log-query.validator';

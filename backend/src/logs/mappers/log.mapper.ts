@@ -4,11 +4,9 @@ import type { LogResponseDto } from '@/logs/dto/responses/query-logs-response.dt
 import type {
   LogAggregation,
   RawLogRow,
-} from '@/logs/interfaces/log-query.interface';
-import type {
-  LogAttributeValue,
-  NewLog,
-} from '@/logs/interfaces/log-repository.interface';
+} from '@/logs/interfaces/log-result.interface';
+import type { LogAttributeValue } from '@/logs/interfaces/log-attribute-value.type';
+import type { NewLog } from '@/logs/interfaces/log-ingest.interface';
 
 export function mapLogEntryToNewLog(
   entry: LogEntryDto,

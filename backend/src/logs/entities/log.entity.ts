@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { LogLevel } from '@/logs/enums/log-level.enum';
-import type { LogAttributeValue } from '@/logs/interfaces/log-repository.interface';
+import type { LogAttributeValue } from '@/logs/interfaces/log-attribute-value.type';
 
 @Entity('logs')
 @Check('chk_logs_service_non_empty', 'char_length(service) > 0')

@@ -15,29 +15,22 @@ import { Log } from '@/logs/entities/log.entity';
 import type {
   AggregateLogsQuery,
   FindLogsQuery,
+} from '@/logs/interfaces/log-query.interface';
+import type { NewLog } from '@/logs/interfaces/log-ingest.interface';
+import type {
   LogAggregation,
   LogPage,
   RawLogAggregation,
   RawLogRow,
-} from '@/logs/interfaces/log-query.interface';
-import type {
-  LogRepositoryContract,
-  NewLog,
-} from '@/logs/interfaces/log-repository.interface';
+} from '@/logs/interfaces/log-result.interface';
+import type { LogRepositoryContract } from '@/logs/interfaces/log-repository.interface';
+import type { RollupDelta } from '@/logs/interfaces/log-rollup.interface';
 import {
   buildAggregationQuery,
   buildRollupAggregationQuery,
   isRollupEligible,
 } from '@/logs/query-builders/aggregation-query.builder';
 import { buildLogPageQuery } from '@/logs/query-builders/log-query.builder';
-
-interface RollupDelta {
-  bucket: Date;
-  tenant_id: string;
-  service: string;
-  level: string;
-  count: number;
-}
 
 @Injectable()
 export class LogRepository implements LogRepositoryContract {
