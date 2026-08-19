@@ -21,10 +21,11 @@ import { parseWithSchema } from '@/common/validators/zod-validation.utils';
 import { CurrentTenantId } from '@/tenancy/decorators/current-tenant-id.decorator';
 import { ApiKeyListDto } from '@/tenancy/dto/responses/api-key-list.dto';
 import { ApiKeyDto } from '@/tenancy/dto/responses/api-key.dto';
-import type { ApiKey } from '@/tenancy/entities/api-key.entity';
 import { ApiKeyStatus } from '@/tenancy/enums/api-key-status.enum';
 import { TenantJwtAuthGuard } from '@/tenancy/guards/tenant-jwt-auth.guard';
+import { mapApiKeyToDto } from '@/tenancy/mappers/api-key.mapper';
 import { ApiKeyService } from '@/tenancy/services/api-key.service';
+import type { CreateApiKeyBody } from '@/tenancy/validators/api-key.schema';
 import { createApiKeySchema } from '@/tenancy/validators/api-key.schema';
 
 @ApiTags('tenancy')
@@ -45,7 +46,7 @@ export class ApiKeysController {
     description: 'An API key was presented instead of a Tenant access token',
   })
   async create(
-    @Body() body: unknown,
+    @Body() body: CreateApiKeyBody,
     @CurrentTenantId() tenantId: string,
   ): Promise<ApiKeyDto> {
     parseWithSchema(createApiKeySchema, body);
@@ -88,13 +89,4 @@ export class ApiKeysController {
     const apiKey = await this.apiKeyService.revoke(tenantId, id);
     return { id: apiKey.id, status: apiKey.status };
   }
-}
-
-function mapApiKeyToDto(apiKey: ApiKey): ApiKeyDto {
-  return {
-    id: apiKey.id,
-    key: apiKey.key_value,
-    status: apiKey.status,
-    created_at: apiKey.created_at.toISOString(),
-  };
 }

@@ -1,3 +1,5 @@
 import { z } from 'zod';
 
-export const createApiKeySchema = z.unknown();
+export const createApiKeySchema = z.object({}).strict();
+
+export type CreateApiKeyBody = z.infer<typeof createApiKeySchema>;

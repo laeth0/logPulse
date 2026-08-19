@@ -6,7 +6,8 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
 
-import { POSTGRES_UNIQUE_VIOLATION } from '@/common/constants/postgres.constants';
+import { isUniqueViolation } from '@/common/utils/postgres.utils';
+import { normalizeEmail } from '@/tenancy/utils/email.util';
 import { MILLISECONDS_PER_DAY } from '@/common/constants/retention.constants';
 import { REFRESH_TOKEN_TTL_DAYS } from '@/common/constants/tenancy.constants';
 import type { AuthTokensDto } from '@/tenancy/dto/responses/auth-tokens.dto';
@@ -125,17 +126,4 @@ export class TenantAuthService {
       expires_in: this.tokenService.accessTokenTtlSeconds,
     };
   }
-}
-
-function normalizeEmail(email: string): string {
-  return email.trim().toLowerCase();
-}
-
-function isUniqueViolation(error: unknown): boolean {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'code' in error &&
-    (error as { code?: unknown }).code === POSTGRES_UNIQUE_VIOLATION
-  );
 }
