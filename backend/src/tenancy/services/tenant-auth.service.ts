@@ -27,6 +27,14 @@ export class TenantAuthService {
     private readonly tokenService: TokenService,
   ) {}
 
+  /**
+   * Registers a new tenant account with normalized email and hashed password.
+   *
+   * @param email - The tenant's email address.
+   * @param password - The plaintext password to hash and store.
+   * @throws {ConflictException} If the email is already registered.
+   * @returns The newly created tenant's basic profile.
+   */
   async register(email: string, password: string): Promise<TenantDto> {
     const normalizedEmail = normalizeEmail(email);
     const passwordHash = await passwordHasher.hash(password);
@@ -52,6 +60,14 @@ export class TenantAuthService {
     }
   }
 
+  /**
+   * Authenticates a tenant using email and password, returning an access and refresh token pair.
+   *
+   * @param email - The tenant's registered email address.
+   * @param password - The plaintext password to verify.
+   * @throws {UnauthorizedException} If the credentials are invalid.
+   * @returns An object containing access and refresh tokens.
+   */
   async login(email: string, password: string): Promise<AuthTokensDto> {
     const tenant = await this.tenantRepository.findOne({
       where: { email: normalizeEmail(email) },
@@ -67,6 +83,13 @@ export class TenantAuthService {
     return this.issueTokens(tenant.id);
   }
 
+  /**
+   * Rotates and validates a refresh token, revoking the old one and issuing a new token pair.
+   *
+   * @param providedRefreshToken - The plaintext refresh token presented by the tenant.
+   * @throws {UnauthorizedException} If the refresh token is invalid, expired, or revoked.
+   * @returns A new pair of access and refresh tokens.
+   */
   async refresh(providedRefreshToken: string): Promise<AuthTokensDto> {
     const tenantId =
       await this.tokenService.verifyRefreshToken(providedRefreshToken);
@@ -101,6 +124,12 @@ export class TenantAuthService {
     return this.issueTokens(tenantId);
   }
 
+  /**
+   * Generates a new access token and hashed refresh token for the specified tenant.
+   *
+   * @param tenantId - The unique identifier of the tenant.
+   * @returns The issued AuthTokensDto containing both tokens and metadata.
+   */
   private async issueTokens(tenantId: string): Promise<AuthTokensDto> {
     const [accessToken, refreshToken] = await Promise.all([
       this.tokenService.signAccessToken(tenantId),
