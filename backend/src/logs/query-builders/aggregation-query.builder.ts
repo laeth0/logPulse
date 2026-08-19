@@ -11,6 +11,13 @@ import type { AggregationGroup } from '@/logs/enums/aggregation-group.enum';
 import type { AggregateLogsQuery } from '@/logs/interfaces/log-query.interface';
 import { applyLogFilters } from '@/logs/query-builders/log-filter.builder';
 
+/**
+ * Builds a TypeORM query to aggregate raw logs over time buckets and optional group-by dimensions.
+ *
+ * @param repository - The TypeORM Log repository.
+ * @param query - The aggregation query parameters including filters, bucket size, and group-by.
+ * @returns A SelectQueryBuilder configured for raw log aggregation.
+ */
 export function buildAggregationQuery(
   repository: Repository<Log>,
   query: AggregateLogsQuery,
@@ -38,6 +45,13 @@ export function buildAggregationQuery(
   return queryBuilder;
 }
 
+/**
+ * Checks whether an aggregation query can be satisfied by pre-computed rollup tables.
+ * Queries with full-text search (`q`) or JSON attributes filters cannot use rollups.
+ *
+ * @param query - The aggregation query parameters.
+ * @returns `true` if the query can leverage rollup tables, otherwise `false`.
+ */
 export function isRollupEligible(query: AggregateLogsQuery): boolean {
   return (
     query.q === undefined &&
@@ -46,6 +60,15 @@ export function isRollupEligible(query: AggregateLogsQuery): boolean {
   );
 }
 
+/**
+ * Builds a TypeORM query to aggregate pre-computed log rollups over time buckets.
+ *
+ * @param repository - The TypeORM LogRollup repository.
+ * @param query - The aggregation query parameters.
+ * @param rollupSince - The start boundary for rollup aggregation.
+ * @param rollupUntil - The end boundary for rollup aggregation.
+ * @returns A SelectQueryBuilder configured for rollup aggregation.
+ */
 export function buildRollupAggregationQuery(
   repository: Repository<LogRollup>,
   query: AggregateLogsQuery,
@@ -86,10 +109,23 @@ export function buildRollupAggregationQuery(
   return queryBuilder;
 }
 
+/**
+ * Generates a PostgreSQL `date_bin` SQL expression for time-bucketed aggregation.
+ *
+ * @param alias - Table alias ('log' or 'rollup').
+ * @returns SQL expression string using `date_bin`.
+ */
 function createBucketExpression(alias: string): string {
   return `date_bin(CAST(:bucketInterval AS interval), ${alias}.${alias === 'rollup' ? 'bucket' : 'timestamp'}, ${LOG_AGGREGATION_ORIGIN})`;
 }
 
+/**
+ * Generates the SQL select expression for the group-by dimension column.
+ *
+ * @param groupBy - Optional group-by enum.
+ * @param alias - Table alias.
+ * @returns SQL expression string or `'NULL'` if no grouping is requested.
+ */
 function createGroupExpression(
   groupBy: AggregationGroup | undefined,
   alias: string,

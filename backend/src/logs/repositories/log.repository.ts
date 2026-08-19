@@ -43,6 +43,12 @@ export class LogRepository implements LogRepositoryContract {
     private readonly logRollupRepository: Repository<LogRollup>,
   ) {}
 
+  /**
+   * Bulk-inserts a batch of logs using PostgreSQL COPY streaming within a transaction,
+   * and updates corresponding pre-aggregated rollup counts.
+   *
+   * @param logs - Array of new log records to insert.
+   */
   async insertMany(logs: readonly NewLog[]): Promise<void> {
     if (logs.length === 0) {
       return;
@@ -54,6 +60,12 @@ export class LogRepository implements LogRepositoryContract {
     });
   }
 
+  /**
+   * Aggregates ingested logs into 5-minute bucket rollup counts and upserts them into `log_rollups`.
+   *
+   * @param manager - Transactional EntityManager.
+   * @param logs - The ingested logs in the current transaction.
+   */
   private async upsertRollups(
     manager: EntityManager,
     logs: readonly NewLog[],
@@ -83,6 +95,12 @@ export class LogRepository implements LogRepositoryContract {
     );
   }
 
+  /**
+   * Groups a list of logs by (bucket, tenant_id, service, level) tuples to calculate rollup deltas.
+   *
+   * @param logs - The raw logs to group.
+   * @returns Array of RollupDelta objects with aggregated counts.
+   */
   private groupIntoRollupDeltas(logs: readonly NewLog[]): RollupDelta[] {
     const groups = new Map<string, RollupDelta>();
 
@@ -107,6 +125,12 @@ export class LogRepository implements LogRepositoryContract {
     return [...groups.values()];
   }
 
+  /**
+   * Fetches a paginated page of logs based on filters, limit, and keyset cursor.
+   *
+   * @param query - The pagination and filter parameters.
+   * @returns A LogPage containing the matched logs and a `hasMore` indicator.
+   */
   async findPage(query: FindLogsQuery): Promise<LogPage> {
     const logs = await buildLogPageQuery(
       this.logRepository,
@@ -120,6 +144,14 @@ export class LogRepository implements LogRepositoryContract {
     };
   }
 
+  /**
+   * Aggregates log counts into time buckets.
+   * Uses pre-aggregated rollups for aligned time ranges when eligible,
+   * falling back to raw table scans for unaligned edges and non-rollup-eligible queries.
+   *
+   * @param query - The aggregation query parameters.
+   * @returns An array of LogAggregation bucket results sorted chronologically.
+   */
   async aggregate(query: AggregateLogsQuery): Promise<LogAggregation[]> {
     if (!isRollupEligible(query)) {
       return this.mergeAggregationRows(
@@ -156,6 +188,14 @@ export class LogRepository implements LogRepositoryContract {
     return this.mergeAggregationRows(aggregationRows);
   }
 
+  /**
+   * Performs a direct query against the `logs` table for a specified time slice.
+   *
+   * @param query - Base aggregation parameters.
+   * @param since - Slice start time.
+   * @param until - Slice end time.
+   * @returns Raw aggregation rows from the database.
+   */
   private async aggregateRawScan(
     query: AggregateLogsQuery,
     since: Date,
@@ -168,6 +208,13 @@ export class LogRepository implements LogRepositoryContract {
     }).getRawMany<RawLogAggregation>();
   }
 
+  /**
+   * Merges multiple sets of raw aggregation rows (e.g. from rollup table + edge scans)
+   * into unique, combined bucket results.
+   *
+   * @param rows - Raw aggregation rows.
+   * @returns Sorted and combined LogAggregation array.
+   */
   private mergeAggregationRows(rows: RawLogAggregation[]): LogAggregation[] {
     const merged = new Map<string, LogAggregation>();
 
@@ -188,6 +235,12 @@ export class LogRepository implements LogRepositoryContract {
     );
   }
 
+  /**
+   * Executes high-throughput PostgreSQL `COPY FROM STDIN` streaming to bulk insert logs.
+   *
+   * @param manager - Transactional EntityManager.
+   * @param logs - Array of new log records.
+   */
   private async insertLogsIn(
     manager: EntityManager,
     logs: readonly NewLog[],
@@ -210,6 +263,12 @@ export class LogRepository implements LogRepositoryContract {
     await pipeline(Readable.from([this.buildLogsCsv(logs)]), copyStream);
   }
 
+  /**
+   * Serializes an array of log records into CSV format matching the COPY column layout.
+   *
+   * @param logs - Array of new log records.
+   * @returns Formatted CSV string.
+   */
   private buildLogsCsv(logs: readonly NewLog[]): string {
     const csvRows = logs.map((log) =>
       [
@@ -227,6 +286,12 @@ export class LogRepository implements LogRepositoryContract {
     return csvRows.join('\n') + '\n';
   }
 
+  /**
+   * Escapes quotes and special characters in CSV fields per RFC 4180.
+   *
+   * @param value - Raw field value.
+   * @returns Escaped CSV field string.
+   */
   private escapeCsvField(value: string): string {
     return /[",\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
   }

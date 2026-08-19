@@ -12,6 +12,13 @@ export class LogAggregationService {
     private readonly logQueryValidator: LogQueryValidator,
   ) {}
 
+  /**
+   * Validates query parameters and performs time-bucketed aggregation over logs for a tenant.
+   *
+   * @param value - The raw query object from the HTTP request.
+   * @param tenantId - The authenticated tenant ID.
+   * @returns A promise resolving to the aggregated buckets response DTO.
+   */
   async aggregate(
     value: unknown,
     tenantId: string,

@@ -15,6 +15,13 @@ export class LogQueryService {
     private readonly logQueryValidator: LogQueryValidator,
   ) {}
 
+  /**
+   * Validates query parameters, decodes any keyset cursor, and fetches a paginated page of logs for a tenant.
+   *
+   * @param value - The raw query object from the HTTP request.
+   * @param tenantId - The authenticated tenant ID.
+   * @returns A promise resolving to the query logs response DTO containing logs and next cursor.
+   */
   async query(value: unknown, tenantId: string): Promise<QueryLogsResponseDto> {
     const query = this.logQueryValidator.validateQuery(value);
     const cursor =
@@ -39,6 +46,13 @@ export class LogQueryService {
     };
   }
 
+  /**
+   * Creates an opaque base64url keyset cursor pointing to the last log in the current page.
+   *
+   * @param logs - The array of raw log rows returned in the page.
+   * @param hasMore - Whether additional records exist beyond the current page.
+   * @returns The encoded next cursor string or `null` if there are no more records.
+   */
   private createNextCursor(logs: RawLogRow[], hasMore: boolean): string | null {
     const lastLog = logs.at(-1);
     if (!hasMore || !lastLog) {

@@ -16,6 +16,14 @@ export class LogIngestionService {
     private readonly logEntryValidator: LogEntryValidator,
   ) {}
 
+  /**
+   * Ingests a batch of logs for a tenant, validating each entry individually.
+   * Valid logs are bulk-inserted via PostgreSQL COPY streaming, and rejected logs are returned with validation error details.
+   *
+   * @param value - The raw batch payload from the HTTP request.
+   * @param tenantId - The authenticated tenant ID.
+   * @returns A promise resolving to the ingestion summary containing accepted count and rejected entries.
+   */
   async ingest(
     value: unknown,
     tenantId: string,

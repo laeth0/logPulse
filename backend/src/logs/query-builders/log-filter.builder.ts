@@ -3,6 +3,13 @@ import type { SelectQueryBuilder } from 'typeorm';
 import type { Log } from '@/logs/entities/log.entity';
 import type { LogFilters } from '@/logs/interfaces/log-query.interface';
 
+/**
+ * Applies common log query filters (tenant, service, level, date range, attributes, and text search) to a TypeORM SelectQueryBuilder.
+ *
+ * @param queryBuilder - The SelectQueryBuilder instance targeting the `log` entity.
+ * @param filters - The filter criteria to apply.
+ * @returns The modified SelectQueryBuilder with WHERE clauses attached.
+ */
 export function applyLogFilters(
   queryBuilder: SelectQueryBuilder<Log>,
   filters: LogFilters,
@@ -55,10 +62,24 @@ export function applyLogFilters(
   return queryBuilder;
 }
 
+/**
+ * Escapes special wildcard characters (`\`, `%`, `_`) in ILIKE search patterns.
+ *
+ * @param value - Raw text query string.
+ * @returns Safely escaped string for use in SQL ILIKE clauses.
+ */
 function escapeLikePattern(value: string): string {
   return value.replace(/[\\%_]/g, '\\$&');
 }
 
+/**
+ * Builds a JSONB containment query clause (`@>`) supporting string, numeric, and boolean types.
+ *
+ * @param key - The attribute key to match.
+ * @param value - The raw string value to match against.
+ * @param paramPrefix - Unique parameter prefix to prevent collision.
+ * @returns Object containing the SQL clause string and bound parameters map.
+ */
 function buildAttributeEqualityClause(
   key: string,
   value: string,
@@ -89,6 +110,12 @@ function buildAttributeEqualityClause(
   return { sql: `(${clauses.join(' OR ')})`, params };
 }
 
+/**
+ * Parses a string to a finite number if and only if the string representation is canonical.
+ *
+ * @param value - String value to parse.
+ * @returns Parsed number or `undefined` if non-numeric or non-canonical.
+ */
 function parseCanonicalNumber(value: string): number | undefined {
   const parsed = Number(value);
   return Number.isFinite(parsed) && String(parsed) === value
