@@ -24,6 +24,6 @@ export class LogRollup {
   })
   level: LogLevel;
 
-  @Column({ type: 'bigint', default: 0 })
-  count: string;
+  @Column({ type: 'integer', default: 0 })
+  count: number;
 }

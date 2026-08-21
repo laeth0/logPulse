@@ -41,7 +41,7 @@ Table log_rollups {
   tenant_id uuid [not null]
   service text [not null]
   level log_level [not null]
-  count bigint [not null, default: 0]
+  count integer [not null, default: 0]
 
   indexes {
     (bucket, tenant_id, service, level) [pk]

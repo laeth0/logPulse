@@ -2,19 +2,19 @@
   "version": 1,
   "created_at": "2026-08-12T19:54:47.402Z",
   "lifetime": {
-    "total_tokens_estimated": 1908532,
-    "total_reads": 2883,
+    "total_tokens_estimated": 1909265,
+    "total_reads": 2884,
     "total_writes": 0,
     "total_sessions": 47,
-    "anatomy_hits": 2093,
+    "anatomy_hits": 2094,
     "anatomy_misses": 740,
     "repeated_reads_blocked": 1233,
-    "estimated_savings_vs_bare_cli": 1825808,
-    "real_input_tokens": 735554,
-    "real_output_tokens": 67924009,
-    "real_cache_read_tokens": 29952517777,
-    "real_cache_creation_tokens": 325405597,
-    "real_api_calls": 63559
+    "estimated_savings_vs_bare_cli": 1826008,
+    "real_input_tokens": 735592,
+    "real_output_tokens": 67934302,
+    "real_cache_read_tokens": 29953786349,
+    "real_cache_creation_tokens": 325451205,
+    "real_api_calls": 63578
   },
   "sessions": [
     {
@@ -19473,6 +19473,36 @@
         "cache_read_input_tokens": 35672429,
         "cache_creation_input_tokens": 560108,
         "api_calls": 168
+      }
+    },
+    {
+      "id": "session-2026-08-19-2138",
+      "agent": "claude",
+      "started": "2026-08-19T18:38:16.909Z",
+      "ended": "2026-08-21T06:29:03.731Z",
+      "reads": [
+        {
+          "file": "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/migrations/1785684350119-CreateLogRollupsTable.ts",
+          "tokens_estimated": 733,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 733,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 38,
+        "output_tokens": 10293,
+        "cache_read_input_tokens": 1268572,
+        "cache_creation_input_tokens": 45608,
+        "api_calls": 19
       }
     }
   ],

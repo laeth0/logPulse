@@ -10,7 +10,7 @@ export class CreateLogRollupsTable1785684350119 implements MigrationInterface {
         "tenant_id" UUID                 NOT NULL,
         "service"   TEXT                 NOT NULL,
         "level"     "public"."log_level" NOT NULL,
-        "count"     BIGINT               NOT NULL DEFAULT 0,
+        "count"     INTEGER              NOT NULL DEFAULT 0,
 
         CONSTRAINT "pk_log_rollups"
           PRIMARY KEY ("bucket", "tenant_id", "service", "level")
