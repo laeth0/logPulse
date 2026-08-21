@@ -6,13 +6,158 @@
       "count": 1,
       "tokens": 733,
       "first_read": "2026-08-21T06:28:13.324Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/projectSchema.dbml": {
+      "count": 1,
+      "tokens": 1449,
+      "first_read": "2026-08-21T08:48:35.877Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/docker-compose.yml": {
+      "count": 1,
+      "tokens": 820,
+      "first_read": "2026-08-21T08:48:51.325Z"
+    },
+    "C:/Users/LaethNueirat/.claude/projects/c--Users-LaethNueirat-Desktop-logPulse/f5c99a62-307e-4efa-b8ad-be91e405c4ef/tool-results/b8ow2jsae.txt": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-21T08:49:17.583Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.example": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-21T08:50:27.601Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/Dockerfile": {
+      "count": 1,
+      "tokens": 304,
+      "first_read": "2026-08-21T08:50:28.218Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/package.json": {
+      "count": 1,
+      "tokens": 1100,
+      "first_read": "2026-08-21T08:50:28.376Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/main.ts": {
+      "count": 1,
+      "tokens": 507,
+      "first_read": "2026-08-21T08:50:35.296Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/config/database.config.ts": {
+      "count": 1,
+      "tokens": 240,
+      "first_read": "2026-08-21T08:50:35.836Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/repositories/log.repository.ts": {
+      "count": 1,
+      "tokens": 2667,
+      "first_read": "2026-08-21T08:50:36.074Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/.github/workflows/ci.yml": {
+      "count": 1,
+      "tokens": 420,
+      "first_read": "2026-08-21T08:50:36.180Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/utils/rollup-bucket.utils.ts": {
+      "count": 1,
+      "tokens": 290,
+      "first_read": "2026-08-21T08:50:44.451Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/retention.constants.ts": {
+      "count": 1,
+      "tokens": 261,
+      "first_read": "2026-08-21T08:50:44.634Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/health/health.controller.ts": {
+      "count": 1,
+      "tokens": 301,
+      "first_read": "2026-08-21T08:50:51.895Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/retention/retention.service.ts": {
+      "count": 1,
+      "tokens": 1920,
+      "first_read": "2026-08-21T08:50:52.469Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/health/health.service.ts": {
+      "count": 1,
+      "tokens": 478,
+      "first_read": "2026-08-21T08:50:52.625Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/retention/partition.service.ts": {
+      "count": 1,
+      "tokens": 1841,
+      "first_read": "2026-08-21T08:50:52.858Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/log-api.constants.ts": {
+      "count": 1,
+      "tokens": 215,
+      "first_read": "2026-08-21T08:50:59.996Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/log-query.constants.ts": {
+      "count": 1,
+      "tokens": 91,
+      "first_read": "2026-08-21T08:51:00.628Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/retention/retention.scheduler.ts": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-21T08:51:01.283Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/frontend/package.json": {
+      "count": 1,
+      "tokens": 385,
+      "first_read": "2026-08-21T08:51:01.290Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/frontend/Dockerfile": {
+      "count": 1,
+      "tokens": 77,
+      "first_read": "2026-08-21T08:51:09.509Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/tenancy.constants.ts": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-21T08:51:10.300Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/cursor/cursor.service.ts": {
+      "count": 1,
+      "tokens": 343,
+      "first_read": "2026-08-21T08:51:10.464Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/tenancy/guards/api-key-auth.guard.ts": {
+      "count": 1,
+      "tokens": 690,
+      "first_read": "2026-08-21T08:51:20.531Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/logs/query-builders/log-filter.builder.ts": {
+      "count": 1,
+      "tokens": 1165,
+      "first_read": "2026-08-21T08:51:20.679Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/frontend/README.md": {
+      "count": 1,
+      "tokens": 607,
+      "first_read": "2026-08-21T08:51:32.439Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/logs.ingest.rest": {
+      "count": 1,
+      "tokens": 241,
+      "first_read": "2026-08-21T08:51:33.039Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/requests/tenancy/tenancy.login.rest": {
+      "count": 1,
+      "tokens": 205,
+      "first_read": "2026-08-21T08:51:33.150Z"
+    },
+    "c:/Users/LaethNueirat/Desktop/logPulse/backend/src/common/constants/http.constants.ts": {
+      "count": 1,
+      "tokens": 14,
+      "first_read": "2026-08-21T08:54:01.079Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
-  "anatomy_hits": 1,
-  "anatomy_misses": 0,
+  "anatomy_hits": 25,
+  "anatomy_misses": 2,
   "repeated_reads_warned": 0,
   "cerebrum_warnings": 0,
-  "stop_count": 3
+  "stop_count": 4
 }

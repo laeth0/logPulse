@@ -229,3 +229,9 @@
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+
+## Session: 2026-08-21 11:56
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:56 | Rewrote README.md from scratch (working-tree file was staged empty; last real content recovered via `git log -- README.md` at commit eda174c) | `README.md` | Verified every factual claim against current source (`docker-compose.yml`, `.env.example`, `main.ts`, `database.config.ts`, `log.repository.ts`, `retention.service.ts`, `partition.service.ts`, `api-key-auth.guard.ts`, `log-filter.builder.ts`, `projectSchema.dbml`, `ci.yml`) rather than trusting the old README verbatim — caught and corrected 3 stale claims (Swagger is NOT NODE_ENV-gated, `NODE_ENV` is unused anywhere in `backend/src`; CI runs format/lint/build only, no test job; `log_rollups.count` is `integer` not `bigint`). Added full "Dashboard" and "Rollup tables" Optional-features sections (frontend didn't exist when the old README was written) and a "Performance" section built from the official `logs-benchmark-cli` run in `benchmark-report.json` (70.6/100; correctness 15/15, reliability 20/20, performance 29.6/50, queries 6/15 — aggregate p95 latency under load is the main gap). Also flagged CORS-wildcard, no-rate-limiting, and no-CI-tests as Known limitations | ~90k |

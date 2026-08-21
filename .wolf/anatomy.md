@@ -10,7 +10,7 @@
 - `AGENTS.md` — OpenWolf (~763 tok)
 - `CLAUDE.md` — OpenWolf (~763 tok)
 - `docker-compose.yml` — Docker Compose services (~820 tok)
-- `README.md` — Project documentation (~8987 tok)
+- `README.md` — Project documentation (~5300 tok)
 
 ## .agents/skills/speckit-agent-context-update/
 
