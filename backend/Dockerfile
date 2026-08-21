@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 FROM node:24-alpine AS build
 
 WORKDIR /app
@@ -19,11 +17,6 @@ ENV NODE_ENV=production \
 
 WORKDIR /app
 
-# Installed directly from the lockfile rather than via `npm prune --omit=dev`
-# on the build stage's full install: pruning has to walk and tear down an
-# already-installed dev+prod tree (500+ packages here), which is slow and
-# risked timing out the load generator's "Build containers" step. A fresh
-# production-only install from a pinned lockfile is faster and reproducible.
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --no-audit --no-fund
 
