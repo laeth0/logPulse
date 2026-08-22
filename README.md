@@ -7,9 +7,7 @@ Backend: NestJS 11, TypeScript, TypeORM, PostgreSQL 16. Frontend (optional dashb
 ## Table of contents
 
 - [Quick start](#quick-start)
-- [Local development (without Docker)](#local-development-without-docker)
 - [CI](#ci)
-- [Configuration](#configuration)
 - [API documentation](#api-documentation)
 - [Schema and index design](#schema-and-index-design)
 - [Attribute storage strategy](#attribute-storage-strategy)
@@ -29,41 +27,11 @@ docker compose up
 
 This builds the application image, starts PostgreSQL, waits for it to become healthy, applies all database migrations automatically, and starts the API on **`http://localhost:8080`**. `GET /health` returns `200` once the database is connected, migrations are applied, and the service is ready to accept logs. This is the same readiness gate an external load generator polls before sending traffic.
 
-Every environment variable has a built-in default (see [Configuration](#configuration)), so this zero-configuration command produces the same unauthenticated, unrestricted core service described by the project spec. Nothing in this README is required to get a request through.
+Every environment variable has a built-in default, so this zero-configuration command produces the same unauthenticated, unrestricted core service described by the project spec. Nothing in this README is required to get a request through.
 
-`docker compose up` also starts a `frontend` service: an optional dashboard at **`http://localhost:5173`** (see [Dashboard](#dashboard)). It's a separate container that only talks to the public API; it never changes backend behavior. If you only want the graded surface, run `docker compose up app database` instead.
+`docker compose up` also starts a `frontend` service: an optional dashboard at **`http://localhost:5173`** (see [Dashboard](#dashboard)). It's a separate container that only talks to the public API; it never changes backend behavior.
 
 Interactive API docs (Swagger UI) are always available at `http://localhost:8080/api/docs`.
-
-## Local development (without Docker)
-
-**Backend:**
-
-```bash
-cd backend
-npm install
-cp .env.example .env   # edit DB_* to point at a local PostgreSQL 16 instance
-npm run db:create      # optional: creates the database if it doesn't exist
-npm run migration:run  # applies migrations (also happens automatically on app startup)
-npm run start:dev      # watch mode
-```
-
-| Script | Purpose |
-| --- | --- |
-| `npm run build` | Compile with the Nest CLI |
-| `npm run lint` / `npm run lint:fix` | ESLint (strict, zero warnings) |
-| `npm run format` / `npm run format:check` | Prettier |
-| `npm run test:integration` | Integration tests (Jest, against a real PostgreSQL database; see [CI](#ci)) |
-| `npm run migration:generate` / `migration:run` / `migration:revert` / `migration:show` | TypeORM migrations |
-| `npm run db:create` / `db:drop` / `db:recreate` | Local database lifecycle helpers |
-
-**Frontend (dashboard):**
-
-```bash
-cd frontend
-npm install
-npm run dev   # Vite dev server on http://localhost:5173, expects the API at http://localhost:8080
-```
 
 ## CI
 
@@ -72,40 +40,7 @@ npm run dev   # Vite dev server on http://localhost:5173, expects the API at htt
 1. **Code Quality**: `npm run format:check` and `npm run lint` (backend only, zero warnings allowed).
 2. **Build**: `npm run build` (production Nest build), gated on Quality passing.
 
-It does **not** currently run the integration test suite or a `docker compose`-based smoke test. See [Known limitations](#known-limitations).
-
-## Configuration
-
-All variables have defaults; none are required. `docker-compose.yml` supplies production-safe defaults directly (`${VAR:-default}`), independent of any `.env` file, so the service behaves identically for a fresh clone with no local configuration.
-
-| Variable | Default | Meaning |
-| --- | --- | --- |
-| `NODE_ENV` | `production` | Passed through for tooling convention; the current backend does not branch on it at runtime (Swagger UI is always on; see below) |
-| `PORT` | `8080` | Port the API listens on inside the container |
-| `JSON_BODY_LIMIT` | `10mb` | Max JSON request body size (bounds ingestion batch size) |
-| `LOG_RETENTION_DAYS` | `30` | How many days of logs to keep (see [Retention strategy](#retention-strategy)) |
-| `LOG_PARTITION_DAYS_AHEAD` | `7` | How many days of future daily partitions to keep pre-created |
-| `DB_HOST` | `database` (Compose service name) | PostgreSQL host |
-| `DB_PORT` | `5432` | PostgreSQL port |
-| `DB_USER` | `postgres` | PostgreSQL user |
-| `DB_PASS` | `postgres` | PostgreSQL password |
-| `DB_NAME` | `log_pulse` | PostgreSQL database name |
-| `DB_SSL` | `false` | Enable TLS to PostgreSQL |
-| `DB_WRITE_POOL_MAX` | `20` | Max connections in the single connection pool, shared by ingestion, migrations, retention maintenance, and `GET /logs`/`GET /logs/aggregate` reads |
-| `AUTH_ENABLED` | `false` | Master switch for authentication and multi-tenancy; see [Multi-tenancy](#multi-tenancy) |
-| `LOADGEN_API_KEY` | *(unset)* | API key idempotently seeded at startup, scoped to one fixed tenant, when `AUTH_ENABLED=true` |
-| `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for that same seeded tenant account, so you can `POST /tenants/login` as it and inspect/manage the seeded key by hand |
-| `JWT_SECRET` | `please-change-me-in-production` | Signing secret for Tenant access/refresh tokens; change this for anything beyond local/grading use |
-| `JWT_ACCESS_TOKEN_TTL_SECONDS` | `900` | Tenant access token lifetime (15 minutes) |
-| `JWT_REFRESH_TOKEN_TTL_DAYS` | `7` | Tenant refresh token lifetime |
-
-No rate-limiting variables exist because that optional feature isn't implemented. See [Known limitations](#known-limitations).
-
-The `frontend` service takes no configuration; it always calls `http://localhost:8080`.
-
 ## API documentation
-
-Full runnable examples for every required endpoint (happy path + filters) live in [`backend/requests/`](backend/requests/) as REST Client `.rest` files: [`health.check.rest`](backend/requests/health.check.rest), [`logs.ingest.rest`](backend/requests/logs.ingest.rest), [`logs.list.rest`](backend/requests/logs.list.rest), [`logs.aggregate.rest`](backend/requests/logs.aggregate.rest). The optional multi-tenancy endpoints have their own examples under [`backend/requests/tenancy/`](backend/requests/tenancy/); see [Multi-tenancy](#multi-tenancy). Interactive Swagger UI is at `/api/docs`.
 
 ### `GET /health`
 
@@ -330,7 +265,7 @@ Implemented, **off by default**.
 | `AUTH_ENABLED` | `false` | Master switch. `false`/unset means all four required endpoints behave exactly as the unauthenticated core service; an `Authorization` header, if sent anyway, is silently ignored, never rejected. |
 | `LOADGEN_API_KEY` | *(unset)* | When `AUTH_ENABLED=true`, this key is idempotently seeded at startup, before the service reports healthy, and scoped to one fixed tenant with ingest+query permission. Restarting with the same value never duplicates the tenant or the key. Left unset, the service still starts and stays healthy; it just has no seeded key. |
 | `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for that same seeded tenant account. Only takes effect on the tenant's first seed. |
-| `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | see [Configuration](#configuration) | Sign/verify Tenant account tokens. `JWT_SECRET`'s zero-config default is intentionally insecure, mirroring `DB_PASS`'s existing convention; override it for anything beyond local development or grading. |
+| `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | Defaults: `please-change-me-in-production`, `900`, `7` | Sign/verify Tenant account tokens. `JWT_SECRET`'s zero-config default is intentionally insecure, mirroring `DB_PASS`'s existing convention; override it for anything beyond local development or grading. |
 
 **Two separate credential types with two separate purposes, never interchangeable:**
 
@@ -349,8 +284,6 @@ A credential presented on the wrong surface, or missing where required, gets `40
 | `POST /tenants/api-keys` | Tenant access token | Create a new API key for the caller's own account |
 | `GET /tenants/api-keys` | Tenant access token | List the caller's own keys, **including each key's full secret** (retrievable anytime, not just shown once, by design) |
 | `DELETE /tenants/api-keys/:id` | Tenant access token | Revoke one of the caller's own keys, rejected on the very next request with no grace period |
-
-Runnable examples for every one of these live in [`backend/requests/tenancy/`](backend/requests/tenancy/); exact request/response shapes are in [`specs/001-multi-tenancy/contracts/`](specs/001-multi-tenancy/contracts/).
 
 Notable design decisions:
 
@@ -462,7 +395,7 @@ All four scenarios completed (`4/4`) with no crashes, and every accepted record 
 - **CI runs formatting, linting, and a production build only** (see [CI](#ci)). It does not run the integration test suite (9 passing tests locally across app/health/logs/tenancy) or the spec-required smoke test in both `AUTH_ENABLED` configurations.
 - **No unit tests**, only integration tests (Jest, against a real dedicated PostgreSQL database), and only for four modules (`app`, `health`, `logs`, `tenancy`). Validators, query builders, and retention/partition logic have no dedicated test file.
 - **The frontend has no automated tests.** Browser-driven visual verification (Playwright) is blocked in the current development sandbox (missing Linux system libraries); frontend behavior was verified manually and at the API/CORS level instead.
-- **Multi-tenant isolation is verified manually**, not by an automated test. Reproducible steps are in [`specs/001-multi-tenancy/quickstart.md`](specs/001-multi-tenancy/quickstart.md).
+- **Multi-tenant isolation is verified manually**, not by an automated test.
 - **`tenant_refresh_tokens` rows are never purged** after `expires_at` passes or `revoked_at` is set. At the tenant scale this project targets, the table's growth rate is immaterial; a cleanup job is straightforward to add later without a schema change.
 - **No rate limiting or backpressure shedding.** The service accepts load until PostgreSQL or the application container itself becomes the bottleneck, with no `429`/`503` shedding in between. An admission-control feature was built and deliberately removed rather than kept half-finished; see git history if reviving it.
 - **CORS is hardcoded to allow every origin** (`origin: '*'`, credentials disabled), convenient for local development and grading, not production-appropriate, and not environment-configurable today.
@@ -474,9 +407,8 @@ All four scenarios completed (`4/4`) with no crashes, and every accepted record 
 logPulse/
 ├── docker-compose.yml       # app + frontend + database
 ├── docs/Final_Project.md    # original project specification this README is written against
-├── backend/                 # NestJS API: src/, requests/, projectSchema.dbml, migrations
-├── frontend/                # React dashboard: src/features/{auth,dashboard,logs}
-└── specs/                   # spec-kit planning docs for multi-tenancy and performance work
+├── backend/                 # NestJS API: src/, projectSchema.dbml, migrations
+└── frontend/                # React dashboard: src/features/{auth,dashboard,logs}
 ```
 
 See [`backend/projectSchema.dbml`](backend/projectSchema.dbml) for the full database schema in DBML.
