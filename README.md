@@ -263,7 +263,7 @@ Implemented, **off by default**.
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `AUTH_ENABLED` | `false` | Master switch. `false`/unset means all four required endpoints behave exactly as the unauthenticated core service; an `Authorization` header, if sent anyway, is silently ignored, never rejected. |
-| `LOADGEN_API_KEY` | *(unset)* | When `AUTH_ENABLED=true`, this key is idempotently seeded at startup, before the service reports healthy, and scoped to one fixed tenant with ingest+query permission. Restarting with the same value never duplicates the tenant or the key. Left unset, the service still starts and stays healthy; it just has no seeded key. |
+| `LOADGEN_API_KEY` | a fixed placeholder value, hardcoded in `docker-compose.yml` | When `AUTH_ENABLED=true`, this key is idempotently seeded at startup, before the service reports healthy, and scoped to one fixed tenant with ingest+query permission. Restarting with the same value never duplicates the tenant or the key. With the zero-config default (`AUTH_ENABLED=false`), seeding is skipped entirely (gated on `AUTH_ENABLED=true`), so the value has no effect. Unset entirely, the service still starts and stays healthy; it just has no seeded key. |
 | `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for that same seeded tenant account. Only takes effect on the tenant's first seed. |
 | `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | Defaults: `please-change-me-in-production`, `900`, `7` | Sign/verify Tenant account tokens. `JWT_SECRET`'s zero-config default is intentionally insecure, mirroring `DB_PASS`'s existing convention; override it for anything beyond local development or grading. |
 
@@ -392,6 +392,7 @@ All four scenarios completed (`4/4`) with no crashes, and every accepted record 
 ## Known limitations
 
 - **Aggregate query p95 latency exceeds the 1-second target under concurrent load** in the official benchmark run; see [Bottlenecks discovered](#bottlenecks-discovered). This is the top open item.
+- **Actual CPU/memory utilization during the load test was not captured.** The benchmark tool reports throughput, latency, and correctness, not resource utilization over time; only the enforced container limits are documented in [Performance](#performance).
 - **CI runs formatting, linting, and a production build only** (see [CI](#ci)). It does not run the integration test suite (9 passing tests locally across app/health/logs/tenancy) or the spec-required smoke test in both `AUTH_ENABLED` configurations.
 - **No unit tests**, only integration tests (Jest, against a real dedicated PostgreSQL database), and only for four modules (`app`, `health`, `logs`, `tenancy`). Validators, query builders, and retention/partition logic have no dedicated test file.
 - **The frontend has no automated tests.** Browser-driven visual verification (Playwright) is blocked in the current development sandbox (missing Linux system libraries); frontend behavior was verified manually and at the API/CORS level instead.
