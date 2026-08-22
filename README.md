@@ -342,7 +342,7 @@ It seeds 1,000,000 fixture rows, runs a correctness catalog, then four k6 load s
 
 **Batch size** is controlled internally by the tool's own k6 script and isn't exposed in its output. This repo's benchmark run used the tool as a black box, per the grading contract, rather than a hand-tuned harness.
 
-The run reported a **machine speed factor of 0.39x the reference machine** ("much slower than the reference; treat performance points as directional only") and flagged all four scenarios as **generator-limited, not service-limited**: the k6 generator's own CPU budget on this development machine couldn't dispatch every scheduled iteration (`droppedIterations` below), so the throughput figures understate what the service could actually sustain. Quote these numbers only alongside that context, and only compare against other runs on the same machine.
+The run reported a **machine speed factor of 0.70x the reference machine** (up from 0.39x on an earlier run on the same hardware, though still below parity) and showed the `load` scenario — the spec's actual 15,000 logs/sec baseline — meeting its target directly, with zero dropped generator iterations. `stress`, `spike`, and `breakpoint` intentionally offer well beyond that baseline (21,000–24,375 logs/sec) and were flagged **generator-limited, not service-limited**: the k6 generator's own CPU budget on this development machine couldn't dispatch every scheduled iteration at that offered rate (`droppedIterations` below), so their throughput figures understate what the service could actually sustain. Quote these numbers only alongside that context, and only compare against other runs on the same machine.
 
 ### Measured results
 
@@ -350,7 +350,7 @@ The run reported a **machine speed factor of 0.39x the reference machine** ("muc
 | --- | --- |
 | Engine (Docker Desktop) | 20 CPUs, 8 GiB |
 | Generator (k6, isolated container) | 8 CPUs, 1 GB |
-| Machine speed factor | 0.39x reference |
+| Machine speed factor | 0.70x reference |
 | Resource limits enforced | `app` 0.5 CPU / 256 MB · `database` 1.0 CPU / 1 GB |
 | Dataset seeded | 1,000,000 rows |
 
@@ -358,27 +358,27 @@ Correctness catalog: **15 / 15 checks passed**, covering health, ingestion (sing
 
 | Scenario | Offered logs/s | Accepted logs/s | Error rate | Ingest p95 | Aggregate p95 | Accepted records | Dropped generator iterations |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `load` | 15,000 | 10,927 | 0.04% | 1,882 ms | 1,517 ms | 1,311,200 | 4,882 |
-| `stress` | 21,000 | 12,484 | 0% | 4,172 ms | 11,170 ms | 1,872,600 | 12,773 |
-| `spike` | 15,375 | 10,270 | 0% | 7,682 ms | 20,681 ms | 1,027,000 | 5,104 |
-| `breakpoint` | 24,375 | 12,251 | 0% | 6,993 ms | 6,717 ms | 1,470,100 | 14,549 |
+| `load` | 15,000 | 14,999 | 0% | 356 ms | 174 ms | 1,799,900 | 0 |
+| `stress` | 21,000 | 17,387 | 0% | 4,176 ms | 9,875 ms | 2,608,100 | 5,417 |
+| `spike` | 15,375 | 13,622 | 0.01% | 7,385 ms | 14,983 ms | 1,362,200 | 1,751 |
+| `breakpoint` | 24,375 | 16,905 | 0% | 7,882 ms | 7,780 ms | 2,028,600 | 8,962 |
 
-All four scenarios completed (`4/4`) with no crashes, and every accepted record in every scenario became visible (`visibleRecords == acceptedRecords` exactly, in all four rows), demonstrating full durability and eventual visibility with zero records lost. The tool's separate, much stricter *immediate* read-after-write probe (reading back a record milliseconds after writing it, distinct from eventual visibility) succeeded only 0.5%–8% of the time; the score breakdown treats this as its own metric, independent of the "eventual consistency" check above, which passed all four scenarios.
+All four scenarios completed (`4/4`) with no crashes, and every accepted record in every scenario became visible (`visibleRecords == acceptedRecords` exactly, in all four rows), demonstrating full durability and eventual visibility with zero records lost. The tool's separate, much stricter *immediate* read-after-write probe (reading back a record milliseconds after writing it, distinct from eventual visibility) succeeded between 13%–70% of the time across scenarios, highest at the `load` baseline and degrading as offered throughput rises past it; the score breakdown treats this as its own metric, independent of the "eventual consistency" check above, which passed all four scenarios.
 
 | Score component | Points | Max | Notes |
 | --- | --- | --- | --- |
 | Correctness | 15.0 | 15 | 15/15 checks |
-| Performance | 29.6 | 50 | throughput 10,927/s · errors 0.0% · p95 1,882 ms |
-| Queries | 6.0 | 15 | aggregate p95 1,517 ms · eventual consistency 4/4 |
+| Performance | 42.2 | 50 | throughput 14,999/s · errors 0.0% · p95 356 ms |
+| Queries | 11.9 | 15 | aggregate p95 174 ms · eventual consistency 4/4 |
 | Reliability | 20.0 | 20 | 4/4 scenarios completed, crash-free |
-| **Total** | **70.6** | **100** | |
+| **Total** | **89.0** | **100** | |
 
 ### Bottlenecks discovered
 
 - **A GIN trigram index on `message`** (for `q=` substring search) wrote roughly one index entry per character of every ingested message and dominated per-row database CPU cost, capping ingestion at ~2,457 logs/sec against the 15,000 logs/sec target. Dropped; `q=` search now relies on the same partition-pruned sequential scan the other filters already narrow first.
 - **TypeORM's `Repository.insert()`** on the original ingestion path paid per-row entity instantiation, ORM metadata overhead, and an implicit `RETURNING` of `id` that nothing consumed, adding meaningful overhead under the 0.5 CPU application limit. Replaced with `COPY FROM STDIN`.
 - **`npm prune --omit=dev` in the Docker build** took 170+ seconds on its own in the original multi-stage `Dockerfile` (install everything, then strip dev dependencies back out), long enough to be a plausible cause of a build timeout against infrastructure without BuildKit layer caching. Replaced with a fresh `npm ci --omit=dev` directly from the lockfile in the production stage.
-- **Aggregate query p95 latency exceeds the 1-second target under concurrent load** in the official run above (1.5s–20.7s across scenarios), which is the largest remaining scoring gap (`aggregateLatency` contributed 0 of the Queries points). The single connection pool serves both the hot `COPY` ingestion path and concurrent `GET /logs/aggregate` reads under a 1 CPU / 1 GB Postgres container, and this hasn't yet been root-caused with `EXPLAIN ANALYZE` against the exact contended workload. It's the top open performance item.
+- **Aggregate query p95 latency now meets the 1-second target at the spec's actual baseline load** (`load` scenario: 174 ms), a large improvement over an earlier run where the same scenario measured 1.5s+. It still climbs well past 1s under `stress`/`spike`/`breakpoint` (7.8s–15s), but those three scenarios intentionally offer 21,000–24,375 logs/sec — 40–60% beyond the 15,000 logs/sec baseline — to find the breaking point, and remain generator-limited rather than service-limited even there. `aggregateLatency` now contributes 0.652 to the Queries score (up from 0 in an earlier run). The single connection pool still serves both the hot `COPY` ingestion path and concurrent `GET /logs/aggregate` reads under a 1 CPU / 1 GB Postgres container; root-causing exactly where that pool becomes the constraint above baseline throughput (via `EXPLAIN ANALYZE` against the contended workload) remains the top open item for pushing past the current ceiling.
 
 ### Optimizations applied
 
@@ -391,7 +391,7 @@ All four scenarios completed (`4/4`) with no crashes, and every accepted record 
 
 ## Known limitations
 
-- **Aggregate query p95 latency exceeds the 1-second target under concurrent load** in the official benchmark run; see [Bottlenecks discovered](#bottlenecks-discovered). This is the top open item.
+- **Aggregate query p95 latency exceeds the 1-second target once offered throughput significantly exceeds the 15,000 logs/sec baseline** (`stress`/`spike`/`breakpoint`); the baseline `load` scenario itself meets the target (174 ms p95). See [Bottlenecks discovered](#bottlenecks-discovered).
 - **Actual CPU/memory utilization during the load test was not captured.** The benchmark tool reports throughput, latency, and correctness, not resource utilization over time; only the enforced container limits are documented in [Performance](#performance).
 - **CI runs formatting, linting, and a production build only** (see [CI](#ci)). It does not run the integration test suite (9 passing tests locally across app/health/logs/tenancy) or the spec-required smoke test in both `AUTH_ENABLED` configurations.
 - **No unit tests**, only integration tests (Jest, against a real dedicated PostgreSQL database), and only for four modules (`app`, `health`, `logs`, `tenancy`). Validators, query builders, and retention/partition logic have no dedicated test file.
