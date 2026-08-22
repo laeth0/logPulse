@@ -4,24 +4,24 @@ services:
       context: ./backend
       target: production
     environment:
-      NODE_ENV: ${NODE_ENV:-production}
-      PORT: ${PORT:-8080}
-      JSON_BODY_LIMIT: ${JSON_BODY_LIMIT:-10mb}
-      LOG_RETENTION_DAYS: ${LOG_RETENTION_DAYS:-30}
-      LOG_PARTITION_DAYS_AHEAD: ${LOG_PARTITION_DAYS_AHEAD:-7}
+      NODE_ENV: production
+      PORT: 8080
+      JSON_BODY_LIMIT: 10mb
+      LOG_RETENTION_DAYS: 30
+      LOG_PARTITION_DAYS_AHEAD: 7
       DB_HOST: database
-      DB_PORT: ${DB_PORT:-5432}
-      DB_USER: ${DB_USER:-postgres}
-      DB_PASS: ${DB_PASS:-postgres}
-      DB_NAME: ${DB_NAME:-log_pulse}
-      DB_SSL: ${DB_SSL:-false}
-      DB_WRITE_POOL_MAX: ${DB_WRITE_POOL_MAX:-20}
-      AUTH_ENABLED: ${AUTH_ENABLED:-false}
-      LOADGEN_API_KEY: ${LOADGEN_API_KEY:-lp_n_xrXP288usaY5rSTdQsTwkIKL-vVM9i}
-      LOADGEN_TENANT_PASSWORD: ${LOADGEN_TENANT_PASSWORD:-please-change-me-in-production}
-      JWT_SECRET: ${JWT_SECRET:-please-change-me-in-production}
-      JWT_ACCESS_TOKEN_TTL_SECONDS: ${JWT_ACCESS_TOKEN_TTL_SECONDS:-900}
-      JWT_REFRESH_TOKEN_TTL_DAYS: ${JWT_REFRESH_TOKEN_TTL_DAYS:-7}
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_NAME: log_pulse
+      DB_SSL: false
+      DB_WRITE_POOL_MAX: 20
+      AUTH_ENABLED: false
+      LOADGEN_API_KEY: lp_n_xrXP288usaY5rSTdQsTwkIKL-vVM9i
+      LOADGEN_TENANT_PASSWORD: please-change-me-in-production
+      JWT_SECRET: please-change-me-in-production
+      JWT_ACCESS_TOKEN_TTL_SECONDS: 900
+      JWT_REFRESH_TOKEN_TTL_DAYS: 7
     ports:
       - '8080:8080'
     depends_on:
@@ -85,9 +85,9 @@ services:
       - -c
       - max_parallel_workers_per_gather=0
     environment:
-      POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASS:-postgres}
-      POSTGRES_DB: ${DB_NAME:-log_pulse}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: log_pulse
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
