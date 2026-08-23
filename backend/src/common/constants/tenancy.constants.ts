@@ -5,7 +5,7 @@ export const LOADGEN_TENANT_ID = '00000000-0000-0000-0000-000000000001';
 export const LOADGEN_TENANT_EMAIL = 'loadgen@internal.logpulse';
 
 export const LOADGEN_TENANT_PASSWORD =
-  process.env.LOADGEN_TENANT_PASSWORD ?? 'please-change-me-in-production';
+  process.env.LOADGEN_TENANT_PASSWORD ?? 'XyggBYqhpG2AMfRQEvOL0OnC';
 
 export const API_KEY_PREFIX = 'lp_';
 

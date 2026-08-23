@@ -264,8 +264,8 @@ Implemented, **off by default**.
 | --- | --- | --- |
 | `AUTH_ENABLED` | `false` | Master switch. `false`/unset means all four required endpoints behave exactly as the unauthenticated core service; an `Authorization` header, if sent anyway, is silently ignored, never rejected. |
 | `LOADGEN_API_KEY` | a fixed placeholder value, hardcoded in `docker-compose.yml` | When `AUTH_ENABLED=true`, this key is idempotently seeded at startup, before the service reports healthy, and scoped to one fixed tenant with ingest+query permission. Restarting with the same value never duplicates the tenant or the key. With the zero-config default (`AUTH_ENABLED=false`), seeding is skipped entirely (gated on `AUTH_ENABLED=true`), so the value has no effect. Unset entirely, the service still starts and stays healthy; it just has no seeded key. |
-| `LOADGEN_TENANT_PASSWORD` | `please-change-me-in-production` | Login password for that same seeded tenant account. Only takes effect on the tenant's first seed. |
-| `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | Defaults: `please-change-me-in-production`, `900`, `7` | Sign/verify Tenant account tokens. `JWT_SECRET`'s zero-config default is intentionally insecure, mirroring `DB_PASS`'s existing convention; override it for anything beyond local development or grading. |
+| `LOADGEN_TENANT_PASSWORD` | `XyggBYqhpG2AMfRQEvOL0OnC` | Login password for that same seeded tenant account. Only takes effect on the tenant's first seed. |
+| `JWT_SECRET` / `JWT_ACCESS_TOKEN_TTL_SECONDS` / `JWT_REFRESH_TOKEN_TTL_DAYS` | Defaults: `e0af6b1ee375f34ee4dd7c02ddbc2287c1357de28598c4430231142532be2221`, `900`, `7` | Sign/verify Tenant account tokens. These zero-config defaults are committed to the repo for local development and grading convenience, not production secrecy; override both for any real deployment. |
 
 **Two separate credential types with two separate purposes, never interchangeable:**
 

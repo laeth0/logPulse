@@ -23,7 +23,7 @@
       "first_read": "2026-08-21T08:49:17.583Z"
     },
     "c:/Users/LaethNueirat/Desktop/logPulse/backend/.env.example": {
-      "count": 1,
+      "count": 2,
       "tokens": 0,
       "first_read": "2026-08-21T08:50:27.601Z"
     },
@@ -157,7 +157,7 @@
   "edit_counts": {},
   "anatomy_hits": 25,
   "anatomy_misses": 2,
-  "repeated_reads_warned": 0,
+  "repeated_reads_warned": 1,
   "cerebrum_warnings": 0,
-  "stop_count": 5
+  "stop_count": 6
 }

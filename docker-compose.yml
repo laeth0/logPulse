@@ -18,8 +18,8 @@ services:
       DB_WRITE_POOL_MAX: 20
       AUTH_ENABLED: false
       LOADGEN_API_KEY: lp_n_xrXP288usaY5rSTdQsTwkIKL-vVM9i
-      LOADGEN_TENANT_PASSWORD: please-change-me-in-production
-      JWT_SECRET: please-change-me-in-production
+      LOADGEN_TENANT_PASSWORD: XyggBYqhpG2AMfRQEvOL0OnC
+      JWT_SECRET: e0af6b1ee375f34ee4dd7c02ddbc2287c1357de28598c4430231142532be2221
       JWT_ACCESS_TOKEN_TTL_SECONDS: 900
       JWT_REFRESH_TOKEN_TTL_DAYS: 7
     ports:
